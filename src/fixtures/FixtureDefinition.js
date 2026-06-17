@@ -15,6 +15,7 @@ import { FixtureMode } from './FixtureMode.js';
 export class FixtureDefinition {
   constructor({
     id, manufacturer, model, type = 'Other',
+    emitters = 1,
     modes = [],
     meta = {},
     physical = {},
@@ -23,6 +24,7 @@ export class FixtureDefinition {
     this.manufacturer = manufacturer;
     this.model = model;
     this.type = type;   // 'Moving Head' | 'PAR' | 'Strobe' | 'LED Bar' | ...
+    this.emitters = Math.max(1, emitters | 0);  // light-emitting cells shown on the stage
     this.modes = modes.map((m) => (m instanceof FixtureMode ? m : FixtureMode.fromJSON(m)));
 
     this.meta = {
@@ -63,6 +65,7 @@ export class FixtureDefinition {
       manufacturer: this.manufacturer,
       model: this.model,
       type: this.type,
+      emitters: this.emitters,
       meta: this.meta,
       physical: this.physical,
       modes: this.modes.map((m) => m.toJSON()),
