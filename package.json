@@ -5,7 +5,8 @@
   "main": "main/index.js",
   "type": "module",
   "scripts": {
-    "start": "electron .",
+    "start": "electronmon .",
+    "start:prod": "electron .",
     "headless": "node src/headless.js",
     "cli": "node cli/lumox-cli.js",
     "validate": "node examples/19-validate-fixtures.js"
@@ -13,7 +14,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^32.0.0"
+    "electron": "^32.0.0",
+    "electronmon": "^2.0.4"
   },
   "optionalDependencies": {
     "easymidi": "^3.1.0"
