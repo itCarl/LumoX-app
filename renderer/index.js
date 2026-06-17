@@ -7,16 +7,27 @@ import { makeGroupBarTile } from './views/groupbar.js';
 import { makeStageTile } from './views/stage.js';
 import { makeBanksTile } from './views/banks.js';
 import { makeFxPaletteTile } from './views/fxpalette.js';
+import { makeFaderEditorTile } from './views/fadereditor.js';
+import { makeDebugView } from './views/debug.js';
 
 const { lumox } = window;
 
 // ---- workspace: resizable dock -----------------------------------------
 const ws = document.querySelector('.workspace');
+const debugView = document.querySelector('.debug-view');
 const dock = makeDock(ws, { topCol: 300, topFraction: 0.65 });  // top 65% height, bottom 50/50
+
+// full-page views reached from the ⋯ menu
+const fullViews = { debug: debugView };
+makeDebugView().then((el) => debugView.appendChild(el));
 
 // Bottom row + groups strip are SHARED across tabs (mounted once).
 makeGroupBarTile().then(({ tile }) => dock.mount('groups', tile));
 makeStageTile().then(({ tile }) => dock.mount('bl', tile));
+
+// Bottom-right fader editor — only shown in CONTROL.
+let faderTile = null;
+makeFaderEditorTile().then(({ tile }) => { faderTile = tile; dock.mount('br', tile); showTab(currentTab); });
 
 // Top-row tiles per tab — all mounted, toggled by the active tab so state
 // (selection, patch grid, scenes) survives switching.
@@ -37,10 +48,19 @@ Promise.all([
 let currentTab = 'setup';
 function showTab(name) {
   currentTab = name;
-  document.querySelectorAll('.tb-tab').forEach((b) => b.classList.toggle('active', b.dataset.tab === name));
+  const isFull = name in fullViews;   // debug / devices
+  document.querySelectorAll('.tb-tab').forEach((b) => b.classList.toggle('active', !isFull && b.dataset.tab === name));
+
+  // toggle full-page views vs the dock workspace
+  ws.classList.toggle('hidden', isFull);
+  for (const [v, el] of Object.entries(fullViews)) el.classList.toggle('hidden', v !== name);
+  if (isFull) return;
+
   for (const [tab, tiles] of Object.entries(top)) {
     tiles.forEach((t) => t.classList.toggle('hidden', tab !== name));
   }
+  // fader editor only in CONTROL
+  if (faderTile) faderTile.classList.toggle('hidden', name !== 'control');
   // top split per tab: SETUP → narrow library; CONTROL → wide banks, ~20% FX
   if (name === 'control') dock.setTopColFraction(0.8);
   else dock.setTopCol(300);
@@ -51,6 +71,33 @@ document.getElementById('tabs').addEventListener('click', (e) => {
   const btn = e.target.closest('.tb-tab');
   if (btn?.dataset.tab) showTab(btn.dataset.tab);
 });
+
+// ---- ⋯ app menu --------------------------------------------------------
+const appMenuBtn = document.getElementById('app-menu-btn');
+function closeAppMenu() { document.querySelector('.app-dropdown')?.remove(); }
+appMenuBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (document.querySelector('.app-dropdown')) { closeAppMenu(); return; }
+  const m = document.createElement('div');
+  m.className = 'app-dropdown';
+  m.innerHTML = `
+    <button data-go="debug">Debug — all faders</button>
+    <div class="ctx-divider"></div>
+    <button data-act="save">Save Project…</button>
+    <button data-act="open">Open Project…</button>`;
+  const r = appMenuBtn.getBoundingClientRect();
+  m.style.left = `${r.left}px`;
+  m.style.top = `${r.bottom + 2}px`;
+  document.body.appendChild(m);
+  m.querySelectorAll('[data-go]').forEach((b) =>
+    b.addEventListener('click', () => { showTab(b.dataset.go); closeAppMenu(); }));
+  m.querySelector('[data-act="save"]').addEventListener('click', async () => { closeAppMenu(); await lumox.project.save(); });
+  m.querySelector('[data-act="open"]').addEventListener('click', async () => { closeAppMenu(); await lumox.project.open(); });
+});
+document.addEventListener('click', closeAppMenu);
+
+// reload the whole UI after a project loads (clean rebuild of all views)
+lumox?.project?.onLoaded(() => location.reload());
 
 // ---- titlebar window controls -----------------------------------------
 const maxBtn = document.getElementById('win-max');

@@ -9,6 +9,7 @@
   <div id="app">
     <!-- Custom frameless titlebar: tabs left · name center · controls right -->
     <header id="titlebar">
+      <button id="app-menu-btn" class="tb-appmenu" title="Menu">⋯</button>
       <nav class="tb-tabs" id="tabs">
         <button class="tb-tab active" data-tab="setup">Setup</button>
         <button class="tb-tab" data-tab="control">Control</button>
@@ -33,6 +34,7 @@
 
     <main id="view">
       <section class="workspace"></section>
+      <section class="debug-view hidden"></section>
     </main>
   </div>
   <script type="module" src="./index.js"></script>
