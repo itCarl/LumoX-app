@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Generic/Laser Basic 4ch",
+      "manufacturer": "Generic",
+      "model": "Laser Basic 4ch",
+      "type": "Laser",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-01T00:00:00.000Z",
+        "modifiedAt": "2026-06-01T00:00:00.000Z",
+        "source": "Lumox built-in",
+        "notes": "Generic basic laser (mode/pattern/speed/color)."
+      },
+      "physical": {},
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4ch",
+          "channels": [
+            {
+              "name": "Mode", "typeId": "function", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 49,  "label": "Blackout" },
+                { "kind": "range", "min": 50,  "max": 99,  "label": "Static"   },
+                { "kind": "range", "min": 100, "max": 149, "label": "Dynamic"  },
+                { "kind": "range", "min": 150, "max": 199, "label": "Sound"    },
+                { "kind": "range", "min": 200, "max": 255, "label": "Auto"     }
+              ]
+            },
+            { "name": "Pattern", "typeId": "gobo-wheel-1", "defaultValue": 0, "capabilities": [] },
+            { "name": "Speed",   "typeId": "speed",        "defaultValue": 128, "capabilities": [] },
+            { "name": "Color",   "typeId": "color-wheel",  "defaultValue": 0,  "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

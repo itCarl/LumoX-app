@@ -1,0 +1,469 @@
+# Lumox Fixture Library
+
+Built-in fixture profile data. Each `.lumox.json` file is one or more
+fixture definitions loadable via `FixtureLibrary.loadFromDirectory(...)`.
+
+Subfolders group profiles by vendor. The loader recurses, so adding a new
+vendor is just `mkdir Vendor/` + dropping profile files in.
+
+## Folder layout
+
+```
+fixtures/
+├── README.md
+├── schema/
+│   └── lumox-fixture.schema.json   JSON Schema (Draft 2020-12) — for IDE + validators
+├── Generic/                        Vendor-agnostic profiles
+│   ├── dimmer-1ch.lumox.json
+│   ├── par-rgb-3ch.lumox.json
+│   ├── par-rgbw-multimode.lumox.json     ← multi-mode example
+│   ├── moving-head-multimode.lumox.json  ← multi-mode example
+│   └── ...
+└── Stairville/                     Vendor folder
+    ├── led-bar-240-8-rgb.lumox.json
+    └── led-pixel-bar-100-mk2-rgb.lumox.json
+```
+
+## Validating
+
+```bash
+node examples/19-validate-fixtures.js                # whole library
+node examples/19-validate-fixtures.js fixtures/Acme  # one vendor
+```
+
+Or programmatically:
+
+```js
+import { FixtureValidator } from '../src/index.js';
+const v = new FixtureValidator();
+const result = v.validate(JSON.parse(text));
+// { valid: bool, errors: [{path, message}], warnings: [{path, message}] }
+```
+
+Checks performed:
+- Top-level shape (`version: 1`, `definitions: []`)
+- Required fields per definition / mode / channel / capability
+- `typeId` registered in `ChannelTypeRegistry`
+- Capability `kind` registered in `CapabilityRegistry`
+- Capability `min ≤ max` and within 0-255
+- Mode ids unique within a definition
+- Channel count ≤ 512
+- ISO 8601 dates parseable (warning)
+- Semver string parseable (warning)
+- Capability range overlaps (warning)
+- Hex color format `#rgb` / `#rrggbb` (warning)
+- Fine channel present without coarse counterpart (warning)
+
+## IDE schema integration
+
+Add `$schema` at the top of any fixture file to get auto-completion +
+schema validation in VS Code (and any editor with JSON Schema support):
+
+```json
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [ ... ]
+}
+```
+
+The path is relative to the fixture file. The Lumox importer ignores
+`$schema` — it's only metadata for tooling.
+
+## Loading
+
+```js
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { FixtureLibrary } from '../src/index.js';
+
+const lib = new FixtureLibrary();
+const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fixtures');
+const result = await lib.loadFromDirectory(dir);
+console.log(`Loaded ${result.loaded}, skipped ${result.skipped}`);
+
+const movers = lib.find({ type: 'Moving Head' });
+const stair  = lib.find({ manufacturer: 'Stairville' });
+```
+
+---
+
+# Fixture file format
+
+A `.lumox.json` file is a wrapper around one or more definitions:
+
+```json
+{
+  "version": 1,
+  "definitions": [ /* one or more FixtureDefinition objects */ ]
+}
+```
+
+## FixtureDefinition
+
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `id` | string | no | Auto-derived as `"${manufacturer}/${model}"` if omitted |
+| `manufacturer` | string | **yes** | Vendor name. Matches folder convention. |
+| `model` | string | **yes** | Product name |
+| `type` | string | no | `PAR` · `Moving Head` · `Strobe` · `LED Bar` · `Dimmer` · `Smoke` · `Laser` · `Other` |
+| `meta` | object | no | See below |
+| `physical` | object | no | See below |
+| `modes` | array | **yes** | One or more FixtureMode entries |
+
+## `meta` block
+
+Authorship and provenance info. All fields optional — set what you have.
+
+```json
+"meta": {
+  "author": "Your Name",
+  "version": "1.0.0",
+  "createdAt": "2026-06-01T00:00:00.000Z",
+  "modifiedAt": "2026-06-01T00:00:00.000Z",
+  "source": "URL or manual reference",
+  "notes": "Free text — mode mapping caveats, calibration notes, etc."
+}
+```
+
+| Field | Format |
+|-------|--------|
+| `author` | string |
+| `version` | semver string (`"1.0.0"`) |
+| `createdAt` | ISO 8601 timestamp |
+| `modifiedAt` | ISO 8601 timestamp — `definition.touch()` updates this |
+| `source` | string (URL or text reference where channel mapping came from) |
+| `notes` | string (caveats, gotchas, calibration hints) |
+
+## `physical` block
+
+Real-world specs — used by the future patch UI for footprint planning and
+weight totals. All sub-objects optional; omit any you don't have.
+
+```json
+"physical": {
+  "dimensions": { "width": 1000, "height": 60, "depth": 80, "unit": "mm" },
+  "weight":     { "value": 3.0, "unit": "kg" },
+  "bulb":       { "type": "LED", "lumens": 1500, "colourTemperature": 6500 },
+  "lens":       { "name": "PC", "degreesMin": 10, "degreesMax": 60 },
+  "focus":      { "type": "Head", "panMax": 540, "tiltMax": 270 },
+  "power":      { "consumption": 45, "unit": "W" }
+}
+```
+
+| Sub-object | Fields | Meaning |
+|------------|--------|---------|
+| `dimensions` | `width`, `height`, `depth`, `unit` | unit = `"mm"` or `"cm"` |
+| `weight` | `value`, `unit` | unit = `"kg"` |
+| `bulb` | `type`, `lumens`, `colourTemperature` | type free string (`"LED"`, `"Halogen"`) |
+| `lens` | `name`, `degreesMin`, `degreesMax` | beam angle min/max |
+| `focus` | `type`, `panMax`, `tiltMax` | `Head` / `Mirror` / `Fixed`. Pan/tilt in degrees. |
+| `power` | `consumption`, `unit` | unit = `"W"` |
+
+## FixtureMode
+
+One personality (channel layout). Most fixtures ship multiple modes —
+e.g. 3-ch RGB, 6-ch with master+strobe, 24-ch pixel mode. Each goes into
+the `modes[]` array.
+
+```json
+{
+  "id": "8ch",
+  "name": "8ch Standard",
+  "channels": [ /* ChannelDefinition */ ]
+}
+```
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `id` | string | unique within fixture (used by patch save/load) |
+| `name` | string | UI label |
+| `channels` | array | ordered — index 0 = `startAddress`, index N = `startAddress + N` |
+
+## ChannelDefinition
+
+```json
+{
+  "name": "Red",
+  "typeId": "red",
+  "defaultValue": 0,
+  "capabilities": []
+}
+```
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `name` | string | UI label (free text) |
+| `typeId` | string | **must match a registered ChannelType id** |
+| `defaultValue` | int 0-255 | power-on value |
+| `capabilities` | array | optional list of value-range meanings |
+
+### Built-in `typeId` values
+
+Group `intensity`:  `intensity` · `intensity-fine` · `shutter` · `strobe` · `dimmer-curve`
+
+Group `color`: `red` · `green` · `blue` · `white` · `amber` · `uv` · `lime` ·
+`cyan` · `magenta` · `yellow` · `red-fine` · `green-fine` · `blue-fine` ·
+`white-fine` · `cto` · `ctb` · `color-wheel` · `color-macro`
+
+Group `position`: `pan` · `tilt` · `pan-fine` · `tilt-fine` · `pan-tilt-speed`
+
+Group `beam`: `zoom` · `focus` · `iris` · `frost` · `prism` · `prism-rotation` · `blade-1` · `blade-2`
+
+Group `gobo`: `gobo-wheel-1` · `gobo-wheel-2` · `gobo-rotation-1` · `gobo-rotation-2` · `gobo-shake`
+
+Group `control` / `maintenance` / `effect`: `speed` · `sound` · `macro` ·
+`function` · `reset` · `lamp` · `fan` · `effect` · `effect-speed` · `nothing`
+
+To register custom types at runtime see `examples/15-custom-channel-type.js`.
+
+### 16-bit channel pairs
+
+Coarse + fine channels are linked by `fineOf` on the ChannelType. The
+fixture API auto-pairs them:
+
+```js
+fixture.set16('pan', 0xa3f7);   // writes pan + pan-fine if both present
+```
+
+## Capability
+
+A value-range label. `kind` selects the subclass. All capabilities share
+`min`, `max`, `label`. Kind-specific fields below.
+
+```json
+{ "kind": "range",  "min": 0,   "max": 9,   "label": "Off" }
+{ "kind": "color",  "min": 10,  "max": 20,  "label": "Red",    "color": "#ff0000" }
+{ "kind": "gobo",   "min": 21,  "max": 31,  "label": "Stars",  "image": "stars.png", "shake": false }
+{ "kind": "shutter","min": 216, "max": 255, "label": "Strobe", "mode": "strobe",     "rateHz": 20 }
+{ "kind": "effect", "min": 128, "max": 191, "label": "Chase",  "effectName": "color-chase" }
+```
+
+`shutter.mode`: `"open"` · `"closed"` · `"strobe"` · `"pulse"` · `"random"`
+
+Register custom kinds — see `examples/16-custom-capability.js`.
+
+---
+
+# How to create a new fixture
+
+## 1. Pick a vendor folder
+
+`fixtures/<Vendor>/` — make a new one if needed. Use the brand name
+exactly as printed on the fixture.
+
+## 2. Name the file
+
+`<model-slug>.lumox.json`. Lowercase, hyphens, no spaces. Match the
+product model number.
+
+## 3. Start from this skeleton
+
+```json
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "VendorName/Model Name",
+      "manufacturer": "VendorName",
+      "model": "Model Name",
+      "type": "PAR",
+      "meta": {
+        "author": "Your Name",
+        "version": "1.0.0",
+        "createdAt": "2026-06-01T00:00:00.000Z",
+        "modifiedAt": "2026-06-01T00:00:00.000Z",
+        "source": "Manufacturer manual page 12",
+        "notes": ""
+      },
+      "physical": {
+        "dimensions": { "width": 200, "height": 200, "depth": 100, "unit": "mm" },
+        "weight":     { "value": 1.5, "unit": "kg" },
+        "power":      { "consumption": 30, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3ch",
+          "channels": [
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+## 4. Add modes
+
+Most fixtures have 2-4 personalities. List all you want to support — your
+patch UI lets the user pick one.
+
+See `Generic/par-rgbw-multimode.lumox.json` for 4-mode example (3 / 4 / 5 / 8 ch),
+and `Generic/moving-head-multimode.lumox.json` for 3-mode mover
+(8 / 13 / 18 ch with 16-bit pan/tilt in extended modes).
+
+## 5. Add capabilities for non-linear channels
+
+Strobe, gobo, color wheels, macro channels — wrap each value range in a
+`Capability`. The patch UI can then show "Strobe Fast" instead of
+"channel value 142".
+
+```json
+{
+  "name": "Color Wheel", "typeId": "color-wheel", "defaultValue": 0,
+  "capabilities": [
+    { "kind": "color", "min": 0,  "max": 9,  "label": "Open",  "color": "#ffffff" },
+    { "kind": "color", "min": 10, "max": 20, "label": "Red",   "color": "#ff0000" },
+    { "kind": "color", "min": 21, "max": 31, "label": "Green", "color": "#00ff00" },
+    { "kind": "color", "min": 32, "max": 42, "label": "Blue",  "color": "#0000ff" }
+  ]
+}
+```
+
+## 6. Validate
+
+Drop the file in place and run:
+
+```bash
+node examples/18-builtin-library.js
+```
+
+Check that the loaded count includes yours and `errors: 0`.
+
+## 7. Iterate — bump `meta.modifiedAt`
+
+Either edit the timestamp by hand, or call programmatically:
+
+```js
+def.touch();    // sets def.meta.modifiedAt = new Date().toISOString()
+```
+
+---
+
+# Multiple definitions per file
+
+`definitions[]` accepts more than one — useful when several variants share
+metadata (same vendor, same family, different colour:
+
+```json
+{
+  "version": 1,
+  "definitions": [
+    { "id": "Acme/PAR 7 RGB",  "model": "PAR 7 RGB",  "manufacturer": "Acme", "type": "PAR", "modes": [/* ... */] },
+    { "id": "Acme/PAR 7 RGBW", "model": "PAR 7 RGBW", "manufacturer": "Acme", "type": "PAR", "modes": [/* ... */] }
+  ]
+}
+```
+
+Both load when the file is read.
+
+---
+
+# Programmatic creation
+
+Skip the JSON when prototyping — build in code, then serialize:
+
+```js
+import {
+  FixtureDefinition, FixtureMode, ChannelDefinition,
+  Capability, ColorCapability, ShutterCapability,
+  LumoxImporter,
+} from '../src/index.js';
+
+const def = new FixtureDefinition({
+  manufacturer: 'Acme', model: 'PAR 7', type: 'PAR',
+  meta: { author: 'Max', source: 'Manual v2' },
+  physical: {
+    dimensions: { width: 180, height: 180, depth: 90, unit: 'mm' },
+    weight: { value: 1.2, unit: 'kg' },
+    power: { consumption: 25, unit: 'W' },
+  },
+  modes: [
+    new FixtureMode({ id: '3ch', name: '3ch', channels: [
+      new ChannelDefinition({ name: 'Red',   typeId: 'red'   }),
+      new ChannelDefinition({ name: 'Green', typeId: 'green' }),
+      new ChannelDefinition({ name: 'Blue',  typeId: 'blue'  }),
+    ]}),
+    new FixtureMode({ id: '7ch', name: '7ch', channels: [
+      new ChannelDefinition({ name: 'Master', typeId: 'intensity' }),
+      new ChannelDefinition({ name: 'Red',    typeId: 'red'   }),
+      new ChannelDefinition({ name: 'Green',  typeId: 'green' }),
+      new ChannelDefinition({ name: 'Blue',   typeId: 'blue'  }),
+      new ChannelDefinition({ name: 'Strobe', typeId: 'strobe',
+        capabilities: [
+          new ShutterCapability({ min: 0,   max: 7,   label: 'Off',    mode: 'open'   }),
+          new ShutterCapability({ min: 8,   max: 255, label: 'Strobe', mode: 'strobe', rateHz: 20 }),
+        ],
+      }),
+      new ChannelDefinition({ name: 'Color Macro', typeId: 'color-macro',
+        capabilities: [
+          new Capability({ min: 0, max: 9, label: 'Off' }),
+          new ColorCapability({ min: 10, max: 20, label: 'Red',   color: '#ff0000' }),
+          new ColorCapability({ min: 21, max: 31, label: 'Green', color: '#00ff00' }),
+        ],
+      }),
+      new ChannelDefinition({ name: 'Speed', typeId: 'speed' }),
+    ]}),
+  ],
+});
+def.touch();
+
+// Serialize to a .lumox.json string
+const json = new LumoxImporter().serialize([def]);
+```
+
+---
+
+# Importing from QLC+ 5
+
+If you already have a QLC+ 5 `.qxf` profile, drop it into the vendor
+folder — the loader picks it up automatically (the `qlc+5` importer is
+registered alongside `lumox`):
+
+```
+fixtures/Robe/robin-mmx-spot.qxf       ← QLC+ 5 XML, parsed on load
+fixtures/Robe/robin-pointe.lumox.json  ← native Lumox JSON
+```
+
+The QLC+ importer maps the XML `<Physical>` block into Lumox `physical`,
+and the `<Creator>` block into `meta.author` / `meta.version`. Channel
+groups (`Intensity`, `Colour`, `Pan`, ...) are mapped to Lumox `typeId`s.
+
+---
+
+# Built-in profiles reference
+
+## Generic (single mode)
+
+| File | Type | Channels |
+|------|------|----------|
+| `dimmer-1ch.lumox.json` | Dimmer | 1 |
+| `par-rgb-3ch.lumox.json` | PAR | 3 |
+| `par-rgba-4ch.lumox.json` | PAR | 4 |
+| `par-rgbw-4ch.lumox.json` | PAR | 4 |
+| `par-rgbwa-5ch.lumox.json` | PAR | 5 |
+| `par-rgbwauv-6ch.lumox.json` | PAR | 6 |
+| `strobe-2ch.lumox.json` | Strobe | 2 |
+| `led-bar-rgb-12ch.lumox.json` | LED Bar | 12 |
+| `smoke-1ch.lumox.json` | Smoke | 1 |
+| `moving-head-rgbw-11ch.lumox.json` | Moving Head | 11 |
+| `moving-head-beam-16ch.lumox.json` | Moving Head | 16 |
+| `laser-basic-4ch.lumox.json` | Laser | 4 |
+
+## Generic (multi-mode)
+
+| File | Type | Modes |
+|------|------|-------|
+| `par-rgbw-multimode.lumox.json` | PAR | 3ch · 4ch · 5ch · 8ch |
+| `moving-head-multimode.lumox.json` | Moving Head | 8ch · 13ch · 18ch |
+
+## Stairville
+
+| File | Model | Modes |
+|------|-------|-------|
+| `led-bar-240-8-rgb.lumox.json` | LED Bar 240/8 RGB DMX | 3ch · 6ch · 24ch |
+| `led-pixel-bar-100-mk2-rgb.lumox.json` | LED Pixel Bar 100/100 MK2 RGB | 3ch · 6ch · 30ch |

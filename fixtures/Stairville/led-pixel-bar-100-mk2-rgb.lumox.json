@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/LED Pixel Bar 100/100 MK2 RGB",
+      "manufacturer": "Stairville",
+      "model": "LED Pixel Bar 100/100 MK2 RGB",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-01T00:00:00.000Z",
+        "modifiedAt": "2026-06-01T00:00:00.000Z",
+        "source": "https://www.thomann.de/de/stairville_led_pixel_bar_100_mk2_rgb.htm",
+        "notes": "10-pixel RGB bar. MK2 revision."
+      },
+      "physical": {
+        "dimensions": { "width": 1000, "height": 40, "depth": 60, "unit": "mm" },
+        "weight": { "value": 1.5, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Diffused", "degreesMin": 30, "degreesMax": 30 },
+        "focus": { "type": "Fixed", "panMax": 0, "tiltMax": 0 },
+        "power": { "consumption": 30, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3ch (RGB whole bar)",
+          "channels": [
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6ch (Master + RGB + Strobe + Mode)",
+          "channels": [
+            { "name": "Master", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red",    "typeId": "red",       "defaultValue": 0, "capabilities": [] },
+            { "name": "Green",  "typeId": "green",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",   "typeId": "blue",      "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "strobe", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,   "max": 7,   "label": "Off",    "mode": "open"   },
+                { "kind": "shutter", "min": 8,   "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            {
+              "name": "Mode", "typeId": "function", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,   "max": 49,  "label": "Manual"     },
+                { "kind": "effect", "min": 50,  "max": 149, "label": "Color Macro","effectName": "color-macro" },
+                { "kind": "effect", "min": 150, "max": 199, "label": "Auto",      "effectName": "auto"  },
+                { "kind": "effect", "min": 200, "max": 255, "label": "Sound",     "effectName": "sound" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "30ch",
+          "name": "30ch (10 pixels × RGB)",
+          "channels": [
+            { "name": "Pixel 1 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 1 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 1 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 2 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 2 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 2 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 3 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 3 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 3 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 4 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 4 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 4 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 5 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 5 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 5 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 6 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 6 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 6 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 7 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 7 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 7 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 8 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 8 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 8 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 9 Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 9 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 9 Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 10 Red",  "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 10 Green","typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 10 Blue", "typeId": "blue",  "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

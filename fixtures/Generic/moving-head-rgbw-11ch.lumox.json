@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Generic/Moving Head RGBW 11ch",
+      "manufacturer": "Generic",
+      "model": "Moving Head RGBW 11ch",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-01T00:00:00.000Z",
+        "modifiedAt": "2026-06-01T00:00:00.000Z",
+        "source": "Lumox built-in",
+        "notes": "Generic RGBW moving head with 16-bit pan/tilt."
+      },
+      "physical": {},
+      "modes": [
+        {
+          "id": "11ch",
+          "name": "11ch",
+          "channels": [
+            { "name": "Pan",       "typeId": "pan",          "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine",  "typeId": "pan-fine",     "defaultValue": 0,   "capabilities": [] },
+            { "name": "Tilt",      "typeId": "tilt",         "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine", "typeId": "tilt-fine",    "defaultValue": 0,   "capabilities": [] },
+            { "name": "Speed",     "typeId": "pan-tilt-speed","defaultValue": 0,  "capabilities": [] },
+            { "name": "Intensity", "typeId": "intensity",    "defaultValue": 0,   "capabilities": [] },
+            {
+              "name": "Shutter", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,   "max": 7,   "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8,   "max": 215, "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 216, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "White", "typeId": "white", "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

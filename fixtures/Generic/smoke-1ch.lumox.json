@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Generic/Smoke 1ch",
+      "manufacturer": "Generic",
+      "model": "Smoke 1ch",
+      "type": "Smoke",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-01T00:00:00.000Z",
+        "modifiedAt": "2026-06-01T00:00:00.000Z",
+        "source": "Lumox built-in",
+        "notes": "Generic 1-channel smoke/fog machine."
+      },
+      "physical": {},
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1ch",
+          "channels": [
+            {
+              "name": "Fog", "typeId": "intensity", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 7,   "label": "Off"  },
+                { "kind": "range", "min": 8,   "max": 255, "label": "Fog On" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

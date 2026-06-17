@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Generic/Strobe 2ch",
+      "manufacturer": "Generic",
+      "model": "Strobe 2ch",
+      "type": "Strobe",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-01T00:00:00.000Z",
+        "modifiedAt": "2026-06-01T00:00:00.000Z",
+        "source": "Lumox built-in",
+        "notes": "Generic 2-channel strobe (intensity + rate)."
+      },
+      "physical": {},
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2ch",
+          "channels": [
+            { "name": "Intensity", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Rate", "typeId": "strobe", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,   "max": 7,   "label": "Off",       "mode": "closed" },
+                { "kind": "shutter", "min": 8,   "max": 127, "label": "Strobe Slow","mode": "strobe", "rateHz": 5 },
+                { "kind": "shutter", "min": 128, "max": 200, "label": "Strobe Fast","mode": "strobe", "rateHz": 15 },
+                { "kind": "shutter", "min": 201, "max": 255, "label": "Random",    "mode": "random" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
