@@ -1,8 +1,9 @@
 // Electron main — placeholder. UI not built yet; engine boots headless-style
 // and exposes itself for future IPC. Keep this thin.
 
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import { fileURLToPath } from 'node:url';
+import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import {
   Engine, OutputManager, setLogLevel,
@@ -42,6 +43,33 @@ async function bootShow() {
   // Make 10 universes available by default (no manual add in the UI).
   for (let i = 0; i < 10; i++) engine.universes.ensure(i, `Universe ${i + 1}`);
   ensureDefaultBank();
+
+  // Broadcast Art-Net — but only on universes that have an active scene.
+  try {
+    broadcastOutput = engine.outputs.create('artnet', {
+      name: 'Broadcast', host: '255.255.255.255', maxRateHz: 40,
+      subscribedUniverses: [NO_UNIVERSE],   // nothing active yet → send nothing
+    });
+    await broadcastOutput.open();
+    console.log('[show] Art-Net broadcast output open');
+  } catch (err) {
+    console.error('[show] Art-Net broadcast failed:', err.message);
+  }
+}
+
+// The broadcast output transmits only universes with an active scene. An empty
+// subscription set would mean "all" (Output default), so when nothing is active
+// we subscribe to a sentinel id that matches no real universe.
+let broadcastOutput = null;
+const NO_UNIVERSE = -1;
+function updateActiveUniverses() {
+  if (!broadcastOutput) return;
+  const set = new Set();
+  for (const s of show.listScenes()) {
+    const t = engine.scenes.tracks.get(s.id);
+    if (t && t.opacity > 0) for (const uid of Object.keys(s.values)) set.add(Number(uid));
+  }
+  broadcastOutput.subscribedUniverses = set.size ? set : new Set([NO_UNIVERSE]);
 }
 
 // ---- serializers (engine objects → plain JSON for the renderer) --------
@@ -173,17 +201,37 @@ ipcMain.handle('lumox:win:close', () => mainWindow?.close());
 ipcMain.handle('lumox:win:isMaximized', () => mainWindow?.isMaximized() ?? false);
 
 // ---- minimal IPC surface — fleshed out when UI lands -------------------
-ipcMain.handle('lumox:outputs:list', () =>
-  engine.outputs.list().map((o) => ({
+function outputJSON(o) {
+  return {
     id: o.id, name: o.name, type: o.type, enabled: o.enabled, isOpen: o.isOpen,
+    host: o.host ?? null, port: o.port ?? null,
+    maxRateHz: o.maxRateHz ?? null,
     subscribedUniverses: [...o.subscribedUniverses],
-  })),
-);
+  };
+}
+ipcMain.handle('lumox:outputs:list', () => engine.outputs.list().map(outputJSON));
 
-ipcMain.handle('lumox:outputs:create', async (_e, { type, config }) => {
-  const out = engine.outputs.create(type, config);
+// Create a device (Art-Net unicast → one ESP32, subscribed to one universe).
+ipcMain.handle('lumox:outputs:create', async (_e, { type = 'artnet', config = {} }) => {
+  const { universeId, maxRateHz = 40, ...rest } = config;
+  const out = engine.outputs.create(type, {
+    maxRateHz,
+    subscribedUniverses: universeId != null ? [universeId] : [],
+    ...rest,
+  });
   await out.open();
-  return out.id;
+  return outputJSON(out);
+});
+
+ipcMain.handle('lumox:outputs:update', (_e, { id, name, host, universeId, maxRateHz, enabled }) => {
+  const o = engine.outputs.get(id);
+  if (!o) return null;
+  if (name != null) o.name = name;
+  if (host != null) o.host = host;
+  if (enabled != null) o.enabled = enabled;
+  if (maxRateHz != null) o.setMaxRate?.(maxRateHz);
+  if (universeId != null) { o.subscribedUniverses.clear(); o.subscribe(universeId); }
+  return outputJSON(o);
 });
 
 ipcMain.handle('lumox:outputs:remove', (_e, id) => {
@@ -403,7 +451,7 @@ ipcMain.handle('lumox:fixtures:setChannel', (_e, { fixtureId, channel, value }) 
 function sceneJSON(s) {
   const track = engine.scenes.tracks.get(s.id);
   const opacity = track?.opacity ?? 0;
-  return { id: s.id, name: s.name, opacity, active: opacity > 0 };
+  return { id: s.id, name: s.name, color: s.color ?? '#e0564b', opacity, active: opacity > 0 };
 }
 ipcMain.handle('lumox:scenes:list', () => show.listScenes().map(sceneJSON));
 
@@ -418,18 +466,54 @@ ipcMain.handle('lumox:scenes:capture', (_e, { name, bankId } = {}) => {
 });
 
 ipcMain.handle('lumox:scenes:recall', (_e, { id, on }) => {
+  if (on) {
+    // only one scene active per bank — turn its siblings off
+    const bank = banks.find((b) => b.sceneIds.includes(id));
+    if (bank) for (const sid of bank.sceneIds) if (sid !== id) engine.scenes.setOpacity(sid, 0);
+  }
   engine.scenes.setOpacity(id, on ? 1 : 0);
+  updateActiveUniverses();
 });
 
 ipcMain.handle('lumox:scenes:remove', (_e, id) => {
   engine.scenes.removeTrack(id);
   show.removeScene(id);
   for (const b of banks) b.sceneIds = b.sceneIds.filter((sid) => sid !== id);
+  updateActiveUniverses();
 });
 
 ipcMain.handle('lumox:scenes:rename', (_e, { id, name }) => {
   const s = show.scenes.get(id);
   if (s) s.name = name;
+});
+
+ipcMain.handle('lumox:scenes:setColor', (_e, { id, color }) => {
+  const s = show.scenes.get(id);
+  if (s && color) s.color = color;
+});
+
+// Duplicate a scene into the same bank.
+ipcMain.handle('lumox:scenes:duplicate', (_e, id) => {
+  const src = show.scenes.get(id);
+  if (!src) return null;
+  const copy = new Scene({ name: `${src.name} copy`, values: JSON.parse(JSON.stringify(src.values)) });
+  copy.color = src.color;
+  show.addScene(copy);
+  engine.scenes.addTrack(copy.toMixerTrack({ blend: 'htp', opacity: 0 }));
+  const bank = banks.find((b) => b.sceneIds.includes(id));
+  if (bank) bank.sceneIds.splice(bank.sceneIds.indexOf(id) + 1, 0, copy.id);
+  return sceneJSON(copy);
+});
+
+// Re-capture the current live output into an existing scene (keeps opacity).
+ipcMain.handle('lumox:scenes:update', (_e, id) => {
+  const s = show.scenes.get(id);
+  if (!s) return;
+  const snap = Scene.snapshot({ universes: engine.universes.list() });
+  s.values = snap.values;
+  const opacity = engine.scenes.tracks.get(id)?.opacity ?? 0;
+  engine.scenes.removeTrack(id);
+  engine.scenes.addTrack(s.toMixerTrack({ blend: 'htp', opacity }));
 });
 
 // ---- banks (CONTROL view) ---------------------------------------------
@@ -452,6 +536,97 @@ ipcMain.handle('lumox:banks:remove', (_e, id) => {
   for (const sid of banks[i].sceneIds) { engine.scenes.removeTrack(sid); show.removeScene(sid); }
   banks.splice(i, 1);
   ensureDefaultBank();
+});
+
+// ---- project save / load ----------------------------------------------
+function buildProject() {
+  return {
+    format: 'lumox-project',
+    version: 1,
+    library: show.library.list().filter((d) => d.source === 'user').map((d) => d.toJSON()),
+    patch: show.patch.list().map((fx) => fx.toJSON()),
+    groups: show.groups.list().map((g) => ({ ...g.toJSON(), configKey: g.configKey ?? null })),
+    scenes: show.listScenes().map((s) => ({
+      id: s.id, name: s.name, color: s.color ?? null, values: s.values, fadeIn: s.fadeIn, fadeOut: s.fadeOut,
+    })),
+    banks: banks.map((b) => ({ id: b.id, name: b.name, sceneIds: [...b.sceneIds] })),
+    devices: engine.outputs.list().map(outputJSON),
+  };
+}
+
+async function restoreProject(p) {
+  if (!p || p.format !== 'lumox-project') throw new Error('Not a Lumox project file');
+
+  // user fixture definitions
+  for (const d of p.library ?? []) { try { show.library.add(d, 'user'); } catch { /* skip */ } }
+
+  // patch
+  show.patch.fixtures.clear();
+  for (const fj of p.patch ?? []) {
+    const def = show.library.get(fj.definitionId);
+    if (!def) continue;
+    const mode = def.mode(fj.modeId) ?? def.defaultMode;
+    const fx = new Fixture({ id: fj.id, name: fj.name, definition: def, mode, universeId: fj.universeId, startAddress: fj.startAddress });
+    show.patch.add(fx);
+    const u = engine.universes.get(fx.universeId);
+    if (u) fx.apply(u);
+  }
+
+  // groups
+  show.groups.groups.clear();
+  for (const gj of p.groups ?? []) {
+    const g = show.groups.add(new Group(gj));
+    g.configKey = gj.configKey ?? null;
+  }
+
+  // scenes
+  engine.scenes.clear();
+  show.scenes.clear();
+  for (const sj of p.scenes ?? []) {
+    const s = new Scene({ id: sj.id, name: sj.name, values: sj.values, fadeIn: sj.fadeIn, fadeOut: sj.fadeOut });
+    s.color = sj.color ?? undefined;
+    show.addScene(s);
+    engine.scenes.addTrack(s.toMixerTrack({ blend: 'htp', opacity: 0 }));
+  }
+
+  // banks
+  banks.length = 0;
+  for (const bj of p.banks ?? []) banks.push({ id: bj.id, name: bj.name, sceneIds: [...bj.sceneIds] });
+  ensureDefaultBank();
+
+  // devices (outputs)
+  for (const o of engine.outputs.list()) engine.outputs.remove(o.id);
+  for (const dj of p.devices ?? []) {
+    const out = engine.outputs.create(dj.type || 'artnet', {
+      name: dj.name, host: dj.host, maxRateHz: dj.maxRateHz,
+      subscribedUniverses: dj.subscribedUniverses ?? [],
+    });
+    await out.open().catch(() => {});
+    if (dj.name === 'Broadcast') broadcastOutput = out;
+  }
+  updateActiveUniverses();
+}
+
+ipcMain.handle('lumox:project:save', async () => {
+  const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
+    title: 'Save Project', defaultPath: 'show.lumox',
+    filters: [{ name: 'Lumox Project', extensions: ['lumox', 'json'] }],
+  });
+  if (canceled || !filePath) return { saved: false };
+  await writeFile(filePath, JSON.stringify(buildProject(), null, 2), 'utf8');
+  return { saved: true, path: filePath };
+});
+
+ipcMain.handle('lumox:project:open', async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+    title: 'Open Project', properties: ['openFile'],
+    filters: [{ name: 'Lumox Project', extensions: ['lumox', 'json'] }],
+  });
+  if (canceled || !filePaths?.length) return { loaded: false };
+  const data = JSON.parse(await readFile(filePaths[0], 'utf8'));
+  await restoreProject(data);
+  mainWindow?.webContents.send('project:loaded');
+  return { loaded: true, path: filePaths[0] };
 });
 
 // ---- app lifecycle -----------------------------------------------------

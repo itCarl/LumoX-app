@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld('lumox', {
     list:      ()       => ipcRenderer.invoke('lumox:outputs:list'),
     available: ()       => ipcRenderer.invoke('lumox:outputs:available'),
     create:    (type, config) => ipcRenderer.invoke('lumox:outputs:create', { type, config }),
+    update:    (opts)   => ipcRenderer.invoke('lumox:outputs:update', opts),
     remove:    (id)     => ipcRenderer.invoke('lumox:outputs:remove', id),
   },
   universes: {
@@ -37,6 +38,11 @@ contextBridge.exposeInMainWorld('lumox', {
   editor: {
     open: () => ipcRenderer.invoke('lumox:editor:open'),
   },
+  project: {
+    save: () => ipcRenderer.invoke('lumox:project:save'),
+    open: () => ipcRenderer.invoke('lumox:project:open'),
+    onLoaded: (cb) => ipcRenderer.on('project:loaded', () => cb()),
+  },
   patch: {
     list:     ()   => ipcRenderer.invoke('lumox:patch:list'),
     add:      (opts) => ipcRenderer.invoke('lumox:patch:add', opts),
@@ -62,6 +68,9 @@ contextBridge.exposeInMainWorld('lumox', {
     recall:  (id, on) => ipcRenderer.invoke('lumox:scenes:recall', { id, on }),
     remove:  (id) => ipcRenderer.invoke('lumox:scenes:remove', id),
     rename:  (id, name) => ipcRenderer.invoke('lumox:scenes:rename', { id, name }),
+    update:  (id) => ipcRenderer.invoke('lumox:scenes:update', id),
+    setColor: (id, color) => ipcRenderer.invoke('lumox:scenes:setColor', { id, color }),
+    duplicate: (id) => ipcRenderer.invoke('lumox:scenes:duplicate', id),
   },
   banks: {
     list:   ()   => ipcRenderer.invoke('lumox:banks:list'),
