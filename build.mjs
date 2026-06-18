@@ -1,0 +1,90 @@
+// esbuild build for the Electron APP. tsc handles type-checking (npm run
+// typecheck); esbuild handles transpilation + bundling (fast, type-stripping).
+//
+// Outputs:
+//   dist/main/index.cjs       Electron main (CJS, Node)
+//   dist/preload.cjs          Electron preload (CJS — sandboxed preload req.)
+//   renderer/dist/*.js        renderer bundles (ESM, browser)
+//
+// Node scripts (headless, cli, examples) are NOT bundled — they run from
+// source via `tsx` (see package.json), which keeps their repo-relative paths
+// (fixtures/, project files) correct.
+//
+// `node build.mjs --watch` rebuilds on change (used by `npm run dev`).
+
+import * as esbuild from 'esbuild';
+import { spawn } from 'node:child_process';
+import path from 'node:path';
+
+const watch = process.argv.includes('--watch');
+
+// Tailwind — compile renderer/styles/tailwind.css → renderer/dist/tailwind.css.
+// esbuild can't run Tailwind, so we shell out to its CLI. In --watch it runs
+// alongside the esbuild watchers (not awaited); otherwise we await one build.
+function runTailwind() {
+  const win = process.platform === 'win32';
+  const bin = path.join('node_modules', '.bin', win ? 'tailwindcss.cmd' : 'tailwindcss');
+  const args = [
+    '-i', 'renderer/styles/tailwind.css',
+    '-o', 'renderer/dist/tailwind.css',
+    ...(watch ? ['--watch'] : ['--minify']),
+  ];
+  const child = spawn(bin, args, { stdio: 'inherit', shell: win });
+  if (watch) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    child.on('exit', (code) =>
+      code === 0 ? resolve() : reject(new Error(`tailwind exited ${code}`)));
+  });
+}
+
+/** @type {import('esbuild').BuildOptions[]} */
+const configs = [
+  // Main is CJS. Electron's `electron` module is CJS with no named ESM exports;
+  // emitting CJS lets esbuild compile `import { app } from 'electron'` straight
+  // to `require('electron').app` (the real API), and gives us a native runtime
+  // `__dirname` for resolving APP_ROOT / preload paths.
+  {
+    platform: 'node',
+    format: 'cjs',
+    bundle: true,
+    target: 'node20',
+    sourcemap: true,
+    logLevel: 'info',
+    external: ['electron', 'easymidi'],
+    entryPoints: ['main/index.ts'],
+    outfile: 'dist/main/index.cjs',
+  },
+  // Preload must be CommonJS — Electron does not load ESM preload scripts.
+  {
+    platform: 'node',
+    format: 'cjs',
+    bundle: true,
+    target: 'node20',
+    sourcemap: true,
+    logLevel: 'info',
+    external: ['electron'],
+    entryPoints: ['preload.ts'],
+    outfile: 'dist/preload.cjs',
+  },
+  // Renderer — browser ESM, two HTML entry points.
+  {
+    platform: 'browser',
+    format: 'esm',
+    bundle: true,
+    target: 'es2022',
+    sourcemap: true,
+    logLevel: 'info',
+    entryPoints: ['renderer/index.ts', 'renderer/fixtureeditor-window.ts'],
+    outdir: 'renderer/dist',
+  },
+];
+
+if (watch) {
+  const contexts = await Promise.all(configs.map((c) => esbuild.context(c)));
+  await Promise.all(contexts.map((c) => c.watch()));
+  runTailwind();
+  console.log('[build] watching…');
+} else {
+  await Promise.all([...configs.map((c) => esbuild.build(c)), runTailwind()]);
+  console.log('[build] done');
+}

@@ -48,11 +48,17 @@ Add/remove modules at runtime via `engine.mix.add/remove`. Convenience refs:
 | `src/outputs/` | `Output` base, `OutputManager` (type registry + factory), `ArtNetOutput`, `SacnOutput` |
 | `src/protocols/` | Wire encoders — `artnet.js`, `sacn.js` |
 | `src/fixtures/` | Definitions, modes, channel types, capabilities, library, validator, importers (Lumox JSON + QLC+ XML) |
-| `src/show/` | `Show`, `Patch`, `Scene`, `Group`, `GroupManager` |
+| `src/show/` | `Show`, `Patch`, `Scene`, `Group`, `GroupManager`, `BankManager` |
 | `src/midi/` | MIDI manager + controllers (APC mini mk2), easymidi backend (optional dep) + mock |
-| `main/index.js` | Electron main — boots engine, `ipcMain.handle('lumox:*')` surface |
+| `main/index.ts` | Electron main — thin shell: boot guard, `bootShow()`, app lifecycle, `registerHandlers()` |
+| `main/context.ts` | engine/show/bank singletons + domain helpers (`configKey`, `nextColor`, `sameConfig`, `updateActiveUniverses`, broadcast output) |
+| `main/windows.ts` | `BrowserWindow` lifecycle + `hardenWindow()` security |
+| `main/serializers.ts` + `main/dto.ts` | engine → DTO mappers and the DTO type shapes the renderer consumes |
+| `main/validate.ts` | range-checks for IPC payloads (channel/universe/host) |
+| `main/handlers/*` | one module per `lumox:<area>` IPC group; `handlers/index.ts` registers all |
+| `main/services/ProjectService.ts` | project (de)serialization — `buildProject`/`validateProject`/`restoreProject` |
 | `preload.cjs` | contextBridge → `window.lumox.*` (mirrors main IPC; CJS, not ESM) |
-| `renderer/` | GUI (ES6 modules, plain HTML/CSS/JS — no build step) |
+| `renderer/` | GUI (TypeScript ES modules, bundled via esbuild; `lib/dom.ts` render primitives + Tailwind) |
 | `cli/lumox-cli.js` | Standalone CLI over the engine |
 | `examples/` | 24 runnable usage examples — best reference for the engine API |
 | `fixtures/` | Built-in fixture library (`.lumox.json`) + JSON schema |
@@ -65,10 +71,37 @@ Add/remove modules at runtime via `engine.mix.add/remove`. Convenience refs:
 - New output types: subclass `Output`, set static `TYPE`, register with
   `OutputManager.registerType` (see `src/index.js` bottom).
 - New mix behaviour: subclass `MixModule`, implement `process(universe, ctx)`.
-- IPC: add `ipcMain.handle('lumox:…')` in `main/index.js`, mirror in
-  `preload.cjs`. Channels namespaced `lumox:<area>:<action>`.
+- IPC: add `ipcMain.handle('lumox:…')` in the matching `main/handlers/<area>.ts`
+  module (not `index.ts`), mirror in `preload.cjs`, type the result in `dto.ts`
+  if it returns an object, and map it via `serializers.ts`. Channels namespaced
+  `lumox:<area>:<action>`.
 - **Language**: code + comments English; user-facing README/UI German.
 - Renderer: dark theme, CSS custom props (`--bg`, `--fg`, `--accent`).
+
+## Security
+
+**IMPORTANT — run a security audit regularly** (each release, and after any
+change to the Electron shell, IPC surface, project-file format, or wire
+protocols). The baseline the codebase must hold:
+
+- **Electron checklist**: `contextIsolation: true`, `nodeIntegration: false`,
+  `sandbox: true` on every `BrowserWindow`; `contextBridge` only (no raw
+  `ipcRenderer`/Node in the renderer); CSP `<meta>` in every HTML; nav locked
+  down via `hardenWindow()` (`setWindowOpenHandler` deny + `will-navigate`
+  guard); local content only (`loadFile`, never `loadURL`); no `eval`/remote
+  module; `globalThis.lumox` dev-gated.
+- **Untrusted input**: escape all user-controlled strings rendered via
+  `innerHTML` with `esc()` (`renderer/lib/html.js`); validate parsed project
+  files with `validateProject()` before mutating engine state; range-check IPC
+  payloads (channels 1–512, addresses, colours).
+- **Protocols**: Art-Net capped at 44 Hz (`ArtNetOutput`); sACN priority
+  clamped 0–200 (`buildDataPacket`).
+- **Tooling/deps**: `npm run lint` clean; review `npm audit` and bump Electron
+  to a supported release.
+
+Audit steps: re-run the Electron security checklist against `main/index.js` +
+HTML, grep the renderer for unescaped `innerHTML` interpolation, `npm audit`,
+`npm run lint`.
 
 ## Build & Run
 
@@ -78,6 +111,8 @@ npm start       # Electron app
 npm run headless # engine only, no GUI
 npm run cli      # CLI
 npm run validate # validate fixture library
+npm run lint    # ESLint (flat config, eslint.config.js)
+npm run format  # Prettier
 node examples/01-engine.js   # any example
 ```
 

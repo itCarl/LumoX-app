@@ -1,0 +1,75 @@
+/* Tailwind entry — compiled to renderer/dist/tailwind.css by build.mjs.
+ *
+ * Loaded alongside main.css (which still owns the structural / layout styles).
+ * Tailwind utilities are available in renderer markup; the shared widgets in
+ * lib/widgets.ts render the .lx-* component classes defined below, built from
+ * utilities via @apply and wired to the existing dark-theme CSS variables. */
+
+@import 'tailwindcss';
+
+/* scan renderer source so utility classes used in markup are kept */
+@source '../**/*.{ts,html}';
+
+@layer components {
+  /* shared button — variants emitted by widgets.button() */
+  .lx-btn {
+    @apply inline-flex cursor-pointer items-center gap-1.5 rounded-md border text-xs leading-none;
+    border-color: var(--border);
+  }
+  .lx-btn:disabled {
+    @apply cursor-default opacity-40;
+  }
+  .lx-btn-ic {
+    @apply inline-flex items-center;
+  }
+
+  .lx-btn-ghost {
+    @apply px-4 py-2;
+    background: var(--bg-3);
+    color: var(--fg);
+  }
+  .lx-btn-ghost:not(:disabled):hover {
+    border-color: var(--accent);
+  }
+
+  .lx-btn-primary {
+    @apply border-0 px-4 py-2 font-semibold;
+    background: var(--accent);
+    color: #10243a;
+  }
+  .lx-btn-primary:not(:disabled):hover {
+    filter: brightness(1.08);
+  }
+
+  .lx-btn-danger {
+    @apply px-4 py-2;
+    background: var(--bg-3);
+    color: var(--fg);
+  }
+  .lx-btn-danger:not(:disabled):hover {
+    border-color: #e0564b;
+    color: #ff9b91;
+  }
+
+  /* compact square icon button (replaces .lib-new / .gb-add) */
+  .lx-btn-icon {
+    @apply h-[22px] w-[22px] justify-center p-0 text-sm;
+    background: var(--bg-3);
+    color: var(--fg);
+  }
+  .lx-btn-icon:not(:disabled):hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* shared text input */
+  .lx-input {
+    @apply w-full rounded-md border px-2.5 py-1.5 text-[13px] outline-none;
+    background: var(--bg-3);
+    color: var(--fg);
+    border-color: var(--border);
+  }
+  .lx-input:focus {
+    border-color: var(--accent);
+  }
+}
