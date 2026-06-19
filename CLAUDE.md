@@ -1,120 +1,62 @@
 # Lumox App — Wireless DMX Controller (Electron)
 
-Central controller for the Lumox wireless DMX system. A headless lighting
-**engine** (pure Node, no Electron deps) wrapped by a thin Electron shell.
-Sends DMX over the network via Art-Net / sACN to ESP32 nodes.
+Central controller for the Lumox wireless DMX system: a headless lighting
+**engine** (pure Node, no Electron/DOM) wrapped by a thin Electron shell, sending
+DMX over the network via Art-Net / sACN to ESP32 nodes. TypeScript + ESM throughout.
 
-## Architecture
+**Detailed docs live in the knowledge base → [`docs/knowledge-base/`](docs/knowledge-base/).**
+This file is a lean orientation map; the knowledge base is the source of truth.
 
-Two layers, cleanly separated:
+## Knowledge Base
 
-- **`src/`** — headless engine. No Electron, no DOM. Runnable standalone
-  (`npm run headless`, `npm run cli`) and from `examples/`. This is the core.
-- **`main/` + `preload.cjs` + `renderer/`** — Electron wrapper. Main process
-  boots the engine and exposes it over IPC; renderer is the GUI.
+**IMPORTANT — keep it current.** For **every new feature** or behaviour change,
+update the knowledge base (add a new `.md` or extend an existing one) **and** add
+the entry to the table below. Every markdown in `docs/knowledge-base/` MUST be
+referenced here.
 
-```
-renderer (GUI)  ──IPC──▶  main/index.js  ──▶  Engine (src/)  ──▶  Outputs ──▶ network
-   window.lumox.*         ipcMain.handle        tick loop          Art-Net/sACN
-```
+| Document | Scope |
+| --- | --- |
+| [docs/knowledge-base/README.md](docs/knowledge-base/README.md) | Index + maintenance rule + entry template |
+| [docs/knowledge-base/architecture.md](docs/knowledge-base/architecture.md) | App's place in the system — host/controller, ESP32 nodes, Art-Net/sACN flow |
+| [docs/knowledge-base/app.md](docs/knowledge-base/app.md) | Electron app — engine/shell split, modular IPC, renderer, build |
+| [docs/knowledge-base/mix-engine.md](docs/knowledge-base/mix-engine.md) | Engine tick loop, MixPipeline, universe buffers, scenes/groups/banks |
+| [docs/knowledge-base/fixtures.md](docs/knowledge-base/fixtures.md) | Fixture model + channel-type taxonomy, JSON import, validation, library (built-in + Custom user profiles) |
+| [docs/knowledge-base/color.md](docs/knowledge-base/color.md) | Color value object + model conversions (rgb / hsv / hsl / cmy / hex) |
+| [docs/knowledge-base/midi.md](docs/knowledge-base/midi.md) | MIDI control surfaces — backend/port/controller layers, APC Mini MK2 mapping, CLI (engine-only, no IPC yet) |
+| [docs/knowledge-base/artnet-protocol.md](docs/knowledge-base/artnet-protocol.md) | Art-Net + sACN wire protocol the app emits (+ discovery) |
+| [docs/knowledge-base/connection.md](docs/knowledge-base/connection.md) | Connection tab — DMX output transport (Art-Net/sACN, target IP, refresh) + live status |
+| [docs/knowledge-base/discovery.md](docs/knowledge-base/discovery.md) | Network node discovery — Art-Net ArtPoll listener, device list, one-click Assign to a universe |
+| [docs/knowledge-base/settings.md](docs/knowledge-base/settings.md) | Application settings — language, appearance, autosave/startup (userData store) |
+| [docs/knowledge-base/undo-redo.md](docs/knowledge-base/undo-redo.md) | Undo / redo — whole-show snapshots at the dirty-flag seam, coalesced gestures, Ctrl+Z/Y |
+| [docs/knowledge-base/conventions.md](docs/knowledge-base/conventions.md) | Coding conventions — language, comments, naming, CSS |
+| [docs/knowledge-base/icon.md](docs/knowledge-base/icon.md) | App icon + brand mark — SVG source, offline raster/.ico generation, wiring |
+| [docs/knowledge-base/build-run.md](docs/knowledge-base/build-run.md) | Build & run commands |
+| [docs/knowledge-base/security.md](docs/knowledge-base/security.md) | Electron security baseline + audit checklist |
 
-### Engine tick model (`src/core/Engine.js`)
-Runs at `refreshHz` (default 44). Per tick, per universe:
-1. `mix.process(universe, ctx)` runs the pipeline → writes `universe.data`
-2. dirty check vs `_prev`
-3. `outputs.dispatch(universe, now)` — outputs gate on dirty / keepalive / rate
+## Essentials
 
-Default mix pipeline (order matters):
-`BaseLayer → SceneMixer → Effects → GroupEffects → GrandMaster → Blackout`
-
-Add/remove modules at runtime via `engine.mix.add/remove`. Convenience refs:
-`engine.scenes`, `engine.effects`, `engine.groupEffects`, `engine.grandMaster`,
-`engine.blackout`.
-
-### Universe buffers (`src/core/Universe.js`)
-- `programmer` — user/base writes (`setChannel`, IPC) land here
-- `data` — final mixed output the pipeline writes; outputs read this
-- `_prev` — last-sent snapshot for dirty detection
-
-512 channels, 1-indexed in the `setChannel`/`getChannel` API.
-
-## Layout
-
-| Path | Role |
-|---|---|
-| `src/index.js` | Public API barrel — single import point; registers Art-Net/sACN output types |
-| `src/core/` | `Engine`, `Universe`, `UniverseManager` |
-| `src/mix/` | `MixPipeline`, `MixModule`, `modules/*` (BaseLayer, SceneMixer, Effects, GroupEffects, GrandMaster, Blackout) |
-| `src/outputs/` | `Output` base, `OutputManager` (type registry + factory), `ArtNetOutput`, `SacnOutput` |
-| `src/protocols/` | Wire encoders — `artnet.js`, `sacn.js` |
-| `src/fixtures/` | Definitions, modes, channel types, capabilities, library, validator, importers (Lumox JSON + QLC+ XML) |
-| `src/show/` | `Show`, `Patch`, `Scene`, `Group`, `GroupManager`, `BankManager` |
-| `src/midi/` | MIDI manager + controllers (APC mini mk2), easymidi backend (optional dep) + mock |
-| `main/index.ts` | Electron main — thin shell: boot guard, `bootShow()`, app lifecycle, `registerHandlers()` |
-| `main/context.ts` | engine/show/bank singletons + domain helpers (`configKey`, `nextColor`, `sameConfig`, `updateActiveUniverses`, broadcast output) |
-| `main/windows.ts` | `BrowserWindow` lifecycle + `hardenWindow()` security |
-| `main/serializers.ts` + `main/dto.ts` | engine → DTO mappers and the DTO type shapes the renderer consumes |
-| `main/validate.ts` | range-checks for IPC payloads (channel/universe/host) |
-| `main/handlers/*` | one module per `lumox:<area>` IPC group; `handlers/index.ts` registers all |
-| `main/services/ProjectService.ts` | project (de)serialization — `buildProject`/`validateProject`/`restoreProject` |
-| `preload.cjs` | contextBridge → `window.lumox.*` (mirrors main IPC; CJS, not ESM) |
-| `renderer/` | GUI (TypeScript ES modules, bundled via esbuild; `lib/dom.ts` render primitives + Tailwind) |
-| `cli/lumox-cli.js` | Standalone CLI over the engine |
-| `examples/` | 24 runnable usage examples — best reference for the engine API |
-| `fixtures/` | Built-in fixture library (`.lumox.json`) + JSON schema |
-
-## Conventions
-
-- **ESM everywhere** (`"type": "module"`) — `import`/`export`. Exception:
-  `preload.cjs` is CommonJS (Electron preload requirement).
-- **Import from the engine via `src/index.js`**, not deep paths.
-- New output types: subclass `Output`, set static `TYPE`, register with
-  `OutputManager.registerType` (see `src/index.js` bottom).
-- New mix behaviour: subclass `MixModule`, implement `process(universe, ctx)`.
-- IPC: add `ipcMain.handle('lumox:…')` in the matching `main/handlers/<area>.ts`
-  module (not `index.ts`), mirror in `preload.cjs`, type the result in `dto.ts`
-  if it returns an object, and map it via `serializers.ts`. Channels namespaced
-  `lumox:<area>:<action>`.
-- **Language**: code + comments English; user-facing README/UI German.
-- Renderer: dark theme, CSS custom props (`--bg`, `--fg`, `--accent`).
-
-## Security
-
-**IMPORTANT — run a security audit regularly** (each release, and after any
-change to the Electron shell, IPC surface, project-file format, or wire
-protocols). The baseline the codebase must hold:
-
-- **Electron checklist**: `contextIsolation: true`, `nodeIntegration: false`,
-  `sandbox: true` on every `BrowserWindow`; `contextBridge` only (no raw
-  `ipcRenderer`/Node in the renderer); CSP `<meta>` in every HTML; nav locked
-  down via `hardenWindow()` (`setWindowOpenHandler` deny + `will-navigate`
-  guard); local content only (`loadFile`, never `loadURL`); no `eval`/remote
-  module; `globalThis.lumox` dev-gated.
-- **Untrusted input**: escape all user-controlled strings rendered via
-  `innerHTML` with `esc()` (`renderer/lib/html.js`); validate parsed project
-  files with `validateProject()` before mutating engine state; range-check IPC
-  payloads (channels 1–512, addresses, colours).
-- **Protocols**: Art-Net capped at 44 Hz (`ArtNetOutput`); sACN priority
-  clamped 0–200 (`buildDataPacket`).
-- **Tooling/deps**: `npm run lint` clean; review `npm audit` and bump Electron
-  to a supported release.
-
-Audit steps: re-run the Electron security checklist against `main/index.js` +
-HTML, grep the renderer for unescaped `innerHTML` interpolation, `npm audit`,
-`npm run lint`.
-
-## Build & Run
-
-```bash
-npm install
-npm start       # Electron app
-npm run headless # engine only, no GUI
-npm run cli      # CLI
-npm run validate # validate fixture library
-npm run lint    # ESLint (flat config, eslint.config.js)
-npm run format  # Prettier
-node examples/01-engine.js   # any example
-```
-
-`easymidi` is an optional dependency — engine falls back to a mock MIDI
-backend if it is not installed.
+- **Two layers** — `src/` is the headless engine (no Electron/DOM; runnable via
+  `npm run headless`, `npm run cli`, `examples/`); `main/` + `preload.ts` +
+  `renderer/` are the Electron wrapper. Detail: [app.md](docs/knowledge-base/app.md).
+- **TypeScript + ESM everywhere** (`"type": "module"`); import the engine via
+  `src/index.ts`, not deep paths. Main + preload are emitted as CJS.
+- **IMPORTANT — industry standards & design patterns**: prefer well-known
+  industry standards and established design patterns wherever they fit, so any
+  human reader can quickly understand the code. Favour the conventional,
+  recognisable solution over a clever bespoke one; reach for a custom approach
+  only when a standard pattern genuinely does not apply.
+- **IMPORTANT — no legacy / no back-compat**: when adding or changing a feature,
+  do not keep old code paths, deprecated fields, dual implementations, or
+  migration/compatibility shims. Replace the old design outright so the codebase
+  only ever carries the current one. Persisted formats may break old files — that
+  is acceptable; do not write loaders/migrations to keep them working.
+- **Comments**: write the minimum necessary — prefer clear names and structure;
+  comment only the non-obvious. Full conventions: [conventions.md](docs/knowledge-base/conventions.md).
+- **IPC**: channels namespaced `lumox:<area>:<action>`, one handler module per
+  area in `main/handlers/`. Recipe: [app.md](docs/knowledge-base/app.md).
+- **Security**: the Electron hardening baseline is mandatory — [security.md](docs/knowledge-base/security.md).
+- **Language**: everything in English (code, comments, UI, docs).
+- **No competitor names**: never name other lighting-control software anywhere
+  (UI, docs, comments, commits) — describe capabilities generically. See
+  [conventions.md](docs/knowledge-base/conventions.md).
+- Best engine-API reference: the runnable `examples/`.

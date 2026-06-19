@@ -41,7 +41,7 @@ lumox-app/
     │                         GroupEffects, GrandMaster, Blackout)
     ├── fixtures/             ChannelType registry, Capability registry,
     │                         FixtureDefinition / Mode / Library / Validator,
-    │                         Importer registry (Lumox + QLC+5)
+    │                         Importer registry (Lumox JSON)
     ├── midi/                 MIDI input/output abstraction, EasyMidi + Mock
     │                         backends, controllers (APC Mini MK2 default)
     ├── show/                 Patch, Group, GroupManager, Scene, Show

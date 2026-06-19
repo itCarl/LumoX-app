@@ -29,7 +29,6 @@ that just print and exit say so in their banner.
 | 11 | `11-fixtures-rgbw-16bit.js` | RGBW + 16-bit pan/tilt + intensity mask |
 | 12 | `12-fixture-library.js` | Library search and filtering |
 | 13 | `13-import-lumox.js` | Lumox JSON import + export round-trip |
-| 14 | `14-import-qlc-plus.js` | QLC+ 5 `.qxf` import |
 | 15 | `15-custom-channel-type.js` | Register a new ChannelType |
 | 16 | `16-custom-capability.js` | Register a new Capability kind |
 | 17 | `17-custom-output.js` | Register a custom output (console printer) |
@@ -40,6 +39,9 @@ that just print and exit say so in their banner.
 | 22 | `22-control-par.js` | **Full end-to-end PAR control** — library → patch → output → color sequence |
 | 23 | `23-midi-apc-mini.js` | AKAI APC Mini MK2 controller — pads / faders / scene buttons / LED feedback (use `--mock` without hardware) |
 | 24 | `24-scenes.js` | Record scenes from fixture state, register in SceneMixer, crossfade between them |
+| 25 | `25-color-utility.js` | `Color` value object + model conversions (rgb / hsv / hsl / cmy / hex) |
+| 27 | `27-discovery.js` | Art-Net node discovery — ArtPoll broadcast → list replying nodes (IP / universe / MAC / firmware) |
+| 28 | `28-matrix-fx.ts` | MATRIX FX pixel-mapping — per-emitter colour from 2D stage positions (wipe across a 5×5 matrix; asserts the spatial invariants) |
 
 ## Sample data
 
@@ -48,7 +50,6 @@ that just print and exit say so in their banner.
 | File | Format |
 |------|--------|
 | `demo-mover.lumox.json` | Native Lumox JSON — 7-ch RGBW moving head |
-| `demo-par.qxf` | QLC+ 5 XML — 3-ch RGB PAR |
 
 ## Tip — watching DMX traffic
 
