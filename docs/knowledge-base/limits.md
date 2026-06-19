@@ -80,15 +80,18 @@ Preload: `lumox.fixtures.setLimits(ids, patch)` / `clearLimits(ids)` / `setChann
 `renderer/views/limits-tile.ts` is a dock tile in the SETUP tab's bottom-right slot
 (where the fader editor sits in CONTROL). It edits the **live fixture selection**
 (stage / patch grid via `EV.FIXTURE_SELECTED`), seeding from the first selected
-fixture and writing to the whole selection. Visual controls, shown per capability:
+fixture and writing to the whole selection. Every value is shown as a friendly
+**0–100 %** (stored as DMX bytes). Sections, shown per capability:
 
-- a **2D pan × tilt box** — the inner rectangle is the allowed movement window;
-  drag its edges to set min/max. Beneath it: **invert pan / invert tilt / swap**
-  toggles.
-- a **vertical dimmer-cap bar** — drag to clamp maximum brightness.
-- a **per-channel Fade / Dim** pill list (Fade lit = crossfades; off = snaps. Dim
-  lit = follows the dimmer; hidden on intensity channels).
+- **Pan / tilt range** — a **2D box** whose inner rectangle is the allowed movement
+  window (drag the edges) sat beside **editable min/max % fields** for each axis;
+  per-axis **invert** buttons and a **swap pan / tilt** toggle.
+- **Max brightness** — a horizontal **cap bar** plus a **% field**; **100 % = no cap**
+  (clears the `dimmer` limit), anything lower stores a ceiling.
+- **Channels** — a per-channel **Fade / Dim** pill list (Fade lit = crossfades; off =
+  snaps. Dim lit = follows the dimmer; hidden on intensity channels).
 
-Edits write live through the IPC above (the engine applies immediately; the History
-service coalesces a drag into one undo step). **Clear** (header) drops all limits on
-the selection. Empty selection shows a prompt.
+Both the box/bar drags and the numeric fields drive the same edges, so you can set a
+limit precisely or by feel. Edits write live through the IPC above (the engine applies
+immediately; the History service coalesces a drag into one undo step). **Clear**
+(header) drops all limits on the selection. Empty selection shows a prompt.

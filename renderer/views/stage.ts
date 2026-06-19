@@ -5,7 +5,7 @@
 // Coordinates are WORLD units (1 unit = one emitter cell), the same space the
 // engine consumes — persisted per fixture as `stageTransform` via
 // `lumox.patch.setTransform`. The tile renders them at an adjustable zoom
-// (px/unit) — see the zoom controls / Ctrl+scroll. Fixtures can be
+// (px/unit) — see the zoom controls / mouse wheel. Fixtures can be
 // marquee-selected, drag-moved, rotated (Ctrl-drag / edge handle), and
 // aligned / distributed / arranged.
 
@@ -18,8 +18,8 @@ import { emitterGrid, emitterLocalPositions } from '../../src/fixtures/emitterGe
 
 const { lumox } = window;
 const DEFAULT_ZOOM = 24;   // px per world unit (emitter cell) — fixtures start zoomed in
-const MIN_ZOOM = 16;       // furthest out (0.67× the default — rig overview)
-const MAX_ZOOM = 32;       // closest in (1.33× the default — gentle magnification)
+const MIN_ZOOM = 6;        // furthest out (0.25× the default — fits a whole rig in view)
+const MAX_ZOOM = 48;       // closest in (2× the default — magnify a single fixture)
 const COARSE = 1;          // default snap grid (world units = whole cells)
 const FINE = 0.25;         // fine snap grid (quarter cell) for precise placement
 const COLOR_POLL_MS = 66;  // live emitter-colour readback cadence (~15 fps)
@@ -46,9 +46,10 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
       </span>
       <div class="st-tools">
         <span class="st-grp st-zoom" title="Zoom">
-          <button data-zoom="out" title="Zoom out (Ctrl + scroll)"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+          <button data-zoom="out" title="Zoom out (mouse wheel)"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
           <input type="range" class="st-zslider" min="0" max="1000" step="1" value="500" title="Zoom — double-click to reset" />
-          <button data-zoom="in" title="Zoom in (Ctrl + scroll)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+          <button data-zoom="in" title="Zoom in (mouse wheel)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+          <button data-zoom="fit" title="Fit all fixtures to view"><i class="fa-solid fa-expand"></i></button>
         </span>
       </div>
     </div>
@@ -58,14 +59,6 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
           <button data-sel="all" title="Select all (Ctrl+A)"><i class="fa-solid fa-border-all"></i></button>
           <button data-sel="none" title="Deselect all"><i class="fa-solid fa-border-none"></i></button>
           <button data-sel="invert" title="Invert selection"><i class="fa-solid fa-circle-half-stroke"></i></button>
-        </span>
-        <span class="st-grp st-grp-v" title="Selection order — drives FX fan / phase">
-          <button data-selop="reverse" title="Reverse order"><i class="fa-solid fa-right-left"></i></button>
-          <button data-selop="mirror" title="Mirror — fan from centre"><i class="fa-solid fa-arrows-left-right-to-line"></i></button>
-          <button data-selop="shift-back" title="Shift selection back"><i class="fa-solid fa-backward-step"></i></button>
-          <button data-selop="shift-fwd" title="Shift selection forward"><i class="fa-solid fa-forward-step"></i></button>
-          <button data-selop="half" title="Thin to every 2nd"><span class="st-nlbl">½</span></button>
-          <button data-selop="third" title="Thin to every 3rd"><span class="st-nlbl">⅓</span></button>
         </span>
         <span class="st-rail-sep"></span>
         <span class="st-grp st-grp-v" title="Align horizontally">
@@ -113,6 +106,16 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     }
   }
 
+  // Push the deterministic auto-layout of never-placed fixtures to the engine on
+  // load. Uses the TRANSIENT `placeInitial` channel so this derived placement
+  // does NOT dirty the project (otherwise every fresh load would be dirty).
+  function persistInitial(ids: Iterable<string>) {
+    for (const id of ids) {
+      const p = state.pos.get(id);
+      if (p) lumox.patch.placeInitial(id, { x: p.x, y: p.y, rotation: p.rot });
+    }
+  }
+
   // Auto-layout: pack fixtures left-to-right by their real footprint (+1-cell
   // gap), wrapping after `perRow`; each new row drops below the tallest footprint
   // above it. Tighter than a fixed grid, so small fixtures sit close together.
@@ -139,7 +142,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
       if (state.pos.has(f.id)) continue;
       const t = f.transform ?? { x: 0, y: 0, rotation: 0 };
       // A fixture still at the origin has never been placed — auto-arrange it (and
-      // persist) so the engine has real world coords for MATRIX FX.
+      // push to the engine, without dirtying) so it has real world coords for MATRIX FX.
       if (t.x === 0 && t.y === 0 && t.rotation === 0) toPlace.push(f);
       else state.pos.set(f.id, { x: t.x, y: t.y, rot: t.rotation });
     }
@@ -151,7 +154,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     for (const id of [...state.selected]) if (!ids.has(id)) state.selected.delete(id);
     for (const id of [...state.pos.keys()]) if (!ids.has(id)) state.pos.delete(id);
     render();
-    if (placed.length) persist(placed);
+    if (placed.length) persistInitial(placed);
   }
 
   // Per-fixture live-colour plan: map each emitter (in geometry order) to its
@@ -270,6 +273,30 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     canvas.scrollLeft = wx * zoom - ax;
     canvas.scrollTop = wy * zoom - ay;
   }
+  // Frame the whole rig: pick the zoom that fits every fixture's bounding box
+  // (with a little padding, never zooming in past the default) and centre it.
+  // The canvas itself doesn't scroll — fit + wheel-zoom + the hand tool are the
+  // only ways to move around. Returns false if there's nothing to fit yet.
+  function fitAll(): boolean {
+    const list = shown();
+    if (!list.length) return false;
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const f of list) {
+      const p = state.pos.get(f.id); if (!p) continue;
+      const g = emitterGrid(f);
+      minX = Math.min(minX, p.x); minY = Math.min(minY, p.y);
+      maxX = Math.max(maxX, p.x + g.width); maxY = Math.max(maxY, p.y + g.height);
+    }
+    const r = canvas.getBoundingClientRect();
+    if (!isFinite(minX) || r.width < 2 || r.height < 2) return false;
+    const PAD = 1.5;   // world units of breathing room around the rig
+    const bw = (maxX - minX) + PAD * 2, bh = (maxY - minY) + PAD * 2;
+    zoom = Math.min(DEFAULT_ZOOM, clampZoom(Math.min(r.width / bw, r.height / bh)));
+    applyZoom();
+    canvas.scrollLeft = ((minX + maxX) / 2) * zoom - r.width / 2;
+    canvas.scrollTop = ((minY + maxY) / 2) * zoom - r.height / 2;
+    return true;
+  }
 
   // ---- live emitter colour (mixed DMX output) ---------------------------
   // Poll the universes the rig spans and paint each emitter its live colour
@@ -306,7 +333,12 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   let colorTimer: ReturnType<typeof setInterval> | null = null;
   const stopPoll = () => { if (colorTimer) { clearInterval(colorTimer); colorTimer = null; } };
   const startPoll = () => { if (!colorTimer) { void pollColors(); colorTimer = setInterval(() => void pollColors(), COLOR_POLL_MS); } };
-  new IntersectionObserver((es) => { es.some((e) => e.isIntersecting) ? startPoll() : stopPoll(); }).observe(tile);
+  let fitted = false;   // fit the rig once, the first time the tile is shown with a real size
+  new IntersectionObserver((es) => {
+    const vis = es.some((e) => e.isIntersecting);
+    vis ? startPoll() : stopPoll();
+    if (vis && !fitted && fitAll()) fitted = true;
+  }).observe(tile);
 
   // Pointer position in canvas-content px (accounts for scroll).
   function canvasPx(e: MouseEvent): { x: number; y: number } { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left + canvas.scrollLeft, y: e.clientY - r.top + canvas.scrollTop }; }
@@ -594,21 +626,6 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     const btn = b as HTMLElement;
     btn.addEventListener('click', () => { const k = btn.dataset.sel; if (k === 'all') selectAll(); else if (k === 'none') selectNone(); else invertSelection(); });
   });
-  // Selection-ORDER ops run in main against the live programming selection; main
-  // broadcasts the reordered ids back (selection:changed → bus), which this tile
-  // adopts via the FIXTURE_SELECTED handler below — so badges + FX update live.
-  tile.querySelectorAll('[data-selop]').forEach((b) => {
-    const btn = b as HTMLElement;
-    btn.addEventListener('click', () => {
-      const k = btn.dataset.selop;
-      if (k === 'reverse') void lumox.selection.reverse();
-      else if (k === 'mirror') void lumox.selection.mirror();
-      else if (k === 'shift-back') void lumox.selection.shift(-1);
-      else if (k === 'shift-fwd') void lumox.selection.shift(1);
-      else if (k === 'half') void lumox.selection.everyNth(2);
-      else if (k === 'third') void lumox.selection.everyNth(3);
-    });
-  });
   tile.querySelectorAll('[data-al]').forEach((b) => { const btn = b as HTMLElement; btn.addEventListener('click', () => align(btn.dataset.al as string)); });
   tile.querySelectorAll('[data-dist]').forEach((b) => { const btn = b as HTMLElement; btn.addEventListener('click', () => distribute(btn.dataset.dist as string)); });
   (tile.querySelector('[data-act="arrange"]') as HTMLElement).addEventListener('click', arrange);
@@ -616,17 +633,21 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   const fineBtn = tile.querySelector('[data-act="fine"]') as HTMLElement;
   fineBtn.addEventListener('click', () => { state.fine = !state.fine; fineBtn.classList.toggle('active', state.fine); canvas.classList.toggle('fine', state.fine); });
 
-  // zoom — toolbar buttons + Ctrl/⌘ + wheel (zooms toward the cursor; plain
-  // wheel keeps the native scroll of the overflowing canvas).
+  // zoom — toolbar buttons + mouse wheel (zooms toward the cursor). Use the hand
+  // tool / scrollbars to pan, since the wheel is taken by zoom.
   tile.querySelectorAll('[data-zoom]').forEach((b) => {
     const btn = b as HTMLElement;
-    btn.addEventListener('click', () => { const k = btn.dataset.zoom; if (k === 'in') setZoom(zoom * 1.2); else setZoom(zoom / 1.2); });
+    btn.addEventListener('click', () => {
+      const k = btn.dataset.zoom;
+      if (k === 'in') setZoom(zoom * 1.2);
+      else if (k === 'out') setZoom(zoom / 1.2);
+      else fitAll();
+    });
   });
   // Slider drags zoom (log-mapped, centred); double-click resets to default.
   zoomSlider.addEventListener('input', () => setZoom(sliderToZoom(Number(zoomSlider.value))));
   zoomSlider.addEventListener('dblclick', () => setZoom(DEFAULT_ZOOM));
   canvas.addEventListener('wheel', (e) => {
-    if (!(e.ctrlKey || e.metaKey)) return;
     e.preventDefault();
     const r = canvas.getBoundingClientRect();
     setZoom(zoom * (e.deltaY < 0 ? 1.08 : 1 / 1.08), { x: e.clientX - r.left, y: e.clientY - r.top });

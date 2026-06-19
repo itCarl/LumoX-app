@@ -116,5 +116,15 @@ export function registerPatchHandlers(): void {
     fx.stageTransform = sanitizeTransform({ ...fx.stageTransform, ...transform });
   });
 
+  // Like setTransform, but for the stage's deterministic auto-placement of
+  // never-positioned fixtures on load. It's a derived layout (re-computed
+  // identically every load), not a user edit, so it lives on a TRANSIENT channel
+  // that does NOT dirty the project — otherwise every fresh boot would be dirty.
+  ipcMain.handle('lumox:patch:placeInitial', (_e, { id, transform }) => {
+    const fx = show.patch.get(id);
+    if (!fx) return;
+    fx.stageTransform = sanitizeTransform({ ...fx.stageTransform, ...transform });
+  });
+
   ipcMain.handle('lumox:patch:overlaps', () => show.patch.detectOverlaps());
 }
