@@ -67,6 +67,7 @@ export interface AppSettings {
   lastProjectPath: string | null;
   tempoSource: TempoSource;
   midiClockInput: string | null;
+  audioInput: string | null;
 }
 
 /** One effect layer in a scene's FX rack. Mirrors FxLayerDTO. */
@@ -199,6 +200,38 @@ export interface MidiMonitorMessage { type: 'note' | 'cc'; channel: number; numb
 export interface MidiAssignMode { active: boolean; }
 export interface MidiAwaitingInput { waiting: boolean; label?: string; }
 
+// ---- audio-reactive input ----
+export type AudioTargetKind = 'range' | 'trigger';
+export type AudioCurve = 'linear' | 'exp' | 'log';
+/** Where a binding reads its 0..1 level. Mirrors AudioSource. */
+export interface AudioSource { type: 'band' | 'volume' | 'beat'; index?: number; }
+/** A bindable Lumox control. Mirrors AudioTarget. */
+export interface AudioTarget { key: string; label: string; kind: AudioTargetKind; min?: number; max?: number; }
+export interface AudioBindingOptions {
+  min?: number; max?: number; invert?: boolean; curve?: AudioCurve;
+  threshold?: number; mode?: 'flash' | 'toggle';
+}
+/** One audio binding row. Mirrors AudioBinding. */
+export interface AudioBinding {
+  id: string;
+  source: AudioSource;
+  target: AudioTarget;
+  options: AudioBindingOptions;
+}
+
+/** Spec for the generic dialog window (mirrors DialogSpec in main/handlers/dialog.ts). */
+export interface DialogButton { id: string; label: string; variant?: 'default' | 'primary' | 'danger'; }
+export interface DialogSpec {
+  title: string;
+  message: string;
+  detail?: string;
+  list?: string[];
+  buttons: DialogButton[];
+  cancelId: string;
+  width?: number;
+  height?: number;
+}
+
 export interface LumoxApi {
   outputs: {
     list(): Promise<any>;
@@ -251,6 +284,15 @@ export interface LumoxApi {
     onLoaded(cb: () => void): void;
     onChanged(cb: (info: { name: string; path: string | null; dirty: boolean }) => void): void;
   };
+  dialog: {
+    open(spec: DialogSpec): Promise<string>;
+    spec(): Promise<DialogSpec | null>;
+    resolve(id: string): Promise<void>;
+  };
+  panel: {
+    open(spec: { kind: 'settings' | 'group-order'; title: string; arg?: unknown; width?: number; height?: number }): Promise<void>;
+    spec(): Promise<{ kind: 'settings' | 'group-order'; title: string; arg?: any } | null>;
+  };
   history: {
     undo(): Promise<{ canUndo: boolean; canRedo: boolean }>;
     redo(): Promise<{ canUndo: boolean; canRedo: boolean }>;
@@ -263,6 +305,7 @@ export interface LumoxApi {
     remove(id: string): Promise<any>;
     rename(id: string, name: string): Promise<any>;
     setTransform(id: string, transform: Partial<StageTransform>): Promise<any>;
+    placeInitial(id: string, transform: Partial<StageTransform>): Promise<any>;
     overlaps(): Promise<any>;
   };
   groups: {
@@ -280,10 +323,6 @@ export interface LumoxApi {
     clear(): Promise<string[]>;
     all(): Promise<string[]>;
     invert(): Promise<string[]>;
-    reverse(): Promise<string[]>;
-    mirror(): Promise<string[]>;
-    everyNth(n: number, offset?: number): Promise<string[]>;
-    shift(delta: number): Promise<string[]>;
     reorder(from: number, to: number): Promise<string[]>;
     onChanged(cb: (ids: string[]) => void): void;
   };
@@ -389,6 +428,17 @@ export interface LumoxApi {
     onAwaitingInput(cb: (info: MidiAwaitingInput) => void): void;
     onMessage(cb: (msg: MidiMonitorMessage) => void): void;
   };
+  audio: {
+    levels(frame: { bands: number[]; volume: number; beat: boolean }): Promise<void>;
+    targets(): Promise<AudioTarget[]>;
+    listBindings(): Promise<AudioBinding[]>;
+    addBinding(source: AudioSource, target: AudioTarget): Promise<AudioBinding | null>;
+    setBinding(id: string, patch: { source?: AudioSource; target?: AudioTarget }): Promise<any>;
+    setBindingOptions(id: string, options: AudioBindingOptions): Promise<any>;
+    removeBinding(id: string): Promise<any>;
+    onBindings(cb: (bindings: AudioBinding[]) => void): void;
+    onStream(cb: (on: boolean) => void): void;
+  };
   win: {
     minimize(): Promise<any>;
     maximize(): Promise<any>;
@@ -397,6 +447,12 @@ export interface LumoxApi {
     onMaximized(cb: (isMax: boolean) => void): void;
     closeSelf(): Promise<any>;
     minimizeSelf(): Promise<any>;
+  };
+  /** Dev-only main-process introspection. Rejects unless the app was launched
+   *  with LUMOX_DEV=1 (the `npm run shot` wrapper sets it). See main/handlers/dev.ts. */
+  dev: {
+    eval(code: string): Promise<any>;
+    state(): Promise<any>;
   };
 }
 

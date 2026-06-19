@@ -60,6 +60,20 @@ contextBridge.exposeInMainWorld('lumox', {
     onChanged: (cb: Cb<{ name: string; path: string | null; dirty: boolean }>) =>
       ipcRenderer.on('project:changed', (_e, info) => cb(info)),
   },
+  // Generic dialog window (replaces in-app modals). `open` is used by views to
+  // pop a notice/confirmation and await the chosen button id; `spec`/`resolve`
+  // are the dialog page's own round-trip.
+  dialog: {
+    open:    (spec: unknown) => ipcRenderer.invoke('lumox:dialog:open', spec),
+    spec:    () => ipcRenderer.invoke('lumox:dialog:spec'),
+    resolve: (id: string) => ipcRenderer.invoke('lumox:dialog:resolve', id),
+  },
+  // Generic panel window (Settings, group order): `open` pops the window; `spec`
+  // is the panel page's own fetch of what to render.
+  panel: {
+    open: (spec: unknown) => ipcRenderer.invoke('lumox:panel:open', spec),
+    spec: () => ipcRenderer.invoke('lumox:panel:spec'),
+  },
   history: {
     undo:  () => ipcRenderer.invoke('lumox:history:undo'),
     redo:  () => ipcRenderer.invoke('lumox:history:redo'),
@@ -72,6 +86,7 @@ contextBridge.exposeInMainWorld('lumox', {
     remove:   (id: string) => ipcRenderer.invoke('lumox:patch:remove', id),
     rename:   (id: string, name: string) => ipcRenderer.invoke('lumox:patch:rename', { id, name }),
     setTransform: (id: string, transform: unknown) => ipcRenderer.invoke('lumox:patch:setTransform', { id, transform }),
+    placeInitial: (id: string, transform: unknown) => ipcRenderer.invoke('lumox:patch:placeInitial', { id, transform }),
     overlaps: ()   => ipcRenderer.invoke('lumox:patch:overlaps'),
   },
   groups: {
@@ -89,10 +104,6 @@ contextBridge.exposeInMainWorld('lumox', {
     clear:    ()                 => ipcRenderer.invoke('lumox:selection:clear'),
     all:      ()                 => ipcRenderer.invoke('lumox:selection:all'),
     invert:   ()                 => ipcRenderer.invoke('lumox:selection:invert'),
-    reverse:  ()                 => ipcRenderer.invoke('lumox:selection:reverse'),
-    mirror:   ()                 => ipcRenderer.invoke('lumox:selection:mirror'),
-    everyNth: (n: number, offset = 0) => ipcRenderer.invoke('lumox:selection:everyNth', { n, offset }),
-    shift:    (delta: number)    => ipcRenderer.invoke('lumox:selection:shift', { delta }),
     reorder:  (from: number, to: number) => ipcRenderer.invoke('lumox:selection:reorder', { from, to }),
     onChanged: (cb: Cb<string[]>) => ipcRenderer.on('selection:changed', (_e, ids) => cb(ids)),
   },
@@ -202,6 +213,24 @@ contextBridge.exposeInMainWorld('lumox', {
     onAssignMode:    (cb: Cb<unknown>) => ipcRenderer.on('midi:assign-mode', (_e, a) => cb(a)),
     onAwaitingInput: (cb: Cb<unknown>) => ipcRenderer.on('midi:awaiting-input', (_e, a) => cb(a)),
     onMessage:       (cb: Cb<unknown>) => ipcRenderer.on('midi:message', (_e, m) => cb(m)),
+  },
+  audio: {
+    levels:            (frame: unknown) => ipcRenderer.invoke('lumox:audio:levels', frame),
+    targets:           () => ipcRenderer.invoke('lumox:audio:targets'),
+    listBindings:      () => ipcRenderer.invoke('lumox:audio:listBindings'),
+    addBinding:        (source: unknown, target: unknown) => ipcRenderer.invoke('lumox:audio:addBinding', { source, target }),
+    setBinding:        (id: string, patch: { source?: unknown; target?: unknown }) => ipcRenderer.invoke('lumox:audio:setBinding', { id, ...patch }),
+    setBindingOptions: (id: string, options: unknown) => ipcRenderer.invoke('lumox:audio:setBindingOptions', { id, options }),
+    removeBinding:     (id: string) => ipcRenderer.invoke('lumox:audio:removeBinding', { id }),
+    onBindings:        (cb: Cb<unknown[]>) => ipcRenderer.on('audio:bindings', (_e, b) => cb(b)),
+    onStream:          (cb: Cb<boolean>) => ipcRenderer.on('audio:stream', (_e, on) => cb(on)),
+  },
+  // Dev-only introspection bridge. The methods always exist here, but the main
+  // handlers are registered only when LUMOX_DEV=1 — otherwise these invokes
+  // reject with "No handler registered". See main/handlers/dev.ts + security.md.
+  dev: {
+    eval:  (code: string) => ipcRenderer.invoke('lumox:dev:eval', code),
+    state: ()             => ipcRenderer.invoke('lumox:dev:state'),
   },
   win: {
     minimize:    () => ipcRenderer.invoke('lumox:win:minimize'),

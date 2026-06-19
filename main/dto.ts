@@ -216,6 +216,8 @@ export interface ProjectData {
   bpm?: number;
   /** MIDI control-surface bindings (trigger → Lumox target) */
   midiBindings?: any[];
+  /** Audio-reactive bindings (band/volume/beat → Lumox target) */
+  audioBindings?: any[];
 }
 
 /** Current project identity surfaced to the renderer (titlebar). */
@@ -293,4 +295,6 @@ export interface AppSettings {
   tempoSource: TempoSource;
   /** MIDI input port name for the 'midi' clock source (null = none chosen). */
   midiClockInput: string | null;
+  /** Web Audio input `deviceId` for capture (BPM detect + spectrum); null = default. */
+  audioInput: string | null;
 }

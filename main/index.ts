@@ -13,7 +13,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 import { setLogLevel } from '../src/index';
 import { engine, show, discovery, blackoutAllOutputs } from './context';
-import { APP_ROOT, createWindow } from './windows';
+import { APP_ROOT, createWindow, getMainWindow } from './windows';
 import { registerHandlers } from './handlers';
 import { newProject, loadProjectFromPath, setProject } from './services/ProjectService';
 import { resetHistory } from './services/HistoryService';
@@ -35,6 +35,21 @@ if (!app || !ipcMain) {
   );
   process.exit(1);
 }
+
+// Enforce a single running instance: two controllers would fight over the same
+// Art-Net / sACN output sockets and the MIDI device. A second launch just hands
+// focus to the existing window and exits.
+if (!app.requestSingleInstanceLock()) {
+  app.quit();
+  process.exit(0);
+}
+app.on('second-instance', () => {
+  const win = getMainWindow();
+  if (win) {
+    if (win.isMinimized()) win.restore();
+    win.focus();
+  }
+});
 
 setLogLevel('info');
 

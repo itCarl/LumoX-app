@@ -13,13 +13,12 @@ import { makeDebugView } from './views/debug';
 import { makeConnectionView } from './views/connection';
 import { openSettingsModal } from './views/settings-modal';
 import { openMenu, closeMenu } from './lib/widgets';
-import { node, html } from './lib/dom';
 import { initAppSettings } from './lib/settings';
 import { initSelectionBridge } from './lib/selection';
 import { initMidiAssign } from './lib/midiassign';
 import { isEditable } from './lib/keys';
 import { bus, EV } from './lib/bus';
-import { startAudioTempo, type AudioTempo } from './lib/audio-tempo';
+import { audioEngine, type Unsubscribe } from './lib/audio-engine';
 import type { TransportStatus, TempoSource } from './lumox.d';
 
 const { lumox } = window;
@@ -44,7 +43,7 @@ lumox?.midi.status().then((s) => midiBtn?.classList.toggle('connected', s.connec
 const ws = document.querySelector('.workspace') as HTMLElement;
 const debugView = document.querySelector('.debug-view') as HTMLElement;
 const connectionView = document.querySelector('.connection-view') as HTMLElement;
-const dock = makeDock(ws, { topCol: 300, topFraction: 0.65 });  // top 65% height, bottom 50/50
+const dock = makeDock(ws, { topCol: 300, topFraction: 0.65, bottomFraction: 0.33 });  // top 65% height, stage 33% of bottom row
 
 // full-page views — debug (⋯ menu) and connection (its own titlebar tab)
 const fullViews: Record<string, HTMLElement> = { debug: debugView, connection: connectionView };
@@ -97,8 +96,8 @@ function showTab(name: string) {
   // bottom-right: fader editor only in CONTROL, limits editor only in SETUP
   if (faderTile) faderTile.classList.toggle('hidden', name !== 'control');
   if (limitsTile) limitsTile.classList.toggle('hidden', name !== 'setup');
-  // top split per tab: SETUP → library at 25%; CONTROL → wide banks, ~20% FX
-  if (name === 'control') dock.setTopColFraction(0.8);
+  // top split per tab: SETUP → library at 25%; CONTROL → scenes 75%, FX 25%
+  if (name === 'control') dock.setTopColFraction(0.75);
   else dock.setTopColFraction(0.25);
 }
 
@@ -115,9 +114,19 @@ function applyProjectInfo(info: { name: string; dirty: boolean }) {
   projectDirty = info.dirty;
   if (docEl) docEl.textContent = `— ${info.name}${info.dirty ? ' *' : ''}`;
 }
-// Confirm before discarding unsaved changes (New / Open).
+// Confirm before discarding unsaved changes (New / Open) via the dialog window.
 async function guardDirty(action: () => void) {
-  if (projectDirty && !confirm('Discard unsaved changes in this project?')) return;
+  if (projectDirty) {
+    const choice = await lumox.dialog.open({
+      title: 'Discard changes?',
+      message: 'Discard unsaved changes in this project?',
+      detail: 'This cannot be undone.',
+      buttons: [{ id: 'cancel', label: 'Cancel' }, { id: 'discard', label: 'Discard', variant: 'danger' }],
+      cancelId: 'cancel',
+      width: 440, height: 180,
+    });
+    if (choice !== 'discard') return;
+  }
   action();
 }
 
@@ -126,6 +135,7 @@ lumox?.project?.onChanged(applyProjectInfo);
 // Rebuild all views after a project loads, then surface any missing-fixture report.
 lumox?.project?.onLoaded(() => location.reload());
 lumox?.project?.report().then((issues) => { if (issues?.length) showIssuesModal(issues); }).catch(() => {});
+
 
 // ---- ⋯ app menu --------------------------------------------------------
 const appMenuBtn = document.getElementById('app-menu-btn') as HTMLElement;
@@ -161,30 +171,23 @@ window.addEventListener('keydown', (e) => {
 
 // ---- missing-fixture report modal --------------------------------------
 function showIssuesModal(issues: Array<{ kind: string; definitionId: string; modeId?: string; count: number; fixtures: string[] }>) {
-  document.querySelector('.lx-modal-backdrop')?.remove();
-  const rows = issues.map((it) => {
+  const list = issues.map((it) => {
     const more = it.count > it.fixtures.length ? ', …' : '';
     const fx = it.fixtures.join(', ') + more;
     return it.kind === 'missing-definition'
-      ? html`<li><b>${it.count}×</b> definition <code>${it.definitionId}</code> not installed — skipped <span class="muted">(${fx})</span></li>`
-      : html`<li>definition <code>${it.definitionId}</code> mode <code>${it.modeId}</code> missing — used default <span class="muted">(${it.count}×: ${fx})</span></li>`;
+      ? `${it.count}× definition “${it.definitionId}” not installed — skipped (${fx})`
+      : `definition “${it.definitionId}” mode “${it.modeId}” missing — used default (${it.count}×: ${fx})`;
   });
-  const el = node(html`
-    <div class="lx-modal-backdrop">
-      <div class="lx-modal" role="dialog" aria-modal="true">
-        <div class="lx-modal-head">Missing fixtures</div>
-        <div class="lx-modal-body">
-          <p>Some fixtures in this project aren't installed on this computer:</p>
-          <ul class="lx-issues">${rows}</ul>
-        </div>
-        <div class="lx-modal-foot"><button class="lx-btn lx-btn-primary" id="lx-modal-ok">OK</button></div>
-      </div>
-    </div>`);
-  const close = () => el.remove();
-  el.addEventListener('click', (e) => { if (e.target === el) close(); });
-  (el.querySelector('#lx-modal-ok') as HTMLElement)?.addEventListener('click', close);
-  document.body.appendChild(el);
+  void lumox.dialog.open({
+    title: 'Missing fixtures',
+    message: "Some fixtures in this project aren't installed on this computer:",
+    list,
+    buttons: [{ id: 'ok', label: 'OK', variant: 'primary' }],
+    cancelId: 'ok',
+    width: 540, height: 320,
+  });
 }
+
 
 // ---- titlebar window controls -----------------------------------------
 const maxBtn = document.getElementById('win-max');
@@ -230,19 +233,40 @@ function applyBpm(raw: number, origin?: number) {
 
 const SRC_LABELS: Record<TempoSource, string> = { manual: '', midi: 'MIDI', audio: 'AUDIO', link: 'LINK' };
 
-// Web Audio onset detector — runs only while 'audio' is the active source; its
-// estimate is pushed to the engine (honoured there only when source is 'audio').
-let audio: AudioTempo | null = null;
+// Shared audio capture — the onset/BPM detector runs only while 'audio' is the active
+// source; its estimate is pushed to the engine (honoured there only when source is
+// 'audio'). The same capture also feeds the Connection-tab spectrum meter, so it stays
+// open whenever either needs it. Input denial reverts the source to manual.
+let bpmUnsub: Unsubscribe | null = null;
+let stateUnsub: Unsubscribe | null = null;
 function syncAudioSource(source: TempoSource): void {
-  if (source === 'audio' && !audio) {
-    startAudioTempo((bpm) => lumox?.transport?.audioBpm(bpm).catch(() => {}))
-      .then((a) => { audio = a; })
-      .catch(() => { audio = null; lumox?.transport?.setSource('manual'); });   // mic denied → revert
-  } else if (source !== 'audio' && audio) {
-    audio.stop();
-    audio = null;
+  if (source === 'audio' && !bpmUnsub) {
+    bpmUnsub = audioEngine.onBpm((bpm) => lumox?.transport?.audioBpm(bpm).catch(() => {}));
+    stateUnsub = audioEngine.onState((s) => { if (s === 'denied') lumox?.transport?.setSource('manual'); });
+  } else if (source !== 'audio' && bpmUnsub) {
+    bpmUnsub(); bpmUnsub = null;
+    stateUnsub?.(); stateUnsub = null;
   }
 }
+
+// The chosen input device is a machine setting; apply it to the shared capture at boot
+// and whenever it changes (the Connection tab writes it).
+lumox?.settings?.get().then((s) => audioEngine.setDevice(s.audioInput)).catch(() => {});
+lumox?.settings?.onChanged((s) => audioEngine.setDevice(s.audioInput));
+
+// Audio-reactive bindings: while the engine holds bindings, main asks the renderer to
+// keep the shared capture open and forward level frames (even off the Connection tab),
+// so the rig reacts regardless of which tab is visible.
+let audioStreamUnsub: Unsubscribe | null = null;
+function setAudioStream(on: boolean): void {
+  if (on && !audioStreamUnsub) {
+    audioStreamUnsub = audioEngine.onSpectrum((f) => { void lumox?.audio?.levels(f); });
+  } else if (!on && audioStreamUnsub) {
+    audioStreamUnsub(); audioStreamUnsub = null;
+  }
+}
+lumox?.audio?.onStream(setAudioStream);
+lumox?.audio?.listBindings().then((b) => setAudioStream(b.length > 0)).catch(() => {});
 
 // Reflect the live transport status onto the titlebar (initial + on every change).
 function reflectStatus(s: TransportStatus): void {
