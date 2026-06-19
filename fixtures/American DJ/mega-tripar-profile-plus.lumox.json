@@ -1,0 +1,84 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "American DJ/Mega TriPar Profile Plus",
+      "manufacturer": "American DJ",
+      "model": "Mega TriPar Profile Plus",
+      "type": "PAR",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-18T00:00:00.000Z",
+        "modifiedAt": "2026-06-18T00:00:00.000Z",
+        "source": "https://www.adj.com",
+        "notes": "Low-profile tri-colour (RGB+UV) wash PAR. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 215, "height": 215, "depth": 90, "unit": "mm" },
+        "weight": { "value": 1.4, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Diffused", "degreesMin": 30, "degreesMax": 30 },
+        "focus": { "type": "Fixed", "panMax": 0, "tiltMax": 0 },
+        "power": { "consumption": 25, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4ch (RGB+UV)",
+          "channels": [
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "UV",    "typeId": "uv",    "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6ch (Dimmer + RGB+UV + Strobe)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red",    "typeId": "red",       "defaultValue": 0, "capabilities": [] },
+            { "name": "Green",  "typeId": "green",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",   "typeId": "blue",      "defaultValue": 0, "capabilities": [] },
+            { "name": "UV",     "typeId": "uv",        "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "strobe", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 8,  "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7ch (Dimmer + RGB+UV + Strobe + Macro)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red",    "typeId": "red",       "defaultValue": 0, "capabilities": [] },
+            { "name": "Green",  "typeId": "green",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",   "typeId": "blue",      "defaultValue": 0, "capabilities": [] },
+            { "name": "UV",     "typeId": "uv",        "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "strobe", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 8,  "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            {
+              "name": "Color Macro", "typeId": "color-macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,   "max": 9,   "label": "No function" },
+                { "kind": "color",  "min": 10,  "max": 199, "label": "Colour presets", "color": "#ffffff" },
+                { "kind": "effect", "min": 200, "max": 255, "label": "Auto / Sound",   "effectName": "auto" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 // 18 — Load shipped fixture library from disk and patch one of them.
 // All profiles in `lumox-app/fixtures/` are loaded via the registered
-// importers (Lumox JSON here; .qxf files would work too).
+// Lumox JSON importer.
 //
 //   node examples/18-builtin-library.js
 

@@ -1,0 +1,71 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "American DJ/Vizi Beam 5RX",
+      "manufacturer": "American DJ",
+      "model": "Vizi Beam 5RX",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-18T00:00:00.000Z",
+        "modifiedAt": "2026-06-18T00:00:00.000Z",
+        "source": "https://www.adj.com",
+        "notes": "200W discharge moving-head beam with colour wheel, gobos, prism, frost and focus. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 320, "height": 470, "depth": 250, "unit": "mm" },
+        "weight": { "value": 14.0, "unit": "kg" },
+        "bulb": { "type": "Discharge", "lumens": null, "colourTemperature": 7200 },
+        "lens": { "name": "Beam", "degreesMin": 2, "degreesMax": 2 },
+        "focus": { "type": "Head", "panMax": 540, "tiltMax": 270 },
+        "power": { "consumption": 280, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "16ch",
+          "name": "16ch Standard (16-bit P/T)",
+          "channels": [
+            { "name": "Pan",      "typeId": "pan",            "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine", "typeId": "pan-fine",       "defaultValue": 0,   "capabilities": [] },
+            { "name": "Tilt",     "typeId": "tilt",           "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine","typeId": "tilt-fine",      "defaultValue": 0,   "capabilities": [] },
+            { "name": "Speed",    "typeId": "pan-tilt-speed", "defaultValue": 0,   "capabilities": [] },
+            { "name": "Color Wheel", "typeId": "color-wheel", "defaultValue": 0,   "capabilities": [] },
+            {
+              "name": "Shutter", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8,  "max": 31,  "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 32, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            { "name": "Dimmer",      "typeId": "intensity",       "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Wheel",  "typeId": "gobo-wheel-1",    "defaultValue": 0, "capabilities": [] },
+            { "name": "Prism",       "typeId": "prism",           "defaultValue": 0, "capabilities": [] },
+            { "name": "Prism Rotation", "typeId": "prism-rotation", "defaultValue": 0, "capabilities": [] },
+            { "name": "Frost",       "typeId": "frost",           "defaultValue": 0, "capabilities": [] },
+            { "name": "Focus",       "typeId": "focus",           "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Function", "typeId": "function", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 199, "label": "No function" },
+                { "kind": "range", "min": 200, "max": 255, "label": "Reset"       }
+              ]
+            },
+            {
+              "name": "Movement Macro", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,  "max": 7,   "label": "No function" },
+                { "kind": "effect", "min": 8,  "max": 255, "label": "Auto Macros", "effectName": "movement" }
+              ]
+            },
+            { "name": "Macro Speed", "typeId": "speed", "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

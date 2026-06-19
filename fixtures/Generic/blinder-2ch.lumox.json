@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Generic/Blinder 2ch",
+      "manufacturer": "Generic",
+      "model": "Blinder 2ch",
+      "type": "Strobe",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-18T00:00:00.000Z",
+        "modifiedAt": "2026-06-18T00:00:00.000Z",
+        "source": "Lumox built-in",
+        "notes": "Generic audience blinder — master dimmer + strobe."
+      },
+      "physical": {},
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2ch",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "strobe", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 7,   "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 8, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 25 }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

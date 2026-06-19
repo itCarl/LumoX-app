@@ -1,0 +1,94 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "GLP/impression X4",
+      "manufacturer": "GLP",
+      "model": "impression X4",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-18T00:00:00.000Z",
+        "modifiedAt": "2026-06-18T00:00:00.000Z",
+        "source": "https://www.glp.de",
+        "notes": "RGBW LED wash moving head with wide-range motorised zoom. Single-source (whole-head colour) personality. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 340, "height": 430, "depth": 230, "unit": "mm" },
+        "weight": { "value": 12.5, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Zoom", "degreesMin": 7, "degreesMax": 50 },
+        "focus": { "type": "Head", "panMax": 540, "tiltMax": 270 },
+        "power": { "consumption": 400, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "12ch",
+          "name": "12ch Standard (16-bit P/T)",
+          "channels": [
+            { "name": "Pan",       "typeId": "pan",       "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine",  "typeId": "pan-fine",  "defaultValue": 0,   "capabilities": [] },
+            { "name": "Tilt",      "typeId": "tilt",      "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine", "typeId": "tilt-fine", "defaultValue": 0,   "capabilities": [] },
+            { "name": "Dimmer",    "typeId": "intensity", "defaultValue": 0,   "capabilities": [] },
+            {
+              "name": "Shutter", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8,  "max": 31,  "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 32, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "White", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zoom",  "typeId": "zoom",  "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Color Macro", "typeId": "color-macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,  "max": 9,   "label": "No function" },
+                { "kind": "color", "min": 10, "max": 255, "label": "Colour presets", "color": "#ffffff" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "15ch",
+          "name": "15ch Extended (16-bit Dimmer + CTC + Function)",
+          "channels": [
+            { "name": "Pan",       "typeId": "pan",       "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine",  "typeId": "pan-fine",  "defaultValue": 0,   "capabilities": [] },
+            { "name": "Tilt",      "typeId": "tilt",      "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine", "typeId": "tilt-fine", "defaultValue": 0,   "capabilities": [] },
+            { "name": "Dimmer",      "typeId": "intensity",      "defaultValue": 0, "capabilities": [] },
+            { "name": "Dimmer Fine", "typeId": "intensity-fine", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Shutter", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8,  "max": 31,  "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 32, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "White", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "CTC",   "typeId": "cto",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Zoom",  "typeId": "zoom",  "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Function", "typeId": "function", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 199, "label": "No function" },
+                { "kind": "range", "min": 200, "max": 255, "label": "Reset"       }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

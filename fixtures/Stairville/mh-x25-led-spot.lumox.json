@@ -1,0 +1,88 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/MH-x25 LED Spot",
+      "manufacturer": "Stairville",
+      "model": "MH-x25 LED Spot",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-18T00:00:00.000Z",
+        "modifiedAt": "2026-06-18T00:00:00.000Z",
+        "source": "https://www.thomann.de",
+        "notes": "Compact LED moving-head spot with colour + gobo wheels and gobo rotation. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 195, "height": 280, "depth": 180, "unit": "mm" },
+        "weight": { "value": 3.2, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Spot", "degreesMin": 13, "degreesMax": 13 },
+        "focus": { "type": "Head", "panMax": 540, "tiltMax": 270 },
+        "power": { "consumption": 40, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "9ch",
+          "name": "9ch Basic (8-bit P/T)",
+          "channels": [
+            { "name": "Pan",   "typeId": "pan",            "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt",  "typeId": "tilt",           "defaultValue": 128, "capabilities": [] },
+            { "name": "Speed", "typeId": "pan-tilt-speed", "defaultValue": 0,   "capabilities": [] },
+            { "name": "Color Wheel",   "typeId": "color-wheel",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Wheel",    "typeId": "gobo-wheel-1",    "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Rotation", "typeId": "gobo-rotation-1", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8,  "max": 31,  "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 32, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Program", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,  "max": 7,   "label": "No function" },
+                { "kind": "effect", "min": 8,  "max": 255, "label": "Auto / Sound", "effectName": "auto" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "11ch",
+          "name": "11ch Standard (16-bit P/T)",
+          "channels": [
+            { "name": "Pan",       "typeId": "pan",            "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine",  "typeId": "pan-fine",       "defaultValue": 0,   "capabilities": [] },
+            { "name": "Tilt",      "typeId": "tilt",           "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine", "typeId": "tilt-fine",      "defaultValue": 0,   "capabilities": [] },
+            { "name": "Speed",     "typeId": "pan-tilt-speed", "defaultValue": 0,   "capabilities": [] },
+            { "name": "Color Wheel",   "typeId": "color-wheel",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Wheel",    "typeId": "gobo-wheel-1",    "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Rotation", "typeId": "gobo-rotation-1", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8,  "max": 31,  "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 32, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Program", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,  "max": 7,   "label": "No function" },
+                { "kind": "effect", "min": 8,  "max": 255, "label": "Auto / Sound", "effectName": "auto" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

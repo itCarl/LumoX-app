@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Generic/Hazer 2ch",
+      "manufacturer": "Generic",
+      "model": "Hazer 2ch",
+      "type": "Smoke",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-18T00:00:00.000Z",
+        "modifiedAt": "2026-06-18T00:00:00.000Z",
+        "source": "Lumox built-in",
+        "notes": "Generic 2-channel hazer — haze output + fan speed."
+      },
+      "physical": {},
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2ch",
+          "channels": [
+            {
+              "name": "Haze", "typeId": "intensity", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7,   "label": "Off"  },
+                { "kind": "range", "min": 8, "max": 255, "label": "Haze On" }
+              ]
+            },
+            { "name": "Fan", "typeId": "fan", "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

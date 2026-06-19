@@ -1,0 +1,90 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Chauvet DJ/Intimidator Spot 360",
+      "manufacturer": "Chauvet DJ",
+      "model": "Intimidator Spot 360",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-18T00:00:00.000Z",
+        "modifiedAt": "2026-06-18T00:00:00.000Z",
+        "source": "https://www.chauvetdj.com",
+        "notes": "100W LED moving-head spot with motorised zoom, colour + gobo wheels. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 250, "height": 380, "depth": 230, "unit": "mm" },
+        "weight": { "value": 6.4, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": 7000 },
+        "lens": { "name": "Zoom", "degreesMin": 8, "degreesMax": 17 },
+        "focus": { "type": "Head", "panMax": 540, "tiltMax": 270 },
+        "power": { "consumption": 130, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "9ch",
+          "name": "9ch Basic",
+          "channels": [
+            { "name": "Pan",  "typeId": "pan",  "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Color Wheel",   "typeId": "color-wheel",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Wheel",    "typeId": "gobo-wheel-1",    "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Rotation", "typeId": "gobo-rotation-1", "defaultValue": 0, "capabilities": [] },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Shutter", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8,  "max": 31,  "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 32, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            { "name": "Zoom", "typeId": "zoom", "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Auto Programs", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,  "max": 7,   "label": "No function" },
+                { "kind": "effect", "min": 8,  "max": 255, "label": "Auto / Sound", "effectName": "auto" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "13ch",
+          "name": "13ch Extended (16-bit P/T)",
+          "channels": [
+            { "name": "Pan",      "typeId": "pan",            "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine", "typeId": "pan-fine",       "defaultValue": 0,   "capabilities": [] },
+            { "name": "Tilt",     "typeId": "tilt",           "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine","typeId": "tilt-fine",      "defaultValue": 0,   "capabilities": [] },
+            { "name": "Speed",    "typeId": "pan-tilt-speed", "defaultValue": 0,   "capabilities": [] },
+            { "name": "Color Wheel",   "typeId": "color-wheel",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Wheel",    "typeId": "gobo-wheel-1",    "defaultValue": 0, "capabilities": [] },
+            { "name": "Gobo Rotation", "typeId": "gobo-rotation-1", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zoom",   "typeId": "zoom",      "defaultValue": 128, "capabilities": [] },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0,   "capabilities": [] },
+            {
+              "name": "Shutter", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8,  "max": 31,  "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 32, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            {
+              "name": "Auto Programs", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,  "max": 7,   "label": "No function" },
+                { "kind": "effect", "min": 8,  "max": 255, "label": "Auto / Sound", "effectName": "auto" }
+              ]
+            },
+            { "name": "Program Speed", "typeId": "speed", "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

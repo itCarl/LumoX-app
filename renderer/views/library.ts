@@ -4,6 +4,7 @@
 import { bus, EV } from '../lib/bus';
 import { esc } from '../lib/html';
 import { button, input } from '../lib/widgets';
+import { confirmDialog } from '../lib/confirm';
 
 const { lumox } = window;
 
@@ -53,6 +54,13 @@ export async function makeLibraryTile() {
   // Delegated handlers — bound once on the stable tree container so they
   // survive every renderTree() rebuild (no per-render re-attach / listener leak).
   treeEl.addEventListener('click', (e) => {
+    const del = (e.target as HTMLElement).closest('.ti-del') as HTMLElement | null;
+    if (del) {
+      e.stopPropagation();   // don't also select the row
+      const id = (del.closest('.tree-item') as HTMLElement | null)?.dataset.def;
+      if (id) onDeleteFixture(id);
+      return;
+    }
     const head = (e.target as HTMLElement).closest('.acc-head') as HTMLElement | null;
     if (head) {
       const acc = head.parentElement as HTMLElement;
@@ -80,6 +88,24 @@ export async function makeLibraryTile() {
     const item = (e.target as HTMLElement).closest('.tree-item') as HTMLElement | null;
     if (item) { item.classList.remove('dragging'); bus.emit(EV.DRAG_END); }
   });
+
+  // Delete a user (Custom) fixture after confirmation. The main process refuses
+  // if it's still patched (shown inline in the dialog); on success it broadcasts
+  // `library:changed`, which reloadDefs picks up to refresh the tree.
+  async function onDeleteFixture(id: string) {
+    const d = defs.find((x) => x.id === id);
+    if (!d) return;
+    await confirmDialog({
+      title: 'Delete fixture',
+      message: `Delete “${d.model}” from the Custom library? This permanently deletes the saved fixture and can’t be undone.`,
+      confirmLabel: 'Delete',
+      danger: true,
+      onConfirm: async () => {
+        await lumox.library.remove(id);
+        if (selected === id) selected = null;
+      },
+    });
+  }
 
   function renderTree() {
     if (!defs.length) {
@@ -113,15 +139,18 @@ export async function makeLibraryTile() {
       return `
         <div class="acc${isCollapsed ? ' collapsed' : ''}" data-vendor="${esc(v)}">
           <button class="acc-head">
-            <span class="acc-chev">▾</span>
+            <span class="acc-chev"><i class="fa-solid fa-chevron-down"></i></span>
             <span class="acc-name">${esc(v)}</span>
             <span class="acc-count">${items.length}</span>
           </button>
           <div class="acc-items">
             ${items.map((d) => {
               const ch = d.modes?.[0]?.channelCount ?? '?';
+              const del = d.source === 'user'
+                ? `<button class="ti-del" draggable="false" title="Delete this Custom fixture" aria-label="Delete fixture"><i class="fa-solid fa-trash"></i></button>`
+                : '';
               return `<div class="tree-item${selected === d.id ? ' sel' : ''}" draggable="true" data-def="${esc(d.id)}" title="Drag onto the patch grid · ${esc(d.id)}">
-                <span class="ti-model">${esc(d.model)}</span><span class="ti-ch">${ch}ch</span></div>`;
+                <span class="ti-model">${esc(d.model)}</span><span class="ti-right"><span class="ti-ch">${ch}ch</span>${del}</span></div>`;
             }).join('')}
           </div>
         </div>`;

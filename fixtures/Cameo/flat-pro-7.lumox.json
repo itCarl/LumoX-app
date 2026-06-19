@@ -1,0 +1,106 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Flat PRO 7",
+      "manufacturer": "Cameo",
+      "model": "Flat PRO 7",
+      "type": "PAR",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-18T00:00:00.000Z",
+        "modifiedAt": "2026-06-18T00:00:00.000Z",
+        "source": "https://www.cameolight.com",
+        "notes": "Flat hex-colour (RGBWA+UV) wash PAR, 7×10W. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 250, "height": 255, "depth": 95, "unit": "mm" },
+        "weight": { "value": 2.3, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Diffused", "degreesMin": 25, "degreesMax": 25 },
+        "focus": { "type": "Fixed", "panMax": 0, "tiltMax": 0 },
+        "power": { "consumption": 70, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6ch (RGBWA+UV)",
+          "channels": [
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "White", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Amber", "typeId": "amber", "defaultValue": 0, "capabilities": [] },
+            { "name": "UV",    "typeId": "uv",    "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8ch (Dimmer + RGBWA+UV + Strobe)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red",    "typeId": "red",       "defaultValue": 0, "capabilities": [] },
+            { "name": "Green",  "typeId": "green",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",   "typeId": "blue",      "defaultValue": 0, "capabilities": [] },
+            { "name": "White",  "typeId": "white",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Amber",  "typeId": "amber",     "defaultValue": 0, "capabilities": [] },
+            { "name": "UV",     "typeId": "uv",        "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "strobe", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 8,  "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12ch (Dimmer + RGBWA+UV + Strobe + Macro + Program + Speed + Curve)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red",    "typeId": "red",       "defaultValue": 0, "capabilities": [] },
+            { "name": "Green",  "typeId": "green",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",   "typeId": "blue",      "defaultValue": 0, "capabilities": [] },
+            { "name": "White",  "typeId": "white",     "defaultValue": 0, "capabilities": [] },
+            { "name": "Amber",  "typeId": "amber",     "defaultValue": 0, "capabilities": [] },
+            { "name": "UV",     "typeId": "uv",        "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "strobe", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 7,   "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 8,  "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            {
+              "name": "Color Macro", "typeId": "color-macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,  "max": 9,   "label": "No function" },
+                { "kind": "color", "min": 10, "max": 255, "label": "Colour presets", "color": "#ffffff" }
+              ]
+            },
+            {
+              "name": "Program", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,  "max": 9,   "label": "No function" },
+                { "kind": "effect", "min": 10, "max": 255, "label": "Auto / Sound", "effectName": "auto" }
+              ]
+            },
+            { "name": "Program Speed", "typeId": "speed", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Dimmer Curve", "typeId": "dimmer-curve", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 63,  "label": "Linear" },
+                { "kind": "range", "min": 64,  "max": 127, "label": "Square"  },
+                { "kind": "range", "min": 128, "max": 191, "label": "Inv. Square" },
+                { "kind": "range", "min": 192, "max": 255, "label": "S-Curve" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

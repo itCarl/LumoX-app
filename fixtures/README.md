@@ -6,6 +6,13 @@ fixture definitions loadable via `FixtureLibrary.loadFromDirectory(...)`.
 Subfolders group profiles by vendor. The loader recurses, so adding a new
 vendor is just `mkdir Vendor/` + dropping profile files in.
 
+> **Built-in profiles only.** This directory ships read-only with the app
+> (`source: "builtin"`). Fixtures the user authors in the fixture editor are
+> *not* saved here — they are always filed under the **Custom** vendor and
+> persist under the Electron `userData` directory (`<userData>/fixtures/`,
+> `source: "user"`), kept by `main/services/UserLibraryService.ts` (delete them
+> from the library tile). Don't add a `Custom/` folder here.
+
 ## Folder layout
 
 ```
@@ -19,9 +26,11 @@ fixtures/
 │   ├── par-rgbw-multimode.lumox.json     ← multi-mode example
 │   ├── moving-head-multimode.lumox.json  ← multi-mode example
 │   └── ...
-└── Stairville/                     Vendor folder
-    ├── led-bar-240-8-rgb.lumox.json
-    └── led-pixel-bar-100-mk2-rgb.lumox.json
+├── Stairville/                     Vendor folder
+│   ├── led-bar-240-8-rgb.lumox.json
+│   └── led-pixel-bar-100-mk2-rgb.lumox.json
+└── Chauvet DJ/ · American DJ/ · Martin/ · Robe/ · Eurolite/ · Cameo/
+    Showtec/ · Elation/ · GLP/ · ETC/ · UKing/    ← brand vendor folders
 ```
 
 ## Validating
@@ -418,23 +427,6 @@ const json = new LumoxImporter().serialize([def]);
 
 ---
 
-# Importing from QLC+ 5
-
-If you already have a QLC+ 5 `.qxf` profile, drop it into the vendor
-folder — the loader picks it up automatically (the `qlc+5` importer is
-registered alongside `lumox`):
-
-```
-fixtures/Robe/robin-mmx-spot.qxf       ← QLC+ 5 XML, parsed on load
-fixtures/Robe/robin-pointe.lumox.json  ← native Lumox JSON
-```
-
-The QLC+ importer maps the XML `<Physical>` block into Lumox `physical`,
-and the `<Creator>` block into `meta.author` / `meta.version`. Channel
-groups (`Intensity`, `Colour`, `Pan`, ...) are mapped to Lumox `typeId`s.
-
----
-
 # Built-in profiles reference
 
 ## Generic (single mode)
@@ -452,7 +444,13 @@ groups (`Intensity`, `Colour`, `Pan`, ...) are mapped to Lumox `typeId`s.
 | `smoke-1ch.lumox.json` | Smoke | 1 |
 | `moving-head-rgbw-11ch.lumox.json` | Moving Head | 11 |
 | `moving-head-beam-16ch.lumox.json` | Moving Head | 16 |
+| `moving-head-spot-14ch.lumox.json` | Moving Head | 14 |
+| `moving-head-cmy-wash-14ch.lumox.json` | Moving Head | 14 |
+| `scanner-8ch.lumox.json` | Scanner | 8 |
 | `laser-basic-4ch.lumox.json` | Laser | 4 |
+| `dimmer-pack-4ch.lumox.json` | Dimmer | 4 |
+| `hazer-2ch.lumox.json` | Smoke | 2 |
+| `blinder-2ch.lumox.json` | Strobe | 2 |
 
 ## Generic (multi-mode)
 
@@ -467,3 +465,28 @@ groups (`Intensity`, `Colour`, `Pan`, ...) are mapped to Lumox `typeId`s.
 |------|-------|-------|
 | `led-bar-240-8-rgb.lumox.json` | LED Bar 240/8 RGB DMX | 3ch · 6ch · 24ch |
 | `led-pixel-bar-100-mk2-rgb.lumox.json` | LED Pixel Bar 100/100 MK2 RGB | 3ch · 6ch · 30ch |
+| `mh-x25-led-spot.lumox.json` | MH-x25 LED Spot | 9ch · 11ch |
+| `wild-wash-648-led-rgb.lumox.json` | Wild Wash 648 LED RGB | 3ch · 7ch |
+
+## Brand vendors
+
+Common stage / club fixtures from popular brands. Channel maps follow each
+manufacturer's typical DMX chart — verify against your unit's firmware before
+a show (each profile's `meta.notes` repeats this caveat).
+
+| Vendor | File | Model | Type | Modes |
+|--------|------|-------|------|-------|
+| Chauvet DJ | `slimpar-pro-h-usb.lumox.json` | SlimPAR Pro H USB | PAR | 6ch · 8ch · 11ch |
+| Chauvet DJ | `intimidator-spot-360.lumox.json` | Intimidator Spot 360 | Moving Head | 9ch · 13ch |
+| American DJ | `mega-tripar-profile-plus.lumox.json` | Mega TriPar Profile Plus | PAR | 4ch · 6ch · 7ch |
+| American DJ | `vizi-beam-5rx.lumox.json` | Vizi Beam 5RX | Moving Head | 16ch |
+| Martin | `rush-par-2-rgbw-zoom.lumox.json` | RUSH PAR 2 RGBW Zoom | PAR | 7ch · 10ch |
+| Robe | `robin-ledwash-600.lumox.json` | Robin LEDWash 600 | Moving Head | 16ch |
+| Eurolite | `led-par-64-rgbw-10mm.lumox.json` | LED PAR-64 RGBW 10mm | PAR | 4ch · 8ch |
+| Cameo | `flat-pro-7.lumox.json` | Flat PRO 7 | PAR | 6ch · 8ch · 12ch |
+| Showtec | `spectral-m800.lumox.json` | Spectral M800 | Moving Head | 14ch |
+| Elation | `sixpar-200.lumox.json` | SixPar 200 | PAR | 6ch · 8ch · 10ch |
+| GLP | `impression-x4.lumox.json` | impression X4 | Moving Head | 12ch · 15ch |
+| ETC | `colorsource-par.lumox.json` | ColorSource PAR | PAR | 4ch · 5ch · 7ch |
+| UKing | `25w-led-moving-head.lumox.json` | 25W LED Moving Head | Moving Head | 9ch · 11ch |
+| UKing | `7r-230w-beam.lumox.json` | 7R 230W Beam | Moving Head | 16ch |
