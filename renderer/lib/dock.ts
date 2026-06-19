@@ -16,6 +16,7 @@ interface DockOptions {
   topCol?: number;
   topFraction?: number;
   bottomCol?: number | null;
+  bottomFraction?: number;
   groupsH?: number;
   min?: number;
   minRest?: number;
@@ -39,7 +40,7 @@ export interface Dock {
 }
 
 export function makeDock(ws: HTMLElement, {
-  topCol = 300, topFraction = 0.65, bottomCol = null, groupsH = 56,
+  topCol = 300, topFraction = 0.65, bottomCol = null, bottomFraction, groupsH = 56,
   min = 120, minRest = 80,
 }: DockOptions = {}): Dock {
   ws.classList.add('dock');
@@ -68,7 +69,8 @@ export function makeDock(ws: HTMLElement, {
   let _topColFrac: number | null = null;       // fraction of top-row width; overrides px when set
   let _topFrac: number | null = topFraction;   // fraction of available height; null once dragged
   let _topH = 0;                // px (used when _topFrac is null)
-  let _botCol = bottomCol;      // px, or null → 50%
+  let _botCol = bottomCol;      // px, or null → 50% (unless _botColFrac is set)
+  let _botColFrac: number | null = bottomFraction ?? null;   // fraction of bottom-row width; overrides px when set
 
   function apply() {
     const avail = ws.clientHeight - groupsH;   // height left for top + bottom rows
@@ -77,7 +79,8 @@ export function makeDock(ws: HTMLElement, {
     groups.style.height = `${groupsH}px`;
     const colPx = _topColFrac != null ? Math.round(_topColFrac * wsTop.clientWidth) : _topCol;
     tl.style.flex = `0 0 ${colPx}px`;
-    bl.style.flex = _botCol == null ? '0 0 50%' : `0 0 ${_botCol}px`;
+    const botPx = _botColFrac != null ? Math.round(_botColFrac * wsBottom.clientWidth) : _botCol;
+    bl.style.flex = botPx == null ? '0 0 50%' : `0 0 ${botPx}px`;
   }
 
   bindDrag('topcol', (e) => {
@@ -95,6 +98,7 @@ export function makeDock(ws: HTMLElement, {
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => apply()).observe(ws);
   bindDrag('botcol', (e) => {
     const r = wsBottom.getBoundingClientRect();
+    _botColFrac = null;   // user override → px
     _botCol = clamp(e.clientX - r.left, min, r.width - minRest);
   });
 
