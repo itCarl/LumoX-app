@@ -6,7 +6,7 @@
 
 import { node, html } from '../lib/dom';
 import { input, button } from '../lib/widgets';
-import type { AppSettings, AppLanguage } from '../lumox.d';
+import type { AppSettings, AppLanguage, TempoSource, TransportStatus } from '../lumox.d';
 
 const { lumox } = window;
 
@@ -41,10 +41,70 @@ function section(title: string, rows: HTMLElement[]): HTMLElement {
   return el;
 }
 
+/**
+ * Tempo source picker — where the master BPM comes from (manual / MIDI clock /
+ * audio / Ableton Link). Drives `lumox.transport.setSource`, which both switches
+ * the live clock and persists the choice to settings. The MIDI device row is only
+ * relevant for the 'midi' source; Link is disabled when its native addon is absent.
+ */
+function tempoSection(status: TransportStatus | null, inputs: string[]): HTMLElement {
+  const source: TempoSource = status?.source ?? 'manual';
+  const linkOk = status?.available.link ?? false;
+
+  const srcSel = document.createElement('select');
+  srcSel.className = 'lx-select';
+  const options: [TempoSource, string, boolean][] = [
+    ['manual', 'Manual (tap)', true],
+    ['midi', 'MIDI clock', true],
+    ['audio', 'Audio sync', true],
+    ['link', linkOk ? 'Ableton Link' : 'Ableton Link (unavailable)', linkOk],
+  ];
+  for (const [value, label, enabled] of options) {
+    const o = document.createElement('option');
+    o.value = value; o.textContent = label; o.disabled = !enabled;
+    if (value === source) o.selected = true;
+    srcSel.appendChild(o);
+  }
+
+  const devSel = document.createElement('select');
+  devSel.className = 'lx-select';
+  if (!inputs.length) {
+    const o = document.createElement('option');
+    o.value = ''; o.textContent = 'No MIDI inputs';
+    devSel.appendChild(o);
+  }
+  for (const name of inputs) {
+    const o = document.createElement('option');
+    o.value = name; o.textContent = name;
+    if (name === status?.midiInput) o.selected = true;
+    devSel.appendChild(o);
+  }
+
+  const devRow = row('MIDI input', devSel, 'The port sending MIDI clock (24 pulses per beat).');
+  const showDevRow = (src: TempoSource) => { devRow.style.display = src === 'midi' ? '' : 'none'; };
+  showDevRow(source);
+
+  srcSel.addEventListener('change', () => {
+    const src = srcSel.value as TempoSource;
+    showDevRow(src);
+    lumox.transport.setSource(src, src === 'midi' ? (devSel.value || null) : undefined).catch(() => {});
+  });
+  devSel.addEventListener('change', () => {
+    lumox.transport.setSource('midi', devSel.value || null).catch(() => {});
+  });
+
+  return section('Tempo', [
+    row('Source', srcSel, 'Where the master BPM comes from.'),
+    devRow,
+  ]);
+}
+
 export async function openSettingsModal(): Promise<void> {
   document.querySelector('.lx-modal-backdrop')?.remove();
   let s: AppSettings;
   try { s = await lumox.settings.get(); } catch { return; }
+  const tStatus: TransportStatus | null = await lumox.transport.get().catch(() => null);
+  const midiInputs: string[] = await lumox.transport.midiInputs().catch(() => []);
 
   // Persist a patch; merge the authoritative result back into local state.
   const save = (patch: Partial<AppSettings>) => { lumox.settings.update(patch).then((next) => { s = next; }).catch(() => {}); };
@@ -80,6 +140,7 @@ export async function openSettingsModal(): Promise<void> {
     section('Appearance', [
       row('Accent colour', accentCtl),
     ]),
+    tempoSection(tStatus, midiInputs),
     section('Project', [
       row('Autosave',
         input({ type: 'number', value: String(s.autosaveMinutes), className: 'lx-num', onChange: (v) => save({ autosaveMinutes: Number(v) }) }),
