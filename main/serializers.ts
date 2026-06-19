@@ -47,6 +47,8 @@ export function fixtureJSON(fx: Fixture): FixtureDTO {
       color: c?.type?.color ?? null,
     })),
     transform: { ...fx.stageTransform },
+    limits: fx.limits ?? null,
+    channelFlags: fx.channelFlags ?? null,
   };
 }
 

@@ -6,6 +6,7 @@ import { BaseLayer } from '../mix/modules/BaseLayer';
 import { SceneMixer } from '../mix/modules/SceneMixer';
 import { Effects } from '../mix/modules/Effects';
 import { GroupEffects } from '../mix/modules/GroupEffects';
+import { Limits } from '../mix/modules/Limits';
 import { GrandMaster } from '../mix/modules/GrandMaster';
 import { Blackout } from '../mix/modules/Blackout';
 import { createLogger } from '../util/logger';
@@ -30,13 +31,14 @@ export interface EngineOptions {
  *        d. copy data → _prev
  *
  * Default pipeline (constructable via `buildDefault: false` to skip):
- *   BaseLayer → SceneMixer → Effects → GroupEffects → GrandMaster → Blackout
+ *   BaseLayer → SceneMixer → Effects → GroupEffects → Limits → GrandMaster → Blackout
  * Add/remove modules at runtime via `engine.mix.add(...)`, `.remove(...)`, etc.
  *
  * Convenience refs created when default pipeline used:
  *   engine.scenes        SceneMixer instance
  *   engine.effects       Effects host instance (raw channel effects)
  *   engine.groupEffects  GroupEffects host (fixture-aware, needs Patch)
+ *   engine.limits        Limits post-stage (per-fixture range/invert/swap/cap)
  *   engine.grandMaster   GrandMaster instance
  *   engine.blackout      Blackout instance
  */
@@ -53,6 +55,7 @@ export class Engine extends EventEmitter {
   scenes!: SceneMixer;
   effects!: Effects;
   groupEffects!: GroupEffects;
+  limits!: Limits;
   grandMaster!: GrandMaster;
   blackout!: Blackout;
 
@@ -85,6 +88,7 @@ export class Engine extends EventEmitter {
     this.scenes       = this.mix.add(new SceneMixer());
     this.effects      = this.mix.add(new Effects());
     this.groupEffects = this.mix.add(new GroupEffects());
+    this.limits       = this.mix.add(new Limits());
     this.grandMaster  = this.mix.add(new GrandMaster({ value: 1 }));
     this.blackout     = this.mix.add(new Blackout());
   }

@@ -10,7 +10,8 @@
 // look in LIVE, then `clearProgrammer` resets it or `scenes:capture` stores it.
 
 import { ipcMain } from 'electron';
-import { engine, show, markLiveUniverse, clearProgrammer, programmerSummary } from '../context';
+import type { FixtureLimits, FixtureChannelFlags } from '../../src/index';
+import { engine, show, markLiveUniverse, clearProgrammer, programmerSummary, rebuildLimits } from '../context';
 import { vChannel, vLevel } from '../validate';
 
 export function registerFixtureHandlers(): void {
@@ -44,4 +45,48 @@ export function registerFixtureHandlers(): void {
 
   // Engaged-channel summary of the programmer — drives the fader-editor header.
   ipcMain.handle('lumox:fixtures:programmer', () => programmerSummary());
+
+  // Per-fixture output limits — merge a patch into each fixture's `limits`
+  // (a null/absent key clears that limit), applied across a whole selection.
+  // The engine's Limits post-stage re-resolves via `rebuildLimits`.
+  ipcMain.handle('lumox:fixtures:setLimits', (_e, { fixtureIds, patch }) => {
+    for (const id of (fixtureIds ?? []) as string[]) {
+      const fx = show.patch.get(id);
+      if (!fx) continue;
+      const cur: Record<string, unknown> = { ...(fx.limits ?? {}) };
+      for (const [k, v] of Object.entries((patch ?? {}) as Record<string, unknown>)) {
+        if (v === null || v === undefined) delete cur[k];
+        else cur[k] = v;
+      }
+      fx.limits = (Object.keys(cur).length ? cur : null) as FixtureLimits | null;
+    }
+    rebuildLimits();
+  });
+
+  // Drop every limit on the given fixtures.
+  ipcMain.handle('lumox:fixtures:clearLimits', (_e, { fixtureIds }) => {
+    for (const id of (fixtureIds ?? []) as string[]) {
+      const fx = show.patch.get(id);
+      if (fx) fx.limits = null;
+    }
+    rebuildLimits();
+  });
+
+  // Per-channel flag — `flag` is 'fade' | 'dimmer', `channel` is 1-based local.
+  // `value` true/false sets it; null clears that flag (and the whole entry if empty).
+  ipcMain.handle('lumox:fixtures:setChannelFlag', (_e, { fixtureIds, channel, flag, value }) => {
+    if (flag !== 'fade' && flag !== 'dimmer') return;
+    const ch = Number(channel);
+    for (const id of (fixtureIds ?? []) as string[]) {
+      const fx = show.patch.get(id);
+      if (!fx || ch < 1 || ch > fx.channelCount) continue;
+      const flags: FixtureChannelFlags = { ...(fx.channelFlags ?? {}) };
+      const entry = { ...(flags[ch] ?? {}) };
+      if (value === null || value === undefined) delete entry[flag as 'fade' | 'dimmer'];
+      else entry[flag as 'fade' | 'dimmer'] = !!value;
+      if (Object.keys(entry).length) flags[ch] = entry; else delete flags[ch];
+      fx.channelFlags = Object.keys(flags).length ? flags : null;
+    }
+    rebuildLimits();
+  });
 }

@@ -3,7 +3,7 @@
 
 import { ipcMain } from 'electron';
 import { Fixture, Group, sanitizeTransform } from '../../src/index';
-import { engine, show, nextColor, configKey } from '../context';
+import { engine, show, nextColor, configKey, rebuildLimits } from '../context';
 import { fixtureJSON } from '../serializers';
 import { vInt, vChannel, vUniverseId, vString } from '../validate';
 
@@ -91,6 +91,7 @@ export function registerPatchHandlers(): void {
     fx.startAddress = startAddress;
     const newUni = engine.universes.ensure(uni, `Universe ${uni + 1}`);
     if (newUni) fx.apply(newUni);
+    rebuildLimits();   // addresses / universe changed — re-resolve limit targets
     return fixtureJSON(fx);
   });
 
@@ -99,6 +100,7 @@ export function registerPatchHandlers(): void {
     show.groups.purgeFixture(id);
     // drop now-empty auto-groups
     for (const g of show.groups.list()) if (g.size === 0) show.groups.remove(g.id);
+    rebuildLimits();   // fixture gone — drop its limit targets
   });
 
   ipcMain.handle('lumox:patch:rename', (_e, { id, name }) => {

@@ -369,7 +369,9 @@ export function registerSceneHandlers(): void {
     const s = show.scenes.get(id);
     const L = s?.getLayer(layerId);
     if (!s || !L) return null;
-    L.target = mode === 'group' && groupId ? { mode: 'group', groupId } : { mode: 'all' };
+    L.target = mode === 'group' && groupId ? { mode: 'group', groupId }
+      : mode === 'selection' ? { mode: 'selection' }
+      : { mode: 'all' };
     rebuildSceneTrack(s);
     return sceneJSON(s);
   });

@@ -3,6 +3,8 @@
 // fixture starting at that address.
 
 import { bus, EV } from '../lib/bus';
+import { activeGroup } from '../lib/store';
+import { effect } from '@preact/signals-core';
 import { esc } from '../lib/html';
 import { openMenu } from '../lib/widgets';
 
@@ -70,6 +72,7 @@ export async function makePatchGridTile() {
   function announce() { bus.emit(EV.PATCH_CHANGED); bus.emit(EV.GROUPS_CHANGED); }
 
   function render() {
+    hovId = null;   // DOM is rebuilt; drop the stale hover so the next mouseover re-applies
     gridEl.classList.toggle('as-list', viewMode === 'list');
     if (viewMode === 'list') renderList();
     else renderGrid();
@@ -104,6 +107,7 @@ export async function makePatchGridTile() {
     }
     lastCellFx = cellFx;
 
+    const selOrder = [...selected];   // insertion order = the selection index (1-based badge)
     let html = '';
     let ch = 1;
     while (ch <= CHANNELS) {
@@ -123,11 +127,13 @@ export async function makePatchGridTile() {
       const isHead = f.startAddress === runStart;   // first segment carries the name
       const c = f.color || '#4ba6e0';
       const hl = highlightGroup !== 'all' && f.groupId === highlightGroup ? ' hl' : '';
-      const sel = selected.has(f.id) ? ' sel' : '';
+      const si = selected.has(f.id) ? selOrder.indexOf(f.id) : -1;
+      const sel = si >= 0 ? ' sel' : '';
       html += `<div class="cell fx${isHead ? ' fx-head' : ' fx-cont'}${hl}${sel}" draggable="true"
         style="grid-row:${row};grid-column:${col}/span ${runLen};--fx:${c}"
         data-ch="${runStart}" data-fx="${f.id}" data-start="${f.startAddress}"
         title="${esc(f.name)} · ${f.startAddress}–${f.endAddress} (${f.channelCount}ch) · ${esc(f.groupName ?? '')}">
+        ${isHead && si >= 0 ? `<span class="pg-idx">${si + 1}</span>` : ''}
         <span class="cell-num">${runStart}</span>
         <span class="cell-fx">${esc(f.name)}</span>
       </div>`;
@@ -281,6 +287,21 @@ export async function makePatchGridTile() {
     render();
   });
 
+  // Hover highlight — a wrapped fixture is several segments sharing data-fx, so
+  // light them all together rather than just the one under the cursor.
+  let hovId: string | null = null;
+  function setHover(id: string | null) {
+    if (id === hovId) return;
+    if (hovId) gridEl.querySelectorAll(`.cell.fx[data-fx="${hovId}"]`).forEach((c) => c.classList.remove('hov'));
+    hovId = id;
+    if (hovId) gridEl.querySelectorAll(`.cell.fx[data-fx="${hovId}"]`).forEach((c) => c.classList.add('hov'));
+  }
+  gridEl.addEventListener('mouseover', (e) => {
+    const cell = (e.target as HTMLElement).closest('.cell.fx[data-fx]') as HTMLElement | null;
+    setHover(cell ? (cell.dataset.fx as string) : null);
+  });
+  gridEl.addEventListener('mouseleave', () => setHover(null));
+
   // Shared fixture selection — mirror the stage (and vice-versa). `src` tags the
   // origin so each tile ignores its own echo.
   const emitSelection = () => bus.emit(EV.FIXTURE_SELECTED, { ids: [...selected], src: 'patch' });
@@ -304,7 +325,7 @@ export async function makePatchGridTile() {
   bus.on(EV.GROUPS_CHANGED, reload);   // recolor when group membership/colour changes
   bus.on(EV.DRAG_START, (d) => { dragSpan = d?.span ?? 1; dragMoveId = d?.moveId ?? null; });
   bus.on(EV.DRAG_END, () => { dragSpan = 0; dragMoveId = null; clearGhost(); });
-  bus.on(EV.GROUP_SELECTED, (id) => { highlightGroup = id; if (viewMode === 'grid') renderGrid(); });
+  effect(() => { highlightGroup = activeGroup.value; if (viewMode === 'grid') renderGrid(); });
 
   await reload();
   return { tile, refresh: reload };

@@ -34,8 +34,9 @@ export type CurveWave = 'sine' | 'triangle' | 'sawtooth' | 'square' | 'random';
 export type FxKind = 'color' | 'move' | 'curve' | 'chaser' | 'value' | 'matrix';
 /** MATRIX FX spatial pattern — how colour is derived from an emitter's position. */
 export type MatrixPattern = 'wipe' | 'radial' | 'plasma';
-/** Which fixtures a layer sweeps across ('all' = whole rig, in patch order). */
-export type FxTargetSel = { mode: 'all' } | { mode: 'group'; groupId: string };
+/** Which fixtures a layer sweeps across — the whole rig (patch order), a named
+ *  group (membership order), or the live programmer selection (selection order). */
+export type FxTargetSel = { mode: 'all' } | { mode: 'group'; groupId: string } | { mode: 'selection' };
 /** Per-fixture sweep order ('index') — how an effect fans across the selection. */
 export type FxOrder = 'patch' | 'reverse' | 'mirror' | 'random';
 
@@ -563,7 +564,7 @@ export function normalizeLayer(raw: Partial<FxLayer> & { kind: FxKind }): FxLaye
   const l = defaultFxLayer(raw.kind);
   if (raw.id) l.id = raw.id;
   if (typeof raw.enabled === 'boolean') l.enabled = raw.enabled;
-  if (raw.target && (raw.target.mode === 'all' || raw.target.mode === 'group')) l.target = raw.target;
+  if (raw.target && (raw.target.mode === 'all' || raw.target.mode === 'group' || raw.target.mode === 'selection')) l.target = raw.target;
   if (raw.order) l.order = raw.order;
   if (raw.rateMs != null) l.rateMs = raw.rateMs;
   if (raw.speed != null) l.speed = raw.speed;

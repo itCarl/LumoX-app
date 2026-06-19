@@ -147,6 +147,8 @@ export class SceneMixer extends MixModule {
   playback: Map<string, ScenePlayback>;
   /** master tempo (BPM) used by tracks with `driveMode === 'bpm'` */
   bpm: number;
+  /** per-universe snap mask (1 = channel snaps on fades instead of interpolating) */
+  snap: Map<number, Uint8Array>;
   /** composed layer output / single-FX frame (returned to the blend) */
   _scratch: Uint8Array;
   /** base look for a chase under an FX rack — kept separate so the chase
@@ -166,6 +168,7 @@ export class SceneMixer extends MixModule {
     this.tracks = new Map(); // trackId → track
     this.playback = new Map();
     this.bpm = 120;
+    this.snap = new Map();
     this._scratch = new Uint8Array(DMX_CHANNELS);
     this._baseScratch = new Uint8Array(DMX_CHANNELS);
     this._claimed = new Uint8Array(DMX_CHANNELS);
@@ -202,6 +205,10 @@ export class SceneMixer extends MixModule {
   setBpm(bpm: number): void {
     if (Number.isFinite(bpm)) this.bpm = Math.max(20, Math.min(300, bpm));
   }
+
+  /** Replace the per-universe snap mask (app, on channel-flag change). Channels
+   *  marked here jump at the fade midpoint instead of interpolating. */
+  setSnapMask(map: Map<number, Uint8Array>): void { this.snap = map; }
 
   /** Free-run / beat-synced cycle period for a track, in ms. */
   effectivePeriod(t: SceneTrack): number {
@@ -489,6 +496,7 @@ export class SceneMixer extends MixModule {
     // only one pass runs with nothing claimed — identical to a flat blend.
     const claimed = this._claimed;
     const touched = this._touched;
+    const snap = this.snap.get(universe.id);
     claimed.fill(0);
     for (let tier = 2; tier >= 0; tier--) {
       touched.fill(0);
@@ -497,8 +505,8 @@ export class SceneMixer extends MixModule {
         if (t.opacity <= 0 || priorityRank(t.priority) !== tier) continue;
         const src = this._frame(t, universe, ctx);
         if (!src) continue;
-        if (t.blend === 'ltp') blendMaskedLTP(universe.data, src, t.opacity, claimed, touched);
-        else                   blendMaskedHTP(universe.data, src, t.opacity, claimed, touched);
+        if (t.blend === 'ltp') blendMaskedLTP(universe.data, src, t.opacity, claimed, touched, snap);
+        else                   blendMaskedHTP(universe.data, src, t.opacity, claimed, touched, snap);
         wrote = true;
       }
       if (wrote) for (let i = 0; i < claimed.length; i++) if (touched[i]) claimed[i] = 1;
@@ -587,25 +595,27 @@ export class SceneMixer extends MixModule {
  * `claimed` by a higher priority tier and record every channel this source writes
  * into `touched` (so the caller can claim them for lower tiers).
  */
-function blendMaskedHTP(dst: Uint8Array, src: Uint8Array, opacity: number, claimed: Uint8Array, touched: Uint8Array): void {
+function blendMaskedHTP(dst: Uint8Array, src: Uint8Array, opacity: number, claimed: Uint8Array, touched: Uint8Array, snap?: Uint8Array): void {
   const op = opacity <= 0 ? 0 : opacity >= 1 ? 1 : opacity;
   for (let i = 0; i < dst.length && i < src.length; i++) {
     if (claimed[i]) continue;
     if (src[i] > 0) touched[i] = 1;
-    const s = (src[i] * op) | 0;
+    // snapped channels jump at the fade midpoint instead of scaling by opacity
+    const o = snap && snap[i] ? (op >= 0.5 ? 1 : 0) : op;
+    const s = (src[i] * o) | 0;
     if (s > dst[i]) dst[i] = s;
   }
 }
 
 /** LTP variant of {@link blendMaskedHTP} (crossfade) — skips claimed, marks touched. */
-function blendMaskedLTP(dst: Uint8Array, src: Uint8Array, opacity: number, claimed: Uint8Array, touched: Uint8Array): void {
+function blendMaskedLTP(dst: Uint8Array, src: Uint8Array, opacity: number, claimed: Uint8Array, touched: Uint8Array, snap?: Uint8Array): void {
   const op = opacity <= 0 ? 0 : opacity >= 1 ? 1 : opacity;
   if (op <= 0) return;
-  const inv = 1 - op;
   for (let i = 0; i < dst.length && i < src.length; i++) {
     if (claimed[i]) continue;
     if (src[i] > 0) touched[i] = 1;
-    dst[i] = (src[i] * op + dst[i] * inv) | 0;
+    const o = snap && snap[i] ? (op >= 0.5 ? 1 : 0) : op;
+    dst[i] = (src[i] * o + dst[i] * (1 - o)) | 0;
   }
 }
 

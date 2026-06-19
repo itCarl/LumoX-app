@@ -3,7 +3,7 @@
 // of each, so these are module singletons rather than a passed-around object.
 
 import { Engine, Show, BankManager, Scene, DiscoveryService } from '../src/index';
-import type { Output, Universe, FrameMode, Fixture, FxTargetSel, FxOrder, FxKind, Vec2 } from '../src/index';
+import type { Output, Universe, FrameMode, Fixture, FxTargetSel, FxOrder, FxKind, Vec2, FixtureLimitTargets, AxisLimitTarget, LimitMap } from '../src/index';
 import type { MixerTrack } from '../src/show/Scene';
 
 export const engine = new Engine({ refreshHz: 44 });
@@ -266,13 +266,160 @@ export function sameConfig(ids: string[]): boolean {
   return keys.size <= 1;
 }
 
+// ---- live programmer selection -----------------------------------------
+// The transient, ordered "programming target": fixture ids in selection order
+// (1-based to the user). Any FX layer whose target is {mode:'selection'} fans
+// across this pick instead of raw patch order, so a rainbow scrolls and a
+// movement fans in the order the user selected. Runtime-only — never persisted
+// (like the programmer); pruned to currently-patched fixtures on read.
+
+let selection: string[] = [];
+const patched = (id: string): boolean => !!show.patch.get(id);
+
+/** The active selection, pruned to patched fixtures, in selection order. */
+export const getSelection = (): string[] => selection.filter(patched);
+
+/** Replace the selection (kept in the given order, deduped + pruned), then
+ *  refresh any live scene whose FX targets the selection. */
+export function setSelection(ids: string[]): string[] {
+  const seen = new Set<string>();
+  selection = ids.filter((id) => patched(id) && !seen.has(id) && (seen.add(id), true));
+  rebuildSelectionTracks();
+  return selection;
+}
+
+/** Patch-order id list — the candidate universe for invert / every-Nth / shift. */
+const patchOrder = (): string[] => show.patch.list().map((f) => f.id);
+
+/** Quick-select / reorder ops over the active selection. Each computes the new
+ *  ordered selection (some against the whole patch), stores it, and returns it. */
+export function selectionOp(
+  op: 'all' | 'invert' | 'reverse' | 'mirror' | 'everyNth' | 'shift' | 'reorder',
+  arg: { n?: number; offset?: number; delta?: number; from?: number; to?: number } = {},
+): string[] {
+  const cur = getSelection();
+  let next = cur;
+  switch (op) {
+    case 'all': next = patchOrder(); break;
+    case 'invert': { const set = new Set(cur); next = patchOrder().filter((id) => !set.has(id)); break; }
+    case 'reverse': next = [...cur].reverse(); break;
+    case 'mirror': {                                   // centre-out reorder (fan from middle)
+      const c = (cur.length - 1) / 2;
+      next = cur.map((_, i) => i).sort((a, b) => Math.abs(a - c) - Math.abs(b - c)).map((i) => cur[i]);
+      break;
+    }
+    case 'everyNth': {                                 // thin to every n-th, from offset
+      const n = Math.max(1, arg.n ?? 2), off = arg.offset ?? 0;
+      next = cur.filter((_, i) => i >= off && (i - off) % n === 0);
+      break;
+    }
+    case 'shift': {                                    // step each pick ±d in patch order (wraps)
+      const order = patchOrder(), N = order.length;
+      if (!N) { next = []; break; }
+      const d = arg.delta ?? 1, seen = new Set<string>(), out: string[] = [];
+      for (const id of cur) {
+        const i = order.indexOf(id); if (i < 0) continue;
+        const nid = order[(((i + d) % N) + N) % N];
+        if (!seen.has(nid)) { seen.add(nid); out.push(nid); }
+      }
+      next = out; break;
+    }
+    case 'reorder': {                                  // drag row from→to within the selection
+      next = [...cur];
+      const { from = 0, to = 0 } = arg;
+      if (from >= 0 && from < next.length && to >= 0 && to < next.length) {
+        const [m] = next.splice(from, 1); next.splice(to, 0, m);
+      }
+      break;
+    }
+  }
+  return setSelection(next);
+}
+
+/** Rebuild every live scene that drives the selection so a selection change
+ *  re-fans its effects immediately (opacity + phase preserved). */
+export function rebuildSelectionTracks(): void {
+  for (const s of show.listScenes()) {
+    if (s.layers.some((L) => L.target.mode === 'selection')) rebuildSceneTrack(s);
+  }
+}
+
+// ---- per-fixture output limits ------------------------------------------
+// Resolve each fixture's authoring limits (`fx.limits`, in coarse DMX) to the
+// absolute addresses the engine's Limits post-stage clamps/shapes. The engine
+// stays fixture-agnostic; this is the one place the patch is consulted for it.
+// Call `rebuildLimits()` after any patch or limits change.
+
+const clampByte = (v: number): number => (v < 0 ? 0 : v > 255 ? 255 : v | 0);
+
+function axisTarget(fx: Fixture, attr: 'pan' | 'tilt', lim: { min: number; max: number; invert?: boolean }): AxisLimitTarget | undefined {
+  const addr = fx.addressOf(attr);
+  if (!addr) return undefined;
+  const min = clampByte(lim.min), max = clampByte(lim.max);
+  return { addr, fine: fx.fineAddressOf(attr), min: Math.min(min, max), max: Math.max(min, max), invert: !!lim.invert };
+}
+
+function buildLimitMap(): LimitMap {
+  const map: LimitMap = new Map();
+  for (const f of show.patch.list()) {
+    const lim = f.limits;
+    const e: FixtureLimitTargets = {};
+    if (lim?.dimmer) { const addrs = f.intensityAddresses(); if (addrs.length) e.dimmer = { addrs, max: clampByte(lim.dimmer.max) }; }
+    if (lim?.pan)  { const t = axisTarget(f, 'pan', lim.pan);   if (t) e.pan = t; }
+    if (lim?.tilt) { const t = axisTarget(f, 'tilt', lim.tilt); if (t) e.tilt = t; }
+    if (lim?.swapPanTilt) {
+      const pan = f.addressOf('pan'), tilt = f.addressOf('tilt');
+      if (pan && tilt) e.swap = { pan, panFine: f.fineAddressOf('pan'), tilt, tiltFine: f.fineAddressOf('tilt') };
+    }
+    // follows-dimmer flags → scale those channels by the fixture's mixed dimmer
+    if (f.channelFlags) {
+      const dimAddr = f.intensityAddresses()[0] ?? 0;
+      const intens = new Set(f.intensityAddresses());
+      const addrs: number[] = [];
+      for (const [idx, flag] of Object.entries(f.channelFlags)) {
+        const addr = f.startAddress + Number(idx) - 1;
+        if (flag?.dimmer && dimAddr && !intens.has(addr)) addrs.push(addr);
+      }
+      if (addrs.length) e.follows = { addrs, dim: dimAddr };
+    }
+    if (e.dimmer || e.pan || e.tilt || e.swap || e.follows) (map.get(f.universeId) ?? map.set(f.universeId, []).get(f.universeId)!).push(e);
+  }
+  return map;
+}
+
+/** Per-universe snap mask (512-byte 0/1) — channels flagged `fade:false` jump on
+ *  scene crossfades instead of interpolating. */
+function buildSnapMask(): Map<number, Uint8Array> {
+  const masks = new Map<number, Uint8Array>();
+  for (const f of show.patch.list()) {
+    if (!f.channelFlags) continue;
+    for (const [idx, flag] of Object.entries(f.channelFlags)) {
+      if (flag?.fade !== false) continue;   // default (absent/true) = fades
+      const addr = f.startAddress + Number(idx) - 1;
+      const m = masks.get(f.universeId) ?? masks.set(f.universeId, new Uint8Array(512)).get(f.universeId)!;
+      if (addr >= 1 && addr <= 512) m[addr - 1] = 1;
+    }
+  }
+  return masks;
+}
+
+/** Re-resolve every fixture's limits + channel flags into the engine modules. */
+export function rebuildLimits(): void {
+  engine.limits.setMap(buildLimitMap());
+  engine.scenes.setSnapMask(buildSnapMask());
+}
+
 // ---- scene tracks & recall ---------------------------------------------
 
-/** Fixtures an FX layer targets — a whole group (membership order) or the rig. */
+/** Fixtures an FX layer targets — the rig (patch order), a group (membership
+ *  order), or the live programmer selection (selection order). */
 function fixturesFor(sel: FxTargetSel): Fixture[] {
   if (sel.mode === 'group') {
     const g = show.groups.list().find((x) => x.id === sel.groupId);
     return g ? g.fixtures(show.patch) : [];
+  }
+  if (sel.mode === 'selection') {
+    return getSelection().map((id) => show.patch.get(id)).filter((f): f is Fixture => !!f);
   }
   return show.patch.list();
 }

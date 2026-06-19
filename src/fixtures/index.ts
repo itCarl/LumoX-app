@@ -23,6 +23,7 @@ export { FixtureMode } from './FixtureMode';
 export { FixtureDefinition } from './FixtureDefinition';
 export type { EmitterCell, FixtureDefinitionJSON } from './FixtureDefinition';
 export { Fixture } from './Fixture';
+export type { FixtureLimits, FixtureChannelFlags } from './Fixture';
 export {
   emitterGrid, emitterLocalPositions, emitterWorldPositions, sanitizeTransform, DEFAULT_TRANSFORM,
   colorClusterCount, resolveEmitterCount,

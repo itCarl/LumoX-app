@@ -10,14 +10,16 @@
 // aligned / distributed / arranged.
 
 import { bus, EV } from '../lib/bus';
+import { activeGroup } from '../lib/store';
+import { effect } from '@preact/signals-core';
 import { esc } from '../lib/html';
 import { onShortcut } from '../lib/keys';
 import { emitterGrid, emitterLocalPositions } from '../../src/fixtures/emitterGeometry';
 
 const { lumox } = window;
 const DEFAULT_ZOOM = 24;   // px per world unit (emitter cell) — fixtures start zoomed in
-const MIN_ZOOM = 8;        // furthest out (whole-rig overview)
-const MAX_ZOOM = 72;       // closest in (single-emitter detail)
+const MIN_ZOOM = 16;       // furthest out (0.67× the default — rig overview)
+const MAX_ZOOM = 32;       // closest in (1.33× the default — gentle magnification)
 const COARSE = 1;          // default snap grid (world units = whole cells)
 const FINE = 0.25;         // fine snap grid (quarter cell) for precise placement
 const COLOR_POLL_MS = 66;  // live emitter-colour readback cadence (~15 fps)
@@ -32,10 +34,20 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   tile.className = 'tile stage-tile';
   tile.innerHTML = `
     <div class="tile-head st-head">
+      <span class="st-grp st-tool" title="Tools">
+        <button data-tool="select" class="active" title="Select / move (V)"><i class="fa-solid fa-arrow-pointer"></i></button>
+        <button data-tool="rect" title="Rectangular select (M)"><i class="fa-solid fa-object-group"></i></button>
+        <button data-tool="lasso" title="Lasso — freeform select (L)"><i class="fa-solid fa-draw-polygon"></i></button>
+        <button data-tool="pan" title="Hand — pan the canvas (H)"><i class="fa-solid fa-hand"></i></button>
+      </span>
+      <span class="st-grp st-grid" title="Grid">
+        <button data-act="arrange" title="Arrange in grid"><i class="fa-solid fa-table-cells"></i></button>
+        <button data-act="fine" title="Fine grid — precise placement"><i class="fa-solid fa-ruler-combined"></i></button>
+      </span>
       <div class="st-tools">
         <span class="st-grp st-zoom" title="Zoom">
           <button data-zoom="out" title="Zoom out (Ctrl + scroll)"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
-          <button data-zoom="reset" class="st-zlbl" title="Reset zoom">100%</button>
+          <input type="range" class="st-zslider" min="0" max="1000" step="1" value="500" title="Zoom — double-click to reset" />
           <button data-zoom="in" title="Zoom in (Ctrl + scroll)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
         </span>
       </div>
@@ -45,27 +57,33 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
         <span class="st-grp st-grp-v" title="Select">
           <button data-sel="all" title="Select all (Ctrl+A)"><i class="fa-solid fa-border-all"></i></button>
           <button data-sel="none" title="Deselect all"><i class="fa-solid fa-border-none"></i></button>
-          <button data-sel="invert" title="Invert selection"><i class="fa-solid fa-shuffle"></i></button>
+          <button data-sel="invert" title="Invert selection"><i class="fa-solid fa-circle-half-stroke"></i></button>
+        </span>
+        <span class="st-grp st-grp-v" title="Selection order — drives FX fan / phase">
+          <button data-selop="reverse" title="Reverse order"><i class="fa-solid fa-right-left"></i></button>
+          <button data-selop="mirror" title="Mirror — fan from centre"><i class="fa-solid fa-arrows-left-right-to-line"></i></button>
+          <button data-selop="shift-back" title="Shift selection back"><i class="fa-solid fa-backward-step"></i></button>
+          <button data-selop="shift-fwd" title="Shift selection forward"><i class="fa-solid fa-forward-step"></i></button>
+          <button data-selop="half" title="Thin to every 2nd"><span class="st-nlbl">½</span></button>
+          <button data-selop="third" title="Thin to every 3rd"><span class="st-nlbl">⅓</span></button>
         </span>
         <span class="st-rail-sep"></span>
         <span class="st-grp st-grp-v" title="Align horizontally">
-          <button data-al="left"   title="Align left"><i class="fa-solid fa-align-left"></i></button>
-          <button data-al="hcenter" title="Center horizontally"><i class="fa-solid fa-align-center"></i></button>
-          <button data-al="right"  title="Align right"><i class="fa-solid fa-align-right"></i></button>
+          <button data-al="left"   title="Align left"><i class="fa-solid fa-arrows-up-to-line fa-rotate-270"></i></button>
+          <button data-al="hcenter" title="Center horizontally"><i class="fa-solid fa-arrows-left-right-to-line"></i></button>
+          <button data-al="right"  title="Align right"><i class="fa-solid fa-arrows-up-to-line fa-rotate-90"></i></button>
         </span>
         <span class="st-grp st-grp-v" title="Align vertically">
           <button data-al="top"    title="Align top"><i class="fa-solid fa-arrows-up-to-line"></i></button>
-          <button data-al="vcenter" title="Center vertically"><i class="fa-solid fa-arrows-to-dot"></i></button>
+          <button data-al="vcenter" title="Center vertically"><i class="fa-solid fa-arrows-left-right-to-line fa-rotate-90"></i></button>
           <button data-al="bottom" title="Align bottom"><i class="fa-solid fa-arrows-down-to-line"></i></button>
         </span>
         <span class="st-grp st-grp-v" title="Distribute">
           <button data-dist="h" title="Distribute horizontally"><i class="fa-solid fa-arrows-left-right"></i></button>
           <button data-dist="v" title="Distribute vertically"><i class="fa-solid fa-arrows-up-down"></i></button>
         </span>
-        <span class="st-grp st-grp-v" title="Arrange">
+        <span class="st-grp st-grp-v" title="Rotation">
           <button data-act="rot-reset" title="Reset rotation"><i class="fa-solid fa-rotate-left"></i></button>
-          <button data-act="arrange" title="Arrange in grid"><i class="fa-solid fa-table-cells"></i></button>
-          <button data-act="fine" title="Fine grid — precise placement"><i class="fa-solid fa-ruler-combined"></i></button>
         </span>
       </div>
       <div id="st-canvas" class="st-canvas"></div>
@@ -82,6 +100,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     plan: new Map<string, ColorPlan>(), // fxId → live-colour plan
     selected: new Set<string>(),
     fine: false,                   // fine snap grid (always snaps; this just halves the step)
+    tool: 'select' as 'select' | 'rect' | 'lasso' | 'pan',   // active canvas interaction mode
   };
 
   function shown() { return state.fixtures; }   // always show all fixtures
@@ -94,21 +113,40 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     }
   }
 
+  // Auto-layout: pack fixtures left-to-right by their real footprint (+1-cell
+  // gap), wrapping after `perRow`; each new row drops below the tallest footprint
+  // above it. Tighter than a fixed grid, so small fixtures sit close together.
+  const PACK_GAP = 1, PACK_MARGIN = 1;
+  function packLayout(list: any[], perRow: number, rotOf: (f: any) => number): Map<string, Pos> {
+    const out = new Map<string, Pos>();
+    let x = PACK_MARGIN, y = PACK_MARGIN, rowH = 0, col = 0;
+    for (const f of list) {
+      if (col >= perRow) { x = PACK_MARGIN; y += rowH + PACK_GAP; rowH = 0; col = 0; }
+      const g = emitterGrid(f);
+      out.set(f.id, { x, y, rot: rotOf(f) });
+      x += Math.ceil(g.width) + PACK_GAP;
+      rowH = Math.max(rowH, Math.ceil(g.height));
+      col++;
+    }
+    return out;
+  }
+
   async function reload() {
     try { state.fixtures = await lumox.patch.list(); } catch { state.fixtures = []; }
     const placed: string[] = [];
-    state.fixtures.forEach((f, i) => {
-      if (state.pos.has(f.id)) return;
+    const toPlace: any[] = [];
+    for (const f of state.fixtures) {
+      if (state.pos.has(f.id)) continue;
       const t = f.transform ?? { x: 0, y: 0, rotation: 0 };
-      // A fixture still at the origin has never been placed — auto-arrange it into
-      // a grid and persist, so the engine has real world coords for MATRIX FX.
-      if (t.x === 0 && t.y === 0 && t.rotation === 0) {
-        state.pos.set(f.id, { x: 2 + (i % 8) * 6, y: 2 + Math.floor(i / 8) * 6, rot: 0 });
-        placed.push(f.id);
-      } else {
-        state.pos.set(f.id, { x: t.x, y: t.y, rot: t.rotation });
-      }
-    });
+      // A fixture still at the origin has never been placed — auto-arrange it (and
+      // persist) so the engine has real world coords for MATRIX FX.
+      if (t.x === 0 && t.y === 0 && t.rotation === 0) toPlace.push(f);
+      else state.pos.set(f.id, { x: t.x, y: t.y, rot: t.rotation });
+    }
+    if (toPlace.length) {
+      const packed = packLayout(toPlace, 8, () => 0);
+      for (const f of toPlace) { state.pos.set(f.id, packed.get(f.id) as Pos); placed.push(f.id); }
+    }
     const ids = new Set(state.fixtures.map((f) => f.id));
     for (const id of [...state.selected]) if (!ids.has(id)) state.selected.delete(id);
     for (const id of [...state.pos.keys()]) if (!ids.has(id)) state.pos.delete(id);
@@ -139,13 +177,15 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     const list = shown();
     state.dim.clear();
     state.plan.clear();
+    const selOrder = [...state.selected];   // insertion order = the selection index (1-based badge)
     canvas.innerHTML = list.map((f) => {
       const p = state.pos.get(f.id) ?? { x: 0, y: 0, rot: 0 };
       const g = emitterGrid(f);
       const w = g.width * zoom, h = g.height * zoom;
       state.dim.set(f.id, { w, h });
       state.plan.set(f.id, buildPlan(f));
-      const sel = state.selected.has(f.id) ? ' sel' : '';
+      const si = selOrder.indexOf(f.id);
+      const sel = si >= 0 ? ' sel' : '';
       const hl = state.highlight !== 'all' && f.groupId === state.highlight ? ' hl' : '';
       const dim = state.highlight !== 'all' && f.groupId !== state.highlight ? ' dim' : '';
       // Position every emitter by its local coordinate / footprint (one path for
@@ -155,6 +195,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
       return `<div class="st-node${sel}${hl}${dim}" data-fx="${f.id}"
         style="left:${p.x * zoom}px;top:${p.y * zoom}px;width:${w}px;height:${h}px;transform:rotate(${p.rot}deg);--fx:${esc(f.color || '#6b6b6b')}"
         title="${esc(f.name)} · @${f.startAddress} · ${g.n} emitter${g.n === 1 ? '' : 's'}">
+        ${si >= 0 ? `<span class="st-idx">${si + 1}</span>` : ''}
         <span class="st-addr">${f.startAddress}</span>
         <div class="st-emitters">${emitters}</div>
         <button class="st-rot" title="Rotate (or Ctrl-drag the fixture)"><i class="fa-solid fa-rotate"></i></button>
@@ -188,14 +229,32 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   }
 
   // ---- zoom (px per world unit) -----------------------------------------
-  const zoomLbl = tile.querySelector('.st-zlbl') as HTMLElement;
+  // The slider is a 0..1000 position; each half is log-mapped so the CENTRE is
+  // always DEFAULT_ZOOM, the left half spans DEFAULT→MIN and the right DEFAULT→MAX.
+  // Hence: thumb centred = default, left = zoom out, right = zoom in — and the
+  // min/max can move independently without shifting the centre off the default.
+  const zoomSlider = tile.querySelector('.st-zslider') as HTMLInputElement;
+  const SLIDER_MAX = 1000;
+  function sliderToZoom(v: number): number {
+    const t = v / SLIDER_MAX;
+    return t <= 0.5
+      ? DEFAULT_ZOOM * Math.pow(MIN_ZOOM / DEFAULT_ZOOM, (0.5 - t) / 0.5)
+      : DEFAULT_ZOOM * Math.pow(MAX_ZOOM / DEFAULT_ZOOM, (t - 0.5) / 0.5);
+  }
+  function zoomToSlider(z: number): number {
+    const t = z <= DEFAULT_ZOOM
+      ? 0.5 - 0.5 * (Math.log(z / DEFAULT_ZOOM) / Math.log(MIN_ZOOM / DEFAULT_ZOOM))
+      : 0.5 + 0.5 * (Math.log(z / DEFAULT_ZOOM) / Math.log(MAX_ZOOM / DEFAULT_ZOOM));
+    return Math.round(t * SLIDER_MAX);
+  }
   const clampZoom = (z: number) => Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z));
-  // Push the zoom into the grid + emitter-dot CSS vars and re-render (node
-  // footprints are sized in JS from `zoom`).
+  // Push the zoom into the grid + emitter-dot CSS vars, sync the slider + its
+  // percentage tooltip, and re-render (node footprints are sized in JS from `zoom`).
   function applyZoom() {
     canvas.style.setProperty('--cell', `${zoom}px`);
     canvas.style.setProperty('--em', `${Math.max(4, zoom * 0.62).toFixed(1)}px`);
-    zoomLbl.textContent = `${Math.round((zoom / DEFAULT_ZOOM) * 100)}%`;
+    zoomSlider.value = `${zoomToSlider(zoom)}`;
+    zoomSlider.title = `Zoom ${Math.round((zoom / DEFAULT_ZOOM) * 100)}% — double-click to reset`;
     render();
   }
   // Zoom to `z`, keeping the world point under `anchor` (canvas-relative px)
@@ -367,9 +426,90 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     emitSelection();
   }
 
+  // ---- lasso (freeform) selection ---------------------------------------
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  // Even-odd ray cast: is the point inside the polygon described by `pts`?
+  function pointInPoly(x: number, y: number, pts: { x: number; y: number }[]): boolean {
+    let inside = false;
+    for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+      const a = pts[i], b = pts[j];
+      if ((a.y > y) !== (b.y > y) && x < ((b.x - a.x) * (y - a.y)) / (b.y - a.y) + a.x) inside = !inside;
+    }
+    return inside;
+  }
+  let lasso: { pts: { x: number; y: number }[]; poly: SVGPolygonElement; svg: SVGSVGElement; base: Set<string> } | null = null;
+  function startLasso(e: MouseEvent) {
+    e.preventDefault();
+    const additive = e.shiftKey || e.ctrlKey || e.metaKey;
+    const base = additive ? new Set(state.selected) : new Set<string>();
+    if (!additive) { state.selected.clear(); render(); }
+    const svg = document.createElementNS(SVGNS, 'svg');
+    svg.setAttribute('class', 'st-lasso');
+    svg.style.width = `${canvas.scrollWidth}px`;
+    svg.style.height = `${canvas.scrollHeight}px`;
+    const poly = document.createElementNS(SVGNS, 'polygon');
+    svg.appendChild(poly);
+    canvas.appendChild(svg);
+    lasso = { pts: [canvasPx(e)], poly, svg, base };
+    document.addEventListener('mousemove', onLasso);
+    document.addEventListener('mouseup', endLasso);
+  }
+  function onLasso(e: MouseEvent) {
+    if (!lasso) return;
+    const pt = canvasPx(e);
+    const last = lasso.pts[lasso.pts.length - 1];
+    if (Math.hypot(pt.x - last.x, pt.y - last.y) < 4) return;   // throttle by travel
+    lasso.pts.push(pt);
+    lasso.poly.setAttribute('points', lasso.pts.map((p) => `${p.x},${p.y}`).join(' '));
+    const next = new Set(lasso.base);
+    for (const f of shown()) {
+      const p = state.pos.get(f.id), d = state.dim.get(f.id);
+      if (!p || !d) continue;
+      if (pointInPoly(p.x * zoom + d.w / 2, p.y * zoom + d.h / 2, lasso.pts)) next.add(f.id);   // by footprint centre
+    }
+    canvas.querySelectorAll('.st-node').forEach((el) =>
+      (el as HTMLElement).classList.toggle('sel', next.has((el as HTMLElement).dataset.fx as string)));
+    state.selected = next;
+  }
+  function endLasso() {
+    lasso?.svg.remove();
+    lasso = null;
+    document.removeEventListener('mousemove', onLasso);
+    document.removeEventListener('mouseup', endLasso);
+    render();
+    emitSelection();
+  }
+
+  // ---- pan (hand tool) — drag to scroll the canvas ----------------------
+  let pan: { x: number; y: number; sl: number; st: number } | null = null;
+  function startPan(e: MouseEvent) {
+    e.preventDefault();
+    pan = { x: e.clientX, y: e.clientY, sl: canvas.scrollLeft, st: canvas.scrollTop };
+    canvas.classList.add('panning');
+    document.addEventListener('mousemove', onPan);
+    document.addEventListener('mouseup', endPan);
+  }
+  function onPan(e: MouseEvent) {
+    if (!pan) return;
+    canvas.scrollLeft = pan.sl - (e.clientX - pan.x);
+    canvas.scrollTop = pan.st - (e.clientY - pan.y);
+  }
+  function endPan() {
+    pan = null;
+    canvas.classList.remove('panning');
+    document.removeEventListener('mousemove', onPan);
+    document.removeEventListener('mouseup', endPan);
+  }
+
   // Delegated mousedown — bound once on the canvas (survives every render()).
+  // The active tool decides the gesture; only the default SELECT tool moves /
+  // rotates fixtures, the others are whole-canvas pan / selection gestures.
   canvas.addEventListener('mousedown', (e) => {
     const ev = e as MouseEvent;
+    if (ev.button !== 0) return;
+    if (state.tool === 'pan') { startPan(ev); return; }
+    if (state.tool === 'lasso') { startLasso(ev); return; }
+    if (state.tool === 'rect') { startMarquee(ev); return; }
     const t = ev.target as HTMLElement;
     const handle = t.closest('.st-rot') as HTMLElement | null;
     if (handle) { startRotate(ev, handle.closest('.st-node') as HTMLElement); return; }
@@ -380,6 +520,19 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
       return;
     }
     startMarquee(ev);   // empty canvas → rubber-band select
+  });
+
+  // Tool switch — set the mode, reflect it on the buttons + the canvas cursor.
+  function setTool(tool: typeof state.tool) {
+    state.tool = tool;
+    tile.querySelectorAll('[data-tool]').forEach((b) =>
+      (b as HTMLElement).classList.toggle('active', (b as HTMLElement).dataset.tool === tool));
+    canvas.classList.remove('tool-select', 'tool-rect', 'tool-lasso', 'tool-pan');
+    canvas.classList.add(`tool-${tool}`);
+  }
+  tile.querySelectorAll('[data-tool]').forEach((b) => {
+    const btn = b as HTMLElement;
+    btn.addEventListener('click', () => setTool(btn.dataset.tool as typeof state.tool));
   });
 
   // ---- alignment / distribution ---------------------------------------
@@ -424,10 +577,8 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   function arrange() {
     const list = state.selected.size ? shown().filter((f) => state.selected.has(f.id)) : shown();
     const cols = Math.ceil(Math.sqrt(list.length)) || 1;
-    list.forEach((f, i) => {
-      const rotv = state.pos.get(f.id)?.rot ?? 0;
-      state.pos.set(f.id, { x: 2 + (i % cols) * 6, y: 2 + Math.floor(i / cols) * 6, rot: rotv });
-    });
+    const packed = packLayout(list, cols, (f) => state.pos.get(f.id)?.rot ?? 0);
+    for (const f of list) state.pos.set(f.id, packed.get(f.id) as Pos);
     render();
     persist(list.map((f) => f.id));
   }
@@ -443,6 +594,21 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     const btn = b as HTMLElement;
     btn.addEventListener('click', () => { const k = btn.dataset.sel; if (k === 'all') selectAll(); else if (k === 'none') selectNone(); else invertSelection(); });
   });
+  // Selection-ORDER ops run in main against the live programming selection; main
+  // broadcasts the reordered ids back (selection:changed → bus), which this tile
+  // adopts via the FIXTURE_SELECTED handler below — so badges + FX update live.
+  tile.querySelectorAll('[data-selop]').forEach((b) => {
+    const btn = b as HTMLElement;
+    btn.addEventListener('click', () => {
+      const k = btn.dataset.selop;
+      if (k === 'reverse') void lumox.selection.reverse();
+      else if (k === 'mirror') void lumox.selection.mirror();
+      else if (k === 'shift-back') void lumox.selection.shift(-1);
+      else if (k === 'shift-fwd') void lumox.selection.shift(1);
+      else if (k === 'half') void lumox.selection.everyNth(2);
+      else if (k === 'third') void lumox.selection.everyNth(3);
+    });
+  });
   tile.querySelectorAll('[data-al]').forEach((b) => { const btn = b as HTMLElement; btn.addEventListener('click', () => align(btn.dataset.al as string)); });
   tile.querySelectorAll('[data-dist]').forEach((b) => { const btn = b as HTMLElement; btn.addEventListener('click', () => distribute(btn.dataset.dist as string)); });
   (tile.querySelector('[data-act="arrange"]') as HTMLElement).addEventListener('click', arrange);
@@ -454,13 +620,16 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   // wheel keeps the native scroll of the overflowing canvas).
   tile.querySelectorAll('[data-zoom]').forEach((b) => {
     const btn = b as HTMLElement;
-    btn.addEventListener('click', () => { const k = btn.dataset.zoom; if (k === 'in') setZoom(zoom * 1.25); else if (k === 'out') setZoom(zoom / 1.25); else setZoom(DEFAULT_ZOOM); });
+    btn.addEventListener('click', () => { const k = btn.dataset.zoom; if (k === 'in') setZoom(zoom * 1.2); else setZoom(zoom / 1.2); });
   });
+  // Slider drags zoom (log-mapped, centred); double-click resets to default.
+  zoomSlider.addEventListener('input', () => setZoom(sliderToZoom(Number(zoomSlider.value))));
+  zoomSlider.addEventListener('dblclick', () => setZoom(DEFAULT_ZOOM));
   canvas.addEventListener('wheel', (e) => {
     if (!(e.ctrlKey || e.metaKey)) return;
     e.preventDefault();
     const r = canvas.getBoundingClientRect();
-    setZoom(zoom * (e.deltaY < 0 ? 1.1 : 1 / 1.1), { x: e.clientX - r.left, y: e.clientY - r.top });
+    setZoom(zoom * (e.deltaY < 0 ? 1.08 : 1 / 1.08), { x: e.clientX - r.left, y: e.clientY - r.top });
   }, { passive: false });
 
   // Delete the selected fixtures from the patch (engine is the source of truth);
@@ -489,11 +658,16 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     !tile.classList.contains('hidden') &&
     document.querySelector('.tb-tab.active')?.getAttribute('data-tab') === 'setup';
   onShortcut({ key: 'a', ctrl: true }, selectAll, stageActive);
+  // Single-key tool switches (V select · M rect · L lasso · H hand), SETUP-scoped.
+  onShortcut({ key: 'v' }, () => setTool('select'), stageActive);
+  onShortcut({ key: 'm' }, () => setTool('rect'), stageActive);
+  onShortcut({ key: 'l' }, () => setTool('lasso'), stageActive);
+  onShortcut({ key: 'h' }, () => setTool('pan'), stageActive);
 
   // react to patch + group selection
   bus.on(EV.PATCH_CHANGED, reload);
   bus.on(EV.GROUPS_CHANGED, reload);
-  bus.on(EV.GROUP_SELECTED, (id) => { state.highlight = id; render(); });
+  effect(() => { state.highlight = activeGroup.value; render(); });
   // mirror a selection made elsewhere (the patch grid) — ignore our own echo.
   bus.on(EV.FIXTURE_SELECTED, (d: { ids: string[]; src: string }) => {
     if (!d || d.src === 'stage') return;
@@ -502,6 +676,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   });
 
   applyZoom();   // seed the grid/dot CSS vars + label before the first render
+  setTool('select');   // seed the canvas cursor class
   await reload();
   return { tile, refresh: reload };
 }

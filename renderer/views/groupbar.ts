@@ -4,8 +4,10 @@
 // its fixtures in the patch grid).
 
 import { bus, EV } from '../lib/bus';
+import { activeGroup } from '../lib/store';
 import { html, mount } from '../lib/dom';
 import { openMenu } from '../lib/widgets';
+import { openGroupOrderModal } from './group-order-modal';
 
 const { lumox } = window;
 
@@ -17,22 +19,21 @@ export async function makeGroupBarTile(): Promise<{ tile: HTMLElement; refresh: 
     <div id="gb-tabs" class="gb-tabs"></div>`;
 
   const tabs = mount(tile.querySelector('#gb-tabs') as HTMLElement);
-  let active = 'all';
   let groups: any[] = [];
 
   async function reload() {
     try { groups = await lumox.groups.list(); } catch { groups = []; }
     // Invariant: a group is always selected. If the active group disappeared
     // (e.g. an auto-group was cleaned up when its last fixture was unpatched),
-    // fall back to "All" and broadcast so consumers drop the stale highlight.
-    if (active !== 'all' && !groups.some((g) => g.id === active)) {
-      active = 'all';
-      bus.emit(EV.GROUP_SELECTED, active);
+    // fall back to "All" — consumers re-render off the signal automatically.
+    if (activeGroup.peek() !== 'all' && !groups.some((g) => g.id === activeGroup.peek())) {
+      activeGroup.value = 'all';
     }
+    const active = activeGroup.peek();
     tabs.set(html`
       <button class="gb-tab${active === 'all' ? ' active' : ''}" data-grp="all">All</button>
       ${groups.map((g) => html`
-        <button class="gb-tab${active === g.id ? ' active' : ''}" data-grp="${g.id}" title="${g.fixtureIds.length} fixtures">
+        <button class="gb-tab${active === g.id ? ' active' : ''}" data-grp="${g.id}" data-midi="group:${g.id}:intensity" data-midi-kind="range" data-midi-min="0" data-midi-max="255" data-midi-label="Group: ${g.name}" title="${g.fixtureIds.length} fixtures">
           <span class="gb-dot" style="background:${g.color}"></span>${g.name}
           <span class="gb-n">${g.fixtureIds.length}</span>
         </button>`)}`);
@@ -40,9 +41,8 @@ export async function makeGroupBarTile(): Promise<{ tile: HTMLElement; refresh: 
 
   // ---- delegated events (bound once; survive every reload) --------------
   tabs.on('click', '.gb-tab[data-grp]', (_e, t) => {
-    active = t.dataset.grp as string;
+    activeGroup.value = t.dataset.grp as string;
     reload();
-    bus.emit(EV.GROUP_SELECTED, active);
   });
   tabs.on('contextmenu', '.gb-tab[data-grp]', (e, t) => {
     if (t.dataset.grp === 'all') return;   // no menu on the "All" tab
@@ -58,6 +58,7 @@ export async function makeGroupBarTile(): Promise<{ tile: HTMLElement; refresh: 
     openMenu([
       { header: g.name, color: g.color },
       { label: 'Add fixture…', onClick: () => showAddFixture(e, g) },
+      { label: 'Edit order…', onClick: () => openGroupOrderModal(g.id, g.name) },
       {
         label: 'Rename…',
         onClick: async () => {
@@ -70,7 +71,7 @@ export async function makeGroupBarTile(): Promise<{ tile: HTMLElement; refresh: 
         danger: true,
         onClick: async () => {
           await lumox.groups.remove(g.id);
-          if (active === g.id) active = 'all';
+          if (activeGroup.peek() === g.id) activeGroup.value = 'all';
           bus.emit(EV.GROUPS_CHANGED);
           bus.emit(EV.PATCH_CHANGED);
         },

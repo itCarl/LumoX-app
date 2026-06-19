@@ -31,6 +31,29 @@ export interface UniverseTarget {
   setChannel(channel: number, value: number): void;
 }
 
+/**
+ * Per-fixture output limitations — clamp / shape the final mixed output safely,
+ * regardless of which source (scene / FX / live) drove it. Ranges are in coarse
+ * DMX (0..255); the engine's Limits module applies them 16-bit-aware when a fine
+ * channel exists. All optional — absent means "no limit".
+ */
+export interface FixtureLimits {
+  dimmer?: { max: number };                                 // 0..255 cap on intensity channels
+  pan?:  { min: number; max: number; invert?: boolean };    // 0..255 coarse sub-range + invert
+  tilt?: { min: number; max: number; invert?: boolean };
+  swapPanTilt?: boolean;                                    // route pan output to the tilt channel & vice-versa
+}
+
+/**
+ * Per-channel behaviour flags, keyed by 1-based fixture-local channel index.
+ * Both default off (absent):
+ *   - `fade: false` → the channel **snaps** on scene crossfades instead of
+ *      interpolating (e.g. gobo / colour-wheel slots). Default = fades.
+ *   - `dimmer: true` → the channel **follows the fixture's dimmer** (its output
+ *      scales with the mixed intensity). Default = independent of the dimmer.
+ */
+export type FixtureChannelFlags = { [channelIndex: number]: { fade?: boolean; dimmer?: boolean } };
+
 /** Options bag accepted by the `Fixture` constructor. */
 export interface FixtureOptions {
   id?: string;
@@ -42,6 +65,10 @@ export interface FixtureOptions {
   liveApply?: boolean;
   /** 2D top-down placement on the STAGE tile (world units + degrees). */
   stageTransform?: Partial<StageTransform> | null;
+  /** Per-fixture output limitations (pan/tilt range, invert, swap, dimmer cap). */
+  limits?: FixtureLimits | null;
+  /** Per-channel behaviour flags (snap-on-fade / follows-dimmer). */
+  channelFlags?: FixtureChannelFlags | null;
 }
 
 export class Fixture {
@@ -55,11 +82,15 @@ export class Fixture {
   liveApply: boolean;
   /** 2D top-down placement on the STAGE tile (world units + degrees). */
   stageTransform: StageTransform;
+  /** Per-fixture output limitations, or null when unconstrained. */
+  limits: FixtureLimits | null;
+  /** Per-channel behaviour flags, or null when none set. */
+  channelFlags: FixtureChannelFlags | null;
   _universeRef: UniverseTarget | null;
 
   constructor({
     id, name, definition, mode, universeId = 0, startAddress,
-    liveApply = false, stageTransform = null,
+    liveApply = false, stageTransform = null, limits = null, channelFlags = null,
   }: FixtureOptions) {
     if (!definition) throw new Error('Fixture needs definition');
     const m = typeof mode === 'string' ? definition.mode(mode) : (mode ?? definition.defaultMode);
@@ -73,6 +104,8 @@ export class Fixture {
     this.values = new Uint8Array(m.channelCount);
     this.liveApply = liveApply;
     this.stageTransform = stageTransform ? sanitizeTransform(stageTransform) : { ...DEFAULT_TRANSFORM };
+    this.limits = limits ?? null;
+    this.channelFlags = channelFlags ?? null;
     this._universeRef = null; // set when liveApply target attached
     this.applyDefaults();
   }
@@ -157,6 +190,12 @@ export class Fixture {
     return idx ? this.startAddress + idx - 1 : 0;
   }
 
+  /** 1-based DMX address of the fine channel paired with a coarse type (or 0). */
+  fineAddressOf(coarseTypeId: string): number {
+    const i = this.mode.channels.findIndex((c) => c && c.type?.fineOf === coarseTypeId);
+    return i >= 0 ? this.startAddress + i : 0;
+  }
+
   /** All 1-based DMX addresses (universe-absolute) of a given channel type, in mode order. */
   addressesOf(typeId: string): number[] {
     return this.mode.indicesWhere((c) => c.typeId === typeId).map((i) => this.startAddress + i - 1);
@@ -199,6 +238,8 @@ export class Fixture {
       universeId: this.universeId,
       startAddress: this.startAddress,
       stageTransform: { ...this.stageTransform },
+      ...(this.limits ? { limits: this.limits } : {}),
+      ...(this.channelFlags ? { channelFlags: this.channelFlags } : {}),
     };
   }
 }

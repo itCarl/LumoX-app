@@ -359,6 +359,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
       <div class="fxe-row"><span class="sp-lbl">Target</span>
         <select class="sp-select" data-tgt="${l.id}">
           <option value="all" ${l.target.mode === 'all' ? 'selected' : ''}>All</option>
+          <option value="selection" ${l.target.mode === 'selection' ? 'selected' : ''}>Selection</option>
           ${state.groups.map((g) => html`<option value="${g.id}" ${l.target.mode === 'group' && l.target.groupId === g.id ? 'selected' : ''}>${g.name}</option>`)}
         </select>
       </div>
@@ -805,7 +806,8 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     const s = state.scene; if (!s) return;
     const lid = (t as HTMLElement).dataset.tgt as string;
     const v = (t as HTMLInputElement).value;
-    apply(lumox.scenes.setLayerTarget(s.id, lid, v === 'all' ? 'all' : 'group', v === 'all' ? undefined : v), true);
+    const mode = v === 'all' ? 'all' : v === 'selection' ? 'selection' : 'group';
+    apply(lumox.scenes.setLayerTarget(s.id, lid, mode, mode === 'group' ? v : undefined), true);
   });
   content.on('change', '[data-ord]', (_e, t) => {
     const s = state.scene; if (!s) return;
