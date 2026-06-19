@@ -93,7 +93,7 @@ const configs = [
     entryPoints: ['preload.ts'],
     outfile: 'dist/preload.cjs',
   },
-  // Renderer — browser ESM, three HTML entry points (main, fixture editor, MIDI).
+  // Renderer — browser ESM, HTML entry points (main, fixture editor, MIDI, dialog).
   {
     platform: 'browser',
     format: 'esm',
@@ -101,7 +101,7 @@ const configs = [
     target: 'es2022',
     sourcemap: true,
     logLevel: 'info',
-    entryPoints: ['renderer/index.ts', 'renderer/fixtureeditor-window.ts', 'renderer/midi-window.ts'],
+    entryPoints: ['renderer/index.ts', 'renderer/fixtureeditor-window.ts', 'renderer/midi-window.ts', 'renderer/dialog-window.ts', 'renderer/panel-window.ts'],
     outdir: 'renderer/dist',
   },
 ];

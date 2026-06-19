@@ -1,17 +1,28 @@
-// Group order editor — drag-reorder a group's fixtures. The stored order is the
-// group's "fixture index": an FX layer targeting this group fans/phases across it
-// in this order (see docs/knowledge-base/selection.md). Persists via
+// Group order editor — drag-reorder a group's fixtures, shown in its own panel
+// WINDOW (see renderer/panel-window.ts). The stored order is the group's
+// "fixture index": an FX layer targeting this group fans/phases across it in this
+// order (see docs/knowledge-base/selection.md). Persists via
 // `lumox.groups.setFixtures(id, orderedIds)`, which re-fans live FX immediately.
 
 import { bus, EV } from '../lib/bus';
 import { node, html } from '../lib/dom';
 import { esc } from '../lib/html';
-import { button } from '../lib/widgets';
 
 const { lumox } = window;
 
-export async function openGroupOrderModal(groupId: string, groupName: string): Promise<void> {
-  document.querySelector('.lx-modal-backdrop')?.remove();
+/** Open the group-order panel window for a group. */
+export function openGroupOrderModal(groupId: string, groupName: string): void {
+  void lumox.panel.open({
+    kind: 'group-order',
+    title: `Fixture order — ${groupName}`,
+    arg: { groupId },
+    width: 420, height: 520,
+  });
+}
+
+/** Build the drag-reorder body — mounted into the panel window. */
+export async function buildGroupOrderBody(groupId: string): Promise<HTMLElement> {
+  const body = node(html`<div class="ord-panel"></div>`);
 
   let fixtures: any[] = [];
   let group: any = null;
@@ -20,8 +31,13 @@ export async function openGroupOrderModal(groupId: string, groupName: string): P
     group = groups.find((g: any) => g.id === groupId);
     const byId = new Map(all.map((f: any) => [f.id, f]));
     fixtures = (group?.fixtureIds ?? []).map((id: string) => byId.get(id)).filter(Boolean);
-  } catch { return; }
-  if (!group) return;
+  } catch { return body; }
+  if (!group) return body;
+
+  if (!fixtures.length) {
+    body.appendChild(node(html`<p class="muted pad">This group has no fixtures.</p>`));
+    return body;
+  }
 
   // Working order (array of fixture objects); persisted on every drop.
   let order = [...fixtures];
@@ -70,26 +86,7 @@ export async function openGroupOrderModal(groupId: string, groupName: string): P
     renderRows();
   });
 
-  const el = node(html`
-    <div class="lx-modal-backdrop">
-      <div class="lx-modal" role="dialog" aria-modal="true">
-        <div class="lx-modal-head">Fixture order — ${esc(groupName)}</div>
-        <div class="lx-modal-body"></div>
-        <div class="lx-modal-foot"></div>
-      </div>
-    </div>`);
-  const body = el.querySelector('.lx-modal-body') as HTMLElement;
-  if (order.length) {
-    body.appendChild(node(html`<p class="lx-form-hint">Drag to reorder — this is the order effects fan / phase across the group.</p>`));
-    body.appendChild(listEl);
-  } else {
-    body.appendChild(node(html`<p class="muted pad">This group has no fixtures.</p>`));
-  }
-  (el.querySelector('.lx-modal-foot') as HTMLElement).appendChild(button({ label: 'Done', variant: 'primary', onClick: () => close() }));
-
-  const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close(); };
-  const close = () => { el.remove(); window.removeEventListener('keydown', onKey); };
-  el.addEventListener('click', (e) => { if (e.target === el) close(); });
-  window.addEventListener('keydown', onKey);
-  document.body.appendChild(el);
+  body.appendChild(node(html`<p class="lx-form-hint">Drag to reorder — this is the order effects fan / phase across the group.</p>`));
+  body.appendChild(listEl);
+  return body;
 }

@@ -6,7 +6,8 @@
 import { ipcMain, dialog } from 'electron';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { getMainWindow } from '../windows';
+import { getMainWindow, setCloseGuard } from '../windows';
+import { openDialog } from './dialog';
 import {
   buildProject, newProject, setProject, projectInfo, projectEvents,
   loadProjectFromPath, setReport, takeReport,
@@ -26,6 +27,33 @@ async function writeProject(filePath: string, name: string): Promise<void> {
   await writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
   setProject(name, filePath);
   setLastProjectPath(filePath);
+}
+
+/**
+ * Before the window closes with unsaved changes, ask Save / Don't Save / Cancel
+ * via the in-app dialog window (a real window, not a native OS message box).
+ * Returns true when it's OK to proceed (saved or discarded), false to abort the
+ * close — including when the user cancels Save As for an unsaved show.
+ */
+async function confirmCloseIfDirty(): Promise<boolean> {
+  const cur = projectInfo();
+  if (!cur.dirty) return true;
+  const choice = await openDialog({
+    title: 'Unsaved changes',
+    message: `Save changes to “${cur.name}” before closing?`,
+    detail: "Your changes will be lost if you don't save them.",
+    buttons: [
+      { id: 'cancel', label: 'Cancel' },
+      { id: 'dont-save', label: "Don't Save", variant: 'danger' },
+      { id: 'save', label: 'Save', variant: 'primary' },
+    ],
+    cancelId: 'cancel',
+    width: 460, height: 188,
+  });
+  if (choice === 'cancel') return false;       // Cancel → abort close
+  if (choice === 'dont-save') return true;      // Don't Save → discard + close
+  if (cur.path) { await writeProject(cur.path, cur.name); return true; }
+  return (await saveAs()).saved;                // unsaved show → Save As; abort if cancelled
 }
 
 async function saveAs(): Promise<{ saved: boolean; path?: string }> {
@@ -59,6 +87,10 @@ function scheduleAutosave(): void {
 export function registerProjectHandlers(): void {
   // Push identity changes (dirty flips, renames, save/open) to the titlebar.
   projectEvents.on('changed', (info) => getMainWindow()?.webContents.send('project:changed', info));
+
+  // Guard the window close: prompt Save / Don't Save / Cancel when there are
+  // unsaved changes (the window won't close until this resolves).
+  setCloseGuard(confirmCloseIfDirty);
 
   // Schedule once settings are loaded, and reschedule when the interval changes.
   settingsEvents.on('loaded', scheduleAutosave);

@@ -1,11 +1,12 @@
-// Settings modal — application preferences (language, appearance,
-// autosave/startup). DMX output transport lives in the Connection tab
-// (views/connection.ts). Opened from the ⋯ app menu. Reads/writes via
-// `lumox.settings.*`; the main process persists to settings.json and broadcasts
-// `settings:changed`, which lib/settings.ts applies to the document live.
+// Settings panel — application preferences (language, appearance,
+// autosave/startup), shown in its own panel WINDOW (see renderer/panel-window.ts).
+// DMX output transport lives in the Connection tab (views/connection.ts). Opened
+// from the ⋯ app menu. Reads/writes via `lumox.settings.*`; the main process
+// persists to settings.json and broadcasts `settings:changed`, which
+// lib/settings.ts applies to the document live.
 
 import { node, html } from '../lib/dom';
-import { input, button } from '../lib/widgets';
+import { input } from '../lib/widgets';
 import type { AppSettings, AppLanguage, TempoSource, TransportStatus } from '../lumox.d';
 
 const { lumox } = window;
@@ -99,10 +100,14 @@ function tempoSection(status: TransportStatus | null, inputs: string[]): HTMLEle
   ]);
 }
 
-export async function openSettingsModal(): Promise<void> {
-  document.querySelector('.lx-modal-backdrop')?.remove();
-  let s: AppSettings;
-  try { s = await lumox.settings.get(); } catch { return; }
+/** Open the Settings panel window (⋯ menu / Ctrl+, / BPM source chip). */
+export function openSettingsModal(): void {
+  void lumox.panel.open({ kind: 'settings', title: 'Settings', width: 480, height: 600 });
+}
+
+/** Build the Settings form body — mounted into the panel window. */
+export async function buildSettingsBody(): Promise<HTMLElement> {
+  let s: AppSettings = await lumox.settings.get();
   const tStatus: TransportStatus | null = await lumox.transport.get().catch(() => null);
   const midiInputs: string[] = await lumox.transport.midiInputs().catch(() => []);
 
@@ -156,20 +161,5 @@ export async function openSettingsModal(): Promise<void> {
     ]),
   );
 
-  const el = node(html`
-    <div class="lx-modal-backdrop">
-      <div class="lx-modal" role="dialog" aria-modal="true">
-        <div class="lx-modal-head">Settings</div>
-        <div class="lx-modal-body"></div>
-        <div class="lx-modal-foot"></div>
-      </div>
-    </div>`);
-  (el.querySelector('.lx-modal-body') as HTMLElement).appendChild(body);
-  (el.querySelector('.lx-modal-foot') as HTMLElement).appendChild(button({ label: 'Done', variant: 'primary', onClick: () => close() }));
-
-  const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close(); };
-  const close = () => { el.remove(); window.removeEventListener('keydown', onKey); };
-  el.addEventListener('click', (e) => { if (e.target === el) close(); });
-  window.addEventListener('keydown', onKey);
-  document.body.appendChild(el);
+  return body;
 }
