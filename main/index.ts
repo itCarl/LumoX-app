@@ -19,6 +19,8 @@ import { newProject, loadProjectFromPath, setProject } from './services/ProjectS
 import { resetHistory } from './services/HistoryService';
 import { loadSettings, getSetting } from './services/SettingsService';
 import { loadUserLibrary } from './services/UserLibraryService';
+import { transport } from './services/Transport';
+import { midiService } from './services/MidiService';
 
 // Fail fast if Electron is running as plain Node. With ELECTRON_RUN_AS_NODE set,
 // electron.exe behaves like node and `require('electron')` returns the binary
@@ -49,6 +51,7 @@ registerHandlers();
 const FIXTURES_DIR = path.join(APP_ROOT, 'fixtures');
 async function bootShow(): Promise<void> {
   await loadSettings();   // app preferences (needs app ready for userData path)
+  await transport.init(); // adopt the persisted BPM source (after settings load)
 
   try {
     const r = await show.library.loadFromDirectory(FIXTURES_DIR, { source: 'builtin' });
@@ -102,6 +105,9 @@ app.whenReady().then(async () => {
   await bootShow();
   engine.start();
   createWindow();
+  // Connect a MIDI control surface in the background (APC Mini MK2). Stays
+  // "disconnected" with no device / no easymidi backend — never blocks startup.
+  midiService.connect().catch((err) => console.error('[midi] connect failed:', (err as Error).message));
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });

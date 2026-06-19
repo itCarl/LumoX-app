@@ -22,7 +22,7 @@ const library = new FixtureLibrary();
 await library.loadFromDirectory(libDir);
 console.log(`Library: ${library.list().length} profiles available`);
 
-const profile = library.get('Generic/PAR RGBW 4ch');
+const profile = library.get('Generic/PAR RGBW 5ch');
 if (!profile) throw new Error('Generic RGBW PAR not found in library');
 console.log(`Using profile: ${profile.id}`);
 
@@ -39,10 +39,13 @@ const par = patch.add(new Fixture({
 }));
 console.log(`Patched ${par.name} @ universe 0, channels ${par.startAddress}..${par.endAddress}`);
 
-// Wire intensity-only mask so GrandMaster scales only intensity-class
-// channels (would matter on a fixture with separate intensity + color).
-// For a 4-ch RGBW PAR there are no `intensity` channels — `all` mode is fine.
-engine.grandMaster!.mode = 'all';
+// This PAR's channel 1 is a master Dimmer (`intensity`); raise it to full so
+// the colour sequence below is actually emitted.
+par.set('intensity', 255);
+
+// GrandMaster in 'intensity-only' mode scales just intensity-class channels —
+// here the master Dimmer — leaving the raw colour channels untouched.
+engine.grandMaster!.mode = 'intensity-only';
 
 // ---- 3. Outputs ---------------------------------------------------------
 engine.outputs.add(new ArtNetOutput({
@@ -89,7 +92,7 @@ let tickCount = 0;
 engine.on('tick', () => {
   if (++tickCount % 44 !== 0) return;  // once per second
   const u = engine.universes.get(0)!;
-  console.log(`  ch1..4 (R G B W) = ${u.getChannel(1)} ${u.getChannel(2)} ${u.getChannel(3)} ${u.getChannel(4)}`);
+  console.log(`  ch1..5 (Dim R G B W) = ${u.getChannel(1)} ${u.getChannel(2)} ${u.getChannel(3)} ${u.getChannel(4)} ${u.getChannel(5)}`);
 });
 
 // ---- Shutdown -----------------------------------------------------------

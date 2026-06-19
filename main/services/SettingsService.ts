@@ -8,7 +8,7 @@ import { app } from 'electron';
 import { EventEmitter } from 'node:events';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import type { AppSettings, AppLanguage, DmxProtocol } from '../dto';
+import type { AppSettings, AppLanguage, DmxProtocol, TempoSource } from '../dto';
 
 export const DEFAULT_SETTINGS: AppSettings = {
   language: 'en',
@@ -19,6 +19,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   autosaveMinutes: 5,
   reopenLastProject: false,
   lastProjectPath: null,
+  tempoSource: 'manual',
+  midiClockInput: null,
 };
 
 // Events:
@@ -37,6 +39,7 @@ const file = (): string =>
 
 const LANGUAGES = new Set<AppLanguage>(['en', 'de']);
 const PROTOCOLS = new Set<DmxProtocol>(['artnet', 'sacn']);
+const TEMPO_SOURCES = new Set<TempoSource>(['manual', 'midi', 'audio', 'link']);
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const clamp = (n: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, n));
 
@@ -54,6 +57,8 @@ function sanitize(o: unknown): AppSettings {
     autosaveMinutes: num(r.autosaveMinutes, DEFAULT_SETTINGS.autosaveMinutes, 0, 120),
     reopenLastProject: typeof r.reopenLastProject === 'boolean' ? r.reopenLastProject : DEFAULT_SETTINGS.reopenLastProject,
     lastProjectPath: typeof r.lastProjectPath === 'string' && r.lastProjectPath ? r.lastProjectPath : null,
+    tempoSource: TEMPO_SOURCES.has(r.tempoSource as TempoSource) ? (r.tempoSource as TempoSource) : DEFAULT_SETTINGS.tempoSource,
+    midiClockInput: typeof r.midiClockInput === 'string' && r.midiClockInput ? r.midiClockInput : null,
   };
 }
 

@@ -3,7 +3,7 @@
 // animated frame before blending it. Targets are universe-absolute 1-based DMX
 // channels. Each renderer is pure: same inputs → same output.
 
-import { hsvToRgb, hexToRgb, type Rgb } from '../util/Color';
+import { hsvToBytes, hexToBytes, type Rgb } from '../util/color';
 import type { ColorFxConfig, MoveFxConfig, MoveShape, CurveWave, MatrixFxConfig } from '../show/Scene';
 import type { Vec2 } from '../fixtures/emitterGeometry';
 
@@ -58,7 +58,7 @@ export function renderColorFx(
   const sat = cfg?.saturation ?? 1;
   const fade = cfg?.fade ?? 1;
   const randomize = cfg?.randomize ?? false;
-  const palette = cfg && cfg.palette.length ? cfg.palette.map(hexToRgb) : null;
+  const palette = cfg && cfg.palette.length ? cfg.palette.map(hexToBytes) : null;
 
   for (let i = 0; i < n; i++) {
     const [r, g, b] = targets[i];
@@ -71,7 +71,7 @@ export function renderColorFx(
       col = applySat(samplePalette(palette, p, fade), sat);
     } else {
       const hue = scroll * 360 + idx * spreadDeg * width + angle + jitter * 360;
-      col = hsvToRgb({ h: hue, s: clamp01(sat), v: 1 });
+      col = hsvToBytes(hue, clamp01(sat), 1);
     }
     if (cfg?.grayscale) {
       const y = 0.2126 * col.r + 0.7152 * col.g + 0.0722 * col.b;
@@ -102,7 +102,7 @@ export function renderMatrixFx(
   const scale = Math.max(0.01, cfg?.scale ?? 1);
   const angle = ((cfg?.angle ?? 0) * Math.PI) / 180;
   const ca = Math.cos(angle), sa = Math.sin(angle);
-  const palette = cfg && cfg.palette.length ? cfg.palette.map(hexToRgb) : null;
+  const palette = cfg && cfg.palette.length ? cfg.palette.map(hexToBytes) : null;
   const scroll = now / Math.max(1, periodMs);
 
   // Normalize positions to 0..1 over the rig's bounding box (centre = 0.5,0.5).
@@ -131,7 +131,7 @@ export function renderMatrixFx(
     }
     const col = palette
       ? applySat(samplePalette(palette, p, fade), sat)
-      : hsvToRgb({ h: ((p % 1) + 1) % 1 * 360, s: clamp01(sat), v: 1 });
+      : hsvToBytes(((p % 1) + 1) % 1 * 360, clamp01(sat), 1);
     buf[t[0] - 1] = clamp8(col.r);
     buf[t[1] - 1] = clamp8(col.g);
     buf[t[2] - 1] = clamp8(col.b);

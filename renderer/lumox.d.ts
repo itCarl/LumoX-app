@@ -8,12 +8,22 @@ export type FxKind = 'color' | 'move' | 'curve' | 'chaser' | 'value' | 'matrix';
 export type MatrixPattern = 'wipe' | 'radial' | 'plasma';
 export type FxOrder = 'patch' | 'reverse' | 'mirror' | 'random';
 export type FxWave = 'sine' | 'triangle' | 'sawtooth' | 'square' | 'random';
-export type FxTargetSel = { mode: 'all' } | { mode: 'group'; groupId: string };
+export type FxTargetSel = { mode: 'all' } | { mode: 'group'; groupId: string } | { mode: 'selection' };
 export type ReleaseScope = 'off' | 'all' | 'bank' | 'outside-bank' | 'specific';
 
 export type AppLanguage = 'en' | 'de';
 export type DmxProtocol = 'artnet' | 'sacn';
 export type FrameMode = 'standard' | 'full' | 'partial';
+export type TempoSource = 'manual' | 'midi' | 'audio' | 'link';
+
+/** Live transport state (mirrors TransportStatus in main/dto.ts). */
+export interface TransportStatus {
+  bpm: number;
+  source: TempoSource;
+  locked: boolean;
+  midiInput: string | null;
+  available: { midi: boolean; link: boolean };
+}
 export type DiscoveryStatus = 'stopped' | 'running' | 'degraded';
 
 /** One row of the per-universe output patch (Connection tab). */
@@ -55,6 +65,8 @@ export interface AppSettings {
   autosaveMinutes: number;
   reopenLastProject: boolean;
   lastProjectPath: string | null;
+  tempoSource: TempoSource;
+  midiClockInput: string | null;
 }
 
 /** One effect layer in a scene's FX rack. Mirrors FxLayerDTO. */
@@ -82,6 +94,17 @@ export interface FxLayerInfo {
 
 /** A fixture's 2D top-down stage placement. Mirrors StageTransformDTO. */
 export interface StageTransform { x: number; y: number; rotation: number; }
+
+/** Per-fixture output limits (coarse DMX 0..255). Mirrors FixtureLimitsDTO. */
+export interface FixtureLimits {
+  dimmer?: { max: number };
+  pan?:  { min: number; max: number; invert?: boolean };
+  tilt?: { min: number; max: number; invert?: boolean };
+  swapPanTilt?: boolean;
+}
+
+/** Per-channel flags by 1-based local index. Mirrors FixtureChannelFlagsDTO. */
+export type FixtureChannelFlags = { [channelIndex: number]: { fade?: boolean; dimmer?: boolean } };
 
 /** Scene state surfaced to the renderer (Scene Properties panel). Mirrors SceneDTO. */
 export interface SceneInfo {
@@ -119,6 +142,62 @@ export interface SceneInfo {
   protectBanks: string[];
   flash: boolean;
 }
+
+// ---- MIDI control surface ----
+export type MidiTargetKind = 'trigger' | 'range';
+
+/** What a Lumox control IS — a persistable handle + UI metadata. Mirrors MidiTarget. */
+export interface MidiTarget {
+  key: string;                 // "scene:<id>", "group:<id>:intensity", "master", "blackout"
+  label: string;
+  kind: MidiTargetKind;
+  min?: number;
+  max?: number;
+}
+
+/** What the hardware sends. */
+export interface MidiTrigger {
+  type: 'note' | 'cc';
+  channel: number;
+  number: number;
+}
+
+export interface MidiBindingOptions {
+  mode?: 'toggle' | 'flash';
+  invert?: boolean;
+  min?: number;
+  max?: number;
+  ledColor?: string;                       // MK2 palette name (note/pad bindings)
+  ledMode?: 'solid' | 'blink' | 'fade';    // active-state LED animation
+}
+
+/** One mappings-table row. Mirrors MidiBinding. */
+export interface MidiBinding {
+  id: string;
+  trigger: MidiTrigger;
+  target: MidiTarget;
+  options: MidiBindingOptions;
+}
+
+/** One selectable LED colour offered by the connected device. */
+export interface MidiPaletteColor { name: string; hex: string; }
+
+/** What the connected device supports for LED feedback (empty = no LEDs). */
+export interface MidiCapabilities {
+  deviceId: string | null;
+  palette: MidiPaletteColor[];
+  ledModes: ('solid' | 'blink' | 'fade')[];
+}
+
+export interface MidiStatus {
+  connected: boolean;
+  portName: string | null;
+  deviceName: string | null;
+  capabilities: MidiCapabilities;
+}
+export interface MidiMonitorMessage { type: 'note' | 'cc'; channel: number; number: number; value: number; }
+export interface MidiAssignMode { active: boolean; }
+export interface MidiAwaitingInput { waiting: boolean; label?: string; }
 
 export interface LumoxApi {
   outputs: {
@@ -193,11 +272,29 @@ export interface LumoxApi {
     setFixtures(id: string, fixtureIds: string[]): Promise<any>;
     rename(id: string, name: string, color?: string): Promise<any>;
   };
+  selection: {
+    get(): Promise<string[]>;
+    set(ids: string[]): Promise<string[]>;
+    add(ids: string[]): Promise<string[]>;
+    remove(ids: string[]): Promise<string[]>;
+    clear(): Promise<string[]>;
+    all(): Promise<string[]>;
+    invert(): Promise<string[]>;
+    reverse(): Promise<string[]>;
+    mirror(): Promise<string[]>;
+    everyNth(n: number, offset?: number): Promise<string[]>;
+    shift(delta: number): Promise<string[]>;
+    reorder(from: number, to: number): Promise<string[]>;
+    onChanged(cb: (ids: string[]) => void): void;
+  };
   fixtures: {
     setChannel(fixtureId: string, channel: number, value: number): Promise<any>;
     releaseChannel(fixtureId: string, channel: number): Promise<any>;
     clearProgrammer(): Promise<{ channels: number; universes: number[] }>;
     programmer(): Promise<{ channels: number; universes: number[] }>;
+    setLimits(fixtureIds: string[], patch: Partial<FixtureLimits> & Record<string, unknown>): Promise<void>;
+    clearLimits(fixtureIds: string[]): Promise<void>;
+    setChannelFlag(fixtureIds: string[], channel: number, flag: 'fade' | 'dimmer', value: boolean | null): Promise<void>;
   };
   scenes: {
     list(): Promise<any[]>;
@@ -237,7 +334,7 @@ export interface LumoxApi {
     removeLayer(id: string, layerId: string): Promise<SceneInfo | null>;
     moveLayer(id: string, layerId: string, delta: number): Promise<SceneInfo | null>;
     setLayerEnabled(id: string, layerId: string, enabled: boolean): Promise<SceneInfo | null>;
-    setLayerTarget(id: string, layerId: string, mode: 'all' | 'group', groupId?: string): Promise<SceneInfo | null>;
+    setLayerTarget(id: string, layerId: string, mode: 'all' | 'group' | 'selection', groupId?: string): Promise<SceneInfo | null>;
     setLayerOrder(id: string, layerId: string, order: FxOrder): Promise<SceneInfo | null>;
     setLayerTiming(id: string, layerId: string, opts: { rateMs?: number; speed?: number; driveMode?: 'off' | 'bpm'; beatDiv?: number; direction?: 'forward' | 'backward' | 'bounce'; size?: number; spread?: number }): Promise<SceneInfo | null>;
     setLayerConfig(id: string, layerId: string, cfg: Record<string, unknown>): Promise<SceneInfo | null>;
@@ -259,8 +356,12 @@ export interface LumoxApi {
     remove(id: string): Promise<any>;
   };
   transport: {
-    get(): Promise<{ bpm: number }>;
+    get(): Promise<TransportStatus>;
     setBpm(bpm: number): Promise<number>;
+    setSource(source: TempoSource, midiInput?: string | null): Promise<TransportStatus>;
+    audioBpm(bpm: number): Promise<number>;
+    midiInputs(): Promise<string[]>;
+    onChanged(cb: (status: TransportStatus) => void): void;
   };
   banks: {
     list(): Promise<any[]>;
@@ -272,6 +373,21 @@ export interface LumoxApi {
     get(): Promise<AppSettings>;
     update(patch: Partial<AppSettings>): Promise<AppSettings>;
     onChanged(cb: (settings: AppSettings) => void): void;
+  };
+  midi: {
+    openWindow(): Promise<any>;
+    status(): Promise<MidiStatus>;
+    listBindings(): Promise<MidiBinding[]>;
+    beginAssign(): Promise<any>;
+    pickTarget(target: MidiTarget): Promise<any>;
+    cancelAssign(): Promise<any>;
+    setBindingOptions(id: string, options: MidiBindingOptions): Promise<any>;
+    removeBinding(id: string): Promise<any>;
+    onStatus(cb: (status: MidiStatus) => void): void;
+    onBindings(cb: (bindings: MidiBinding[]) => void): void;
+    onAssignMode(cb: (mode: MidiAssignMode) => void): void;
+    onAwaitingInput(cb: (info: MidiAwaitingInput) => void): void;
+    onMessage(cb: (msg: MidiMonitorMessage) => void): void;
   };
   win: {
     minimize(): Promise<any>;

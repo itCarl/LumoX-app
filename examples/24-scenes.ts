@@ -24,7 +24,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // ---- patch ------------------------------------------------------------
 const library = new FixtureLibrary();
 await library.loadFromDirectory(path.resolve(__dirname, '..', 'fixtures'));
-const parDef = library.get('Generic/PAR RGBW 4ch');
+const parDef = library.get('Generic/PAR RGBW 5ch');
 
 const engine = new Engine({ refreshHz: 30 });
 engine.universes.ensure(0, 'Stage');
@@ -34,7 +34,7 @@ const fixtures: Fixture[] = [];
 for (let i = 0; i < 4; i++) {
   const fx = patch.add(new Fixture({
     id: `par${i + 1}`, definition: parDef!,
-    universeId: 0, startAddress: 1 + i * 4,
+    universeId: 0, startAddress: 1 + i * 5,
   }));
   fixtures.push(fx);
 }
@@ -43,8 +43,9 @@ fixtures.forEach((fx) => all.add(fx));
 
 // ---- helpers ----------------------------------------------------------
 function recordScene(id: string, name: string, draw: () => void): Scene {
-  // Clear programmer for this fixture set so the snapshot is clean.
-  for (const fx of fixtures) fx.applyDefaults();
+  // Clear programmer for this fixture set so the snapshot is clean, then bring
+  // each PAR's master dimmer to full so the recorded colours actually emit.
+  for (const fx of fixtures) { fx.applyDefaults(); fx.set('intensity', 255); }
   draw();                                  // user writes a look
   patch.applyAll(engine.universes);        // → programmer buffer
   const sc = Scene.snapshot({

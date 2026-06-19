@@ -9,10 +9,11 @@ import path from 'node:path';
 import { Fixture, Group, Scene, toChaseStep, DEFAULT_STEP_WAIT } from '../../src/index';
 import {
   engine, show, banks, liveUniverses, updateActiveUniverses, sceneTrack,
-  ensureDefaultScene, applyOutputPatch, seedDefaultOutputs, savedOutputs,
+  ensureDefaultScene, applyOutputPatch, seedDefaultOutputs, savedOutputs, rebuildLimits,
 } from '../context';
 import { transport } from './Transport';
 import { palettes, presets } from './presets';
+import { listMidiBindings, loadMidiBindings } from './MidiService';
 import { getSetting } from './SettingsService';
 import type { ProjectData, ProjectInfo, ProjectIssue } from '../dto';
 
@@ -60,6 +61,7 @@ export function newProject(): void {
   banks.clear();
   palettes.clear();
   presets.clear();
+  loadMidiBindings([]);
   banks.ensureDefault();
   ensureDefaultScene();
   transport.reset();
@@ -95,6 +97,7 @@ export function buildProject(): ProjectData {
     palettes: palettes.toJSON(),
     presets: presets.toJSON(),
     bpm: transport.getBpm(),
+    midiBindings: listMidiBindings(),
   };
 }
 
@@ -185,11 +188,12 @@ export async function restoreProject(p: unknown): Promise<void> {
     const def = show.library.get(fj.definitionId);
     if (!def) continue;
     const mode = def.mode(fj.modeId) ?? def.defaultMode;
-    const fx = new Fixture({ id: fj.id, name: fj.name, definition: def, mode, universeId: fj.universeId, startAddress: fj.startAddress, stageTransform: fj.stageTransform });
+    const fx = new Fixture({ id: fj.id, name: fj.name, definition: def, mode, universeId: fj.universeId, startAddress: fj.startAddress, stageTransform: fj.stageTransform, limits: fj.limits ?? null, channelFlags: fj.channelFlags ?? null });
     show.patch.add(fx);
     const u = engine.universes.get(fx.universeId);
     if (u) fx.apply(u);
   }
+  rebuildLimits();   // re-resolve per-fixture limit targets for the loaded patch
 
   // groups
   show.groups.clear();
@@ -230,6 +234,10 @@ export async function restoreProject(p: unknown): Promise<void> {
   banks.load(p.banks ?? []);
   banks.ensureDefault();
   ensureDefaultScene();
+
+  // MIDI bindings — restore last (targets reference scenes/groups loaded above;
+  // bindings whose target id vanished are dropped).
+  loadMidiBindings(p.midiBindings ?? []);
 
   // per-universe outputs — apply the project's patch, or seed defaults if the
   // project carries none (e.g. a project saved before per-universe output).

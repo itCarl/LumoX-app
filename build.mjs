@@ -77,7 +77,7 @@ const configs = [
     target: 'node20',
     sourcemap: true,
     logLevel: 'info',
-    external: ['electron', 'easymidi'],
+    external: ['electron', 'easymidi', 'abletonlink'],
     entryPoints: ['main/index.ts'],
     outfile: 'dist/main/index.cjs',
   },
@@ -93,7 +93,7 @@ const configs = [
     entryPoints: ['preload.ts'],
     outfile: 'dist/preload.cjs',
   },
-  // Renderer — browser ESM, two HTML entry points.
+  // Renderer — browser ESM, three HTML entry points (main, fixture editor, MIDI).
   {
     platform: 'browser',
     format: 'esm',
@@ -101,7 +101,7 @@ const configs = [
     target: 'es2022',
     sourcemap: true,
     logLevel: 'info',
-    entryPoints: ['renderer/index.ts', 'renderer/fixtureeditor-window.ts'],
+    entryPoints: ['renderer/index.ts', 'renderer/fixtureeditor-window.ts', 'renderer/midi-window.ts'],
     outdir: 'renderer/dist',
   },
 ];

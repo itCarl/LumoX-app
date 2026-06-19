@@ -1,53 +1,57 @@
-# Color utility
+# Color
 
 **Status:** stable
-**Files:** `src/util/Color.ts`, consumed by `src/mix/sceneFx.ts`, `src/mix/modules/GroupEffects.ts`
+**Files:** `src/util/color.ts` (DMX-byte bridges over [culori](https://culorijs.org/)), consumed by `src/mix/sceneFx.ts`, `src/mix/modules/GroupEffects.ts`
 
 ## What
 
-A single home for colour maths: an immutable `Color` value object plus standalone
-conversions between the colour models the app handles — **RGB, HSV, HSL, CMY, and
-hex**. Before this, HSV→RGB and hex parsing were re-derived per call site; now the
-engine (scene/group FX), fixture colour hints, and the renderer share one tested
-implementation. The module is pure (no Node/DOM), so it is safe in both the
-headless engine and the renderer bundle. Exported from the public barrel
-(`src/index.ts`).
+Colour maths is handled by **culori** — a small, well-tested colour library. The
+engine never needs colour objects of its own: it ultimately writes **8-bit DMX
+bytes** (0..255), while culori works in **0..1**. `src/util/color.ts` is the thin
+bridge across that boundary — two helpers and a byte-typed `Rgb` interface. It is
+pure (no Node/DOM), safe in both the headless engine and the renderer bundle, and
+exported from the public barrel (`src/index.ts`). For anything richer than the two
+helpers (model conversions, perceptual blending, luminance, gamut mapping) import
+culori directly rather than growing this module.
 
 ## How
 
-**Model types** (ranges are the easy thing to get wrong, so they are explicit):
+**`Rgb`** — `{ r, g, b }`, each **0..255** (DMX-friendly; values may be fractional
+until written, where they're clamped/rounded).
 
-| Type | Components | Range |
-| --- | --- | --- |
-| `Rgb` | `r, g, b` | 0..255 |
-| `Hsv` | `h, s, v` | h 0..360°, s/v 0..1 |
-| `Hsl` | `h, s, l` | h 0..360°, s/l 0..1 |
-| `Cmy` | `c, m, y` | 0..1 (subtractive — × 255 for CMY fixtures) |
+**`hsvToBytes(h, s, v)`** — HSV (h 0..360°, s/v 0..1) → `Rgb` bytes. Used by the
+COLOR/MATRIX FX rainbow and the group rainbow effect.
 
-**Standalone functions** (object in, object out): `hexToRgb`, `rgbToHex`,
-`rgbToHsv`, `hsvToRgb`, `rgbToHsl`, `hslToRgb`, `rgbToCmy`, `cmyToRgb`. Use these
-when you just need a one-shot conversion.
+**`hexToBytes(hex)`** — any CSS colour string culori understands (`#rrggbb`,
+`#rgb`, named colours, `rgb(…)`, …) → `Rgb` bytes. Returns **black** on a parse
+failure (safe in a per-tick render loop). Used to turn palette hex stops into
+bytes.
 
-**`Color`** — immutable RGB value object. Build with `Color.rgb(r,g,b)`,
-`fromHex`, `fromHsv`, `fromHsl`, `fromCmy`, `gray(level)`, or `fromBytes(buf, off)`
-(read from a universe buffer). Read back with `toRgb / toHex / toHsv / toHsl /
-toCmy / toArray` (the `[r,g,b]` tuple matches `setRGB`-style call sites) and
-`toString` (hex). Queries: `luminance()` (Rec. 709, 0..1), `isDark` / `isLight`,
-`equals`. Operations each return a **new** `Color`: `mix(other, t)`, `lighten` /
-`darken`, `saturate` / `desaturate`, `rotate(deg)`, `scale(factor)` (dimmer),
-`invert`, `complement`, `grayscale`. Named frozen singletons: `Color.BLACK`,
-`WHITE`, `RED`, `GREEN`, `BLUE`, `CYAN`, `MAGENTA`, `YELLOW`, `AMBER`, `UV`.
+Both are implemented with culori's `converter('rgb')` and `parse()`.
+
+**Using culori directly** (the common ones — see the [culori docs](https://culorijs.org/api/)):
+
+```ts
+import { converter, parse, interpolate, formatHex, wcagLuminance } from 'culori';
+
+converter('hsl')(parse('#ff8000'));        // → { mode:'hsl', h, s, l }   (0..1)
+wcagLuminance('#ff8000');                  // perceived luminance 0..1
+formatHex(interpolate(['red','blue'], 'oklab')(0.5));  // perceptual midpoint
+```
 
 Runnable reference: [`examples/25-color-utility.ts`](../../examples/25-color-utility.ts).
 
 ## Notes / Gotchas
 
-- `hsvToRgb` wraps the hue, so `h = 360` and `h = 0` both yield red. It rounds to
-  bytes — the COLOR FX rainbow and the group rainbow effect both call it, so their
-  output is unchanged by the consolidation.
-- `hexToRgb` / `Color.fromHex` accept `#rgb`, `#rrggbb`, or the same without `#`,
-  and **throw** on anything else — guard untrusted input or keep a literal
-  fallback (the renderer uses `f.color || '#…'`).
-- `Color` instances are frozen; there is no in-place mutation by design.
-- HSV/HSL round-trips are exact for byte colours; CMY here is the simple
-  `1 − channel` device model, not an ICC/print profile.
+- culori objects are **mode-tagged** (`{ mode: 'rgb', r, g, b }`) and use the
+  **0..1** range; multiply by 255 only at the DMX boundary (that's exactly what
+  the two `*toBytes` helpers do). Don't mix the two ranges by accident.
+- `hexToBytes` returns **black** on unparseable input rather than throwing, so a
+  bad palette/group colour can't crash a tick. Still prefer a literal fallback at
+  the source where it matters (the renderer uses `f.color || '#…'`).
+- For nicer colour fades prefer a **perceptual** space — `interpolate(stops, 'oklab')`
+  — over linear sRGB. The FX palette blend in `sceneFx.ts` is still linear-RGB for
+  determinism and its custom `fade` shaping; switch it deliberately if desired.
+- culori is bundled into the Electron main process (esbuild) and resolved from
+  `node_modules` for the `tsx`-run headless/CLI/examples — it is a runtime
+  `dependency`, not a dev dependency.

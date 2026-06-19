@@ -8,20 +8,37 @@ import { makeStageTile } from './views/stage';
 import { makeBanksTile } from './views/banks';
 import { makeFxPaletteTile } from './views/fxpalette';
 import { makeFaderEditorTile } from './views/fadereditor';
+import { makeLimitsTile } from './views/limits-tile';
 import { makeDebugView } from './views/debug';
 import { makeConnectionView } from './views/connection';
 import { openSettingsModal } from './views/settings-modal';
 import { openMenu, closeMenu } from './lib/widgets';
 import { node, html } from './lib/dom';
 import { initAppSettings } from './lib/settings';
+import { initSelectionBridge } from './lib/selection';
+import { initMidiAssign } from './lib/midiassign';
 import { isEditable } from './lib/keys';
 import { bus, EV } from './lib/bus';
+import { startAudioTempo, type AudioTempo } from './lib/audio-tempo';
+import type { TransportStatus, TempoSource } from './lumox.d';
 
 const { lumox } = window;
 
 // Apply app preferences (language, accent) before the UI fills in, and keep them
 // in sync as they change.
 initAppSettings();
+
+// Mirror the shared fixture selection into main's ordered programming target
+// (so FX layers can sweep across it) and reflect main-driven reorders back.
+initSelectionBridge();
+
+// MIDI control surface: title-bar button opens the mapping window; the assign
+// overlay paints tagged controls purple while assigning.
+initMidiAssign();
+const midiBtn = document.getElementById('midi-btn');
+midiBtn?.addEventListener('click', () => lumox?.midi.openWindow());
+lumox?.midi.onStatus((s) => midiBtn?.classList.toggle('connected', s.connected));
+lumox?.midi.status().then((s) => midiBtn?.classList.toggle('connected', s.connected)).catch(() => {});
 
 // ---- workspace: resizable dock -----------------------------------------
 const ws = document.querySelector('.workspace') as HTMLElement;
@@ -38,9 +55,12 @@ makeConnectionView().then((el) => connectionView.appendChild(el));
 makeGroupBarTile().then(({ tile }) => dock.mount('groups', tile));
 makeStageTile().then(({ tile }) => dock.mount('bl', tile));
 
-// Bottom-right fader editor — only shown in CONTROL.
+// Bottom-right: fader editor in CONTROL, fixture-limits editor in SETUP (both
+// mounted into the same slot; the active tab toggles which is visible).
 let faderTile: HTMLElement | null = null;
 makeFaderEditorTile().then(({ tile }) => { faderTile = tile; dock.mount('br', tile); showTab(currentTab); });
+let limitsTile: HTMLElement | null = null;
+makeLimitsTile().then(({ tile }) => { limitsTile = tile; dock.mount('br', tile); showTab(currentTab); });
 
 // Top-row tiles per tab — all mounted, toggled by the active tab so state
 // (selection, patch grid, scenes) survives switching.
@@ -74,8 +94,9 @@ function showTab(name: string) {
   for (const [tab, tiles] of Object.entries(top)) {
     tiles.forEach((t) => t.classList.toggle('hidden', tab !== name));
   }
-  // fader editor only in CONTROL
+  // bottom-right: fader editor only in CONTROL, limits editor only in SETUP
   if (faderTile) faderTile.classList.toggle('hidden', name !== 'control');
+  if (limitsTile) limitsTile.classList.toggle('hidden', name !== 'setup');
   // top split per tab: SETUP → library at 25%; CONTROL → wide banks, ~20% FX
   if (name === 'control') dock.setTopColFraction(0.8);
   else dock.setTopColFraction(0.25);
@@ -182,17 +203,24 @@ lumox?.win.isMaximized().then(setMaxIcon);
 // ---- master BPM clock (titlebar) ---------------------------------------
 // Editable tempo + tap-tempo + a beat LED that pulses on each beat. The LED is
 // a local visual metronome derived from the master BPM (the engine has no
-// shared downbeat to lock to); tapping realigns the beat to the tap.
+// shared downbeat to lock to); tapping realigns the beat to the tap. The tempo
+// can also be driven by an external source (MIDI clock / audio / Ableton Link),
+// chosen in Settings — while one is active the field is locked (read-only) and a
+// source chip shows which clock is in control. See docs/knowledge-base/tempo.md.
 const bpmInput = document.getElementById('bpm-input') as HTMLInputElement | null;
 const beatEl = document.getElementById('bpm-beat') as HTMLElement | null;
+const bpmClock = document.getElementById('bpm-clock') as HTMLElement | null;
+const bpmSrc = document.getElementById('bpm-src') as HTMLButtonElement | null;
 const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#5eb3ff';
 let beatMs = 500;                       // 120 BPM
 let beatOrigin = performance.now();
+let locked = false;                     // an external source is driving the tempo
 const setBeat = (bpm: number, origin?: number) => { beatMs = 60000 / Math.max(1, bpm); if (origin != null) beatOrigin = origin; };
 
 // Push a new tempo to the engine; the clamped value it returns is authoritative.
+// No-op while an external clock is locked (the engine would ignore it anyway).
 function applyBpm(raw: number, origin?: number) {
-  if (!Number.isFinite(raw)) return;
+  if (locked || !Number.isFinite(raw)) return;
   lumox?.transport?.setBpm(raw).then((bpm) => {
     if (bpmInput) bpmInput.value = String(bpm);   // reflect the clamped value, even while focused
     setBeat(bpm, origin);
@@ -200,7 +228,41 @@ function applyBpm(raw: number, origin?: number) {
   }).catch(() => {});
 }
 
-lumox?.transport?.get().then((t) => { const b = t?.bpm ?? 120; if (bpmInput) bpmInput.value = String(b); setBeat(b); }).catch(() => {});
+const SRC_LABELS: Record<TempoSource, string> = { manual: '', midi: 'MIDI', audio: 'AUDIO', link: 'LINK' };
+
+// Web Audio onset detector — runs only while 'audio' is the active source; its
+// estimate is pushed to the engine (honoured there only when source is 'audio').
+let audio: AudioTempo | null = null;
+function syncAudioSource(source: TempoSource): void {
+  if (source === 'audio' && !audio) {
+    startAudioTempo((bpm) => lumox?.transport?.audioBpm(bpm).catch(() => {}))
+      .then((a) => { audio = a; })
+      .catch(() => { audio = null; lumox?.transport?.setSource('manual'); });   // mic denied → revert
+  } else if (source !== 'audio' && audio) {
+    audio.stop();
+    audio = null;
+  }
+}
+
+// Reflect the live transport status onto the titlebar (initial + on every change).
+function reflectStatus(s: TransportStatus): void {
+  locked = s.locked;
+  if (bpmInput) {
+    if (document.activeElement !== bpmInput) bpmInput.value = String(s.bpm);
+    bpmInput.readOnly = locked;
+  }
+  setBeat(s.bpm);
+  bpmClock?.classList.toggle('locked', locked);
+  if (bpmSrc) {
+    bpmSrc.hidden = s.source === 'manual';
+    bpmSrc.textContent = SRC_LABELS[s.source];
+  }
+  syncAudioSource(s.source);
+}
+
+lumox?.transport?.get().then(reflectStatus).catch(() => {});
+lumox?.transport?.onChanged(reflectStatus);
+bpmSrc?.addEventListener('click', () => openSettingsModal());
 bpmInput?.addEventListener('change', () => applyBpm(Number(bpmInput.value)));
 
 // Scrub the tempo by dragging the field vertically (up = faster). A small
@@ -238,6 +300,7 @@ if (bpmInput) {
 // Tap tempo — average the gaps between recent taps; a >2s pause starts fresh.
 let taps: number[] = [];
 document.getElementById('bpm-tap')?.addEventListener('click', () => {
+  if (locked) return;                   // an external clock owns the tempo
   const now = performance.now();
   if (taps.length && now - taps[taps.length - 1] > 2000) taps = [];
   taps.push(now);

@@ -1,7 +1,7 @@
 import { MixModule } from '../MixModule';
 import type { MixModuleConfig, MixContext } from '../MixModule';
 import type { Universe } from '../../core/Universe';
-import { hsvToRgb } from '../../util/Color';
+import { hsvToBytes } from '../../util/color';
 
 /**
  * Minimal structural type for a patched fixture, as consumed here.
@@ -146,7 +146,7 @@ export function rainbowGroupEffect({
       const base = (ctx.now % periodMs) / periodMs;
       const offset = count > 0 ? (idx / count) * spread : 0;
       const h = (base + offset) % 1;
-      const { r, g, b } = hsvToRgb({ h: h * 360, s: saturation, v: value });
+      const { r, g, b } = hsvToBytes(h * 360, saturation, value);
       write('red', r); write('green', g); write('blue', b);
       if (alsoLightIntensity) write('intensity', 255);
     },

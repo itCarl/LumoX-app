@@ -1,3 +1,5 @@
+import { randomBytes } from 'node:crypto';
+
 /**
  * sACN E1.31 packet codec.
  * Spec: ANSI E1.31-2018.
@@ -124,10 +126,9 @@ export function buildDataPacket({
   return buf;
 }
 
-/** Generate a random RFC 4122 v4 CID (16 bytes). */
+/** Generate a random RFC 4122 v4 CID (16 bytes) using a CSPRNG. */
 export function generateCID(): Buffer {
-  const b = Buffer.alloc(16);
-  for (let i = 0; i < 16; i++) b[i] = Math.floor(Math.random() * 256);
+  const b = randomBytes(16);
   b[6] = (b[6] & 0x0f) | 0x40; // version 4
   b[8] = (b[8] & 0x3f) | 0x80; // variant
   return b;

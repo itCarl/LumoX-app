@@ -39,7 +39,7 @@ that just print and exit say so in their banner.
 | 22 | `22-control-par.js` | **Full end-to-end PAR control** — library → patch → output → color sequence |
 | 23 | `23-midi-apc-mini.js` | AKAI APC Mini MK2 controller — pads / faders / scene buttons / LED feedback (use `--mock` without hardware) |
 | 24 | `24-scenes.js` | Record scenes from fixture state, register in SceneMixer, crossfade between them |
-| 25 | `25-color-utility.js` | `Color` value object + model conversions (rgb / hsv / hsl / cmy / hex) |
+| 25 | `25-color-utility.js` | DMX-byte colour helpers (`hsvToBytes`/`hexToBytes`) + culori for the maths |
 | 27 | `27-discovery.js` | Art-Net node discovery — ArtPoll broadcast → list replying nodes (IP / universe / MAC / firmware) |
 | 28 | `28-matrix-fx.ts` | MATRIX FX pixel-mapping — per-emitter colour from 2D stage positions (wipe across a 5×5 matrix; asserts the spatial invariants) |
 

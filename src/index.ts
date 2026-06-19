@@ -26,6 +26,8 @@ export {
   rainbowGroupEffect, chaseGroupEffect, flashGroupEffect, sineIntensityGroupEffect,
 } from './mix/modules/GroupEffects';
 export { GrandMaster } from './mix/modules/GrandMaster';
+export { Limits } from './mix/modules/Limits';
+export type { FixtureLimitTargets, AxisLimitTarget, LimitMap } from './mix/modules/Limits';
 export { Blackout } from './mix/modules/Blackout';
 
 // Fixtures (channel types, capabilities, definitions, modes, library, importers)
@@ -55,12 +57,10 @@ export type { Bank, BankJSON } from './show/BankManager';
 
 export { createLogger, setLogLevel } from './util/logger';
 
-// Color utility — immutable value object + model conversions (rgb / hsv / hsl / cmy / hex)
-export { Color } from './util/Color';
-export {
-  hexToRgb, rgbToHex, rgbToHsv, hsvToRgb, rgbToHsl, hslToRgb, rgbToCmy, cmyToRgb,
-} from './util/Color';
-export type { Rgb, Hsv, Hsl, Cmy } from './util/Color';
+// Colour — DMX-byte bridges over culori (the colour-maths library). For richer
+// colour work (model conversions, perceptual blending) import culori directly.
+export { hsvToBytes, hexToBytes } from './util/color';
+export type { Rgb } from './util/color';
 
 // Register built-in output types so OutputManager.create('artnet'|'sacn', cfg) works.
 import { OutputManager } from './outputs/OutputManager';

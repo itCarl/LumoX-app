@@ -22,6 +22,17 @@ export interface StageTransformDTO {
   rotation: number;
 }
 
+/** Per-fixture output limits (coarse DMX 0..255). Mirrors engine `FixtureLimits`. */
+export interface FixtureLimitsDTO {
+  dimmer?: { max: number };
+  pan?:  { min: number; max: number; invert?: boolean };
+  tilt?: { min: number; max: number; invert?: boolean };
+  swapPanTilt?: boolean;
+}
+
+/** Per-channel flags by 1-based local index. Mirrors engine `FixtureChannelFlags`. */
+export type FixtureChannelFlagsDTO = { [channelIndex: number]: { fade?: boolean; dimmer?: boolean } };
+
 export interface DefDTO {
   id: string;
   manufacturer: string;
@@ -62,6 +73,10 @@ export interface FixtureDTO {
   channels: ChannelDTO[];
   /** 2D top-down placement on the STAGE tile (world units + degrees). */
   transform: StageTransformDTO;
+  /** Per-fixture output limits, or null when unconstrained. */
+  limits: FixtureLimitsDTO | null;
+  /** Per-channel behaviour flags, or null when none set. */
+  channelFlags: FixtureChannelFlagsDTO | null;
 }
 
 export interface GroupDTO {
@@ -76,7 +91,7 @@ export type FxKindDTO = 'color' | 'move' | 'curve' | 'chaser' | 'value' | 'matri
 export type FxOrderDTO = 'patch' | 'reverse' | 'mirror' | 'random';
 export type FxWaveDTO = 'sine' | 'triangle' | 'sawtooth' | 'square' | 'random';
 export type MatrixPatternDTO = 'wipe' | 'radial' | 'plasma';
-export type FxTargetSelDTO = { mode: 'all' } | { mode: 'group'; groupId: string };
+export type FxTargetSelDTO = { mode: 'all' } | { mode: 'group'; groupId: string } | { mode: 'selection' };
 
 /** One effect layer in a scene's FX rack. The config matching `kind` is set. */
 export interface FxLayerDTO {
@@ -199,6 +214,8 @@ export interface ProjectData {
   presets?: any[];
   /** master tempo (BPM) for beat-synced scenes */
   bpm?: number;
+  /** MIDI control-surface bindings (trigger → Lumox target) */
+  midiBindings?: any[];
 }
 
 /** Current project identity surfaced to the renderer (titlebar). */
@@ -229,6 +246,28 @@ export type AppLanguage = 'en' | 'de';
 export type DmxProtocol = 'artnet' | 'sacn';
 
 /**
+ * Where the master tempo (BPM) comes from:
+ *   'manual' — typed / scrubbed / tapped in the titlebar (default)
+ *   'midi'   — locked to an external MIDI clock (24 ppqn) from a chosen input
+ *   'audio'  — estimated from audio onsets (renderer Web Audio analyser)
+ *   'link'   — slaved to an Ableton Link session (optional native addon)
+ */
+export type TempoSource = 'manual' | 'midi' | 'audio' | 'link';
+
+/** Live transport state surfaced to the renderer (titlebar + settings). */
+export interface TransportStatus {
+  /** master tempo (BPM). */
+  bpm: number;
+  source: TempoSource;
+  /** source !== 'manual' — an external clock drives the tempo (the field is read-only). */
+  locked: boolean;
+  /** chosen MIDI input port for the 'midi' source (null = none). */
+  midiInput: string | null;
+  /** which non-manual sources can actually run on this machine right now. */
+  available: { midi: boolean; link: boolean };
+}
+
+/**
  * Application-level preferences — machine-scoped, NOT part of a project. Stored
  * as `settings.json` in the Electron `userData` directory and managed by
  * SettingsService. Missing/invalid fields fall back to DEFAULT_SETTINGS.
@@ -250,4 +289,8 @@ export interface AppSettings {
   reopenLastProject: boolean;
   /** Path of the most recently saved/opened project (for reopen-on-launch). */
   lastProjectPath: string | null;
+  /** Where the master tempo comes from (manual / midi / audio / link). */
+  tempoSource: TempoSource;
+  /** MIDI input port name for the 'midi' clock source (null = none chosen). */
+  midiClockInput: string | null;
 }
