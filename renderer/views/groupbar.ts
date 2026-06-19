@@ -22,6 +22,13 @@ export async function makeGroupBarTile(): Promise<{ tile: HTMLElement; refresh: 
 
   async function reload() {
     try { groups = await lumox.groups.list(); } catch { groups = []; }
+    // Invariant: a group is always selected. If the active group disappeared
+    // (e.g. an auto-group was cleaned up when its last fixture was unpatched),
+    // fall back to "All" and broadcast so consumers drop the stale highlight.
+    if (active !== 'all' && !groups.some((g) => g.id === active)) {
+      active = 'all';
+      bus.emit(EV.GROUP_SELECTED, active);
+    }
     tabs.set(html`
       <button class="gb-tab${active === 'all' ? ' active' : ''}" data-grp="all">All</button>
       ${groups.map((g) => html`

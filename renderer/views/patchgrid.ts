@@ -51,12 +51,14 @@ export async function makePatchGridTile() {
   let dragSpan = 0;        // channel count of the fixture being dragged
   let dragMoveId: string | null = null;   // id when an internal move is in progress
   let highlightGroup = 'all';  // group id to highlight (not filter)
+  const selected = new Set<string>();   // shared fixture selection (mirrored with the stage)
 
   async function reload() {
     [universes, fixtures] = await Promise.all([
       lumox.universes.list(),
       lumox.patch.list(),
     ]);
+    for (const id of [...selected]) if (!fixtures.some((f) => f.id === id)) selected.delete(id);
     if (!universes.length) universes = [{ id: 0, name: 'Universe 1' }];
     if (!universes.some((u) => u.id === currentUni)) currentUni = universes[0].id;
     uniSel.innerHTML = universes.map((u) =>
@@ -86,7 +88,7 @@ export async function makePatchGridTile() {
             <td class="muted">${esc(f.model)}</td>
             <td class="muted">${esc(f.modeName)}</td>
             <td>${f.channelCount}</td>
-            <td><button class="pg-del" data-del="${f.id}" title="Unpatch">✕</button></td>
+            <td><button class="pg-del" data-del="${f.id}" title="Unpatch"><i class="fa-solid fa-xmark"></i></button></td>
           </tr>`).join('') || '<tr><td colspan="6" class="muted pad">No fixtures patched. Switch to GRID and drag from the library.</td></tr>'}
         </tbody>
       </table>`;
@@ -121,7 +123,8 @@ export async function makePatchGridTile() {
       const isHead = f.startAddress === runStart;   // first segment carries the name
       const c = f.color || '#4ba6e0';
       const hl = highlightGroup !== 'all' && f.groupId === highlightGroup ? ' hl' : '';
-      html += `<div class="cell fx${isHead ? ' fx-head' : ' fx-cont'}${hl}" draggable="true"
+      const sel = selected.has(f.id) ? ' sel' : '';
+      html += `<div class="cell fx${isHead ? ' fx-head' : ' fx-cont'}${hl}${sel}" draggable="true"
         style="grid-row:${row};grid-column:${col}/span ${runLen};--fx:${c}"
         data-ch="${runStart}" data-fx="${f.id}" data-start="${f.startAddress}"
         title="${esc(f.name)} · ${f.startAddress}–${f.endAddress} (${f.channelCount}ch) · ${esc(f.groupName ?? '')}">
@@ -267,7 +270,25 @@ export async function makePatchGridTile() {
   });
   gridEl.addEventListener('click', (e) => {
     const del = (e.target as HTMLElement).closest('[data-del]') as HTMLElement | null;
-    if (del) unpatch(del.dataset.del as string);
+    if (del) { unpatch(del.dataset.del as string); return; }
+    // Click a patched fixture to select it (Ctrl/Cmd to add/toggle); empty cell clears.
+    const cell = (e.target as HTMLElement).closest('.cell[data-fx]') as HTMLElement | null;
+    if (!cell) { if (selected.size) { selected.clear(); emitSelection(); render(); } return; }
+    const id = cell.dataset.fx as string;
+    if (e.ctrlKey || e.metaKey) { if (selected.has(id)) selected.delete(id); else selected.add(id); }
+    else { selected.clear(); selected.add(id); }
+    emitSelection();
+    render();
+  });
+
+  // Shared fixture selection — mirror the stage (and vice-versa). `src` tags the
+  // origin so each tile ignores its own echo.
+  const emitSelection = () => bus.emit(EV.FIXTURE_SELECTED, { ids: [...selected], src: 'patch' });
+  bus.on(EV.FIXTURE_SELECTED, (d: { ids: string[]; src: string }) => {
+    if (!d || d.src === 'patch') return;
+    selected.clear();
+    for (const id of d.ids) selected.add(id);
+    if (viewMode === 'grid') renderGrid();
   });
 
   uniSel.addEventListener('change', () => { currentUni = Number(uniSel.value); render(); });

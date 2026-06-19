@@ -7,6 +7,7 @@
 
 import { mount, html, raw } from '../lib/dom';
 import { openMenu, type MenuItem } from '../lib/widgets';
+import { onShortcut } from '../lib/keys';
 import { bus, EV } from '../lib/bus';
 
 const { lumox } = window;
@@ -202,15 +203,10 @@ export async function makeBanksTile() {
 
   // ---- bank context menu -----------------------------------------------
   function showBankMenu(e: MouseEvent, bankId: string) {
-    const bank = banks.find((b) => b.id === bankId);
-    const name = bank?.name ?? '';
     const items: MenuItem[] = [
-      { label: 'Rename…', key: 'Ctrl+R', onClick: async () => {
-        const n = prompt('Bank name', name);
-        if (n && n.trim()) { await lumox.banks.rename(bankId, n.trim()); reload(); }
-      } },
+      { label: 'Rename…', key: 'F2', onClick: () => renameBank(bankId) },
       { divider: true },
-      { label: 'Delete', key: 'Del', onClick: async () => {
+      { label: 'Delete', onClick: async () => {
         await lumox.banks.remove(bankId);
         if (active === bankId) active = null;   // reload() re-resolves to the first remaining bank
         reload();
@@ -278,10 +274,33 @@ export async function makeBanksTile() {
     showSceneMenu(e as MouseEvent, t.dataset.scene as string);
   });
 
+  // ---- scene actions (shared by the context menu + keyboard shortcuts) ---
+  async function deleteScene(sceneId: string) {
+    await lumox.scenes.remove(sceneId);
+    bus.emit(EV.SCENE_SELECTED, null);   // edit target re-resolves to whatever stays active
+    reload();
+  }
+  async function renameScene(sceneId: string) {
+    const n = prompt('Scene name', findScene(sceneId)?.name ?? '');
+    if (!n || !n.trim()) return;
+    await lumox.scenes.rename(sceneId, n.trim());
+    if (findScene(sceneId)?.active) bus.emit(EV.SCENE_SELECTED, { id: sceneId, name: n.trim() });
+    reload();
+  }
+  async function duplicateScene(sceneId: string) {
+    await lumox.scenes.duplicate(sceneId);
+    reload();
+  }
+  async function renameBank(bankId: string) {
+    const n = prompt('Bank name', banks.find((b) => b.id === bankId)?.name ?? '');
+    if (!n || !n.trim()) return;
+    await lumox.banks.rename(bankId, n.trim());
+    reload();
+  }
+
   // ---- scene context menu ----------------------------------------------
   function showSceneMenu(e: MouseEvent, sceneId: string) {
     const sc = findScene(sceneId);
-    const name = sc?.name ?? '';
     const type = sc?.type ?? 'static';
     const setType = (t: string) => async () => {
       await lumox.scenes.setType(sceneId, t);
@@ -290,20 +309,9 @@ export async function makeBanksTile() {
     };
 
     const items: MenuItem[] = [
-      { label: 'Delete', key: 'Del', onClick: async () => {
-        await lumox.scenes.remove(sceneId);
-        bus.emit(EV.SCENE_SELECTED, null);   // edit target re-resolves to whatever stays active
-        reload();
-      } },
-      { label: 'Rename…', key: 'Ctrl+R', onClick: async () => {
-        const n = prompt('Scene name', name);
-        if (n && n.trim()) {
-          await lumox.scenes.rename(sceneId, n.trim());
-          if (findScene(sceneId)?.active) bus.emit(EV.SCENE_SELECTED, { id: sceneId, name: n.trim() });
-          reload();
-        }
-      } },
-      { label: 'Duplicate', key: 'Ctrl+D', onClick: async () => { await lumox.scenes.duplicate(sceneId); reload(); } },
+      { label: 'Delete', key: 'Del', onClick: () => deleteScene(sceneId) },
+      { label: 'Rename…', key: 'F2', onClick: () => renameScene(sceneId) },
+      { label: 'Duplicate', key: 'Ctrl+D', onClick: () => duplicateScene(sceneId) },
       { divider: true },
       { sub: 'Base' },
       { label: 'Static', check: type === 'static', onClick: setType('static') },
@@ -333,6 +341,16 @@ export async function makeBanksTile() {
     cols.el.querySelectorAll('.scene-cell.selected').forEach((c) => c.classList.remove('selected'));
     if (id) cols.el.querySelector(`.scene-cell[data-scene="${id}"]`)?.classList.add('selected');
   });
+
+  // Keyboard shortcuts act on the edit-selected scene. The banks tile is only
+  // shown in CONTROL, so gating on its visibility scopes these to that tab.
+  const visible = () => !tile.classList.contains('hidden');   // banks tile is CONTROL-only
+  const sceneTargeted = () => visible() && !!selected;
+  onShortcut({ key: 'Delete' }, () => { if (selected) deleteScene(selected); }, sceneTargeted);
+  onShortcut({ key: 'Backspace' }, () => { if (selected) deleteScene(selected); }, sceneTargeted);
+  onShortcut({ key: 'd', ctrl: true }, () => { if (selected) duplicateScene(selected); }, sceneTargeted);
+  // F2 renames the edit-selected scene, or the active bank when none is selected.
+  onShortcut({ key: 'F2' }, () => { if (selected) renameScene(selected); else if (active) renameBank(active); }, visible);
 
   await reload();
   return { tile, refresh: reload };

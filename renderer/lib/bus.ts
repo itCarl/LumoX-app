@@ -17,7 +17,12 @@ export const EV = {
   PATCH_CHANGED: 'patch-changed',     // fixtures added/removed/moved
   GROUPS_CHANGED: 'groups-changed',   // groups added/removed/renamed
   GROUP_SELECTED: 'group-selected',   // active group tab changed (detail = id|'all')
+  FIXTURE_SELECTED: 'fixture-selected', // shared fixture selection (detail = {ids, src})
   DRAG_START: 'drag-start',           // dragging a fixture (detail = {span, moveId})
   DRAG_END: 'drag-end',               // drag finished/cancelled
   LIBRARY_CHANGED: 'library-changed', // fixture definitions added/removed
+  SCENE_SELECTED: 'scene-selected',   // scene recalled for editing (detail = {id, name} | null)
+  SCENE_UPDATED: 'scene-updated',     // a scene's content/params changed (detail = sceneId)
+  BANK_SELECTED: 'bank-selected',     // active bank tab changed (detail = bankId | null)
+  TEMPO_CHANGED: 'tempo-changed',     // master BPM changed anywhere (detail = bpm number)
 };

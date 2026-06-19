@@ -119,7 +119,7 @@ function itemHtml(it: MenuItem, i: number): string {
 
   // button row
   let inner = '';
-  if (it.check !== undefined) inner += `<span class="ctx-check">${it.check ? '✓' : ''}</span>`;
+  if (it.check !== undefined) inner += `<span class="ctx-check">${it.check ? '<i class="fa-solid fa-check"></i>' : ''}</span>`;
   else if (it.dot) inner += `<span class="ctx-dot" style="background:${esc(it.dot)}"></span>`;
   else if (it.icon) inner += it.icon;
   inner += `<span>${esc(it.label)}</span>`;
