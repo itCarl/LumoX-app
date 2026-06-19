@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Lumox</title>
+  <!--
+    Lumox app icon. Concept: Lumos (light) + DMX. Two stage-light sources at the
+    top corners fire diagonally, each beam spreading into a cone, and cross
+    through the centre to form an "X"; screen-blended, their overlap fuses to a
+    white-hot core — a nod to DMX additive colour mixing. Brand accent blue +
+    a violet partner, two lens sources on a dark rounded tile that matches the
+    app shell. Canonical vector source; the rasters in this folder are generated
+    from it (npm run icons).
+  -->
+  <defs>
+    <linearGradient id="lx-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2f38"/>
+      <stop offset="0.55" stop-color="#191c22"/>
+      <stop offset="1" stop-color="#101216"/>
+    </linearGradient>
+
+    <!-- Beam gradients run along the beam's local Y (lens source -> centre). -->
+    <linearGradient id="lx-beamA" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0"   stop-color="#eaf5ff" stop-opacity="0.96"/>
+      <stop offset="0.5" stop-color="#6bb8ff" stop-opacity="0.72"/>
+      <stop offset="1"   stop-color="#2f7fe0" stop-opacity="0.30"/>
+    </linearGradient>
+    <linearGradient id="lx-beamB" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0"   stop-color="#f2e9ff" stop-opacity="0.96"/>
+      <stop offset="0.5" stop-color="#b187ff" stop-opacity="0.70"/>
+      <stop offset="1"   stop-color="#6a3df0" stop-opacity="0.28"/>
+    </linearGradient>
+
+    <radialGradient id="lx-core" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0"    stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="0.35" stop-color="#cfe6ff" stop-opacity="0.85"/>
+      <stop offset="1"    stop-color="#7fb8ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lx-lensA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0"   stop-color="#ffffff"/>
+      <stop offset="0.5" stop-color="#bfe0ff"/>
+      <stop offset="1"   stop-color="#3f8fe6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lx-lensB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0"   stop-color="#ffffff"/>
+      <stop offset="0.5" stop-color="#dcc8ff"/>
+      <stop offset="1"   stop-color="#7a4ff0" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="lx-soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="lx-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="9" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Tile -->
+  <rect x="8" y="8" width="496" height="496" rx="112" fill="url(#lx-bg)"/>
+  <rect x="8.5" y="8.5" width="495" height="495" rx="111.5" fill="none"
+        stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5"/>
+
+  <!-- Two cone beams from the top corners cross through the centre = X.
+       Screen blend fuses the overlap. -->
+  <g filter="url(#lx-soft)">
+    <!-- Blue: top-left source, fanning down to the bottom-right -->
+    <path transform="translate(150 150) rotate(-45)" d="M-6 0 L6 0 L44 340 L-44 340 Z" fill="url(#lx-beamA)" style="mix-blend-mode:screen"/>
+    <!-- Violet: top-right source, fanning down to the bottom-left -->
+    <path transform="translate(362 150) rotate(45)"  d="M-6 0 L6 0 L44 340 L-44 340 Z" fill="url(#lx-beamB)" style="mix-blend-mode:screen"/>
+  </g>
+
+  <!-- White-hot crossing core -->
+  <circle cx="256" cy="256" r="82" fill="url(#lx-core)" style="mix-blend-mode:screen"/>
+  <circle cx="256" cy="256" r="15" fill="#ffffff"/>
+
+  <!-- The two lens sources -->
+  <g filter="url(#lx-glow)">
+    <circle cx="150" cy="150" r="28" fill="url(#lx-lensA)"/>
+    <circle cx="362" cy="150" r="28" fill="url(#lx-lensB)"/>
+    <circle cx="150" cy="150" r="10.5" fill="#ffffff"/>
+    <circle cx="362" cy="150" r="10.5" fill="#ffffff"/>
+  </g>
+</svg>
