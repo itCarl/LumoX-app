@@ -28,6 +28,21 @@
           "PAR", "Moving Head", "Strobe", "LED Bar", "Dimmer",
           "Smoke", "Laser", "Scanner", "Color Changer", "Effect", "Other"
         ]},
+        "emitters":     { "type": "integer", "minimum": 1, "maximum": 1024 },
+        "emitterLayout": {
+          "type": "array",
+          "description": "Per-emitter normalized positions (0..1) for matrix effects.",
+          "maxItems": 1024,
+          "items": {
+            "type": "object",
+            "required": ["x", "y"],
+            "properties": {
+              "x": { "type": "number", "minimum": 0, "maximum": 1 },
+              "y": { "type": "number", "minimum": 0, "maximum": 1 }
+            },
+            "additionalProperties": false
+          }
+        },
         "meta":         { "$ref": "#/$defs/Meta" },
         "physical":     { "$ref": "#/$defs/Physical" },
         "modes": {

@@ -6,12 +6,12 @@ import './types/intensity';
 import './types/color';
 import './types/position';
 import './types/beam';
+import './types/prism';
 import './types/gobo';
 import './types/control';
 
 // Importers — each module self-registers
 import './importers/LumoxImporter';
-import './importers/QlcPlusImporter';
 
 export { ChannelType, ChannelTypeRegistry } from './ChannelType';
 export {
@@ -21,9 +21,9 @@ export {
 export { ChannelDefinition } from './ChannelDefinition';
 export { FixtureMode } from './FixtureMode';
 export { FixtureDefinition } from './FixtureDefinition';
+export type { EmitterCell, FixtureDefinitionJSON } from './FixtureDefinition';
 export { Fixture } from './Fixture';
 export { FixtureLibrary } from './FixtureLibrary';
 export { FixtureValidator } from './FixtureValidator';
 export { FixtureImporter, ImporterRegistry } from './importers/Importer';
 export { LumoxImporter } from './importers/LumoxImporter';
-export { QlcPlusImporter } from './importers/QlcPlusImporter';

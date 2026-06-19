@@ -3,15 +3,18 @@
  * Modular via `ChannelTypeRegistry`. Built-ins self-register from
  * `src/fixtures/types/*.ts`. App code or plugins call `register()` to add more.
  *
- * Groups:
- *   intensity  brightness/dimmer/shutter
- *   color      red/green/blue/white/amber/cyan/magenta/yellow/uv/lime/cto/ctb
- *   position   pan/tilt + fine counterparts
- *   beam       zoom/focus/iris/frost/prism/blade
- *   gobo       wheel + rotation
+ * Built-ins cover the standard DMX channel presets; the set grows additively
+ * (existing ids never change). Groups (all colour mixing lives under `color`):
+ *   intensity  master/dimmer (+fine), shutter, strobe, dim curve
+ *   color      rgb/cmy/amber/uv/lime/indigo (+fine), wheel/macro, cto/ctb,
+ *              mixers, hue/saturation/lightness/value (HSV — no swatch)
+ *   position   pan/tilt + fine, x/y axis, pan/tilt movement speed
+ *   beam       zoom/focus/iris (+fine), frost, blade
+ *   prism      prism insert + rotation (incl. ramp-direction variants)
+ *   gobo       wheel/index (+fine), rotation, shake
  *   control    speed/sound/macro/reset/function
  *   effect     generator effects on fixture side (built-in patterns)
- *   maintenance lamp on/off, reset, fan, dim curve
+ *   maintenance lamp on/off, reset, fan
  *
  * Conventions:
  *   id            kebab-case ASCII (`pan`, `pan-fine`, `color-wheel`)

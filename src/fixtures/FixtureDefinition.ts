@@ -25,6 +25,38 @@ export interface FixtureMeta {
   [key: string]: unknown;
 }
 
+/**
+ * EmitterCell — one light-emitting cell of the fixture, positioned in
+ * normalized 0..1 coordinates within the fixture's bounding box (origin
+ * top-left). Resolution-independent so matrix effects can map effects onto the
+ * physical layout regardless of how it's drawn.
+ */
+export interface EmitterCell {
+  x: number;   // 0..1
+  y: number;   // 0..1
+}
+
+/** Hard cap on emitter count — mirrors the editor's input bound. */
+const MAX_EMITTERS = 1024;
+
+/**
+ * Sanitize an emitter layout: keep only finite {x,y} pairs, clamp to 0..1, and
+ * cap the count. Returns null for empty/invalid input (no layout). Defensive —
+ * `library:add` feeds untrusted JSON straight through `fromJSON`.
+ */
+function sanitizeEmitterLayout(layout: unknown): EmitterCell[] | null {
+  if (!Array.isArray(layout)) return null;
+  const clamp = (v: unknown) => Math.min(1, Math.max(0, Number(v)));
+  const out: EmitterCell[] = [];
+  for (const c of layout) {
+    if (out.length >= MAX_EMITTERS) break;
+    const x = clamp((c as EmitterCell)?.x);
+    const y = clamp((c as EmitterCell)?.y);
+    if (Number.isFinite(x) && Number.isFinite(y)) out.push({ x, y });
+  }
+  return out.length ? out : null;
+}
+
 /** Real-world physical specs block. All sub-objects default to null. */
 export interface FixturePhysical {
   dimensions?: { width?: number | null; height?: number | null; depth?: number | null; unit?: string } | null;
@@ -43,6 +75,7 @@ export interface FixtureDefinitionJSON {
   model?: string;
   type?: string;
   emitters?: number;
+  emitterLayout?: EmitterCell[] | null;
   meta?: FixtureMeta;
   physical?: FixturePhysical;
   modes?: (FixtureMode | ModeJSON)[];
@@ -57,6 +90,8 @@ export class FixtureDefinition {
   model?: string;
   type: string;
   emitters: number;
+  /** Per-emitter normalized positions (0..1). null = no explicit layout. */
+  emitterLayout: EmitterCell[] | null;
   modes: FixtureMode[];
   meta: FixtureMeta;
   physical: FixturePhysical;
@@ -66,6 +101,7 @@ export class FixtureDefinition {
   constructor({
     id, manufacturer, model, type = 'Other',
     emitters = 1,
+    emitterLayout = null,
     modes = [],
     meta = {},
     physical = {},
@@ -74,7 +110,11 @@ export class FixtureDefinition {
     this.manufacturer = manufacturer;
     this.model = model;
     this.type = type;   // 'Moving Head' | 'PAR' | 'Strobe' | 'LED Bar' | ...
-    this.emitters = Math.max(1, emitters | 0);  // light-emitting cells shown on the stage
+    // light-emitting cells shown on the stage. A positioned layout, when
+    // present, is the source of truth for the count; otherwise fall back to the
+    // plain numeric `emitters`.
+    this.emitterLayout = sanitizeEmitterLayout(emitterLayout);
+    this.emitters = this.emitterLayout ? this.emitterLayout.length : Math.max(1, emitters | 0);
     this.modes = modes.map((m) => (m instanceof FixtureMode ? m : FixtureMode.fromJSON(m)));
 
     this.meta = {
@@ -116,6 +156,8 @@ export class FixtureDefinition {
       model: this.model,
       type: this.type,
       emitters: this.emitters,
+      // Only emit a layout when one exists — keeps built-in profiles compact.
+      ...(this.emitterLayout ? { emitterLayout: this.emitterLayout } : {}),
       meta: this.meta,
       physical: this.physical,
       modes: this.modes.map((m) => m.toJSON()),

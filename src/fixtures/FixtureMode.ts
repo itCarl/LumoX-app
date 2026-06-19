@@ -8,7 +8,7 @@ import type { ChannelJSON } from './ChannelDefinition';
  *   channels[0]  → DMX address `startAddress + 0`
  *   channels[N]  → DMX address `startAddress + N`
  *
- * Use `null` entries for unused slots (rare; some QLC+ profiles do this).
+ * Use `null` entries for unused slots (rare; some profiles do this).
  */
 
 /** JSON shape of a fixture mode (round-trips via `toJSON`/`fromJSON`). */

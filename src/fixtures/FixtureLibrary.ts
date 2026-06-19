@@ -78,7 +78,7 @@ export class FixtureLibrary extends EventEmitter {
 
   /**
    * Load every file under `dir` whose extension has a registered importer
-   * (lumox `.json` / `.lfx`, QLC+5 `.qxf`). Recurses into subfolders —
+   * (lumox `.json` / `.lfx`). Recurses into subfolders —
    * convention: `fixtures/<Vendor>/<model>.lumox.json`.
    *
    * Hidden entries (dotfiles) are skipped.
