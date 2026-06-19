@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'" />
   <title>Lumox</title>
+  <link rel="stylesheet" href="./dist/fontawesome/css/all.min.css" />
   <link rel="stylesheet" href="./dist/tailwind.css" />
   <link rel="stylesheet" href="./styles/main.css" />
 </head>
@@ -11,32 +12,35 @@
   <div id="app">
     <!-- Custom frameless titlebar: tabs left · name center · controls right -->
     <header id="titlebar">
-      <button id="app-menu-btn" class="tb-appmenu" title="Menu">⋯</button>
+      <button id="app-menu-btn" class="tb-appmenu" title="Menu"><i class="fa-solid fa-ellipsis"></i></button>
       <nav class="tb-tabs" id="tabs">
         <button class="tb-tab active" data-tab="setup">Setup</button>
         <button class="tb-tab" data-tab="control">Control</button>
+        <button class="tb-tab" data-tab="connection">Connection</button>
       </nav>
 
       <div class="tb-center">
         <span class="tb-name">Lumox <span class="tb-doc">— Untitled</span></span>
       </div>
 
+      <div class="tb-bpm" id="bpm-clock" title="Master tempo — type a value or tap">
+        <span class="bpm-beat" id="bpm-beat"></span>
+        <input id="bpm-input" class="bpm-val" type="number" min="20" max="300" step="1" value="120" aria-label="Tempo (BPM)" />
+        <span class="bpm-unit">BPM</span>
+        <button id="bpm-tap" class="bpm-tap" title="Tap tempo">TAP</button>
+      </div>
+
       <div class="tb-winctl">
-        <button id="win-min" class="wc" title="Minimize" aria-label="Minimize">
-          <svg width="10" height="10" viewBox="0 0 10 10"><line x1="1" y1="5" x2="9" y2="5"/></svg>
-        </button>
-        <button id="win-max" class="wc" title="Maximize" aria-label="Maximize">
-          <svg width="10" height="10" viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7"/></svg>
-        </button>
-        <button id="win-close" class="wc wc-close" title="Close" aria-label="Close">
-          <svg width="10" height="10" viewBox="0 0 10 10"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>
-        </button>
+        <button id="win-min" class="wc" title="Minimize" aria-label="Minimize"><i class="fa-solid fa-window-minimize"></i></button>
+        <button id="win-max" class="wc" title="Maximize" aria-label="Maximize"><i class="fa-solid fa-window-maximize"></i></button>
+        <button id="win-close" class="wc wc-close" title="Close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </header>
 
     <main id="view">
       <section class="workspace"></section>
       <section class="debug-view hidden"></section>
+      <section class="connection-view hidden"></section>
     </main>
   </div>
   <script type="module" src="./dist/index.js"></script>

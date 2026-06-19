@@ -8,11 +8,18 @@ type Cb<T = void> = (value: T) => void;
 
 contextBridge.exposeInMainWorld('lumox', {
   outputs: {
-    list:      ()       => ipcRenderer.invoke('lumox:outputs:list'),
-    available: ()       => ipcRenderer.invoke('lumox:outputs:available'),
-    create:    (type: string, config: unknown) => ipcRenderer.invoke('lumox:outputs:create', { type, config }),
-    update:    (opts: unknown)   => ipcRenderer.invoke('lumox:outputs:update', opts),
-    remove:    (id: string)     => ipcRenderer.invoke('lumox:outputs:remove', id),
+    list:           ()       => ipcRenderer.invoke('lumox:outputs:list'),
+    available:      ()       => ipcRenderer.invoke('lumox:outputs:available'),
+    patch:          ()       => ipcRenderer.invoke('lumox:outputs:patch'),
+    setUniverse:    (cfg: unknown) => ipcRenderer.invoke('lumox:outputs:setUniverse', cfg),
+    removeUniverse: (universeId: number) => ipcRenderer.invoke('lumox:outputs:removeUniverse', { universeId }),
+    addUniverse:    ()       => ipcRenderer.invoke('lumox:outputs:addUniverse'),
+  },
+  discovery: {
+    start:     () => ipcRenderer.invoke('lumox:discovery:start'),
+    stop:      () => ipcRenderer.invoke('lumox:discovery:stop'),
+    list:      () => ipcRenderer.invoke('lumox:discovery:list'),
+    onChanged: (cb: Cb<unknown[]>) => ipcRenderer.on('discovery:changed', (_e, d) => cb(d)),
   },
   universes: {
     list:       ()      => ipcRenderer.invoke('lumox:universes:list'),
@@ -36,15 +43,27 @@ contextBridge.exposeInMainWorld('lumox', {
     list:         () => ipcRenderer.invoke('lumox:library:list'),
     channelTypes: () => ipcRenderer.invoke('lumox:library:channelTypes'),
     add:          (def: unknown) => ipcRenderer.invoke('lumox:library:add', def),
+    remove:       (id: string) => ipcRenderer.invoke('lumox:library:remove', id),
     onChanged:    (cb: Cb) => ipcRenderer.on('library:changed', () => cb()),
   },
   editor: {
     open: () => ipcRenderer.invoke('lumox:editor:open'),
   },
   project: {
-    save: () => ipcRenderer.invoke('lumox:project:save'),
-    open: () => ipcRenderer.invoke('lumox:project:open'),
+    new:      () => ipcRenderer.invoke('lumox:project:new'),
+    save:     () => ipcRenderer.invoke('lumox:project:save'),
+    saveAs:   () => ipcRenderer.invoke('lumox:project:saveAs'),
+    open:     () => ipcRenderer.invoke('lumox:project:open'),
+    info:     () => ipcRenderer.invoke('lumox:project:info'),
+    report:   () => ipcRenderer.invoke('lumox:project:report'),
     onLoaded: (cb: Cb) => ipcRenderer.on('project:loaded', () => cb()),
+    onChanged: (cb: Cb<{ name: string; path: string | null; dirty: boolean }>) =>
+      ipcRenderer.on('project:changed', (_e, info) => cb(info)),
+  },
+  history: {
+    undo:  () => ipcRenderer.invoke('lumox:history:undo'),
+    redo:  () => ipcRenderer.invoke('lumox:history:redo'),
+    state: () => ipcRenderer.invoke('lumox:history:state'),
   },
   patch: {
     list:     ()   => ipcRenderer.invoke('lumox:patch:list'),
@@ -52,6 +71,7 @@ contextBridge.exposeInMainWorld('lumox', {
     move:     (opts: unknown) => ipcRenderer.invoke('lumox:patch:move', opts),
     remove:   (id: string) => ipcRenderer.invoke('lumox:patch:remove', id),
     rename:   (id: string, name: string) => ipcRenderer.invoke('lumox:patch:rename', { id, name }),
+    setTransform: (id: string, transform: unknown) => ipcRenderer.invoke('lumox:patch:setTransform', { id, transform }),
     overlaps: ()   => ipcRenderer.invoke('lumox:patch:overlaps'),
   },
   groups: {
@@ -64,16 +84,75 @@ contextBridge.exposeInMainWorld('lumox', {
   fixtures: {
     setChannel: (fixtureId: string, channel: number, value: number) =>
       ipcRenderer.invoke('lumox:fixtures:setChannel', { fixtureId, channel, value }),
+    releaseChannel: (fixtureId: string, channel: number) =>
+      ipcRenderer.invoke('lumox:fixtures:releaseChannel', { fixtureId, channel }),
+    clearProgrammer: () => ipcRenderer.invoke('lumox:fixtures:clearProgrammer'),
+    programmer:      () => ipcRenderer.invoke('lumox:fixtures:programmer'),
   },
   scenes: {
     list:    ()   => ipcRenderer.invoke('lumox:scenes:list'),
+    values:  (id: string) => ipcRenderer.invoke('lumox:scenes:values', id),
     capture: (bankId?: string, name?: string) => ipcRenderer.invoke('lumox:scenes:capture', { bankId, name }),
     recall:  (id: string, on: boolean) => ipcRenderer.invoke('lumox:scenes:recall', { id, on }),
     remove:  (id: string) => ipcRenderer.invoke('lumox:scenes:remove', id),
     rename:  (id: string, name: string) => ipcRenderer.invoke('lumox:scenes:rename', { id, name }),
     update:  (id: string) => ipcRenderer.invoke('lumox:scenes:update', id),
+    merge:   (id: string) => ipcRenderer.invoke('lumox:scenes:merge', id),
     setColor: (id: string, color: string) => ipcRenderer.invoke('lumox:scenes:setColor', { id, color }),
+    setChannel: (id: string, fixtureId: string, channel: number, value: number | null) =>
+      ipcRenderer.invoke('lumox:scenes:setChannel', { id, fixtureId, channel, value }),
+    setType: (id: string, type: string) => ipcRenderer.invoke('lumox:scenes:setType', { id, type }),
+    setRate: (id: string, rateMs: number) => ipcRenderer.invoke('lumox:scenes:setRate', { id, rateMs }),
+    addStep: (id: string) => ipcRenderer.invoke('lumox:scenes:addStep', id),
+    removeStep: (id: string, index: number) => ipcRenderer.invoke('lumox:scenes:removeStep', { id, index }),
+    moveStep: (id: string, index: number, delta: number) => ipcRenderer.invoke('lumox:scenes:moveStep', { id, index, delta }),
+    setStepTiming: (id: string, index: number, timing: { fadeMs?: number; waitMs?: number }) =>
+      ipcRenderer.invoke('lumox:scenes:setStepTiming', { id, index, ...timing }),
     duplicate: (id: string) => ipcRenderer.invoke('lumox:scenes:duplicate', id),
+    // Scene Properties panel
+    get:     (id: string) => ipcRenderer.invoke('lumox:scenes:get', id),
+    setLevel:  (id: string, level: number) => ipcRenderer.invoke('lumox:scenes:setLevel', { id, level }),
+    setSpeed:  (id: string, speed: number) => ipcRenderer.invoke('lumox:scenes:setSpeed', { id, speed }),
+    setFade:   (id: string, opts: unknown) => ipcRenderer.invoke('lumox:scenes:setFade', { id, ...(opts as object) }),
+    setDrive:  (id: string, opts: unknown) => ipcRenderer.invoke('lumox:scenes:setDrive', { id, ...(opts as object) }),
+    setStartMode: (id: string, mode: string) => ipcRenderer.invoke('lumox:scenes:setStartMode', { id, mode }),
+    setDirection: (id: string, direction: string) => ipcRenderer.invoke('lumox:scenes:setDirection', { id, direction }),
+    // Advanced panel
+    setPriority: (id: string, priority: string) => ipcRenderer.invoke('lumox:scenes:setPriority', { id, priority }),
+    setLoop: (id: string, opts: unknown) => ipcRenderer.invoke('lumox:scenes:setLoop', { id, ...(opts as object) }),
+    setJumpTo: (id: string, jumpTo: unknown) => ipcRenderer.invoke('lumox:scenes:setJumpTo', { id, jumpTo }),
+    setReleaseAtEnd: (id: string, on: boolean) => ipcRenderer.invoke('lumox:scenes:setReleaseAtEnd', { id, on }),
+    setReleaseMode: (id: string, opts: unknown) => ipcRenderer.invoke('lumox:scenes:setReleaseMode', { id, ...(opts as object) }),
+    setProtect: (id: string, opts: unknown) => ipcRenderer.invoke('lumox:scenes:setProtect', { id, ...(opts as object) }),
+    setFlash: (id: string, on: boolean) => ipcRenderer.invoke('lumox:scenes:setFlash', { id, on }),
+    // FX rack layers
+    addLayer:    (id: string, kind: string) => ipcRenderer.invoke('lumox:scenes:addLayer', { id, kind }),
+    removeLayer: (id: string, layerId: string) => ipcRenderer.invoke('lumox:scenes:removeLayer', { id, layerId }),
+    moveLayer:   (id: string, layerId: string, delta: number) => ipcRenderer.invoke('lumox:scenes:moveLayer', { id, layerId, delta }),
+    setLayerEnabled: (id: string, layerId: string, enabled: boolean) => ipcRenderer.invoke('lumox:scenes:setLayerEnabled', { id, layerId, enabled }),
+    setLayerTarget:  (id: string, layerId: string, mode: string, groupId?: string) => ipcRenderer.invoke('lumox:scenes:setLayerTarget', { id, layerId, mode, groupId }),
+    setLayerOrder:   (id: string, layerId: string, order: string) => ipcRenderer.invoke('lumox:scenes:setLayerOrder', { id, layerId, order }),
+    setLayerTiming:  (id: string, layerId: string, opts: unknown) => ipcRenderer.invoke('lumox:scenes:setLayerTiming', { id, layerId, ...(opts as object) }),
+    setLayerConfig:  (id: string, layerId: string, cfg: unknown) => ipcRenderer.invoke('lumox:scenes:setLayerConfig', { id, layerId, ...(cfg as object) }),
+    transport: (id: string, action: string) => ipcRenderer.invoke('lumox:scenes:transport', { id, action }),
+    layerPhase: (id: string, layerId: string) => ipcRenderer.invoke('lumox:scenes:layerPhase', { id, layerId }),
+  },
+  transport: {
+    get:    () => ipcRenderer.invoke('lumox:transport:get'),
+    setBpm: (bpm: number) => ipcRenderer.invoke('lumox:transport:setBpm', bpm),
+  },
+  palettes: {
+    list:   ()   => ipcRenderer.invoke('lumox:palettes:list'),
+    add:    (name: string, colors: string[]) => ipcRenderer.invoke('lumox:palettes:add', { name, colors }),
+    rename: (id: string, name: string) => ipcRenderer.invoke('lumox:palettes:rename', { id, name }),
+    remove: (id: string) => ipcRenderer.invoke('lumox:palettes:remove', id),
+  },
+  presets: {
+    list:      ()   => ipcRenderer.invoke('lumox:presets:list'),
+    saveRack:  (sceneId: string, name: string) => ipcRenderer.invoke('lumox:presets:saveRack', { sceneId, name }),
+    applyRack: (sceneId: string, presetId: string) => ipcRenderer.invoke('lumox:presets:applyRack', { sceneId, presetId }),
+    rename:    (id: string, name: string) => ipcRenderer.invoke('lumox:presets:rename', { id, name }),
+    remove:    (id: string) => ipcRenderer.invoke('lumox:presets:remove', id),
   },
   banks: {
     list:   ()   => ipcRenderer.invoke('lumox:banks:list'),
@@ -81,12 +160,18 @@ contextBridge.exposeInMainWorld('lumox', {
     rename: (id: string, name: string) => ipcRenderer.invoke('lumox:banks:rename', { id, name }),
     remove: (id: string) => ipcRenderer.invoke('lumox:banks:remove', id),
   },
+  settings: {
+    get:       () => ipcRenderer.invoke('lumox:settings:get'),
+    update:    (patch: unknown) => ipcRenderer.invoke('lumox:settings:update', patch),
+    onChanged: (cb: Cb) => ipcRenderer.on('settings:changed', (_e, s) => cb(s)),
+  },
   win: {
     minimize:    () => ipcRenderer.invoke('lumox:win:minimize'),
     maximize:    () => ipcRenderer.invoke('lumox:win:maximize'),
     close:       () => ipcRenderer.invoke('lumox:win:close'),
     isMaximized: () => ipcRenderer.invoke('lumox:win:isMaximized'),
     onMaximized: (cb: Cb<boolean>) => ipcRenderer.on('win:maximized', (_e, v) => cb(v)),
-    closeSelf:   () => ipcRenderer.invoke('lumox:win:closeSelf'),
+    closeSelf:    () => ipcRenderer.invoke('lumox:win:closeSelf'),
+    minimizeSelf: () => ipcRenderer.invoke('lumox:win:minimizeSelf'),
   },
 });

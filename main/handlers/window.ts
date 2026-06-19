@@ -7,9 +7,14 @@ import { getMainWindow, openEditorWindow } from '../windows';
 export function registerWindowHandlers(): void {
   ipcMain.handle('lumox:editor:open', () => openEditorWindow());
 
-  // Close whichever window made the call (used by frameless child windows).
+  // Close / minimize whichever window made the call (used by frameless
+  // standalone windows like the fixture editor, which can't target the main
+  // window's controls).
   ipcMain.handle('lumox:win:closeSelf', (e) => {
     BrowserWindow.fromWebContents(e.sender)?.close();
+  });
+  ipcMain.handle('lumox:win:minimizeSelf', (e) => {
+    BrowserWindow.fromWebContents(e.sender)?.minimize();
   });
 
   ipcMain.handle('lumox:win:minimize', () => getMainWindow()?.minimize());

@@ -11,6 +11,11 @@ import path from 'node:path';
 export const APP_ROOT = path.join(__dirname, '..', '..');
 const PRELOAD = path.join(__dirname, '..', 'preload.cjs');
 
+// App icon (window + taskbar). Generated from assets/icon.svg via `npm run icons`.
+// Windows wants .ico; other platforms take the PNG (macOS ignores it — its dock
+// icon comes from the packaged .app bundle).
+const ICON = path.join(APP_ROOT, 'assets', process.platform === 'win32' ? 'icon.ico' : 'icon.png');
+
 let mainWindow: BrowserWindow | null = null;
 let editorWindow: BrowserWindow | null = null;
 
@@ -33,6 +38,7 @@ export function createWindow(): void {
     minHeight: 640,
     frame: false,                 // custom titlebar (renderer draws the chrome)
     backgroundColor: '#1a1a1a',
+    icon: ICON,
     webPreferences: {
       preload: PRELOAD,
       contextIsolation: true,
@@ -54,12 +60,15 @@ export function createWindow(): void {
 
 export function openEditorWindow(): void {
   if (editorWindow && !editorWindow.isDestroyed()) { editorWindow.focus(); return; }
+  // No `parent` — a parented child window shares the main window's taskbar
+  // button on Windows. A top-level window gets its own entry so the user can
+  // pick the editor from the taskbar / alt-tab independently.
   editorWindow = new BrowserWindow({
-    width: 600, height: 660,
-    minWidth: 460, minHeight: 420,
-    parent: mainWindow ?? undefined,
+    width: 860, height: 720,
+    minWidth: 640, minHeight: 560,
     frame: false,
     backgroundColor: '#232323',
+    icon: ICON,
     webPreferences: {
       preload: PRELOAD,
       contextIsolation: true,
