@@ -30,7 +30,7 @@ fixtures/
 │   ├── led-bar-240-8-rgb.lumox.json
 │   └── led-pixel-bar-100-mk2-rgb.lumox.json
 └── Chauvet DJ/ · American DJ/ · Martin/ · Robe/ · Eurolite/ · Cameo/
-    Showtec/ · Elation/ · GLP/ · ETC/ · UKing/    ← brand vendor folders
+    Showtec/ · Elation/ · GLP/ · ETC/ · UKing/ · WLED/ · NoName/   ← brand vendor folders
 ```
 
 ## Validating
@@ -441,6 +441,7 @@ const json = new LumoxImporter().serialize([def]);
 | `par-rgbwauv-6ch.lumox.json` | PAR | 6 |
 | `strobe-2ch.lumox.json` | Strobe | 2 |
 | `led-bar-rgb-12ch.lumox.json` | LED Bar | 12 |
+| `led-matrix-rgb-5x5-75ch.lumox.json` | LED Matrix | 75 (5×5 RGB, positioned `emitterLayout` → pixel-map / MATRIX FX) |
 | `smoke-1ch.lumox.json` | Smoke | 1 |
 | `moving-head-rgbw-11ch.lumox.json` | Moving Head | 11 |
 | `moving-head-beam-16ch.lumox.json` | Moving Head | 16 |
@@ -467,6 +468,7 @@ const json = new LumoxImporter().serialize([def]);
 | `led-pixel-bar-100-mk2-rgb.lumox.json` | LED Pixel Bar 100/100 MK2 RGB | 3ch · 6ch · 30ch |
 | `mh-x25-led-spot.lumox.json` | MH-x25 LED Spot | 9ch · 11ch |
 | `wild-wash-648-led-rgb.lumox.json` | Wild Wash 648 LED RGB | 3ch · 7ch |
+| `led-bar-120-4-rgb-dmx.lumox.json` | LED Bar 120/4 RGB DMX | 2ch · 3ch · 5ch · 12ch |
 
 ## Brand vendors
 
@@ -483,6 +485,7 @@ a show (each profile's `meta.notes` repeats this caveat).
 | Martin | `rush-par-2-rgbw-zoom.lumox.json` | RUSH PAR 2 RGBW Zoom | PAR | 7ch · 10ch |
 | Robe | `robin-ledwash-600.lumox.json` | Robin LEDWash 600 | Moving Head | 16ch |
 | Eurolite | `led-par-64-rgbw-10mm.lumox.json` | LED PAR-64 RGBW 10mm | PAR | 4ch · 8ch |
+| Eurolite | `led-ip-pix-strobe-rgb-cw-ww-mk2.lumox.json` | LED IP PIX Strobe RGB CW+WW MK2 | LED Bar | 6 · 10 · 18 · 24 · 25 · 32ch |
 | Cameo | `flat-pro-7.lumox.json` | Flat PRO 7 | PAR | 6ch · 8ch · 12ch |
 | Showtec | `spectral-m800.lumox.json` | Spectral M800 | Moving Head | 14ch |
 | Elation | `sixpar-200.lumox.json` | SixPar 200 | PAR | 6ch · 8ch · 10ch |
@@ -490,3 +493,7 @@ a show (each profile's `meta.notes` repeats this caveat).
 | ETC | `colorsource-par.lumox.json` | ColorSource PAR | PAR | 4ch · 5ch · 7ch |
 | UKing | `25w-led-moving-head.lumox.json` | 25W LED Moving Head | Moving Head | 9ch · 11ch |
 | UKing | `7r-230w-beam.lumox.json` | 7R 230W Beam | Moving Head | 16ch |
+| WLED | `wled-controller.lumox.json` | WLED Controller | LED Bar | Single RGB/DRGB · Effect(+W) · Preset · pixel 50/100px RGB(W) (13 modes) |
+| NoName | `9x4w-led-bar-36w.lumox.json` | 9x4W LED BAR (36 Watt) | LED Bar | 4ch · 8ch |
+| NoName | `derby.lumox.json` | Derby | Other | 7ch |
+| NoName | `200w-mini-beam-spot-moving-head.lumox.json` | 200W mini Beam Spot Moving Head | Moving Head | 12ch |

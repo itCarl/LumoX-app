@@ -1,0 +1,50 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "NoName/Derby",
+      "manufacturer": "NoName",
+      "model": "Derby",
+      "type": "Other",
+      "meta": {
+        "author": "Maximilian Mewes",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "Ported from QLC+ fixture NoName-Derby.qxf",
+        "notes": "Dual-colour derby effect. 'Red/Orange' and 'Green/Purple' each drive a pair of LED banks (mapped to the red/green colour emitters). 'Movement' is the derby motor (kept on the QLC+ PrismRotation preset). Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "focus": { "type": "Fixed", "panMax": 0, "tiltMax": 0 }
+      },
+      "modes": [
+        {
+          "id": "7ch",
+          "name": "Mode 1 (7ch)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity-master", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red / Orange",  "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green / Purple", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "No function", "typeId": "nothing", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "strobe", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 7,   "label": "Open",   "mode": "open"   },
+                { "kind": "shutter", "min": 8, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            { "name": "Movement", "typeId": "prism-rotation-slow-fast", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Built-in Functions", "typeId": "effect", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "effect", "min": 0, "max": 255, "label": "Built-in Functions", "effectName": "auto" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
