@@ -1,6 +1,14 @@
 # Plan — MIDI mapping (APC Mini MK2): click-to-assign window
 
-**Status:** proposed (not started)
+**Status:** ✅ shipped — folded into [docs/knowledge-base/midi.md](../knowledge-base/midi.md)
+(the source of truth). `MidiService` + `main/handlers/midi.ts` + the separate MIDI
+window + the click-to-assign overlay + binding persistence all landed. Two
+deviations from this plan: (1) the learn flow lives in `MidiService` listening to
+the raw input rather than via an `armLearn` hook on `ApcMiniMk2` — the engine
+driver stays untouched so the CLI/examples keep working; (2) the
+GrandMaster/Blackout widgets were already in the fader editor, so no duplicate
+title-bar widgets were added. v1 tagged target set: scenes, group intensity,
+master, blackout (channel / bpm-tap deferred).
 **Scope:** a separate **MIDI window** with point-and-click "assign mode" that can
 bind **any** MIDI control (button / fader / knob) to **any** Lumox function
 (scene, group level, master, blackout, transport, …). Device side = **APC Mini

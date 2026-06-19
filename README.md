@@ -59,7 +59,8 @@ Library: 16 profiles loaded
 Engine started @ 44 Hz. Type `help` for commands.
 lumox> output add artnet 192.168.1.50 false
 lumox> lib list par
-lumox> patch add "Generic/PAR RGBW 4ch" 0 1 par1
+lumox> patch add "Generic/PAR RGBW 5ch" 0 1 par1
+lumox> fx par1 intensity 255
 lumox> fx par1 rgbw 255 0 100 0
 lumox> group create stage
 lumox> group add stage par1
@@ -121,7 +122,7 @@ engine.universes.ensure(0);
 const patch = new Patch();
 const par = patch.add(new Fixture({
   id: 'par1',
-  definition: library.get('Generic/PAR RGBW 4ch'),
+  definition: library.get('Generic/PAR RGBW 5ch'),
   universeId: 0,
   startAddress: 1,
 }));

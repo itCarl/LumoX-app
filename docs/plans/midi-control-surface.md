@@ -1,6 +1,12 @@
 # Plan — MIDI Control Surface
 
-**Status:** proposed (not started)
+**Status:** partially shipped — the first concrete slice (APC Mini MK2
+click-to-assign window + bindings + executor dispatch + LED feedback + per-project
+persistence + the main-window assign overlay) is live; see
+[docs/knowledge-base/midi.md](../knowledge-base/midi.md). What remains here is the
+**generic** layer: a typed Action registry, non-driver (data-profile) devices,
+relative encoders, MIDI-learn driven from the main UI, and a multi-device Devices
+view.
 **Scope:** app-level MIDI device management + mapping, on top of the existing engine MIDI stack.
 **Owner:** —
 
