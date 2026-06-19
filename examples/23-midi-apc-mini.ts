@@ -37,13 +37,13 @@ engine.universes.ensure(0, 'Stage');
 
 const library = new FixtureLibrary();
 await library.loadFromDirectory(path.resolve(__dirname, '..', 'fixtures'));
-const parProfile = library.get('Generic/PAR RGBW 4ch');
+const parProfile = library.get('Generic/PAR RGBW 5ch');
 
 const patch = new Patch();
 for (let i = 0; i < 6; i++) {
   patch.add(new Fixture({
     id: `par${i + 1}`, definition: parProfile!,
-    universeId: 0, startAddress: 1 + i * 4,
+    universeId: 0, startAddress: 1 + i * 5,
   }));
 }
 

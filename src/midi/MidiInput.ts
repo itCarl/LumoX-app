@@ -22,6 +22,12 @@ export interface MidiCCMessage {
  *   'aftertouch'   { value, channel }
  *   'pitchbend'    { value, channel }
  *
+ * System-realtime clock messages (no payload) — used for MIDI-clock tempo sync:
+ *   'clock'     a 0xF8 timing pulse (24 per quarter-note)
+ *   'start'     0xFA — transport started from the top
+ *   'continue'  0xFB — transport resumed
+ *   'stop'      0xFC — transport stopped
+ *
  * Subclasses MUST implement:
  *   async _openImpl()
  *   async _closeImpl()

@@ -18,6 +18,7 @@ const ICON = path.join(APP_ROOT, 'assets', process.platform === 'win32' ? 'icon.
 
 let mainWindow: BrowserWindow | null = null;
 let editorWindow: BrowserWindow | null = null;
+let midiWindow: BrowserWindow | null = null;
 
 export const getMainWindow = (): BrowserWindow | null => mainWindow;
 
@@ -79,4 +80,26 @@ export function openEditorWindow(): void {
   hardenWindow(editorWindow);
   editorWindow.loadFile(path.join(APP_ROOT, 'renderer', 'fixtureeditor.html'));
   editorWindow.on('closed', () => { editorWindow = null; });
+}
+
+export function openMidiWindow(): void {
+  if (midiWindow && !midiWindow.isDestroyed()) { midiWindow.focus(); return; }
+  // Top-level (no `parent`) so it gets its own taskbar entry — same rationale as
+  // the fixture editor: the user can pick the MIDI mapping window independently.
+  midiWindow = new BrowserWindow({
+    width: 860, height: 640,
+    minWidth: 680, minHeight: 480,
+    frame: false,
+    backgroundColor: '#232323',
+    icon: ICON,
+    webPreferences: {
+      preload: PRELOAD,
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
+    },
+  });
+  hardenWindow(midiWindow);
+  midiWindow.loadFile(path.join(APP_ROOT, 'renderer', 'midi.html'));
+  midiWindow.on('closed', () => { midiWindow = null; });
 }

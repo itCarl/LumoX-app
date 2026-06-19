@@ -46,11 +46,24 @@ class EasyMidiInput extends MidiInput {
   }
   async _openImpl(): Promise<void> {
     this._port = new this._mod.Input(this.name);
+    // node-midi ignores timing (clock) messages by default; opt back in so the
+    // 'clock' events below actually fire (needed for MIDI-clock tempo sync).
+    // ignoreTypes(sysex, timing, activeSensing) — keep sysex/sensing ignored.
+    try {
+      const raw = (this._port as any)._input ?? (this._port as any).input;
+      raw?.ignoreTypes?.(true, false, true);
+    } catch { /* backend without a raw port — clock simply won't arrive */ }
     this._port.on('noteon',     (m: any) => this.emit('noteon',     m));
     this._port.on('noteoff',    (m: any) => this.emit('noteoff',    m));
     this._port.on('cc',         (m: any) => this.emit('cc',         m));
     this._port.on('aftertouch', (m: any) => this.emit('aftertouch', m));
     this._port.on('pitch',      (m: any) => this.emit('pitchbend',  m));
+    // System-realtime clock (for MIDI-clock tempo sync). easymidi delivers these
+    // only when the Input is opened with SysEx/clock enabled — pass that flag.
+    this._port.on('clock',      ()       => this.emit('clock'));
+    this._port.on('start',      ()       => this.emit('start'));
+    this._port.on('continue',   ()       => this.emit('continue'));
+    this._port.on('stop',       ()       => this.emit('stop'));
   }
   async _closeImpl(): Promise<void> {
     try { this._port?.close(); } catch {}
