@@ -14,6 +14,7 @@ import {
 import { transport } from './Transport';
 import { palettes, presets } from './presets';
 import { listMidiBindings, loadMidiBindings } from './MidiService';
+import { listAudioBindings, loadAudioBindings } from './AudioBindingService';
 import { getSetting } from './SettingsService';
 import type { ProjectData, ProjectInfo, ProjectIssue } from '../dto';
 
@@ -27,7 +28,7 @@ function seedOutputsFromSettings(): void {
 }
 
 const PROJECT_FORMAT = 'lumox-project';
-const PROJECT_VERSION = 2;   // v2 = FX-rack scenes (scene.layers); no v1 legacy loader
+const PROJECT_VERSION = 1;   // single current format (FX-rack scenes); dev phase — no legacy loaders
 const DEFAULT_NAME = 'Untitled';
 const UNIVERSE_COUNT = 5;
 
@@ -62,6 +63,7 @@ export function newProject(): void {
   palettes.clear();
   presets.clear();
   loadMidiBindings([]);
+  loadAudioBindings([]);
   banks.ensureDefault();
   ensureDefaultScene();
   transport.reset();
@@ -98,6 +100,7 @@ export function buildProject(): ProjectData {
     presets: presets.toJSON(),
     bpm: transport.getBpm(),
     midiBindings: listMidiBindings(),
+    audioBindings: listAudioBindings(),
   };
 }
 
@@ -235,9 +238,10 @@ export async function restoreProject(p: unknown): Promise<void> {
   banks.ensureDefault();
   ensureDefaultScene();
 
-  // MIDI bindings — restore last (targets reference scenes/groups loaded above;
-  // bindings whose target id vanished are dropped).
+  // MIDI + audio bindings — restore last (targets reference scenes/groups loaded
+  // above; bindings whose target id vanished are dropped).
   loadMidiBindings(p.midiBindings ?? []);
+  loadAudioBindings(p.audioBindings ?? []);
 
   // per-universe outputs — apply the project's patch, or seed defaults if the
   // project carries none (e.g. a project saved before per-universe output).

@@ -21,6 +21,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   lastProjectPath: null,
   tempoSource: 'manual',
   midiClockInput: null,
+  audioInput: null,
 };
 
 // Events:
@@ -59,6 +60,7 @@ function sanitize(o: unknown): AppSettings {
     lastProjectPath: typeof r.lastProjectPath === 'string' && r.lastProjectPath ? r.lastProjectPath : null,
     tempoSource: TEMPO_SOURCES.has(r.tempoSource as TempoSource) ? (r.tempoSource as TempoSource) : DEFAULT_SETTINGS.tempoSource,
     midiClockInput: typeof r.midiClockInput === 'string' && r.midiClockInput ? r.midiClockInput : null,
+    audioInput: typeof r.audioInput === 'string' && r.audioInput ? r.audioInput : null,
   };
 }
 

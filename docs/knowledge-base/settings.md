@@ -19,7 +19,10 @@ from the ⋯ app menu (or `Ctrl+,`) as a modal. Covers:
 
 > **DMX output transport** (`dmxProtocol` / `broadcastHost` / `maxRateHz`) is
 > persisted here too, but its **UI lives in the Connection tab**, not this modal
-> (single source of truth) — see [connection.md](connection.md).
+> (single source of truth) — see [connection.md](connection.md). Likewise the
+> **tempo source/device** (`tempoSource` / `midiClockInput`, UI in the Tempo section +
+> titlebar — [tempo.md](tempo.md)) and the **audio capture device** (`audioInput`, picked
+> on the Connection tab — [connection.md](connection.md)) live in `settings.json`.
 
 Settings are stored as **`settings.json` in the Electron `userData` directory**
 (NOT in the `.lmx` project file). Changing a setting never marks the project
