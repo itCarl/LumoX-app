@@ -39,8 +39,8 @@ to an sACN universe (it just sets a unicast host / confirms the node is reachabl
   status), `:stop`, `:list`; it forwards `changed` to the renderer as
   `discovery:changed`. The `discovery` area is **transient** (never marks the
   project dirty) and not persisted.
-- **Renderer** — the Connection tab shows a **Discovered nodes** panel with a
-  **Scan** button. Scanning is **manual**: pressing Scan calls
+- **Renderer** — the Connection tab's Output section shows a **Network nodes** panel
+  (beside the patch) with a **Scan** button. Scanning is **manual**: pressing Scan calls
   `lumox.discovery.start()`; it **auto-stops after ~2 minutes** (and on tab hide),
   releasing the socket — found nodes stay listed afterwards so they can still be
   assigned. The panel renders on `lumox.discovery.onChanged`. Each row shows name
