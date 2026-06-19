@@ -3,16 +3,15 @@ import type { FixtureDefinition } from '../FixtureDefinition';
 /**
  * Importer — plugin for parsing fixture profile files.
  *
- * Built-in formats (registered automatically):
- *   - 'lumox'  → Lumox JSON          (.json / .lfx)   round-trip
- *   - 'qlc+5'  → QLC+ 5 XML profile  (.qxf)           parse only
+ * Built-in format (registered automatically):
+ *   - 'lumox'  → Lumox JSON     (.json / .lfx)   round-trip
  *
  * The registry is open: third-party formats can be added at runtime, but
- * the project ships with only these two.
+ * the project ships with only this one.
  *
  * Subclasses MUST implement:
- *   static FORMAT       unique id ('lumox', 'qlc+5')
- *   static EXTENSIONS   [String]   (['.json'], ['.qxf'])
+ *   static FORMAT       unique id (e.g. 'lumox')
+ *   static EXTENSIONS   [String]   (e.g. ['.json'])
  *   parse(input)        → FixtureDefinition[]   (input: string | Buffer)
  *
  * Optional:
