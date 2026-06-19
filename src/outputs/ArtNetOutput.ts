@@ -1,7 +1,7 @@
 import dgram from 'node:dgram';
 import { Output } from './Output';
 import type { OutputConfig } from './Output';
-import { ARTNET_PORT, buildArtDmx, buildArtPoll, parsePacket, portAddress } from '../protocols/artnet';
+import { ARTNET_PORT, buildArtDmx, portAddress } from '../protocols/artnet';
 import { createLogger } from '../util/logger';
 import type { Universe } from '../core/Universe';
 
@@ -35,7 +35,7 @@ export interface ArtNetOutputConfig extends OutputConfig {
  *   `universeMap: { [universeId]: { net, subnet, universe } }`.
  *   Default (when unmapped): net=0, subnet=0, universe=universeId & 0x0f.
  *
- * Discovery: emits `pollReply` events for incoming ArtPollReply packets.
+ * Send-only. Node discovery lives in `DiscoveryService` (a dedicated 6454 listener).
  */
 export class ArtNetOutput extends Output {
   static TYPE = 'artnet';
@@ -58,7 +58,7 @@ export class ArtNetOutput extends Output {
     this.broadcast = config.broadcast ?? (this.host === '255.255.255.255');
     this.universeMap = config.universeMap ?? {};
     this.bindAddress = config.bindAddress ?? '0.0.0.0';
-    this.bindPort = config.bindPort ?? 0; // 0 = ephemeral; use 6454 to receive
+    this.bindPort = config.bindPort ?? 0; // 0 = ephemeral local send port
     this._socket = null;
     this._sequence = 0;
   }
@@ -66,7 +66,6 @@ export class ArtNetOutput extends Output {
   async _openImpl(): Promise<void> {
     await new Promise<void>((resolve, reject) => {
       const sock = dgram.createSocket({ type: 'udp4', reuseAddr: true });
-      sock.on('message', (msg, rinfo) => this._onMessage(msg, rinfo));
       // Until bind completes, a socket error means open failed → reject. Once
       // bound, swap to the long-lived handler so later errors are emitted, not
       // double-handled by a stale reject listener.
@@ -100,19 +99,5 @@ export class ArtNetOutput extends Output {
     this._sequence = (this._sequence + 1) & 0xff;
     if (this._sequence === 0) this._sequence = 1; // 0 means "disabled"
     this._socket!.send(pkt, 0, pkt.length, this.port, this.host);
-  }
-
-  /** Send ArtPoll broadcast — caller must have bound to 6454 to receive replies. */
-  poll(): void {
-    if (!this._socket) return;
-    const pkt = buildArtPoll();
-    this._socket.setBroadcast(true);
-    this._socket.send(pkt, 0, pkt.length, this.port, '255.255.255.255');
-  }
-
-  _onMessage(buf: Buffer, rinfo: dgram.RemoteInfo): void {
-    const pkt = parsePacket(buf);
-    if (!pkt) return;
-    if (pkt.reply) this.emit('pollReply', { ...pkt.reply, from: rinfo });
   }
 }

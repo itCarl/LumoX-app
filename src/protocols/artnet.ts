@@ -31,6 +31,7 @@ export interface PollReply {
   portTypes: number[];
   swOut: number[];
   swIn: number[];
+  mac: string;
 }
 
 /** Result of parsing an inbound packet. */
@@ -105,6 +106,7 @@ export function parsePollReply(buf: Buffer): PollReply | null {
     portTypes:    [buf[174], buf[175], buf[176], buf[177]],
     swOut:        [buf[190], buf[191], buf[192], buf[193]],
     swIn:         [buf[186], buf[187], buf[188], buf[189]],
+    mac:          Array.from(buf.subarray(201, 207), (b) => b.toString(16).padStart(2, '0')).join(':'),
   };
 }
 
