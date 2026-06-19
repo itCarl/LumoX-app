@@ -14,8 +14,20 @@ export interface OutputConfig {
   keepAliveMs?: number;
   /** Hz — hard send-rate cap. null = uncapped. */
   maxRateHz?: number | null;
+  /** transmission mode — see `FrameMode`. */
+  frameMode?: FrameMode;
   [key: string]: unknown;
 }
+
+/**
+ * Transmission mode (per output):
+ *   standard — send only when a channel changes, plus a keep-alive refresh.
+ *              Full 512-channel frame. Lowest traffic (the default).
+ *   full     — send all 512 channels every cycle (continuous), capped at maxRateHz.
+ *   partial  — send continuously, but only up to the highest used channel
+ *              (smaller packets). The receiver must support a short frame.
+ */
+export type FrameMode = 'standard' | 'full' | 'partial';
 
 /**
  * Output — abstract base for DMX outputs.
@@ -56,9 +68,13 @@ export class Output extends EventEmitter {
   keepAliveMs: number;
   /** Hz — hard send-rate cap. null = uncapped (engine refreshHz limits). */
   maxRateHz: number | null;
+  /** transmission mode — standard (on-change + keep-alive) / full / partial. */
+  frameMode: FrameMode;
   _minSendIntervalMs: number;
   /** Per-universe last send timestamp (ms) — per output, independent. */
   _lastSentAt: Map<number, number>;
+  /** Per-universe high-water channel count for `partial` (never shrinks → no stale channels). */
+  _partialHigh: Map<number, number>;
   _open: boolean;
 
   constructor(config: OutputConfig = {}) {
@@ -71,9 +87,11 @@ export class Output extends EventEmitter {
     this.keepAliveMs = config.keepAliveMs ?? 1000;
     /** Hz — hard send-rate cap. null = uncapped (engine refreshHz limits). */
     this.maxRateHz = config.maxRateHz ?? null;
+    this.frameMode = config.frameMode ?? 'standard';
     this._minSendIntervalMs = this.maxRateHz ? (1000 / this.maxRateHz) : 0;
     /** Per-universe last send timestamp (ms) — per output, independent. */
     this._lastSentAt = new Map();
+    this._partialHigh = new Map();
     this._open = false;
   }
 
@@ -81,6 +99,12 @@ export class Output extends EventEmitter {
   setMaxRate(hz: number | null): void {
     this.maxRateHz = hz;
     this._minSendIntervalMs = hz ? (1000 / hz) : 0;
+  }
+
+  /** Update transmission mode at runtime. */
+  setFrameMode(mode: FrameMode): void {
+    this.frameMode = mode;
+    if (mode !== 'partial') this._partialHigh.clear();
   }
 
   get type(): string {
@@ -117,17 +141,45 @@ export class Output extends EventEmitter {
     const last = this._lastSentAt.get(universe.id) ?? 0;
     // Hard rate cap — never faster than maxRateHz.
     if (this._minSendIntervalMs > 0 && (now - last) < this._minSendIntervalMs) return false;
+    // full / partial transmit continuously (every rate-allowed tick).
+    if (this.frameMode !== 'standard') return true;
+    // standard: only on change, with a keep-alive heartbeat.
     if (universe.dirty) return true;
     if (this.keepAliveMs > 0 && (now - last) >= this.keepAliveMs) return true;
     return false;
   }
 
+  /** Frame to put on the wire — full 512, or (partial) up to the highest used
+   *  channel, tracked as a per-universe high-water mark so it never shrinks. */
+  _frameData(universe: Universe): Uint8Array {
+    if (this.frameMode !== 'partial') return universe.data;
+    const d = universe.data;
+    let hi = 1;
+    for (let i = d.length - 1; i >= 0; i--) { if (d[i] !== 0) { hi = i + 1; break; } }
+    const hw = Math.max(hi, this._partialHigh.get(universe.id) ?? 0);
+    this._partialHigh.set(universe.id, hw);
+    return d.subarray(0, hw);
+  }
+
   send(universe: Universe, now: number): void {
     if (!this.shouldSend(universe, now)) return;
     try {
-      this._sendImpl(universe, universe.data);
+      this._sendImpl(universe, this._frameData(universe));
       this._lastSentAt.set(universe.id, now);
       universe.lastSentAt = now; // aggregate (kept for compat)
+    } catch (err) {
+      this.emit('error', err);
+    }
+  }
+
+  /** Force a full 512-channel zero frame for one universe straight onto the
+   *  wire, bypassing every gate (subscription, dirty check, rate cap). Used on
+   *  shutdown so fixtures go dark instead of latching their last received frame
+   *  when the socket closes. No-op if the transport isn't open. */
+  blackout(universe: Universe): void {
+    if (!this._open) return;
+    try {
+      this._sendImpl(universe, new Uint8Array(universe.data.length));
     } catch (err) {
       this.emit('error', err);
     }
