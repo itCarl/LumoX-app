@@ -1,5 +1,6 @@
 import type { FixtureDefinition } from './FixtureDefinition';
 import type { FixtureMode } from './FixtureMode';
+import { type StageTransform, type Vec2, DEFAULT_TRANSFORM, sanitizeTransform, emitterWorldPositions, resolveEmitterCount } from './emitterGeometry';
 
 /**
  * Fixture — patched instance of a FixtureDefinition + FixtureMode.
@@ -39,6 +40,8 @@ export interface FixtureOptions {
   universeId?: number;
   startAddress: number;
   liveApply?: boolean;
+  /** 2D top-down placement on the STAGE tile (world units + degrees). */
+  stageTransform?: Partial<StageTransform> | null;
 }
 
 export class Fixture {
@@ -50,11 +53,13 @@ export class Fixture {
   startAddress: number;
   values: Uint8Array;
   liveApply: boolean;
+  /** 2D top-down placement on the STAGE tile (world units + degrees). */
+  stageTransform: StageTransform;
   _universeRef: UniverseTarget | null;
 
   constructor({
     id, name, definition, mode, universeId = 0, startAddress,
-    liveApply = false,
+    liveApply = false, stageTransform = null,
   }: FixtureOptions) {
     if (!definition) throw new Error('Fixture needs definition');
     const m = typeof mode === 'string' ? definition.mode(mode) : (mode ?? definition.defaultMode);
@@ -67,12 +72,23 @@ export class Fixture {
     this.startAddress = startAddress;
     this.values = new Uint8Array(m.channelCount);
     this.liveApply = liveApply;
+    this.stageTransform = stageTransform ? sanitizeTransform(stageTransform) : { ...DEFAULT_TRANSFORM };
     this._universeRef = null; // set when liveApply target attached
     this.applyDefaults();
   }
 
   get channelCount(): number { return this.mode.channelCount; }
   get endAddress(): number   { return this.startAddress + this.channelCount - 1; }
+
+  /**
+   * Number of light-emitting cells, derived from THIS mode's channel layout —
+   * colour clusters (a 9-LED bar's 9 R/G/B groups → 9), an explicit definition
+   * `emitterLayout`, or a declared `emitters` count; at least 1. Mode-dependent,
+   * so different modes of the same fixture can expose different cell counts.
+   */
+  get emitterCount(): number {
+    return resolveEmitterCount(this.mode.channels, this.definition.emitterLayout, this.definition.emitters);
+  }
 
   applyDefaults(): void {
     this.mode.channels.forEach((c, i) => { if (c) this.values[i] = c.defaultValue; });
@@ -141,6 +157,39 @@ export class Fixture {
     return idx ? this.startAddress + idx - 1 : 0;
   }
 
+  /** All 1-based DMX addresses (universe-absolute) of a given channel type, in mode order. */
+  addressesOf(typeId: string): number[] {
+    return this.mode.indicesWhere((c) => c.typeId === typeId).map((i) => this.startAddress + i - 1);
+  }
+
+  /**
+   * Per-emitter RGB(W) channel addresses (universe-absolute), one entry per
+   * emitter cell in mode order. Normally one colour cluster per cell; a fixture
+   * with a single cluster but several cells (one colour driving a whole shape)
+   * replicates that cluster across all cells. Index-aligned with
+   * {@link emitterWorldPositions}. Empty if the fixture has no colour mixing.
+   */
+  emitterColorAddresses(): { r: number; g: number; b: number; w?: number }[] {
+    const reds = this.addressesOf('red');
+    const greens = this.addressesOf('green');
+    const blues = this.addressesOf('blue');
+    const whites = this.addressesOf('white');
+    const ncol = Math.min(reds.length, greens.length, blues.length);
+    if (!ncol) return [];
+    const n = ncol === 1 ? this.emitterCount : ncol;   // replicate a single cluster across every cell
+    const out: { r: number; g: number; b: number; w?: number }[] = [];
+    for (let k = 0; k < n; k++) {
+      const j = ncol === 1 ? 0 : k;
+      out.push(whites.length === ncol ? { r: reds[j], g: greens[j], b: blues[j], w: whites[j] } : { r: reds[j], g: greens[j], b: blues[j] });
+    }
+    return out;
+  }
+
+  /** Per-emitter 2D world positions (top-down stage), index-aligned with emitters. */
+  emitterWorldPositions(): Vec2[] {
+    return emitterWorldPositions({ emitters: this.emitterCount, emitterLayout: this.definition.emitterLayout }, this.stageTransform);
+  }
+
   toJSON() {
     return {
       id: this.id,
@@ -149,6 +198,7 @@ export class Fixture {
       modeId: this.mode.id,
       universeId: this.universeId,
       startAddress: this.startAddress,
+      stageTransform: { ...this.stageTransform },
     };
   }
 }

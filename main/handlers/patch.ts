@@ -2,7 +2,7 @@
 // rename, plus overlap detection.
 
 import { ipcMain } from 'electron';
-import { Fixture, Group } from '../../src/index';
+import { Fixture, Group, sanitizeTransform } from '../../src/index';
 import { engine, show, nextColor, configKey } from '../context';
 import { fixtureJSON } from '../serializers';
 import { vInt, vChannel, vUniverseId, vString } from '../validate';
@@ -104,6 +104,14 @@ export function registerPatchHandlers(): void {
   ipcMain.handle('lumox:patch:rename', (_e, { id, name }) => {
     const fx = show.patch.get(id);
     if (fx) fx.name = name;
+  });
+
+  // Update a fixture's 2D stage placement (drag / rotate on the STAGE tile).
+  // Accepts a partial transform; missing fields keep their current value.
+  ipcMain.handle('lumox:patch:setTransform', (_e, { id, transform }) => {
+    const fx = show.patch.get(id);
+    if (!fx) return;
+    fx.stageTransform = sanitizeTransform({ ...fx.stageTransform, ...transform });
   });
 
   ipcMain.handle('lumox:patch:overlaps', () => show.patch.detectOverlaps());

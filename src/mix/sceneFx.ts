@@ -4,7 +4,8 @@
 // channels. Each renderer is pure: same inputs → same output.
 
 import { hsvToRgb, hexToRgb, type Rgb } from '../util/Color';
-import type { ColorFxConfig, MoveFxConfig, MoveShape, CurveWave } from '../show/Scene';
+import type { ColorFxConfig, MoveFxConfig, MoveShape, CurveWave, MatrixFxConfig } from '../show/Scene';
+import type { Vec2 } from '../fixtures/emitterGeometry';
 
 const clamp8 = (n: number) => (n < 0 ? 0 : n > 255 ? 255 : Math.round(n));
 const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);
@@ -77,6 +78,63 @@ export function renderColorFx(
       col = { r: y, g: y, b: y };
     }
     buf[r - 1] = clamp8(col.r); buf[g - 1] = clamp8(col.g); buf[b - 1] = clamp8(col.b);
+  }
+}
+
+/**
+ * MATRIX FX — a per-emitter colour field driven by each emitter's 2D world
+ * position (true pixel-mapping). `targets[i]` is the `[r,g,b(,w)]` channel tuple
+ * for emitter `i`; `positions[i]` is its world coordinate. Positions are
+ * normalized to the rig's bounding box each tick, so the pattern fills the whole
+ * stage regardless of absolute scale. `wipe` sweeps a gradient along `angle`,
+ * `radial` rings out from the centre, `plasma` is a classic 2D interference
+ * field; all scroll with `now / periodMs`. Empty palette ⇒ full-spectrum rainbow.
+ */
+export function renderMatrixFx(
+  buf: Uint8Array, targets: number[][], positions: Vec2[], now: number, periodMs = 4000,
+  cfg?: MatrixFxConfig,
+): void {
+  const n = Math.min(targets.length, positions.length);
+  if (!n) return;
+  const pattern = cfg?.pattern ?? 'wipe';
+  const sat = cfg?.saturation ?? 1;
+  const fade = cfg?.fade ?? 1;
+  const scale = Math.max(0.01, cfg?.scale ?? 1);
+  const angle = ((cfg?.angle ?? 0) * Math.PI) / 180;
+  const ca = Math.cos(angle), sa = Math.sin(angle);
+  const palette = cfg && cfg.palette.length ? cfg.palette.map(hexToRgb) : null;
+  const scroll = now / Math.max(1, periodMs);
+
+  // Normalize positions to 0..1 over the rig's bounding box (centre = 0.5,0.5).
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  for (let i = 0; i < n; i++) {
+    const p = positions[i];
+    if (p.x < minX) minX = p.x; if (p.x > maxX) maxX = p.x;
+    if (p.y < minY) minY = p.y; if (p.y > maxY) maxY = p.y;
+  }
+  const spanX = maxX - minX || 1, spanY = maxY - minY || 1;
+
+  for (let i = 0; i < n; i++) {
+    const t = targets[i];
+    const nx = (positions[i].x - minX) / spanX;          // 0..1
+    const ny = (positions[i].y - minY) / spanY;
+    let p: number;
+    if (pattern === 'radial') {
+      p = scroll + Math.hypot(nx - 0.5, ny - 0.5) * 2 * scale;
+    } else if (pattern === 'plasma') {
+      const v = Math.sin(nx * scale * TAU + scroll * TAU)
+        + Math.sin(ny * scale * TAU - scroll * TAU)
+        + Math.sin((nx + ny) * scale * Math.PI + scroll * TAU);
+      p = (v + 3) / 6;   // -3..3 → 0..1
+    } else {
+      p = scroll + ((nx - 0.5) * ca + (ny - 0.5) * sa) * scale;   // wipe
+    }
+    const col = palette
+      ? applySat(samplePalette(palette, p, fade), sat)
+      : hsvToRgb({ h: ((p % 1) + 1) % 1 * 360, s: clamp01(sat), v: 1 });
+    buf[t[0] - 1] = clamp8(col.r);
+    buf[t[1] - 1] = clamp8(col.g);
+    buf[t[2] - 1] = clamp8(col.b);
   }
 }
 

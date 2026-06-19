@@ -5,15 +5,21 @@ export { Universe, DMX_CHANNELS } from './core/Universe';
 export { UniverseManager } from './core/UniverseManager';
 
 export { Output } from './outputs/Output';
+export type { OutputConfig, FrameMode } from './outputs/Output';
 export { OutputManager } from './outputs/OutputManager';
 export { ArtNetOutput } from './outputs/ArtNetOutput';
 export { SacnOutput } from './outputs/SacnOutput';
+
+// Discovery — find Art-Net nodes on the network (ArtPoll / ArtPollReply)
+export { DiscoveryService } from './discovery/index';
+export type { DiscoveredDevice, DiscoveryStatus, DiscoveryOptions } from './discovery/index';
 
 // Mix engine
 export { MixModule, blendHTP, blendLTP, scaleAll, scaleMasked, buffersEqual } from './mix/MixModule';
 export { MixPipeline } from './mix/MixPipeline';
 export { BaseLayer } from './mix/modules/BaseLayer';
 export { SceneMixer } from './mix/modules/SceneMixer';
+export { renderColorFx, renderMoveFx, renderWaveFx, renderChaserFx } from './mix/sceneFx';
 export { Effects, sineEffect, strobeEffect, chaseEffect } from './mix/modules/Effects';
 export {
   GroupEffects,
@@ -31,13 +37,30 @@ export * from './midi/index';
 // Show
 export { Show } from './show/Show';
 export { Patch } from './show/Patch';
-export { Scene } from './show/Scene';
+export {
+  Scene, chaseStep, toChaseStep, DEFAULT_STEP_WAIT,
+  DEFAULT_COLOR_FX, DEFAULT_MOVE_FX, DEFAULT_CURVE_FX, DEFAULT_CHASER_FX, DEFAULT_VALUE_FX,
+  defaultFxLayer, normalizeLayer,
+} from './show/Scene';
+export type {
+  SceneType, SceneValues, ChaseStep,
+  ColorFxConfig, MoveFxConfig, CurveFxConfig, ChaserFxConfig, ValueFxConfig,
+  MoveShape, CurveWave,
+  FxKind, FxTargetSel, FxOrder, FxLayer, TrackLayer, MixerTrack,
+} from './show/Scene';
 export { Group } from './show/Group';
 export { GroupManager } from './show/GroupManager';
 export { BankManager } from './show/BankManager';
 export type { Bank, BankJSON } from './show/BankManager';
 
 export { createLogger, setLogLevel } from './util/logger';
+
+// Color utility — immutable value object + model conversions (rgb / hsv / hsl / cmy / hex)
+export { Color } from './util/Color';
+export {
+  hexToRgb, rgbToHex, rgbToHsv, hsvToRgb, rgbToHsl, hslToRgb, rgbToCmy, cmyToRgb,
+} from './util/Color';
+export type { Rgb, Hsv, Hsl, Cmy } from './util/Color';
 
 // Register built-in output types so OutputManager.create('artnet'|'sacn', cfg) works.
 import { OutputManager } from './outputs/OutputManager';

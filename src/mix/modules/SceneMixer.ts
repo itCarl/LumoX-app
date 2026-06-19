@@ -2,7 +2,7 @@ import { MixModule } from '../MixModule';
 import type { MixModuleConfig, MixContext } from '../MixModule';
 import { DMX_CHANNELS } from '../../core/Universe';
 import type { Universe } from '../../core/Universe';
-import { renderColorFx, renderMoveFx, renderWaveFx, renderChaserFx } from '../sceneFx';
+import { renderColorFx, renderMoveFx, renderWaveFx, renderChaserFx, renderMatrixFx } from '../sceneFx';
 import type { TrackLayer } from '../../show/Scene';
 
 export type BlendMode = 'htp' | 'ltp';
@@ -535,7 +535,7 @@ export class SceneMixer extends MixModule {
       const period = this.layerPeriod(L);
       const clock = pb?.layerPhaseMs?.[L.id] ?? ctx.now;
       const now = effectiveNow(clock, period, L.direction ?? 'forward');
-      applyLayer(out, L, targets, now, period);
+      applyLayer(out, L, targets, L.positions?.[uid], now, period);
       any = true;
     }
     return any ? out : null;
@@ -610,13 +610,14 @@ function blendMaskedLTP(dst: Uint8Array, src: Uint8Array, opacity: number, claim
 }
 
 /** Composite one FX layer onto `out` at its target addresses (top layer wins). */
-function applyLayer(out: Uint8Array, L: TrackLayer, targets: number[][], now: number, period: number): void {
+function applyLayer(out: Uint8Array, L: TrackLayer, targets: number[][], positions: { x: number; y: number }[] | undefined, now: number, period: number): void {
   switch (L.kind) {
     case 'color':  renderColorFx(out, targets, now, period, L.spread ?? 30, L.color); break;
     case 'move':   renderMoveFx(out, targets, now, period, L.size ?? 96, L.spread ?? 30, L.move); break;
     case 'curve':  renderWaveFx(out, targets, now, period, L.spread ?? 30, L.curve); break;
     case 'value':  renderWaveFx(out, targets, now, period, L.spread ?? 30, L.value); break;
     case 'chaser': renderChaserFx(out, targets, now, period, L.chaser); break;
+    case 'matrix': if (positions) renderMatrixFx(out, targets, positions, now, period, L.matrix); break;
   }
 }
 

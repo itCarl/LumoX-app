@@ -23,6 +23,11 @@ export { FixtureMode } from './FixtureMode';
 export { FixtureDefinition } from './FixtureDefinition';
 export type { EmitterCell, FixtureDefinitionJSON } from './FixtureDefinition';
 export { Fixture } from './Fixture';
+export {
+  emitterGrid, emitterLocalPositions, emitterWorldPositions, sanitizeTransform, DEFAULT_TRANSFORM,
+  colorClusterCount, resolveEmitterCount,
+} from './emitterGeometry';
+export type { StageTransform, Vec2, EmitterSource, EmitterGrid } from './emitterGeometry';
 export { FixtureLibrary } from './FixtureLibrary';
 export { FixtureValidator } from './FixtureValidator';
 export { FixtureImporter, ImporterRegistry } from './importers/Importer';

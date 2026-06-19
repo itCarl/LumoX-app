@@ -13,11 +13,12 @@ import { sceneJSON } from '../serializers';
 import { vChannel, vLevel } from '../validate';
 
 const SCENE_TYPES: SceneType[] = ['static', 'chase'];
-const FX_KINDS: FxKind[] = ['color', 'move', 'curve', 'chaser', 'value'];
+const FX_KINDS: FxKind[] = ['color', 'move', 'curve', 'chaser', 'value', 'matrix'];
 const FX_ORDERS: FxOrder[] = ['patch', 'reverse', 'mirror', 'random'];
 const SCOPES: string[] = ['off', 'all', 'bank', 'outside-bank', 'specific'];
 const WAVES = ['sine', 'triangle', 'sawtooth', 'square', 'random'];
 const SHAPES = ['circle', 'figure8', 'line', 'square'];
+const MATRIX_PATTERNS = ['wipe', 'radial', 'plasma'];
 const HEX6 = /^#?[0-9a-fA-F]{6}$/;
 const norm6 = (h: string): string => (h.startsWith('#') ? h.toLowerCase() : `#${h.toLowerCase()}`);
 
@@ -65,6 +66,14 @@ function applyLayerConfig(L: FxLayer, p: Record<string, unknown>): void {
     if (p.fade != null) c.fade = clamp01(num(p.fade));
     if (p.level != null) c.level = clampNum(Math.round(num(p.level)), 0, 255);
     if (p.bg != null) c.bg = clampNum(Math.round(num(p.bg)), 0, 255);
+  } else if (L.kind === 'matrix' && L.matrix) {
+    const m = L.matrix;
+    if (typeof p.pattern === 'string' && MATRIX_PATTERNS.includes(p.pattern)) m.pattern = p.pattern as typeof m.pattern;
+    if (Array.isArray(p.palette)) m.palette = (p.palette as unknown[]).filter((h): h is string => typeof h === 'string' && HEX6.test(h)).map(norm6);
+    if (p.saturation != null) m.saturation = clamp01(num(p.saturation));
+    if (p.fade != null) m.fade = clamp01(num(p.fade));
+    if (p.angle != null) m.angle = clampNum(num(p.angle), 0, 360);
+    if (p.scale != null) m.scale = clampNum(num(p.scale), 0.05, 16);
   }
 }
 
@@ -448,6 +457,20 @@ export function registerSceneHandlers(): void {
     const s = show.scenes.get(id);
     if (!s) return;
     s.values = Scene.snapshot({ universes: engine.universes.list(), engagedOnly: true }).values;
+    rebuildSceneTrack(s);
+  });
+
+  // Merge the live programmer's engaged channels INTO an existing scene — overlay
+  // only the manually adjusted channels, keeping the scene's other stored values
+  // (unlike `update`, which replaces the whole look). Drives the fader editor's
+  // "save adjusted live values into the current scene".
+  ipcMain.handle('lumox:scenes:merge', (_e, id) => {
+    const s = show.scenes.get(id);
+    if (!s) return;
+    const snap = Scene.snapshot({ universes: engine.universes.list(), engagedOnly: true });
+    for (const [uni, channels] of Object.entries(snap.values)) {
+      for (const [ch, v] of Object.entries(channels)) s.setValue(+uni, +ch, v as number);
+    }
     rebuildSceneTrack(s);
   });
 }

@@ -31,7 +31,9 @@ export type MoveShape = 'circle' | 'figure8' | 'line' | 'square';
 export type CurveWave = 'sine' | 'triangle' | 'sawtooth' | 'square' | 'random';
 
 /** An effect-layer kind in a scene's FX rack. */
-export type FxKind = 'color' | 'move' | 'curve' | 'chaser' | 'value';
+export type FxKind = 'color' | 'move' | 'curve' | 'chaser' | 'value' | 'matrix';
+/** MATRIX FX spatial pattern — how colour is derived from an emitter's position. */
+export type MatrixPattern = 'wipe' | 'radial' | 'plasma';
 /** Which fixtures a layer sweeps across ('all' = whole rig, in patch order). */
 export type FxTargetSel = { mode: 'all' } | { mode: 'group'; groupId: string };
 /** Per-fixture sweep order ('index') — how an effect fans across the selection. */
@@ -85,12 +87,27 @@ export interface ValueFxConfig {
   invert: boolean;
   staticValue: number | null;  // when set (0..255), hold a flat value instead of animating
 }
+/**
+ * MATRIX FX config — a per-emitter colour field driven by each emitter's 2D
+ * world position on the STAGE (true pixel-mapping). `pattern` shapes the field,
+ * `scale` is its spatial frequency across the rig, `angle` aims a wipe, and the
+ * look scrolls over time. Empty palette ⇒ full-spectrum rainbow.
+ */
+export interface MatrixFxConfig {
+  pattern: MatrixPattern;
+  palette: string[];      // hex colours sampled as a gradient (empty = rainbow)
+  saturation: number;     // 0..1
+  fade: number;           // 0..1 — softness between palette stops
+  angle: number;          // 0..360 — wipe direction (deg)
+  scale: number;          // spatial frequency — cycles across the rig (>0)
+}
 
 export const DEFAULT_COLOR_FX: ColorFxConfig = { palette: [], grayscale: false, colorWidth: 1, angle: 0, saturation: 1, fade: 1, randomize: false };
 export const DEFAULT_MOVE_FX: MoveFxConfig = { shape: 'circle', symmetry: false, sizeX: 1, sizeY: 1, centerX: 128, centerY: 128, phaseShape: 0 };
 export const DEFAULT_CURVE_FX: CurveFxConfig = { waveform: 'sine', attr: 'intensity', min: 0, max: 255, duty: 0.5, invert: false };
 export const DEFAULT_CHASER_FX: ChaserFxConfig = { attr: 'intensity', litCount: 1, gap: 0, fade: 0, level: 255, bg: 0 };
 export const DEFAULT_VALUE_FX: ValueFxConfig = { attr: 'intensity', waveform: 'sine', min: 0, max: 255, duty: 0.5, invert: false, staticValue: null };
+export const DEFAULT_MATRIX_FX: MatrixFxConfig = { pattern: 'wipe', palette: [], saturation: 1, fade: 1, angle: 0, scale: 1 };
 
 /**
  * One effect layer in a scene's FX rack. Each layer is self-contained: its own
@@ -115,6 +132,7 @@ export interface FxLayer {
   curve?: CurveFxConfig;
   chaser?: ChaserFxConfig;
   value?: ValueFxConfig;
+  matrix?: MatrixFxConfig;
 }
 
 /** Tempo source for dynamic scenes — free-run or synced to the master BPM. */
@@ -234,8 +252,11 @@ export interface TrackLayer {
   curve?: CurveFxConfig;
   chaser?: ChaserFxConfig;
   value?: ValueFxConfig;
+  matrix?: MatrixFxConfig;
   /** per-universe target addresses in sweep order (attached by the app layer) */
   targets?: { [universeId: number]: number[][] };
+  /** per-universe emitter world positions, index-aligned with `targets` (MATRIX FX) */
+  positions?: { [universeId: number]: { x: number; y: number }[] };
 }
 
 export interface MixerTrack {
@@ -459,6 +480,7 @@ function toTrackLayer(l: FxLayer): TrackLayer {
     curve: l.curve ? { ...l.curve } : undefined,
     chaser: l.chaser ? { ...l.chaser } : undefined,
     value: l.value ? { ...l.value } : undefined,
+    matrix: l.matrix ? { ...l.matrix, palette: [...l.matrix.palette] } : undefined,
   };
 }
 
@@ -532,6 +554,7 @@ export function defaultFxLayer(kind: FxKind): FxLayer {
   else if (kind === 'curve') l.curve = { ...DEFAULT_CURVE_FX };
   else if (kind === 'chaser') l.chaser = { ...DEFAULT_CHASER_FX };
   else if (kind === 'value') l.value = { ...DEFAULT_VALUE_FX };
+  else if (kind === 'matrix') l.matrix = { ...DEFAULT_MATRIX_FX, palette: [] };
   return l;
 }
 
@@ -554,5 +577,6 @@ export function normalizeLayer(raw: Partial<FxLayer> & { kind: FxKind }): FxLaye
   else if (raw.kind === 'curve' && raw.curve) l.curve = { ...DEFAULT_CURVE_FX, ...raw.curve };
   else if (raw.kind === 'chaser' && raw.chaser) l.chaser = { ...DEFAULT_CHASER_FX, ...raw.chaser };
   else if (raw.kind === 'value' && raw.value) l.value = { ...DEFAULT_VALUE_FX, ...raw.value };
+  else if (raw.kind === 'matrix' && raw.matrix) l.matrix = { ...DEFAULT_MATRIX_FX, ...raw.matrix, palette: [...(raw.matrix.palette ?? [])] };
   return l;
 }

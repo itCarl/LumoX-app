@@ -48,6 +48,7 @@ const KINDS: { kind: FxKind; label: string; icon: string }[] = [
   { kind: 'curve',  label: 'Curve',  icon: '<i class="fa-solid fa-wave-square"></i>' },
   { kind: 'chaser', label: 'Chaser', icon: '<i class="fa-solid fa-ellipsis"></i>' },
   { kind: 'value',  label: 'Value',  icon: '<i class="fa-solid fa-sliders"></i>' },
+  { kind: 'matrix', label: 'Matrix', icon: '<i class="fa-solid fa-table-cells-large"></i>' },
 ];
 const kindLabel = (k: FxKind): string => KINDS.find((x) => x.kind === k)?.label ?? k;
 const kindIcon = (k: FxKind): string => KINDS.find((x) => x.kind === k)?.icon ?? '';
@@ -505,6 +506,26 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
         ${row('On level', slider('level', 0, 255, 1, c.level, int))}
         ${row('Off level', slider('bg', 0, 255, 1, c.bg, int))}`;
     }
+    if (l.kind === 'matrix' && l.matrix) {
+      const m = l.matrix;
+      const grad = m.palette.length
+        ? (m.palette.length === 1 ? m.palette[0] : `linear-gradient(90deg, ${m.palette.join(', ')})`)
+        : 'linear-gradient(90deg, #ff0040, #ffd000, #5cff4a, #00e0ff, #6a4bff, #ff45c8, #ff0040)';
+      return html`
+        <div class="fxe-hint">Pixel-maps each emitter by its 2D position on the STAGE tile.</div>
+        ${row('Pattern', sel('pattern', [['wipe', 'Wipe'], ['radial', 'Radial'], ['plasma', 'Plasma']], m.pattern))}
+        <div class="fxe-gradient" style="background:${grad}"></div>
+        <div class="fxe-row"><span class="sp-lbl">Palette</span>
+          <span class="cfx-pal">
+            ${m.palette.map((hex, i) => html`<span class="cfx-swatch"><input class="cfx-sw" type="color" data-field="cfx-swatch" value="${hex}" /><button class="cfx-x" data-act="cfx-del" data-i="${i}">${raw(ICON.x)}</button></span>`)}
+            <button class="cfx-add" data-act="cfx-add" title="Add colour (empty = rainbow)">${raw(ICON.plus)}</button>
+          </span>
+        </div>
+        ${row('Saturation', slider('saturation', 0, 1, 0.01, m.saturation, pct))}
+        ${row('Fade', slider('fade', 0, 1, 0.01, m.fade, pct))}
+        ${row('Scale', slider('scale', 0.1, 8, 0.05, m.scale, (v) => r2(v).toString()))}
+        ${row('Angle', slider('angle', 0, 360, 1, m.angle, deg))}`;
+    }
     return html``;
   }
 
@@ -747,9 +768,9 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
       case 'ldown': apply(lumox.scenes.moveLayer(id, lid, +1), true); break;
       case 'ldel': apply(lumox.scenes.removeLayer(id, lid), true); break;
       case 'preset-save': { const n = prompt('Preset name', s.name); if (n?.trim()) lumox.presets.saveRack(id, n.trim()).then(async () => { await reloadLib(); render(); }).catch(() => {}); break; }
-      case 'pal-save': { const l = layer(); if (l?.color) { const n = prompt('Palette name', 'Palette'); if (n?.trim()) lumox.palettes.add(n.trim(), readPalette()).then(async () => { await reloadLib(); render(); }).catch(() => {}); } break; }
-      case 'cfx-add': { const l = layer(); if (l?.color) apply(lumox.scenes.setLayerConfig(id, l.id, { palette: [...readPalette(), '#ffffff'] })); break; }
-      case 'cfx-del': { const l = layer(); if (l?.color) { const p = readPalette(); p.splice(Number(t.dataset.i), 1); apply(lumox.scenes.setLayerConfig(id, l.id, { palette: p })); } break; }
+      case 'pal-save': { const l = layer(); if (l?.color || l?.matrix) { const n = prompt('Palette name', 'Palette'); if (n?.trim()) lumox.palettes.add(n.trim(), readPalette()).then(async () => { await reloadLib(); render(); }).catch(() => {}); } break; }
+      case 'cfx-add': { const l = layer(); if (l?.color || l?.matrix) apply(lumox.scenes.setLayerConfig(id, l.id, { palette: [...readPalette(), '#ffffff'] })); break; }
+      case 'cfx-del': { const l = layer(); if (l?.color || l?.matrix) { const p = readPalette(); p.splice(Number(t.dataset.i), 1); apply(lumox.scenes.setLayerConfig(id, l.id, { palette: p })); } break; }
       case 'addstep': lumox.scenes.addStep(id).then(() => { emitUpdated(id); refetch(); }).catch(() => {}); break;
       case 'stepdel': lumox.scenes.removeStep(id, Number(t.dataset.step)).then(() => { emitUpdated(id); refetch(); }).catch(() => {}); break;
       case 'stepup': lumox.scenes.moveStep(id, Number(t.dataset.step), -1).then(() => { emitUpdated(id); refetch(); }).catch(() => {}); break;
@@ -836,7 +857,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
   content.on('change', '#pal-pick', (_e, t) => {
     const s = state.scene, l = layer(); const pid = (t as HTMLSelectElement).value;
     const pal = state.palettes.find((p) => p.id === pid);
-    if (s && l?.color && pal) apply(lumox.scenes.setLayerConfig(s.id, l.id, { palette: pal.colors }));
+    if (s && (l?.color || l?.matrix) && pal) apply(lumox.scenes.setLayerConfig(s.id, l.id, { palette: pal.colors }));
   });
 
   // live slider readout + live shape/wave preview while dragging
@@ -849,7 +870,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
       const f = inp.dataset.cfg;
       out.textContent = (f === 'angle' || f === 'phaseShape') ? `${Math.round(v)}°`
         : (f === 'saturation' || f === 'fade' || f === 'duty' || f === 'sizeX' || f === 'sizeY') ? `${Math.round(v * 100)}%`
-        : (f === 'colorWidth') ? String(r2(v)) : String(Math.round(v));
+        : (f === 'colorWidth' || f === 'scale') ? String(r2(v)) : String(Math.round(v));
     }
     redrawPreview();   // live preview graph (move shape / curve+value waveform)
   });
