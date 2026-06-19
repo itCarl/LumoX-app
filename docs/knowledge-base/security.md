@@ -1,7 +1,7 @@
 # App Security
 
 **Status:** stable
-**Files:** `main/windows.ts`, `main/validate.ts`, `main/services/ProjectService.ts`, `renderer/lib/html.ts`, `renderer/*.html`, `src/outputs/ArtNetOutput.ts`, `src/protocols/sacn.ts`
+**Files:** `main/windows.ts`, `main/validate.ts`, `main/services/ProjectService.ts`, `main/handlers/dev.ts`, `renderer/lib/html.ts`, `renderer/*.html`, `src/outputs/ArtNetOutput.ts`, `src/protocols/sacn.ts`
 
 ## What
 
@@ -23,6 +23,16 @@ wire protocols.
   `setWindowOpenHandler` deny + `will-navigate` guard.
 - Local content only — `loadFile`, never `loadURL`. No `eval`/remote module.
 - `globalThis.lumox` is dev-gated.
+
+### Dev eval bridge (`main/handlers/dev.ts`)
+
+- `lumox:dev:eval` runs arbitrary code against the engine/show singletons — a
+  **deliberate** arbitrary-code surface for the screenshot harness + devtools.
+- Gated OFF by default: registered **only** when `LUMOX_DEV=1` (set solely by the
+  `npm run shot` wrapper). `registerDevHandlers()` is a no-op otherwise, so the
+  IPC channels do not exist in a normal/packaged run and the preload methods
+  reject with "No handler registered".
+- Never set `LUMOX_DEV` in a packaged/production launch.
 
 ### Untrusted input
 
