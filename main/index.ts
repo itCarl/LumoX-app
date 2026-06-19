@@ -12,9 +12,13 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 import { setLogLevel } from '../src/index';
-import { engine, show, banks, setBroadcastOutput, NO_UNIVERSE } from './context';
+import { engine, show, discovery, blackoutAllOutputs } from './context';
 import { APP_ROOT, createWindow } from './windows';
 import { registerHandlers } from './handlers';
+import { newProject, loadProjectFromPath, setProject } from './services/ProjectService';
+import { resetHistory } from './services/HistoryService';
+import { loadSettings, getSetting } from './services/SettingsService';
+import { loadUserLibrary } from './services/UserLibraryService';
 
 // Fail fast if Electron is running as plain Node. With ELECTRON_RUN_AS_NODE set,
 // electron.exe behaves like node and `require('electron')` returns the binary
@@ -44,29 +48,47 @@ registerHandlers();
 // the UI has something to draw on first launch, then open the broadcast output.
 const FIXTURES_DIR = path.join(APP_ROOT, 'fixtures');
 async function bootShow(): Promise<void> {
+  await loadSettings();   // app preferences (needs app ready for userData path)
+
   try {
     const r = await show.library.loadFromDirectory(FIXTURES_DIR, { source: 'builtin' });
     console.log(`[show] library: ${r.loaded} loaded, ${r.skipped} skipped, ${r.errors.length} errors`);
   } catch (err) {
     console.error('[show] library load failed:', (err as Error).message);
   }
-  // Make 10 universes available by default (no manual add in the UI).
-  for (let i = 0; i < 10; i++) engine.universes.ensure(i, `Universe ${i + 1}`);
-  banks.ensureDefault();
 
-  // Broadcast Art-Net — but only on universes that have an active scene. An
-  // empty subscription set would mean "all", so subscribe to a sentinel id.
-  try {
-    const broadcast = engine.outputs.create('artnet', {
-      name: 'Broadcast', host: '255.255.255.255', maxRateHz: 40,
-      subscribedUniverses: [NO_UNIVERSE],
-    });
-    setBroadcastOutput(broadcast);
-    await broadcast.open();
-    console.log('[show] Art-Net broadcast output open');
-  } catch (err) {
-    console.error('[show] Art-Net broadcast failed:', (err as Error).message);
+  // User-authored fixtures (the "Custom" vendor) persisted under userData — load
+  // them alongside the built-ins so they're available without opening a project.
+  await loadUserLibrary();
+
+  // Boot project: reopen the last project when enabled in Settings; otherwise in
+  // development open the bundled demo show (resources/demo-show.lmx — a filled rig
+  // with banks + scenes of every FX type) for quick testing, while packaged builds
+  // start blank. Override with LUMOX_SEED=1 (force demo) / LUMOX_SEED=0 (force blank).
+  let restored = false;
+  const last = getSetting('lastProjectPath');
+  if (getSetting('reopenLastProject') && last) {
+    try { await loadProjectFromPath(last); restored = true; console.log(`[show] reopened ${last}`); }
+    catch (err) { console.error('[show] reopen last project failed:', (err as Error).message); }
   }
+  if (!restored) {
+    const seed = process.env.LUMOX_SEED === '1' || (process.env.LUMOX_SEED !== '0' && !app.isPackaged);
+    if (seed) {
+      try {
+        await loadProjectFromPath(path.join(APP_ROOT, 'resources', 'demo-show.lmx'));
+        setProject('Demo Show', null);   // scratch copy — a stray Save won't clobber the bundled file
+      } catch (err) {
+        console.error('[show] demo show load failed:', (err as Error).message);
+        newProject();
+      }
+    } else {
+      newProject();
+    }
+  }
+  // Per-universe outputs are seeded by newProject and applied by a project load
+  // (ProjectService) — nothing more to do here.
+
+  resetHistory();   // baseline undo/redo on the freshly-booted show
 }
 
 // ---- app lifecycle -----------------------------------------------------
@@ -88,16 +110,20 @@ app.whenReady().then(async () => {
   app.quit();
 });
 
-// Idempotent teardown — stop the tick loop, then close every output socket
-// (Art-Net / sACN). Guarded so the multiple shutdown paths below run it once.
+// Idempotent teardown — stop the tick loop, blackout every fixture (so nothing
+// stays lit once we stop transmitting), then close every output socket (Art-Net
+// / sACN). Stopping the tick first means our blackout frames are the only thing
+// touching the sockets. Guarded so the multiple shutdown paths below run once.
 let shuttingDown = false;
 async function shutdown(): Promise<void> {
   if (shuttingDown) return;
   shuttingDown = true;
   try {
     engine.stop();
+    await discovery.stop();
+    await blackoutAllOutputs();
     await engine.outputs.closeAll();
-    console.log('[shutdown] outputs closed');
+    console.log('[shutdown] blackout sent, outputs closed');
   } catch (err) {
     console.error('[shutdown] error:', (err as Error).message);
   }
