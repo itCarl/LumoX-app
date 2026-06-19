@@ -126,7 +126,29 @@ Tiles (views):
 | `views/connection.ts` | CONNECTION — DMX output transport (Art-Net/sACN cards, target IP, refresh) + live status; full-page view on its own titlebar tab. See [connection.md](connection.md) |
 | `fixtureeditor-window.ts` | Fixture editor — standalone window (own taskbar entry) |
 | `midi-window.ts` | MIDI mapping — standalone window (own taskbar entry): connection status, **+ Add mapping** (click-to-assign), bindings table, live monitor. See [midi.md](midi.md) |
+| `dialog-window.ts` | Generic **dialog window** (`dialog.html`) — prompts/notices (unsaved-changes, missing fixtures, confirmations). Renders a spec from main, reports the clicked button id. See *Windows — no in-app modals* below |
+| `panel-window.ts` | Generic **panel window** (`panel.html`) — hosts the richer former modals (Settings, group fixture-order) as real windows |
 | `lib/midiassign.ts` | Main-window assign overlay — paints `[data-midi]` controls purple during assign mode and reports the picked target |
+
+#### Windows — no in-app modals
+
+The app uses **no overlay modals** — every transient surface is a real frameless
+top-level window with its own taskbar entry (created **without** `parent`), so it
+can be picked from the taskbar / alt-tab. Two are generic and reusable:
+
+- **Dialog window** (`renderer/dialog.html` + `dialog-window.ts`, main:
+  `handlers/dialog.ts`) — button prompts + notices. `openDialog(spec)` (main) and
+  `lumox.dialog.open(spec)` (renderer) pop the window and resolve with the clicked
+  button id; the window's X / Esc resolve to the spec's `cancelId`. Used by the
+  unsaved-changes guard, the missing-fixtures notice, and `lib/confirm.ts`.
+- **Panel window** (`renderer/panel.html` + `panel-window.ts`, main:
+  `handlers/panel.ts`) — hosts a richer panel chosen by `kind`. `lumox.panel.open({kind})`
+  opens it; the page fetches its spec and mounts the matching body. Kinds:
+  `settings` (`views/settings-modal.ts` → `buildSettingsBody`) and `group-order`
+  (`views/group-order-modal.ts` → `buildGroupOrderBody`).
+
+Both windows reuse the editor/MIDI window chrome (`.ew-titlebar`, `wc-close`).
+The dialog/panel IPC areas are transient (never dirty the project).
 
 #### Fixture editor (`fixtureeditor.html` + `fixtureeditor-window.ts`)
 
@@ -157,7 +179,8 @@ esbuild + Tailwind via `build.mjs` → `dist/main/index.cjs`, `dist/preload.cjs`
 
 ## Projects
 
-`.lmx` JSON files (format version 1), handled in `main/handlers/project.ts` +
+`.lmx` JSON files (format version 1 — the single current format; dev phase, no
+legacy loaders), handled in `main/handlers/project.ts` +
 `main/services/ProjectService.ts`:
 
 - **Current project** — `ProjectService` tracks `{ name, path, dirty }`. `New`
@@ -166,6 +189,13 @@ esbuild + Tailwind via `build.mjs` → `dist/main/index.cjs`, `dist/preload.cjs`
   silently, else falls back to `Save As` (dialog). The file embeds `name`.
   A **5-minute autosave** rewrites a named (non-Untitled) project whenever it has
   unsaved changes.
+- **Unsaved-changes guard on close** — closing the main window with a dirty
+  project prompts **Save / Don't Save / Cancel** in the in-app **dialog window**
+  (see *Windows* below — not a native OS message box). Cancel vetoes the close;
+  Save writes (or falls back to Save As for an Untitled show, and cancelling that
+  also vetoes the close). The project handler injects this guard into `windows.ts`
+  via `setCloseGuard()`, which vetoes the window `close` event until the dialog
+  resolves.
 - **Dirty marker** — `registerHandlers()` wraps `ipcMain.handle` so any
   show-mutating channel flips a dirty flag (read-only / live / playback / window
   channels don't). The titlebar shows `— <name>` with a `*` when dirty.
@@ -175,12 +205,16 @@ esbuild + Tailwind via `build.mjs` → `dist/main/index.cjs`, `dist/preload.cjs`
   `restoreProject()` rebuilds state (best-effort: fixtures with no installed
   definition are skipped). `analyzeProject()` then reports those gaps
   (missing definition / missing mode), surfaced after reload via
-  `lumox:project:report` in a renderer modal.
+  `lumox:project:report` in the dialog window.
 - A full project replace sends `project:loaded` → the renderer `location.reload()`s
   for a clean rebuild; identity + report are re-read on startup.
 
 ## Notes / Gotchas
 
+- **Single instance** — `main/index.ts` takes `app.requestSingleInstanceLock()`
+  at startup; a second launch focuses the existing window (`second-instance` →
+  restore + focus) and exits. Two instances would clash over the Art-Net / sACN
+  output sockets and the MIDI device.
 - Node scripts (headless, cli, examples) run from source via `tsx` — not bundled.
 - `easymidi` is optional → mock MIDI backend fallback.
 - Conventions: [conventions.md](conventions.md). Security baseline + audit

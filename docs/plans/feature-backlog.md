@@ -14,8 +14,8 @@ what is **still to build**.
 
 ## Already shipped (specs folded into the knowledge base)
 
-F1 selections · F2 limits · F3 FX-layer rack · F4 palettes · F6 cue semantics ·
-F8 settings store · F10 BPM sources. See their entries in
+Ordered selections · per-fixture limits · FX-layer rack · colour palettes · cue
+semantics · settings store · BPM sources · audio-reactive input. See their entries in
 [backlog-summary.md](backlog-summary.md) for the KB links.
 
 ## How to read a spec
@@ -31,7 +31,7 @@ attached to the mixer (see `sceneTrack`, `buildLimitMap`).
 
 ---
 
-## F9 — Input mapping & MIDI-learn 🟡 (L, ACTIVE) → see dedicated plans
+## Input mapping & MIDI-learn 🟡 (L, ACTIVE) → see dedicated plans
 
 **The only active backlog item.**
 
@@ -48,7 +48,30 @@ the Devices view — extending naturally to OSC / keyboard / DMX-in via the same
 
 ---
 
-## F11 — Matrix / strip fixtures & pixel effects ⏸ (L, PARKED — lowest priority)
+## Audio→FX-layer parameter targets 📋 (M, PLANNED — extension)
+
+**Goal.** Let an audio binding drive an **FX layer's** intensity / depth / speed, not just
+the masters / group intensity / raw DMX / scene+blackout triggers that
+[audio.md](../knowledge-base/audio.md) already ships.
+
+**Current state.** The audio-reactive system is shipped (capture, spectrum, input picker,
+bindings table, range + trigger dispatch). `AudioBindingService` resolves a `target.key` to
+an engine setter; the missing piece is an **addressable FX-layer parameter** target — the
+FX rack has no stable per-layer param handle a binding can write each frame.
+
+**Plan (sketch).** Add a `layer:<sceneId>:<layerId>:<param>` target kind whose dispatch
+writes the layer's live modulation (reusing whatever continuous setter the FX rack exposes /
+needs to expose); surface those targets in `AudioBindingService.targets()` and the bindings
+table's target select. Converges with the MIDI surface once Input mapping's generic Action
+registry lands (both would target the same FX-layer params).
+
+**Touch-points.** `main/services/AudioBindingService.ts` (target + dispatch),
+`src/mix/modules/SceneMixer.ts` (FX-layer param setter), `renderer/views/connection.ts`
+(target options).
+
+---
+
+## Matrix / strip fixtures & pixel effects ⏸ (L, PARKED — lowest priority)
 
 **Goal.** Create matrix/strip fixtures in-app (LED mode + width×height/arrangement, or
 N LEDs) and run pixel-mapped effects across them.
@@ -70,7 +93,7 @@ target ordering), `renderer/views/patchgrid.ts`/`stage.ts`, FX UI.
 
 ---
 
-## F12 — Stand-alone export ⏸ (XL, PARKED — lowest priority; spans firmware)
+## Stand-alone export ⏸ (XL, PARKED — lowest priority; spans firmware)
 
 **Goal.** Compile a show so a node runs it **without the app** (scenes + simple triggers
 + clock/calendar schedules).
@@ -88,22 +111,26 @@ export/schedule UI, firmware-side player (separate repo).
 
 ---
 
-## F14 — Touch interface & remote ⏸ (XL, PARKED — lowest priority; do F9 first)
+## Touch interface & remote ⏸ (XL, PARKED — lowest priority; do Input mapping first)
 
 **Goal.** A custom button/fader page surface (touch) and phone/tablet remote control.
 
 **Plan (sketch).** Touch = a user-arrangeable grid of widgets bound to Actions (reuse
-F9's Action registry); Remote = serve a small web UI over the node/AP network bound to
-the same Actions. Both lean entirely on the Action registry, so do **F9 first**.
+Input mapping's Action registry); Remote = serve a small web UI over the node/AP network
+bound to the same Actions. Both lean entirely on the Action registry, so do **Input
+mapping first**.
 
-**Touch-points.** new touch view + a small served web surface; Action registry from F9.
+**Touch-points.** new touch view + a small served web surface; Action registry from
+Input mapping.
 
 ---
 
 ## Notes
 
-- **F9 is the only active item.** F11 / F12 / F14 are parked at lowest priority — do not
-  start them until F9 lands and they are explicitly reprioritised.
+- **Active: Input mapping.** Audio-reactive input has shipped ([audio.md](../knowledge-base/audio.md));
+  only the small FX-layer-target extension above remains. Matrix/strip, Stand-alone export and
+  Touch/remote are parked at lowest priority — do not start any of them until the active work
+  lands and they are explicitly reprioritised.
 - Keep naming generic in code/UI/docs (`conventions.md`). When a feature ships, move its
   spec out of this file, fold the behaviour into `docs/knowledge-base/`, and update the
   table in `CLAUDE.md` + [backlog-summary.md](backlog-summary.md).

@@ -244,5 +244,5 @@ Built with the renderer DOM/widgets libs (`renderer/lib/dom.ts`, `widgets.ts`):
 
 Non-APC controllers, OSC/keyboard/DMX-in, motor-fader feedback, tagging *every*
 one of the ~130 controls up front (we tag a curated set; the rest is one
-attribute each, added on demand). Full generic Action registry → F9 in
-[feature-backlog.md](./feature-backlog.md).
+attribute each, added on demand). Full generic Action registry → the Input mapping &
+MIDI-learn spec in [feature-backlog.md](./feature-backlog.md).

@@ -132,8 +132,11 @@ intensity), so hardware behaves exactly like clicking.
   and Solid/Blink/Fade controls, driven by the device's reported capabilities),
   and a live MIDI monitor.
 - **`renderer/lib/midiassign.ts`** — main-window assign overlay: while assigning,
-  every `[data-midi]` control gets a purple wash and a capture-phase click reads
-  its target descriptor → `pickTarget`. `Esc` cancels.
+  every `[data-midi]` control is marked with a dotted purple border + a 45°
+  diagonal striped fill; a capture-phase click reads its target descriptor →
+  `pickTarget`. `Esc` cancels. Closing the MIDI window also cancels assign mode
+  (`midiService.cancelAssign()` in `windows.ts`), so the overlay can never get
+  stuck on.
 
 ### Device profiles (plugin layer) — `main/midi/profiles/`
 

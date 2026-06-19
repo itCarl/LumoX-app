@@ -36,6 +36,7 @@ referenced here.
 | [docs/knowledge-base/color.md](docs/knowledge-base/color.md) | Colour — DMX-byte bridges (`hsvToBytes`/`hexToBytes`) over the culori colour library |
 | [docs/knowledge-base/midi.md](docs/knowledge-base/midi.md) | MIDI control surfaces — backend/port/controller layers, APC Mini MK2 mapping, CLI (engine-only, no IPC yet) |
 | [docs/knowledge-base/tempo.md](docs/knowledge-base/tempo.md) | Master tempo & BPM sources — manual/tap, MIDI clock, audio onset detection, Ableton Link; source-aware `Transport`, `lumox:transport:*` IPC |
+| [docs/knowledge-base/audio.md](docs/knowledge-base/audio.md) | Audio-reactive input — shared Web-Audio capture (log-spaced spectrum bands + volume + beat), drag-and-drop input picker, band/volume/beat → target bindings (range + triggers), `lumox:audio:*` IPC |
 | [docs/knowledge-base/artnet-protocol.md](docs/knowledge-base/artnet-protocol.md) | Art-Net + sACN wire protocol the app emits (+ discovery) |
 | [docs/knowledge-base/connection.md](docs/knowledge-base/connection.md) | Connection tab — DMX output transport (Art-Net/sACN, target IP, refresh) + live status |
 | [docs/knowledge-base/discovery.md](docs/knowledge-base/discovery.md) | Network node discovery — Art-Net ArtPoll listener, device list, one-click Assign to a universe |
@@ -46,6 +47,17 @@ referenced here.
 | [docs/knowledge-base/build-run.md](docs/knowledge-base/build-run.md) | Build & run commands |
 | [docs/knowledge-base/security.md](docs/knowledge-base/security.md) | Electron security baseline + audit checklist |
 
+## Skills
+
+Project skills live in [`.claude/skills/`](.claude/skills/) and are invoked
+automatically (or via `/<name>`) when their description matches the task:
+
+| Skill | Use when |
+| --- | --- |
+| [lumox-ui-design](.claude/skills/lumox-ui-design/SKILL.md) | Building or restyling any renderer UI — encodes Lumox's token system, "soft modern" dark direction, the flat/low-border/drill-down UI laws, generic pro-control-surface conventions, and a plan→critique→build→screenshot loop. Reads as a purpose-built control surface, not generic AI dashboard slop. |
+| [frontend-design](.claude/skills/frontend-design/SKILL.md) | General anti-"AI-slop" visual-design philosophy (Anthropic's skill). Background reference for `lumox-ui-design`; apply its *intentional-choices / self-critique* spine, not its expressive-typography/bold-hero advice (which suits marketing pages, not a control surface). |
+| [run-app](.claude/skills/run-app/SKILL.md) | Build, launch, and screenshot the Electron app to verify a renderer/UI change in the real app. |
+
 ## Plans / backlog
 
 Forward-looking design plans for features **not yet built** live in
@@ -53,8 +65,9 @@ Forward-looking design plans for features **not yet built** live in
 truth for shipped behaviour). For what's left to build, start at the backlog summary:
 
 - [docs/plans/backlog-summary.md](docs/plans/backlog-summary.md) — the live **to-do**:
-  outstanding features only (F9 active; F11/F12/F14 parked) + a roster of shipped ones
-  pointing at the knowledge base. Specs for the remaining work in
+  outstanding features only (Input mapping active; an Audio→FX-layer-target extension
+  planned; Matrix/strip, Stand-alone export, Touch/remote parked) + a roster of shipped
+  ones pointing at the knowledge base. Specs for the remaining work in
   [feature-backlog.md](docs/plans/feature-backlog.md); MIDI slices in
   [midi-control-surface.md](docs/plans/midi-control-surface.md) +
   [midi-scene-mapping-apc.md](docs/plans/midi-scene-mapping-apc.md).
