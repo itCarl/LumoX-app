@@ -1,0 +1,233 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Martin/RUSH MH 5 Profile",
+      "manufacturer": "Martin",
+      "model": "RUSH MH 5 Profile",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "Open Fixture Library - Martin Rush MH 5 Profile (https://open-fixture-library.org/martin/rush-mh-5-profile), based on the Martin RUSH MH 5 Profile User Manual DMX protocol",
+        "notes": "75W LED profile moving head. Single 16-channel personality with dual colour wheels, rotating + static gobo wheels, 3-facet prism and 16-bit pan/tilt/dimmer. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 290, "height": 416, "depth": 187, "unit": "mm" },
+        "weight": { "value": 9, "unit": "kg" },
+        "bulb": { "type": "75W LED", "lumens": 1800, "colourTemperature": null },
+        "lens": { "name": "Zoom", "degreesMin": 14, "degreesMax": 16 },
+        "focus": { "type": "Head", "panMax": 540, "tiltMax": 270 },
+        "power": { "consumption": 165, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "16ch",
+          "name": "16-channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 8,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 7, "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 8, "max": 15, "label": "Open", "mode": "open" },
+                { "kind": "shutter", "min": 16, "max": 131, "label": "Strobe slow to fast", "mode": "strobe" },
+                { "kind": "shutter", "min": 132, "max": 167, "label": "Ramp up", "mode": "pulse" },
+                { "kind": "shutter", "min": 168, "max": 203, "label": "Ramp down", "mode": "pulse" },
+                { "kind": "shutter", "min": 204, "max": 239, "label": "Pulse", "mode": "pulse" },
+                { "kind": "shutter", "min": 240, "max": 247, "label": "Random strobe", "mode": "random" },
+                { "kind": "shutter", "min": 248, "max": 255, "label": "Open", "mode": "open" }
+              ]
+            },
+            {
+              "name": "Color Wheel 1",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "color", "min": 0, "max": 0, "label": "Open", "color": "#ffffff" },
+                { "kind": "color", "min": 15, "max": 15, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 30, "max": 30, "label": "Deep Blue", "color": "#0000aa" },
+                { "kind": "color", "min": 45, "max": 45, "label": "Lavender", "color": "#ffbfff" },
+                { "kind": "color", "min": 60, "max": 60, "label": "Magenta", "color": "#c900c9" },
+                { "kind": "color", "min": 75, "max": 75, "label": "Yellow", "color": "#ffff00" },
+                { "kind": "color", "min": 90, "max": 90, "label": "Orange", "color": "#ffaa00" },
+                { "kind": "color", "min": 105, "max": 105, "label": "Light Green", "color": "#55ee55" },
+                { "kind": "color", "min": 120, "max": 120, "label": "Light Blue", "color": "#55ccff" },
+                { "kind": "range", "min": 193, "max": 214, "label": "Spin CW fast to slow" },
+                { "kind": "range", "min": 215, "max": 221, "label": "Stop" },
+                { "kind": "range", "min": 222, "max": 243, "label": "Spin CCW slow to fast" },
+                { "kind": "range", "min": 244, "max": 255, "label": "Random colour" }
+              ]
+            },
+            {
+              "name": "Color Wheel 2",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "color", "min": 0, "max": 0, "label": "Open", "color": "#ffffff" },
+                { "kind": "color", "min": 15, "max": 15, "label": "Pink", "color": "#ff4ef6" },
+                { "kind": "color", "min": 30, "max": 30, "label": "CTO 3200K", "color": "#ffc548" },
+                { "kind": "color", "min": 45, "max": 45, "label": "UV Purple", "color": "#680c68" },
+                { "kind": "color", "min": 60, "max": 60, "label": "Light Yellow", "color": "#fcff55" },
+                { "kind": "color", "min": 75, "max": 75, "label": "Green", "color": "#038f0a" },
+                { "kind": "color", "min": 90, "max": 90, "label": "Aquamarine", "color": "#0fc08b" },
+                { "kind": "color", "min": 105, "max": 105, "label": "CTO 5600K", "color": "#ffebaa" },
+                { "kind": "color", "min": 120, "max": 120, "label": "Blue", "color": "#2f75d1" },
+                { "kind": "range", "min": 193, "max": 214, "label": "Spin CW fast to slow" },
+                { "kind": "range", "min": 215, "max": 221, "label": "Stop" },
+                { "kind": "range", "min": 222, "max": 243, "label": "Spin CCW slow to fast" },
+                { "kind": "range", "min": 244, "max": 255, "label": "Random colour" }
+              ]
+            },
+            {
+              "name": "Rotating Gobo Wheel",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "gobo", "min": 0, "max": 4, "label": "Open", "shake": false },
+                { "kind": "gobo", "min": 5, "max": 9, "label": "Gobo 1 indexed", "shake": false },
+                { "kind": "gobo", "min": 10, "max": 14, "label": "Gobo 2 indexed", "shake": false },
+                { "kind": "gobo", "min": 15, "max": 19, "label": "Gobo 3 indexed", "shake": false },
+                { "kind": "gobo", "min": 20, "max": 24, "label": "Gobo 4 indexed", "shake": false },
+                { "kind": "gobo", "min": 25, "max": 29, "label": "Gobo 5 indexed", "shake": false },
+                { "kind": "gobo", "min": 30, "max": 34, "label": "Gobo 6 indexed", "shake": false },
+                { "kind": "gobo", "min": 35, "max": 39, "label": "Gobo 1 rotating", "shake": false },
+                { "kind": "gobo", "min": 40, "max": 44, "label": "Gobo 2 rotating", "shake": false },
+                { "kind": "gobo", "min": 45, "max": 49, "label": "Gobo 3 rotating", "shake": false },
+                { "kind": "gobo", "min": 50, "max": 54, "label": "Gobo 4 rotating", "shake": false },
+                { "kind": "gobo", "min": 55, "max": 59, "label": "Gobo 5 rotating", "shake": false },
+                { "kind": "gobo", "min": 60, "max": 64, "label": "Gobo 6 rotating", "shake": false },
+                { "kind": "gobo", "min": 65, "max": 88, "label": "Gobo 1 shake", "shake": true },
+                { "kind": "gobo", "min": 89, "max": 112, "label": "Gobo 2 shake", "shake": true },
+                { "kind": "gobo", "min": 113, "max": 136, "label": "Gobo 3 shake", "shake": true },
+                { "kind": "gobo", "min": 137, "max": 160, "label": "Gobo 4 shake", "shake": true },
+                { "kind": "gobo", "min": 161, "max": 184, "label": "Gobo 5 shake", "shake": true },
+                { "kind": "gobo", "min": 185, "max": 208, "label": "Gobo 6 shake", "shake": true },
+                { "kind": "range", "min": 209, "max": 209, "label": "No function" },
+                { "kind": "range", "min": 210, "max": 232, "label": "Wheel spin CW fast to slow" },
+                { "kind": "range", "min": 233, "max": 255, "label": "Wheel spin CCW slow to fast" }
+              ]
+            },
+            {
+              "name": "Gobo Indexing / Rotation",
+              "typeId": "gobo-index",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 255, "label": "Indexing angle / rotation speed (depends on gobo wheel value)" }
+              ]
+            },
+            {
+              "name": "Static Gobo Wheel",
+              "typeId": "gobo-wheel-2",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "gobo", "min": 0, "max": 0, "label": "Open", "shake": false },
+                { "kind": "gobo", "min": 15, "max": 15, "label": "Gobo 1", "shake": false },
+                { "kind": "gobo", "min": 30, "max": 30, "label": "Gobo 2", "shake": false },
+                { "kind": "gobo", "min": 45, "max": 45, "label": "Gobo 3", "shake": false },
+                { "kind": "gobo", "min": 60, "max": 60, "label": "Gobo 4", "shake": false },
+                { "kind": "gobo", "min": 75, "max": 75, "label": "Gobo 5", "shake": false },
+                { "kind": "gobo", "min": 90, "max": 90, "label": "Gobo 6", "shake": false },
+                { "kind": "gobo", "min": 105, "max": 105, "label": "Gobo 7", "shake": false },
+                { "kind": "range", "min": 193, "max": 214, "label": "Wheel spin CW fast to slow" },
+                { "kind": "range", "min": 215, "max": 221, "label": "Stop" },
+                { "kind": "range", "min": 222, "max": 243, "label": "Wheel spin CCW slow to fast" },
+                { "kind": "range", "min": 244, "max": 255, "label": "Random gobo" }
+              ]
+            },
+            {
+              "name": "Prism",
+              "typeId": "prism",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "No function" },
+                { "kind": "range", "min": 11, "max": 138, "label": "3-facet prism indexing" },
+                { "kind": "range", "min": 139, "max": 255, "label": "3-facet prism rotating" }
+              ]
+            },
+            {
+              "name": "Prism Indexing / Rotation",
+              "typeId": "prism-rotation",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 255, "label": "Prism indexing angle / rotation speed (depends on prism value)" }
+              ]
+            },
+            {
+              "name": "Focus",
+              "typeId": "focus",
+              "defaultValue": 128,
+              "capabilities": []
+            },
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 128,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 128,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Functions",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 9, "label": "No function" },
+                { "kind": "range", "min": 10, "max": 14, "label": "Reset all" },
+                { "kind": "range", "min": 15, "max": 19, "label": "Reset colour" },
+                { "kind": "range", "min": 20, "max": 24, "label": "Reset gobo" },
+                { "kind": "range", "min": 25, "max": 29, "label": "Reset focus" },
+                { "kind": "range", "min": 30, "max": 34, "label": "Reset prism" },
+                { "kind": "range", "min": 35, "max": 39, "label": "Reset pan/tilt" },
+                { "kind": "range", "min": 55, "max": 59, "label": "Enable calibration" },
+                { "kind": "range", "min": 80, "max": 84, "label": "Pan/tilt speed normal" },
+                { "kind": "range", "min": 85, "max": 89, "label": "Pan/tilt speed fast" },
+                { "kind": "range", "min": 90, "max": 94, "label": "Pan/tilt speed slow" },
+                { "kind": "range", "min": 95, "max": 99, "label": "Parameter shortcuts on" },
+                { "kind": "range", "min": 100, "max": 104, "label": "Parameter shortcuts off" },
+                { "kind": "range", "min": 145, "max": 149, "label": "Blackout during movement on" },
+                { "kind": "range", "min": 150, "max": 154, "label": "Blackout during movement off" },
+                { "kind": "range", "min": 155, "max": 159, "label": "Display on" },
+                { "kind": "range", "min": 160, "max": 164, "label": "Display off" },
+                { "kind": "range", "min": 195, "max": 244, "label": "Store calibration" },
+                { "kind": "range", "min": 245, "max": 249, "label": "Reset calibration to factory" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

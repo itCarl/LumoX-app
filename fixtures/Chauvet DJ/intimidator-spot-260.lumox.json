@@ -1,0 +1,223 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Chauvet DJ/Intimidator Spot 260",
+      "manufacturer": "Chauvet DJ",
+      "model": "Intimidator Spot 260",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "Open Fixture Library — Chauvet DJ Intimidator Spot 260 (https://open-fixture-library.org/chauvet-dj/intimidator-spot-260)",
+        "notes": "75W LED moving head spot; 8 colors + white/split, 7 gobos + open, 3-facet prism, manual zoom 12-17 deg, 540 deg pan / 270 deg tilt. Two DMX personalities (8ch and 14ch). Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 232, "height": 351, "depth": 163, "unit": "mm" },
+        "weight": { "value": 5.6, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Zoom", "degreesMin": 12, "degreesMax": 17 },
+        "focus": { "type": "Head", "panMax": 540, "tiltMax": 270 },
+        "power": { "consumption": 107, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "14ch",
+          "name": "14ch (Pan/Tilt 16-bit + Color + Gobo + Prism + Zoom + Dimmer + Strobe + Macros)",
+          "channels": [
+            { "name": "Pan", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "effect", "min": 0, "max": 255, "label": "Fast to slow", "effectName": "pan-tilt-speed" }
+              ]
+            },
+            {
+              "name": "Color Wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 6, "label": "Open" },
+                { "kind": "color", "min": 7, "max": 13, "label": "Orange", "color": "#fd8008" },
+                { "kind": "color", "min": 14, "max": 20, "label": "Lime Green", "color": "#ccff66" },
+                { "kind": "color", "min": 21, "max": 27, "label": "Cyan", "color": "#20ffff" },
+                { "kind": "color", "min": 28, "max": 34, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 35, "max": 41, "label": "Green", "color": "#21ff06" },
+                { "kind": "color", "min": 42, "max": 48, "label": "Magenta", "color": "#fc02ff" },
+                { "kind": "color", "min": 49, "max": 55, "label": "Yellow", "color": "#ffff0a" },
+                { "kind": "color", "min": 56, "max": 62, "label": "Dark Blue", "color": "#0000ff" },
+                { "kind": "range", "min": 63, "max": 64, "label": "Open" },
+                { "kind": "range", "min": 65, "max": 189, "label": "Color index" },
+                { "kind": "effect", "min": 190, "max": 221, "label": "Rotation CW (fast to slow)", "effectName": "color-wheel-cw" },
+                { "kind": "range", "min": 222, "max": 223, "label": "Rotation stop" },
+                { "kind": "effect", "min": 224, "max": 255, "label": "Rotation CCW (slow to fast)", "effectName": "color-wheel-ccw" }
+              ]
+            },
+            {
+              "name": "Gobo Wheel",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "gobo", "min": 0, "max": 7, "label": "Open", "shake": false },
+                { "kind": "gobo", "min": 8, "max": 15, "label": "Gobo 1", "shake": false },
+                { "kind": "gobo", "min": 16, "max": 23, "label": "Gobo 2", "shake": false },
+                { "kind": "gobo", "min": 24, "max": 31, "label": "Gobo 3", "shake": false },
+                { "kind": "gobo", "min": 32, "max": 39, "label": "Gobo 4", "shake": false },
+                { "kind": "gobo", "min": 40, "max": 47, "label": "Gobo 5", "shake": false },
+                { "kind": "gobo", "min": 48, "max": 55, "label": "Gobo 6", "shake": false },
+                { "kind": "gobo", "min": 56, "max": 63, "label": "Gobo 7", "shake": false },
+                { "kind": "gobo", "min": 64, "max": 127, "label": "Gobo shake (slow to fast)", "shake": true },
+                { "kind": "effect", "min": 128, "max": 189, "label": "Rotation CW (slow to fast)", "effectName": "gobo-wheel-cw" },
+                { "kind": "range", "min": 190, "max": 193, "label": "Rotation stop" },
+                { "kind": "effect", "min": 194, "max": 255, "label": "Rotation CCW (slow to fast)", "effectName": "gobo-wheel-ccw" }
+              ]
+            },
+            {
+              "name": "Gobo Rotation",
+              "typeId": "gobo-rotation-1",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7, "label": "No function" },
+                { "kind": "effect", "min": 8, "max": 119, "label": "Rotation CW (slow to fast)", "effectName": "gobo-rotation-cw" },
+                { "kind": "effect", "min": 120, "max": 231, "label": "Rotation CCW (slow to fast)", "effectName": "gobo-rotation-ccw" },
+                { "kind": "effect", "min": 232, "max": 255, "label": "Gobo bounce (short to long)", "effectName": "gobo-bounce" }
+              ]
+            },
+            {
+              "name": "Prism",
+              "typeId": "prism",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 15, "label": "No function" },
+                { "kind": "range", "min": 16, "max": 255, "label": "3-facet prism" }
+              ]
+            },
+            { "name": "Zoom", "typeId": "zoom", "defaultValue": 128, "capabilities": [] },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "shutter",
+              "defaultValue": 4,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 3, "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 4, "max": 7, "label": "Open", "mode": "open" },
+                { "kind": "shutter", "min": 8, "max": 76, "label": "Strobe (0-20.6 Hz)", "mode": "strobe", "rateHz": 20 },
+                { "kind": "shutter", "min": 77, "max": 145, "label": "Pulse (slow to fast)", "mode": "pulse" },
+                { "kind": "shutter", "min": 146, "max": 215, "label": "Random strobe (slow to fast)", "mode": "random" },
+                { "kind": "shutter", "min": 216, "max": 255, "label": "Open", "mode": "open" }
+              ]
+            },
+            {
+              "name": "Function",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "effect", "min": 0, "max": 255, "label": "Blackout / reset / maintenance functions", "effectName": "function" }
+              ]
+            },
+            {
+              "name": "Movement Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7, "label": "No function" },
+                { "kind": "effect", "min": 8, "max": 135, "label": "Movement macros 1-8", "effectName": "macro" },
+                { "kind": "effect", "min": 136, "max": 255, "label": "Sound-active macros 1-8", "effectName": "macro-sound" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8ch (Pan + Tilt + Color + Gobo + Prism + Zoom + Strobe)",
+          "channels": [
+            { "name": "Pan", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Color Wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 6, "label": "Open" },
+                { "kind": "color", "min": 7, "max": 13, "label": "Orange", "color": "#fd8008" },
+                { "kind": "color", "min": 14, "max": 20, "label": "Lime Green", "color": "#ccff66" },
+                { "kind": "color", "min": 21, "max": 27, "label": "Cyan", "color": "#20ffff" },
+                { "kind": "color", "min": 28, "max": 34, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 35, "max": 41, "label": "Green", "color": "#21ff06" },
+                { "kind": "color", "min": 42, "max": 48, "label": "Magenta", "color": "#fc02ff" },
+                { "kind": "color", "min": 49, "max": 55, "label": "Yellow", "color": "#ffff0a" },
+                { "kind": "color", "min": 56, "max": 62, "label": "Dark Blue", "color": "#0000ff" },
+                { "kind": "range", "min": 63, "max": 64, "label": "Open" },
+                { "kind": "range", "min": 65, "max": 189, "label": "Color index" },
+                { "kind": "effect", "min": 190, "max": 221, "label": "Rotation CW (fast to slow)", "effectName": "color-wheel-cw" },
+                { "kind": "range", "min": 222, "max": 223, "label": "Rotation stop" },
+                { "kind": "effect", "min": 224, "max": 255, "label": "Rotation CCW (slow to fast)", "effectName": "color-wheel-ccw" }
+              ]
+            },
+            {
+              "name": "Gobo Wheel",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "gobo", "min": 0, "max": 7, "label": "Open", "shake": false },
+                { "kind": "gobo", "min": 8, "max": 15, "label": "Gobo 1", "shake": false },
+                { "kind": "gobo", "min": 16, "max": 23, "label": "Gobo 2", "shake": false },
+                { "kind": "gobo", "min": 24, "max": 31, "label": "Gobo 3", "shake": false },
+                { "kind": "gobo", "min": 32, "max": 39, "label": "Gobo 4", "shake": false },
+                { "kind": "gobo", "min": 40, "max": 47, "label": "Gobo 5", "shake": false },
+                { "kind": "gobo", "min": 48, "max": 55, "label": "Gobo 6", "shake": false },
+                { "kind": "gobo", "min": 56, "max": 63, "label": "Gobo 7", "shake": false },
+                { "kind": "gobo", "min": 64, "max": 127, "label": "Gobo shake (slow to fast)", "shake": true },
+                { "kind": "effect", "min": 128, "max": 189, "label": "Rotation CW (slow to fast)", "effectName": "gobo-wheel-cw" },
+                { "kind": "range", "min": 190, "max": 193, "label": "Rotation stop" },
+                { "kind": "effect", "min": 194, "max": 255, "label": "Rotation CCW (slow to fast)", "effectName": "gobo-wheel-ccw" }
+              ]
+            },
+            {
+              "name": "Gobo Rotation",
+              "typeId": "gobo-rotation-1",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7, "label": "No function" },
+                { "kind": "effect", "min": 8, "max": 119, "label": "Rotation CW (slow to fast)", "effectName": "gobo-rotation-cw" },
+                { "kind": "effect", "min": 120, "max": 231, "label": "Rotation CCW (slow to fast)", "effectName": "gobo-rotation-ccw" },
+                { "kind": "effect", "min": 232, "max": 255, "label": "Gobo bounce (short to long)", "effectName": "gobo-bounce" }
+              ]
+            },
+            {
+              "name": "Prism",
+              "typeId": "prism",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 15, "label": "No function" },
+                { "kind": "range", "min": 16, "max": 255, "label": "3-facet prism" }
+              ]
+            },
+            { "name": "Zoom", "typeId": "zoom", "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "shutter",
+              "defaultValue": 4,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 3, "label": "Closed", "mode": "closed" },
+                { "kind": "shutter", "min": 4, "max": 7, "label": "Open", "mode": "open" },
+                { "kind": "shutter", "min": 8, "max": 76, "label": "Strobe (0-20.6 Hz)", "mode": "strobe", "rateHz": 20 },
+                { "kind": "shutter", "min": 77, "max": 145, "label": "Pulse (slow to fast)", "mode": "pulse" },
+                { "kind": "shutter", "min": 146, "max": 215, "label": "Random strobe (slow to fast)", "mode": "random" },
+                { "kind": "shutter", "min": 216, "max": 255, "label": "Open", "mode": "open" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

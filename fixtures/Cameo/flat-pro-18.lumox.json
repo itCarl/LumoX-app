@@ -1,0 +1,164 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Flat Pro 18",
+      "manufacturer": "Cameo",
+      "model": "Flat Pro 18",
+      "type": "PAR",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "Open Fixture Library - cameo Flat Pro 18 (https://open-fixture-library.org/cameo/flat-pro-18), from Cameo CLPFLATPRO7/12/18 manual (adamhall.s3.amazonaws.com/media/MARKEN/CAMEO/CLPFLATPRO7/CLPFLATPRO7-12-18_Cameo_Bedienungsanleitung_EN_DE_FR_ES.pdf)",
+        "notes": "18x10W RGBWA flat PAR. Modes: 2/3ch1/3ch2/5/8 channel personalities. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 280, "height": 280, "depth": 130, "unit": "mm" },
+        "weight": { "value": 7.4, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "power": { "consumption": 200, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2ch (Dimmer + Color Macro)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Color Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "color", "min": 0,   "max": 16,  "label": "Red",         "color": "#ff0000" },
+                { "kind": "color", "min": 17,  "max": 33,  "label": "Green",       "color": "#00ff00" },
+                { "kind": "color", "min": 34,  "max": 50,  "label": "Blue",        "color": "#0000ff" },
+                { "kind": "color", "min": 51,  "max": 67,  "label": "White",       "color": "#ffffff" },
+                { "kind": "color", "min": 68,  "max": 84,  "label": "Amber",       "color": "#ffbf00" },
+                { "kind": "color", "min": 85,  "max": 101, "label": "Yellow",      "color": "#ffff00" },
+                { "kind": "color", "min": 102, "max": 118, "label": "Cyan",        "color": "#00ffff" },
+                { "kind": "color", "min": 119, "max": 135, "label": "Lavender",    "color": "#e6e6fa" },
+                { "kind": "color", "min": 136, "max": 152, "label": "Pink",        "color": "#ff8adc" },
+                { "kind": "color", "min": 153, "max": 169, "label": "Light Green", "color": "#aaffaa" },
+                { "kind": "color", "min": 170, "max": 186, "label": "Magenta",     "color": "#ff00ff" },
+                { "kind": "color", "min": 187, "max": 203, "label": "Turquoise",   "color": "#40e0d0" },
+                { "kind": "color", "min": 204, "max": 220, "label": "Orange",      "color": "#ffcc00" },
+                { "kind": "color", "min": 221, "max": 237, "label": "Cold White",  "color": "#f2f6fe" },
+                { "kind": "color", "min": 238, "max": 255, "label": "Warm White",  "color": "#fffbf2" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch1",
+          "name": "3ch (Dimmer + Strobe + Color Macro)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 255, "label": "Strobe slow to fast", "mode": "strobe" }
+              ]
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,   "max": 4,   "label": "No function" },
+                { "kind": "color",  "min": 5,   "max": 10,  "label": "Red",         "color": "#ff0000" },
+                { "kind": "color",  "min": 11,  "max": 15,  "label": "Green",       "color": "#00ff00" },
+                { "kind": "color",  "min": 16,  "max": 20,  "label": "Blue",        "color": "#0000ff" },
+                { "kind": "color",  "min": 21,  "max": 25,  "label": "White",       "color": "#ffffff" },
+                { "kind": "color",  "min": 26,  "max": 30,  "label": "Amber",       "color": "#ffbf00" },
+                { "kind": "color",  "min": 31,  "max": 35,  "label": "Yellow",      "color": "#ffff00" },
+                { "kind": "color",  "min": 36,  "max": 40,  "label": "Cyan",        "color": "#00ffff" },
+                { "kind": "color",  "min": 41,  "max": 45,  "label": "Lavender",    "color": "#e6e6fa" },
+                { "kind": "color",  "min": 46,  "max": 50,  "label": "Pink",        "color": "#ff8adc" },
+                { "kind": "color",  "min": 51,  "max": 55,  "label": "Light Green", "color": "#aaffaa" },
+                { "kind": "color",  "min": 56,  "max": 60,  "label": "Magenta",     "color": "#ff00ff" },
+                { "kind": "color",  "min": 61,  "max": 65,  "label": "Turquoise",   "color": "#40e0d0" },
+                { "kind": "color",  "min": 66,  "max": 70,  "label": "Orange",      "color": "#ffcc00" },
+                { "kind": "color",  "min": 71,  "max": 75,  "label": "Cold White",  "color": "#f2f6fe" },
+                { "kind": "color",  "min": 76,  "max": 80,  "label": "Warm White",  "color": "#fffbf2" },
+                { "kind": "effect", "min": 81,  "max": 150, "label": "Color jump (slow to fast)", "effectName": "color-jump" },
+                { "kind": "effect", "min": 151, "max": 220, "label": "Color fade (slow to fast)", "effectName": "color-fade" },
+                { "kind": "effect", "min": 221, "max": 255, "label": "Sound control",             "effectName": "sound" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch2",
+          "name": "3ch (RGB)",
+          "channels": [
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5ch (RGBWA)",
+          "channels": [
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "White", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Amber", "typeId": "amber", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8ch (Dimmer + Strobe + RGBWA + Color Macro)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 255, "label": "Strobe slow to fast", "mode": "strobe" }
+              ]
+            },
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            { "name": "White", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Amber", "typeId": "amber", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Color Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,   "max": 4,   "label": "No function" },
+                { "kind": "color",  "min": 5,   "max": 10,  "label": "Red",         "color": "#ff0000" },
+                { "kind": "color",  "min": 11,  "max": 15,  "label": "Green",       "color": "#00ff00" },
+                { "kind": "color",  "min": 16,  "max": 20,  "label": "Blue",        "color": "#0000ff" },
+                { "kind": "color",  "min": 21,  "max": 25,  "label": "White",       "color": "#ffffff" },
+                { "kind": "color",  "min": 26,  "max": 30,  "label": "Amber",       "color": "#ffbf00" },
+                { "kind": "color",  "min": 31,  "max": 35,  "label": "Yellow",      "color": "#ffff00" },
+                { "kind": "color",  "min": 36,  "max": 40,  "label": "Cyan",        "color": "#00ffff" },
+                { "kind": "color",  "min": 41,  "max": 45,  "label": "Lavender",    "color": "#e6e6fa" },
+                { "kind": "color",  "min": 46,  "max": 50,  "label": "Pink",        "color": "#ff8adc" },
+                { "kind": "color",  "min": 51,  "max": 55,  "label": "Light Green", "color": "#aaffaa" },
+                { "kind": "color",  "min": 56,  "max": 60,  "label": "Magenta",     "color": "#ff00ff" },
+                { "kind": "color",  "min": 61,  "max": 65,  "label": "Turquoise",   "color": "#40e0d0" },
+                { "kind": "color",  "min": 66,  "max": 70,  "label": "Orange",      "color": "#ffcc00" },
+                { "kind": "color",  "min": 71,  "max": 75,  "label": "Cold White",  "color": "#f2f6fe" },
+                { "kind": "color",  "min": 76,  "max": 80,  "label": "Warm White",  "color": "#fffbf2" },
+                { "kind": "effect", "min": 81,  "max": 150, "label": "Color jump (slow to fast)", "effectName": "color-jump" },
+                { "kind": "effect", "min": 151, "max": 220, "label": "Color fade (slow to fast)", "effectName": "color-fade" },
+                { "kind": "effect", "min": 221, "max": 255, "label": "Sound control",             "effectName": "sound" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

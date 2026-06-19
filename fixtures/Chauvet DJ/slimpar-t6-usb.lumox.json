@@ -1,0 +1,78 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Chauvet DJ/SlimPAR T6 USB",
+      "manufacturer": "Chauvet DJ",
+      "model": "SlimPAR T6 USB",
+      "type": "PAR",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "SlimPAR T6 USB User Manual Rev. 1 (Chauvet DJ)",
+        "notes": "Low-profile tri-colour (RGB) wash PAR, 6x3W. In 8ch mode CH5 is Strobe / Speed / Sound depending on CH6 (Mode); verify against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 181, "height": 181, "depth": 84, "unit": "mm" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Diffused", "degreesMin": 20, "degreesMax": 20 },
+        "focus": { "type": "Fixed", "panMax": 0, "tiltMax": 0 }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3ch (RGB)",
+          "channels": [
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8ch (RGB + Macro + Strobe + Mode + Dimmer)",
+          "channels": [
+            { "name": "Red",   "typeId": "red",   "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue",  "typeId": "blue",  "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Color Macros", "typeId": "color-macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,  "max": 15,  "label": "No function" },
+                { "kind": "color", "min": 16, "max": 255, "label": "Colour macros (overrides RGB)", "color": "#ffffff" }
+              ]
+            },
+            { "name": "Strobe / Speed / Sound", "typeId": "strobe", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Mode", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,   "max": 31,  "label": "No function" },
+                { "kind": "effect", "min": 32,  "max": 63,  "label": "Pulse 0–100%",      "effectName": "pulse" },
+                { "kind": "effect", "min": 64,  "max": 95,  "label": "Pulse 100–0%",      "effectName": "pulse" },
+                { "kind": "effect", "min": 96,  "max": 127, "label": "Pulse 100–0–100%",  "effectName": "pulse" },
+                { "kind": "effect", "min": 128, "max": 159, "label": "Auto fade",         "effectName": "auto-fade" },
+                { "kind": "effect", "min": 160, "max": 191, "label": "Auto snap (3 colours)", "effectName": "auto-snap" },
+                { "kind": "effect", "min": 192, "max": 223, "label": "Auto snap (7 colours)", "effectName": "auto-snap" },
+                { "kind": "effect", "min": 224, "max": 255, "label": "Sound-active",      "effectName": "sound" }
+              ]
+            },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Dimmer Speed", "typeId": "speed", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 51,  "label": "Default (menu setting)" },
+                { "kind": "range", "min": 52,  "max": 101, "label": "Dimmer speed off" },
+                { "kind": "range", "min": 102, "max": 152, "label": "Fast" },
+                { "kind": "range", "min": 153, "max": 203, "label": "Medium" },
+                { "kind": "range", "min": 204, "max": 255, "label": "Slow" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

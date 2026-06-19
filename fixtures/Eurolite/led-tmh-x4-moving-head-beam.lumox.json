@@ -1,0 +1,168 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED TMH-X4 Moving Head Beam",
+      "manufacturer": "Eurolite",
+      "model": "LED TMH-X4 Moving Head Beam",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "QLC+ fixture definition Eurolite/TMH-X4 (resources/fixtures/Eurolite/Eurolite-TMH-X4.qxf, github.com/mcallegari/qlcplus)",
+        "notes": "Eurolite LED TMH-X4 moving head (4-in-1 RGBW LEDs, motorized zoom) with 16-channel and 24-channel personalities. Source documents this unit as the TMH-X4 wash/zoom moving head. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 305, "height": 400, "depth": 200, "unit": "mm" },
+        "weight": { "value": 7.8, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Zoom", "degreesMin": 1, "degreesMax": 25 },
+        "focus": { "type": "Head", "panMax": 630, "tiltMax": 270 },
+        "power": { "consumption": 225, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "16ch",
+          "name": "16ch (Pan/Tilt 16-bit + Dimmer + RGBW + Zoom)",
+          "channels": [
+            { "name": "Pan", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pan/Tilt speed", "typeId": "pan-tilt-speed-fast-slow", "defaultValue": 0, "capabilities": [] },
+            { "name": "Dimmer", "typeId": "intensity-master", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 3, "label": "No function", "mode": "open" },
+                { "kind": "shutter", "min": 4, "max": 95, "label": "Strobe effect with increasing speed", "mode": "strobe" },
+                { "kind": "shutter", "min": 96, "max": 176, "label": "Random strobe effect", "mode": "random" },
+                { "kind": "shutter", "min": 177, "max": 255, "label": "Pulse-effect in sequences (Thunder strobe)", "mode": "pulse" }
+              ]
+            },
+            { "name": "Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "White", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zoom", "typeId": "zoom", "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Preset colors and color macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "effect", "min": 0, "max": 255, "label": "Preset colors and color macros", "effectName": "color-macro" }
+              ]
+            },
+            {
+              "name": "Color macros speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 255, "label": "Fast to slow" }
+              ]
+            },
+            {
+              "name": "Function control",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 49, "label": "Channels 1 to 12" },
+                { "kind": "range", "min": 50, "max": 99, "label": "Preset colors and color macros" },
+                { "kind": "range", "min": 100, "max": 149, "label": "Internal program 1" },
+                { "kind": "range", "min": 150, "max": 199, "label": "Internal program 2" },
+                { "kind": "range", "min": 200, "max": 255, "label": "Music control" }
+              ]
+            },
+            {
+              "name": "Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 250, "label": "No function" },
+                { "kind": "range", "min": 251, "max": 255, "label": "Reset" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "24ch",
+          "name": "24ch (Pan/Tilt 16-bit + Zoom + Dimmer + 3 RGBW segments)",
+          "channels": [
+            { "name": "Pan", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pan/Tilt speed", "typeId": "pan-tilt-speed-fast-slow", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zoom", "typeId": "zoom", "defaultValue": 128, "capabilities": [] },
+            { "name": "Dimmer", "typeId": "intensity-master", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 3, "label": "No function", "mode": "open" },
+                { "kind": "shutter", "min": 4, "max": 95, "label": "Strobe effect with increasing speed", "mode": "strobe" },
+                { "kind": "shutter", "min": 96, "max": 176, "label": "Random strobe effect", "mode": "random" },
+                { "kind": "shutter", "min": 177, "max": 255, "label": "Pulse-effect in sequences (Thunder strobe)", "mode": "pulse" }
+              ]
+            },
+            { "name": "Red 1", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green 1", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue 1", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "White 1", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red 2", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green 2", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue 2", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "White 2", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red 3", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green 3", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue 3", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "White 3", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Preset colors and color macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "effect", "min": 0, "max": 255, "label": "Preset colors and color macros", "effectName": "color-macro" }
+              ]
+            },
+            {
+              "name": "Color macros speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 255, "label": "Fast to slow" }
+              ]
+            },
+            {
+              "name": "Function control",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 49, "label": "Channels 1 to 12" },
+                { "kind": "range", "min": 50, "max": 99, "label": "Preset colors and color macros" },
+                { "kind": "range", "min": 100, "max": 149, "label": "Internal program 1" },
+                { "kind": "range", "min": 150, "max": 199, "label": "Internal program 2" },
+                { "kind": "range", "min": 200, "max": 255, "label": "Music control" }
+              ]
+            },
+            {
+              "name": "Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 250, "label": "No function" },
+                { "kind": "range", "min": 251, "max": 255, "label": "Reset" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

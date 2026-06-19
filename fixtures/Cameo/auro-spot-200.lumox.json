@@ -1,0 +1,315 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Auro Spot 200",
+      "manufacturer": "Cameo",
+      "model": "Auro Spot 200",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "Open Fixture Library - cameo Auro Spot 200 (https://open-fixture-library.org/cameo/auro-spot-200); manual: https://adamhall.s3.amazonaws.com/media/MARKEN/CAMEO/CLAS200/CLAS200_Cameo_Bedienungsanleitung_EN_DE_FR_ES_PL_IT.pdf",
+        "notes": "100W LED moving-head spot with colour wheel (8 colours + splits), 6 rotating gobos + shake, 3-facet rotating prism and focus. Modes: 5ch, 13ch, 22ch. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 285, "height": 480, "depth": 180, "unit": "mm" },
+        "weight": { "value": 8.75, "unit": "kg" },
+        "bulb": { "type": "100W white LED", "lumens": 3250, "colourTemperature": 10000 },
+        "lens": { "name": "Spot", "degreesMin": 12, "degreesMax": 12 },
+        "focus": { "type": "Head", "panMax": 630, "tiltMax": 235 },
+        "power": { "consumption": 220, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5ch (Dimmer + Auto Programs)",
+          "channels": [
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,  "max": 10,  "label": "Open",   "mode": "open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe", "mode": "strobe", "rateHz": 20 }
+              ]
+            },
+            {
+              "name": "Auto Programs", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "effect", "min": 6,   "max": 38,  "label": "Program 1", "effectName": "program-1" },
+                { "kind": "effect", "min": 39,  "max": 70,  "label": "Program 2", "effectName": "program-2" },
+                { "kind": "effect", "min": 71,  "max": 102, "label": "Program 3", "effectName": "program-3" },
+                { "kind": "effect", "min": 103, "max": 134, "label": "Program 4", "effectName": "program-4" },
+                { "kind": "effect", "min": 135, "max": 166, "label": "Program 5", "effectName": "program-5" },
+                { "kind": "effect", "min": 167, "max": 198, "label": "Program 6", "effectName": "program-6" },
+                { "kind": "effect", "min": 199, "max": 230, "label": "Program 7", "effectName": "program-7" },
+                { "kind": "effect", "min": 231, "max": 255, "label": "Program 8", "effectName": "program-8" }
+              ]
+            },
+            { "name": "Auto Program Speed", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Reset", "typeId": "reset", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 127, "label": "Reset pan / tilt" },
+                { "kind": "range", "min": 128, "max": 191, "label": "Reset effects" },
+                { "kind": "range", "min": 192, "max": 255, "label": "Reset all functions" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "13ch",
+          "name": "13ch (16-bit P/T + wheels + prism)",
+          "channels": [
+            { "name": "Pan",       "typeId": "pan",       "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine",  "typeId": "pan-fine",  "defaultValue": 0,   "capabilities": [] },
+            { "name": "Tilt",      "typeId": "tilt",      "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine", "typeId": "tilt-fine", "defaultValue": 0,   "capabilities": [] },
+            { "name": "Dimmer",    "typeId": "intensity", "defaultValue": 0,   "capabilities": [] },
+            {
+              "name": "Strobe Functions", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,   "max": 5,   "label": "Open",        "mode": "open" },
+                { "kind": "shutter", "min": 6,   "max": 10,  "label": "Closed",      "mode": "closed" },
+                { "kind": "shutter", "min": 11,  "max": 33,  "label": "Pulse",       "mode": "pulse",  "rateHz": 20 },
+                { "kind": "shutter", "min": 34,  "max": 56,  "label": "Ramp Up",     "mode": "pulse",  "rateHz": 20 },
+                { "kind": "shutter", "min": 57,  "max": 79,  "label": "Ramp Down",   "mode": "pulse",  "rateHz": 20 },
+                { "kind": "shutter", "min": 80,  "max": 102, "label": "Random Strobe","mode": "random", "rateHz": 20 },
+                { "kind": "shutter", "min": 103, "max": 127, "label": "Burst",       "mode": "pulse",  "rateHz": 1 },
+                { "kind": "shutter", "min": 128, "max": 250, "label": "Strobe",      "mode": "strobe", "rateHz": 20 },
+                { "kind": "shutter", "min": 251, "max": 255, "label": "Open",        "mode": "open" }
+              ]
+            },
+            {
+              "name": "Color Wheel", "typeId": "color-wheel", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "color", "min": 0,   "max": 5,   "label": "Open",     "color": "#ffffff" },
+                { "kind": "color", "min": 11,  "max": 15,  "label": "Red",      "color": "#ff0000" },
+                { "kind": "color", "min": 21,  "max": 28,  "label": "Orange",   "color": "#ffaa00" },
+                { "kind": "color", "min": 36,  "max": 43,  "label": "Yellow",   "color": "#ffff00" },
+                { "kind": "color", "min": 51,  "max": 58,  "label": "Green",    "color": "#00ff00" },
+                { "kind": "color", "min": 66,  "max": 73,  "label": "Cyan",     "color": "#00ffff" },
+                { "kind": "color", "min": 81,  "max": 88,  "label": "Blue",     "color": "#0000ff" },
+                { "kind": "color", "min": 96,  "max": 103, "label": "Lavender", "color": "#ccbfff" },
+                { "kind": "color", "min": 111, "max": 118, "label": "Magenta",  "color": "#ff00ff" },
+                { "kind": "range", "min": 126, "max": 128, "label": "Stop" },
+                { "kind": "range", "min": 129, "max": 255, "label": "Rotation CW slow-fast" }
+              ]
+            },
+            {
+              "name": "Gobo Wheel", "typeId": "gobo-wheel-1", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "gobo",  "min": 0,   "max": 5,   "label": "Open",   "shake": false },
+                { "kind": "gobo",  "min": 6,   "max": 25,  "label": "Gobo 1", "shake": false },
+                { "kind": "gobo",  "min": 26,  "max": 45,  "label": "Gobo 2", "shake": false },
+                { "kind": "gobo",  "min": 46,  "max": 65,  "label": "Gobo 3", "shake": false },
+                { "kind": "gobo",  "min": 66,  "max": 85,  "label": "Gobo 4", "shake": false },
+                { "kind": "gobo",  "min": 86,  "max": 105, "label": "Gobo 5", "shake": false },
+                { "kind": "gobo",  "min": 106, "max": 127, "label": "Gobo 6", "shake": false },
+                { "kind": "range", "min": 128, "max": 128, "label": "Stop" },
+                { "kind": "range", "min": 129, "max": 191, "label": "Rotation CW slow-fast" },
+                { "kind": "range", "min": 192, "max": 255, "label": "Rotation CCW fast-slow" }
+              ]
+            },
+            {
+              "name": "Gobo Rotation", "typeId": "gobo-rotation-1", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 127, "label": "Index 0-360 deg" },
+                { "kind": "range", "min": 128, "max": 128, "label": "Stop" },
+                { "kind": "range", "min": 129, "max": 191, "label": "Rotation CW slow-fast" },
+                { "kind": "range", "min": 192, "max": 250, "label": "Rotation CCW fast-slow" },
+                { "kind": "range", "min": 251, "max": 255, "label": "Stop" }
+              ]
+            },
+            {
+              "name": "Gobo Shake", "typeId": "gobo-shake", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 255, "label": "Shake slow-fast" }
+              ]
+            },
+            {
+              "name": "Prism", "typeId": "prism", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 10,  "label": "Prism in" },
+                { "kind": "range", "min": 11,  "max": 127, "label": "Prism index 0-360 deg" },
+                { "kind": "range", "min": 128, "max": 128, "label": "Stop" },
+                { "kind": "range", "min": 129, "max": 191, "label": "Rotation CW slow-fast" },
+                { "kind": "range", "min": 192, "max": 250, "label": "Rotation CCW fast-slow" },
+                { "kind": "range", "min": 251, "max": 255, "label": "Stop" }
+              ]
+            },
+            { "name": "Focus", "typeId": "focus", "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Reset", "typeId": "reset", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 127, "label": "Reset pan / tilt" },
+                { "kind": "range", "min": 128, "max": 191, "label": "Reset effects" },
+                { "kind": "range", "min": 192, "max": 255, "label": "Reset all functions" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "22ch",
+          "name": "22ch (Extended: macros + curves + settings)",
+          "channels": [
+            { "name": "Pan",        "typeId": "pan",            "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan Fine",   "typeId": "pan-fine",       "defaultValue": 0,   "capabilities": [] },
+            { "name": "Tilt",       "typeId": "tilt",           "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt Fine",  "typeId": "tilt-fine",      "defaultValue": 0,   "capabilities": [] },
+            { "name": "Dimmer",     "typeId": "intensity",      "defaultValue": 0,   "capabilities": [] },
+            { "name": "Dimmer Fine","typeId": "intensity-fine", "defaultValue": 0,   "capabilities": [] },
+            {
+              "name": "Strobe Functions", "typeId": "shutter", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0,   "max": 5,   "label": "Open",        "mode": "open" },
+                { "kind": "shutter", "min": 6,   "max": 10,  "label": "Closed",      "mode": "closed" },
+                { "kind": "shutter", "min": 11,  "max": 33,  "label": "Pulse",       "mode": "pulse",  "rateHz": 20 },
+                { "kind": "shutter", "min": 34,  "max": 56,  "label": "Ramp Up",     "mode": "pulse",  "rateHz": 20 },
+                { "kind": "shutter", "min": 57,  "max": 79,  "label": "Ramp Down",   "mode": "pulse",  "rateHz": 20 },
+                { "kind": "shutter", "min": 80,  "max": 102, "label": "Random Strobe","mode": "random", "rateHz": 20 },
+                { "kind": "shutter", "min": 103, "max": 127, "label": "Burst",       "mode": "pulse",  "rateHz": 1 },
+                { "kind": "shutter", "min": 128, "max": 250, "label": "Strobe",      "mode": "strobe", "rateHz": 20 },
+                { "kind": "shutter", "min": 251, "max": 255, "label": "Open",        "mode": "open" }
+              ]
+            },
+            {
+              "name": "Color Wheel", "typeId": "color-wheel", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "color", "min": 0,   "max": 5,   "label": "Open",     "color": "#ffffff" },
+                { "kind": "color", "min": 11,  "max": 15,  "label": "Red",      "color": "#ff0000" },
+                { "kind": "color", "min": 21,  "max": 28,  "label": "Orange",   "color": "#ffaa00" },
+                { "kind": "color", "min": 36,  "max": 43,  "label": "Yellow",   "color": "#ffff00" },
+                { "kind": "color", "min": 51,  "max": 58,  "label": "Green",    "color": "#00ff00" },
+                { "kind": "color", "min": 66,  "max": 73,  "label": "Cyan",     "color": "#00ffff" },
+                { "kind": "color", "min": 81,  "max": 88,  "label": "Blue",     "color": "#0000ff" },
+                { "kind": "color", "min": 96,  "max": 103, "label": "Lavender", "color": "#ccbfff" },
+                { "kind": "color", "min": 111, "max": 118, "label": "Magenta",  "color": "#ff00ff" },
+                { "kind": "range", "min": 126, "max": 128, "label": "Stop" },
+                { "kind": "range", "min": 129, "max": 255, "label": "Rotation CW slow-fast" }
+              ]
+            },
+            {
+              "name": "Gobo Wheel", "typeId": "gobo-wheel-1", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "gobo",  "min": 0,   "max": 5,   "label": "Open",   "shake": false },
+                { "kind": "gobo",  "min": 6,   "max": 25,  "label": "Gobo 1", "shake": false },
+                { "kind": "gobo",  "min": 26,  "max": 45,  "label": "Gobo 2", "shake": false },
+                { "kind": "gobo",  "min": 46,  "max": 65,  "label": "Gobo 3", "shake": false },
+                { "kind": "gobo",  "min": 66,  "max": 85,  "label": "Gobo 4", "shake": false },
+                { "kind": "gobo",  "min": 86,  "max": 105, "label": "Gobo 5", "shake": false },
+                { "kind": "gobo",  "min": 106, "max": 127, "label": "Gobo 6", "shake": false },
+                { "kind": "range", "min": 128, "max": 128, "label": "Stop" },
+                { "kind": "range", "min": 129, "max": 191, "label": "Rotation CW slow-fast" },
+                { "kind": "range", "min": 192, "max": 255, "label": "Rotation CCW fast-slow" }
+              ]
+            },
+            {
+              "name": "Gobo Rotation", "typeId": "gobo-rotation-1", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 127, "label": "Index 0-360 deg" },
+                { "kind": "range", "min": 128, "max": 128, "label": "Stop" },
+                { "kind": "range", "min": 129, "max": 191, "label": "Rotation CW slow-fast" },
+                { "kind": "range", "min": 192, "max": 250, "label": "Rotation CCW fast-slow" },
+                { "kind": "range", "min": 251, "max": 255, "label": "Stop" }
+              ]
+            },
+            {
+              "name": "Gobo Shake", "typeId": "gobo-shake", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 255, "label": "Shake slow-fast" }
+              ]
+            },
+            {
+              "name": "Prism", "typeId": "prism", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 10,  "label": "Prism in" },
+                { "kind": "range", "min": 11,  "max": 127, "label": "Prism index 0-360 deg" },
+                { "kind": "range", "min": 128, "max": 128, "label": "Stop" },
+                { "kind": "range", "min": 129, "max": 191, "label": "Rotation CW slow-fast" },
+                { "kind": "range", "min": 192, "max": 250, "label": "Rotation CCW fast-slow" },
+                { "kind": "range", "min": 251, "max": 255, "label": "Stop" }
+              ]
+            },
+            { "name": "Focus",      "typeId": "focus",      "defaultValue": 128, "capabilities": [] },
+            { "name": "Focus Fine", "typeId": "focus-fine", "defaultValue": 0,   "capabilities": [] },
+            {
+              "name": "Auto Programs", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "effect", "min": 6,   "max": 38,  "label": "Program 1", "effectName": "program-1" },
+                { "kind": "effect", "min": 39,  "max": 70,  "label": "Program 2", "effectName": "program-2" },
+                { "kind": "effect", "min": 71,  "max": 102, "label": "Program 3", "effectName": "program-3" },
+                { "kind": "effect", "min": 103, "max": 134, "label": "Program 4", "effectName": "program-4" },
+                { "kind": "effect", "min": 135, "max": 166, "label": "Program 5", "effectName": "program-5" },
+                { "kind": "effect", "min": 167, "max": 198, "label": "Program 6", "effectName": "program-6" },
+                { "kind": "effect", "min": 199, "max": 230, "label": "Program 7", "effectName": "program-7" },
+                { "kind": "effect", "min": 231, "max": 255, "label": "Program 8", "effectName": "program-8" }
+              ]
+            },
+            { "name": "Auto Program Speed", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Pan/Tilt Macro", "typeId": "macro", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range",  "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "effect", "min": 6,   "max": 47,  "label": "Pan",              "effectName": "pan" },
+                { "kind": "effect", "min": 48,  "max": 89,  "label": "Tilt",             "effectName": "tilt" },
+                { "kind": "effect", "min": 90,  "max": 131, "label": "Pan/Tilt",         "effectName": "pan-tilt" },
+                { "kind": "effect", "min": 132, "max": 173, "label": "Pan/Tilt inverse", "effectName": "pan-tilt-inverse" },
+                { "kind": "effect", "min": 174, "max": 215, "label": "Ellipse",          "effectName": "ellipse" },
+                { "kind": "effect", "min": 216, "max": 255, "label": "Random",           "effectName": "random" }
+              ]
+            },
+            { "name": "Pan/Tilt Macro Speed", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Dimmer Curve", "typeId": "dimmer-curve", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 127, "label": "Linear" },
+                { "kind": "range", "min": 128, "max": 191, "label": "Exponential" },
+                { "kind": "range", "min": 192, "max": 250, "label": "Logarithmic" },
+                { "kind": "range", "min": 251, "max": 255, "label": "S-Curve" }
+              ]
+            },
+            { "name": "Pan/Tilt Speed", "typeId": "pan-tilt-speed-fast-slow", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Device Settings", "typeId": "function", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 37,  "label": "Blackout while moving on" },
+                { "kind": "range", "min": 38,  "max": 69,  "label": "Blackout while moving off" },
+                { "kind": "range", "min": 70,  "max": 101, "label": "Invert pan on" },
+                { "kind": "range", "min": 102, "max": 133, "label": "Invert pan off" },
+                { "kind": "range", "min": 134, "max": 165, "label": "Invert tilt on" },
+                { "kind": "range", "min": 166, "max": 197, "label": "Invert tilt off" },
+                { "kind": "range", "min": 198, "max": 229, "label": "Silent fan on" },
+                { "kind": "range", "min": 230, "max": 255, "label": "Silent fan off" }
+              ]
+            },
+            {
+              "name": "Reset", "typeId": "reset", "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0,   "max": 5,   "label": "No function" },
+                { "kind": "range", "min": 6,   "max": 127, "label": "Reset pan / tilt" },
+                { "kind": "range", "min": 128, "max": 191, "label": "Reset effects" },
+                { "kind": "range", "min": 192, "max": 255, "label": "Reset all functions" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

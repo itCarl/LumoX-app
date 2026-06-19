@@ -1,0 +1,77 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Chauvet DJ/SlimPAR 56",
+      "manufacturer": "Chauvet DJ",
+      "model": "SlimPAR 56",
+      "type": "PAR",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "Chauvet DJ SlimPAR 56 User Manual (Rev. 04), DMX Channel Assignments and Values, https://www.chauvetdj.com/wp-content/uploads/2015/12/SlimPAR_56_-_UM_Rev_04.pdf",
+        "notes": "RGB LED PAR wash. Two DMX personalities: 3-channel (RGB) and 7-channel (RGB + color macros + speed/strobe + mode + dimmer). Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3ch (RGB)",
+          "channels": [
+            { "name": "Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7ch (RGB + Macros + Speed/Strobe + Mode + Dimmer)",
+          "channels": [
+            { "name": "Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Color Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 15, "label": "No function" },
+                { "kind": "range", "min": 16, "max": 255, "label": "Color macros" }
+              ]
+            },
+            {
+              "name": "Speed / Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 15, "label": "No function" },
+                { "kind": "shutter", "min": 16, "max": 255, "label": "Strobe / speed slow to fast", "mode": "strobe" }
+              ]
+            },
+            {
+              "name": "Mode",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 31, "label": "RGB mode" },
+                { "kind": "effect", "min": 32, "max": 63, "label": "Pulse effect 0% to 100%", "effectName": "pulse-in" },
+                { "kind": "effect", "min": 64, "max": 95, "label": "Pulse effect 100% to 0%", "effectName": "pulse-out" },
+                { "kind": "effect", "min": 96, "max": 127, "label": "Pulse effect 100% to 0% to 100%", "effectName": "pulse" },
+                { "kind": "effect", "min": 128, "max": 159, "label": "Auto fade transition", "effectName": "auto-fade" },
+                { "kind": "effect", "min": 160, "max": 191, "label": "Auto snap transition (3 colors)", "effectName": "auto-snap-3" },
+                { "kind": "effect", "min": 192, "max": 223, "label": "Auto snap transition (7 colors)", "effectName": "auto-snap-7" },
+                { "kind": "effect", "min": 224, "max": 255, "label": "Sound triggering mode", "effectName": "sound" }
+              ]
+            },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

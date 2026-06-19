@@ -1,0 +1,131 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED TMH-9 Moving Head",
+      "manufacturer": "Eurolite",
+      "model": "LED TMH-9 Moving Head",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "Open Fixture Library — Eurolite LED TMH-9 (https://open-fixture-library.org/eurolite/led-tmh-9), cross-checked with QLC+ fixture definition Eurolite-LED-TMH-9.qxf",
+        "notes": "Compact RGBW quad-colour wash moving head, 7x 8W LEDs. Two DMX personalities: 4-channel and 12-channel. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 175, "height": 245, "depth": 175, "unit": "mm" },
+        "weight": { "value": 3, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Fixed", "degreesMin": 18, "degreesMax": 18 },
+        "focus": { "type": "Head", "panMax": 540, "tiltMax": 180 },
+        "power": { "consumption": 50, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4ch (Pan + Tilt + Colour Macros + Strobe)",
+          "channels": [
+            { "name": "Pan", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Colour Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "color", "min": 0, "max": 15, "label": "Blackout", "color": "#000000" },
+                { "kind": "color", "min": 16, "max": 31, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 32, "max": 47, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 48, "max": 63, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 64, "max": 79, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 80, "max": 95, "label": "Red/Green", "color": "#ffff00" },
+                { "kind": "color", "min": 96, "max": 111, "label": "Red/Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 112, "max": 127, "label": "Red/White", "color": "#ff8080" },
+                { "kind": "color", "min": 128, "max": 143, "label": "Green/Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 144, "max": 159, "label": "Green/White", "color": "#80ff80" },
+                { "kind": "color", "min": 160, "max": 175, "label": "Blue/White", "color": "#8080ff" },
+                { "kind": "color", "min": 176, "max": 191, "label": "Red/Green/Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 192, "max": 207, "label": "Red/Green/White", "color": "#ffffaa" },
+                { "kind": "color", "min": 208, "max": 223, "label": "Green/Blue/White", "color": "#aaffff" },
+                { "kind": "color", "min": 224, "max": 239, "label": "Blue/Red/White", "color": "#ffaaff" },
+                { "kind": "color", "min": 240, "max": 255, "label": "Red/Blue/Green/White", "color": "#ffffff" }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "shutter",
+              "defaultValue": 255,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 20, "label": "Neutral", "mode": "open" },
+                { "kind": "range", "min": 21, "max": 30, "label": "Reset" },
+                { "kind": "shutter", "min": 31, "max": 200, "label": "Strobe slow to fast", "mode": "strobe" },
+                { "kind": "shutter", "min": 201, "max": 250, "label": "Random strobe slow to fast", "mode": "random" },
+                { "kind": "shutter", "min": 251, "max": 255, "label": "Open", "mode": "open" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12ch (Pan/Tilt 16-bit + RGBW + Macros + Strobe + Dimmer)",
+          "channels": [
+            { "name": "Pan", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "effect", "min": 0, "max": 255, "label": "Pan/tilt movement fast to slow", "effectName": "pan-tilt-speed" }
+              ]
+            },
+            { "name": "Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "White", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Colour Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "color", "min": 0, "max": 15, "label": "Blackout", "color": "#000000" },
+                { "kind": "color", "min": 16, "max": 31, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 32, "max": 47, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 48, "max": 63, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 64, "max": 79, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 80, "max": 95, "label": "Red/Green", "color": "#ffff00" },
+                { "kind": "color", "min": 96, "max": 111, "label": "Red/Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 112, "max": 127, "label": "Red/White", "color": "#ff8080" },
+                { "kind": "color", "min": 128, "max": 143, "label": "Green/Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 144, "max": 159, "label": "Green/White", "color": "#80ff80" },
+                { "kind": "color", "min": 160, "max": 175, "label": "Blue/White", "color": "#8080ff" },
+                { "kind": "color", "min": 176, "max": 191, "label": "Red/Green/Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 192, "max": 207, "label": "Red/Green/White", "color": "#ffffaa" },
+                { "kind": "color", "min": 208, "max": 223, "label": "Green/Blue/White", "color": "#aaffff" },
+                { "kind": "color", "min": 224, "max": 239, "label": "Blue/Red/White", "color": "#ffaaff" },
+                { "kind": "color", "min": 240, "max": 255, "label": "Red/Blue/Green/White", "color": "#ffffff" }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "shutter",
+              "defaultValue": 255,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 20, "label": "Neutral", "mode": "open" },
+                { "kind": "range", "min": 21, "max": 30, "label": "Reset" },
+                { "kind": "shutter", "min": 31, "max": 200, "label": "Strobe slow to fast", "mode": "strobe" },
+                { "kind": "shutter", "min": 201, "max": 250, "label": "Random strobe slow to fast", "mode": "random" },
+                { "kind": "shutter", "min": 251, "max": 255, "label": "Open", "mode": "open" }
+              ]
+            },
+            { "name": "Dimmer Intensity", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pan Fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt Fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

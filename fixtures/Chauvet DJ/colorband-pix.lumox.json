@@ -1,0 +1,199 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Chauvet DJ/COLORband PiX",
+      "manufacturer": "Chauvet DJ",
+      "model": "COLORband PiX",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "COLORband PiX User Manual Rev. 6 (Chauvet DJ) — DMX Channel Assignments and Values, pp. 12-15. https://www.chauvetdj.com/wp-content/uploads/2015/12/COLORband_PiX_UM_Rev6_WO-1.pdf",
+        "notes": "12-pixel RGB LED bar with 8 DMX personalities (3/4/6/7/9/12/18/36 ch) splitting the bar into 1-12 RGB zones. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3ch (Master RGB)",
+          "channels": [
+            { "name": "Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4ch (Master RGB + Dimmer)",
+          "channels": [
+            { "name": "Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6ch (2 Zones RGB)",
+          "channels": [
+            { "name": "Zone 1 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 1 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 1 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7ch (Master RGB + Macros/Programs + Dimmer)",
+          "channels": [
+            { "name": "Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Color Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 15, "label": "No function" },
+                { "kind": "effect", "min": 16, "max": 255, "label": "Color Macros", "effectName": "color-macros" }
+              ]
+            },
+            {
+              "name": "Strobe / Speed",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 15, "label": "No function (strobe off)" },
+                { "kind": "shutter", "min": 16, "max": 255, "label": "Strobe 0-30 Hz", "mode": "strobe", "rateHz": 30 }
+              ]
+            },
+            {
+              "name": "Auto Programs",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 31, "label": "No function" },
+                { "kind": "effect", "min": 32, "max": 63, "label": "Pulse effect 0-100%", "effectName": "pulse-up" },
+                { "kind": "effect", "min": 64, "max": 95, "label": "Pulse effect 100%-0", "effectName": "pulse-down" },
+                { "kind": "effect", "min": 96, "max": 114, "label": "Pulse effect 100%-0-100%", "effectName": "pulse" },
+                { "kind": "effect", "min": 115, "max": 127, "label": "Chase program", "effectName": "chase" },
+                { "kind": "effect", "min": 128, "max": 159, "label": "Auto fade transition", "effectName": "auto-fade" },
+                { "kind": "effect", "min": 160, "max": 191, "label": "Auto snap transition (3 colors)", "effectName": "auto-snap-3" },
+                { "kind": "effect", "min": 192, "max": 223, "label": "Auto snap transition (7 colors)", "effectName": "auto-snap-7" },
+                { "kind": "effect", "min": 224, "max": 255, "label": "Sound-Active mode", "effectName": "sound-active" }
+              ]
+            },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9ch (3 Zones RGB)",
+          "channels": [
+            { "name": "Zone 1 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 1 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 1 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12ch (4 Zones RGB)",
+          "channels": [
+            { "name": "Zone 1 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 1 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 1 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 4 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 4 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 4 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "18ch",
+          "name": "18ch (6 Zones RGB)",
+          "channels": [
+            { "name": "Zone 1 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 1 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 1 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 2 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 3 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 4 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 4 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 4 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 5 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 5 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 5 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 6 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 6 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Zone 6 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "36ch",
+          "name": "36ch (12 Pixels RGB)",
+          "channels": [
+            { "name": "Pixel 1 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 1 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 1 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 2 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 2 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 2 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 3 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 3 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 3 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 4 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 4 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 4 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 5 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 5 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 5 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 6 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 6 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 6 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 7 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 7 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 7 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 8 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 8 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 8 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 9 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 9 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 9 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 10 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 10 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 10 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 11 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 11 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 11 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 12 Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 12 Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pixel 12 Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}

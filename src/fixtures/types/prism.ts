@@ -5,5 +5,6 @@ import { ChannelType, ChannelTypeRegistry as R } from '../ChannelType';
 // direction-agnostic rotation channel.
 R.register(new ChannelType({ id: 'prism',                    name: 'Prism',                      group: 'prism' }));
 R.register(new ChannelType({ id: 'prism-rotation',           name: 'Prism Rotation',             group: 'prism' }));
+R.register(new ChannelType({ id: 'prism-rotation-fine',      name: 'Prism Rotation Fine',        group: 'prism', fineOf: 'prism-rotation' }));
 R.register(new ChannelType({ id: 'prism-rotation-slow-fast', name: 'Prism Rotation (slow→fast)', group: 'prism' }));
 R.register(new ChannelType({ id: 'prism-rotation-fast-slow', name: 'Prism Rotation (fast→slow)', group: 'prism' }));

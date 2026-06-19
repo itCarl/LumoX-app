@@ -1,0 +1,48 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED PAR-56 RGB Spot",
+      "manufacturer": "Eurolite",
+      "model": "LED PAR-56 RGB Spot",
+      "type": "PAR",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "EUROLITE LED PAR-56 / PAR-64 RGB Spot/Floor/Profi 10 mm User Manual (00026194.DOC, Version 1.4), DMX-protocol p.21",
+        "notes": "RGB PAR with dimmer and strobe (flash). Single 5-channel DMX personality. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 240, "height": 185, "depth": 235, "unit": "mm" },
+        "weight": { "value": 1.7, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Fixed", "degreesMin": 25, "degreesMax": 30 },
+        "power": { "consumption": 16, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5ch (RGB + Dimmer + Flash)",
+          "channels": [
+            { "name": "Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Dimmer", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Flash",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "shutter", "min": 0, "max": 10, "label": "No function", "mode": "open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe (increasing speed)", "mode": "strobe" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

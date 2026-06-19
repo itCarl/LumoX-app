@@ -22,7 +22,7 @@ fixtures/
 │   └── lumox-fixture.schema.json   JSON Schema (Draft 2020-12) — for IDE + validators
 ├── Generic/                        Vendor-agnostic profiles
 │   ├── dimmer-1ch.lumox.json
-│   ├── par-rgb-3ch.lumox.json
+│   ├── par-rgb-4ch.lumox.json
 │   ├── par-rgbw-multimode.lumox.json     ← multi-mode example
 │   ├── moving-head-multimode.lumox.json  ← multi-mode example
 │   └── ...
@@ -434,11 +434,11 @@ const json = new LumoxImporter().serialize([def]);
 | File | Type | Channels |
 |------|------|----------|
 | `dimmer-1ch.lumox.json` | Dimmer | 1 |
-| `par-rgb-3ch.lumox.json` | PAR | 3 |
-| `par-rgba-4ch.lumox.json` | PAR | 4 |
-| `par-rgbw-4ch.lumox.json` | PAR | 4 |
-| `par-rgbwa-5ch.lumox.json` | PAR | 5 |
-| `par-rgbwauv-6ch.lumox.json` | PAR | 6 |
+| `par-rgb-4ch.lumox.json` | PAR | 4 (Dimmer + RGB) |
+| `par-rgba-5ch.lumox.json` | PAR | 5 (Dimmer + RGBA) |
+| `par-rgbw-5ch.lumox.json` | PAR | 5 (Dimmer + RGBW) |
+| `par-rgbwa-6ch.lumox.json` | PAR | 6 (Dimmer + RGBWA) |
+| `par-rgbwauv-7ch.lumox.json` | PAR | 7 (Dimmer + RGBWA+UV) |
 | `strobe-2ch.lumox.json` | Strobe | 2 |
 | `led-bar-rgb-12ch.lumox.json` | LED Bar | 12 |
 | `led-matrix-rgb-5x5-75ch.lumox.json` | LED Matrix | 75 (5×5 RGB, positioned `emitterLayout` → pixel-map / MATRIX FX) |
@@ -469,6 +469,9 @@ const json = new LumoxImporter().serialize([def]);
 | `mh-x25-led-spot.lumox.json` | MH-x25 LED Spot | 9ch · 11ch |
 | `wild-wash-648-led-rgb.lumox.json` | Wild Wash 648 LED RGB | 3ch · 7ch |
 | `led-bar-120-4-rgb-dmx.lumox.json` | LED Bar 120/4 RGB DMX | 2ch · 3ch · 5ch · 12ch |
+| `mh-x30-led-spot.lumox.json` | MH-x30 LED Spot | 9ch · 12ch |
+| `mh-x50-led-spot.lumox.json` | MH-x50 LED Spot | 8ch · 14ch |
+| `show-bar-tri-18x3w-rgb.lumox.json` | Show Bar Tri 18x3W RGB | 2 · 3 · 5 · 7 · 18 · 27 · 54ch |
 
 ## Brand vendors
 
@@ -479,15 +482,31 @@ a show (each profile's `meta.notes` repeats this caveat).
 | Vendor | File | Model | Type | Modes |
 |--------|------|-------|------|-------|
 | Chauvet DJ | `slimpar-pro-h-usb.lumox.json` | SlimPAR Pro H USB | PAR | 6ch · 8ch · 11ch |
+| Chauvet DJ | `slimpar-t6-usb.lumox.json` | SlimPAR T6 USB | PAR | 3ch · 8ch |
+| Chauvet DJ | `slimpar-56.lumox.json` | SlimPAR 56 | PAR | 3ch · 7ch |
 | Chauvet DJ | `intimidator-spot-360.lumox.json` | Intimidator Spot 360 | Moving Head | 9ch · 13ch |
+| Chauvet DJ | `intimidator-spot-260.lumox.json` | Intimidator Spot 260 | Moving Head | 8ch · 14ch |
+| Chauvet DJ | `colorband-pix.lumox.json` | COLORband PiX | LED Bar | 3 · 4 · 6 · 7 · 9 · 12 · 18 · 36ch |
 | American DJ | `mega-tripar-profile-plus.lumox.json` | Mega TriPar Profile Plus | PAR | 4ch · 6ch · 7ch |
+| American DJ | `mega-hex-par.lumox.json` | Mega Hex Par | PAR | 6 · 7 · 8 · 11 · 12ch |
+| American DJ | `focus-spot-4z.lumox.json` | Focus Spot 4Z | Moving Head | 16ch · 18ch · 22ch |
+| American DJ | `inno-pocket-spot.lumox.json` | Inno Pocket Spot | Moving Head | 9ch · 11ch |
 | American DJ | `vizi-beam-5rx.lumox.json` | Vizi Beam 5RX | Moving Head | 16ch |
+| American DJ | `vizi-beam-rxone.lumox.json` | Vizi Beam RXONE | Moving Head | 15ch · 17ch |
 | Martin | `rush-par-2-rgbw-zoom.lumox.json` | RUSH PAR 2 RGBW Zoom | PAR | 7ch · 10ch |
+| Martin | `rush-mh-5-profile.lumox.json` | RUSH MH 5 Profile | Moving Head | 16ch |
 | Robe | `robin-ledwash-600.lumox.json` | Robin LEDWash 600 | Moving Head | 16ch |
 | Eurolite | `led-par-64-rgbw-10mm.lumox.json` | LED PAR-64 RGBW 10mm | PAR | 4ch · 8ch |
+| Eurolite | `led-par-64-rgb-spot.lumox.json` | LED PAR-64 RGB Spot | PAR | 5ch |
+| Eurolite | `led-par-56-rgb-spot.lumox.json` | LED PAR-56 RGB Spot | PAR | 5ch |
+| Eurolite | `led-tmh-9-moving-head.lumox.json` | LED TMH-9 Moving Head | Moving Head | 4ch · 12ch |
 | Eurolite | `led-ip-pix-strobe-rgb-cw-ww-mk2.lumox.json` | LED IP PIX Strobe RGB CW+WW MK2 | LED Bar | 6 · 10 · 18 · 24 · 25 · 32ch |
 | Cameo | `flat-pro-7.lumox.json` | Flat PRO 7 | PAR | 6ch · 8ch · 12ch |
+| Cameo | `auro-spot-200.lumox.json` | Auro Spot 200 | Moving Head | 5ch · 13ch · 22ch |
+| Cameo | `hydrabeam-300-rgbw.lumox.json` | Hydrabeam 300 RGBW | Moving Head | 6 · 10 · 16 · 26 · 42ch |
+| Cameo | `pixbar-600-pro.lumox.json` | PIXBAR 600 PRO | LED Bar | 2 · 6 · 8 · 12 · 38 · 42 · 74 · 78ch |
 | Showtec | `spectral-m800.lumox.json` | Spectral M800 | Moving Head | 14ch |
+| Showtec | `phantom-50-led-spot.lumox.json` | Phantom 50 LED Spot | Moving Head | 8ch · 13ch |
 | Elation | `sixpar-200.lumox.json` | SixPar 200 | PAR | 6ch · 8ch · 10ch |
 | GLP | `impression-x4.lumox.json` | impression X4 | Moving Head | 12ch · 15ch |
 | ETC | `colorsource-par.lumox.json` | ColorSource PAR | PAR | 4ch · 5ch · 7ch |

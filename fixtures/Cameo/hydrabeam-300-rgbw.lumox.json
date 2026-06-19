@@ -1,0 +1,508 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Hydrabeam 300 RGBW",
+      "manufacturer": "Cameo",
+      "model": "Hydrabeam 300 RGBW",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Lumox",
+        "version": "1.0.0",
+        "createdAt": "2026-06-19T00:00:00.000Z",
+        "modifiedAt": "2026-06-19T00:00:00.000Z",
+        "source": "Open Fixture Library — cameo Hydrabeam 300 RGBW (https://open-fixture-library.org/cameo/hydrabeam-300-rgbw); chart cross-checked against Cameo CLHB300 user manual",
+        "notes": "Triple-head RGBW moving-head bar (3 individually controllable heads, 540 deg pan / 270 deg tilt). Five DMX personalities: 6/10/16/26/42-channel. Verify channel order against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": { "width": 380, "height": 240, "depth": 380, "unit": "mm" },
+        "weight": { "value": 5.5, "unit": "kg" },
+        "bulb": { "type": "LED", "lumens": null, "colourTemperature": null },
+        "lens": { "name": "Beam", "degreesMin": 4.5, "degreesMax": 4.5 },
+        "focus": { "type": "Head", "panMax": 540, "tiltMax": 270 },
+        "power": { "consumption": 60, "unit": "W" }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6ch (Dimmer + Show + Light control)",
+          "channels": [
+            { "name": "Master Dimmer", "typeId": "intensity-master", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe slow to fast", "mode": "strobe", "rateHz": 30 }
+              ]
+            },
+            {
+              "name": "Show mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7, "label": "No function" },
+                { "kind": "effect", "min": 8, "max": 247, "label": "Show modes 1-16", "effectName": "show" },
+                { "kind": "effect", "min": 248, "max": 255, "label": "Sound control", "effectName": "sound" }
+              ]
+            },
+            { "name": "Show mode speed / Sound sensitivity", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Light control",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "effect", "min": 0, "max": 30, "label": "Auto color change", "effectName": "auto-color" },
+                { "kind": "color", "min": 31, "max": 45, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 46, "max": 60, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 61, "max": 75, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 76, "max": 90, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 91, "max": 105, "label": "Red + Green", "color": "#ffff00" },
+                { "kind": "color", "min": 106, "max": 120, "label": "Red + Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 121, "max": 135, "label": "Red + White", "color": "#ff8080" },
+                { "kind": "color", "min": 136, "max": 150, "label": "Green + Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 151, "max": 165, "label": "Green + White", "color": "#80ff80" },
+                { "kind": "color", "min": 166, "max": 180, "label": "Blue + White", "color": "#8080ff" },
+                { "kind": "color", "min": 181, "max": 195, "label": "Red + Green + Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 196, "max": 210, "label": "Red + Green + White", "color": "#ffff80" },
+                { "kind": "color", "min": 211, "max": 225, "label": "Red + Blue + White", "color": "#ff80ff" },
+                { "kind": "color", "min": 226, "max": 240, "label": "Green + Blue + White", "color": "#80ffff" },
+                { "kind": "color", "min": 241, "max": 255, "label": "Red + Green + Blue + White", "color": "#ffffff" }
+              ]
+            },
+            { "name": "Auto color change speed", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "10ch (Master Pan/Tilt + Dimmer + Show)",
+          "channels": [
+            { "name": "Master Pan", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Master Tilt", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Master Dimmer", "typeId": "intensity-master", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe slow to fast", "mode": "strobe", "rateHz": 30 }
+              ]
+            },
+            {
+              "name": "Show mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7, "label": "No function" },
+                { "kind": "effect", "min": 8, "max": 247, "label": "Show modes 1-16", "effectName": "show" },
+                { "kind": "effect", "min": 248, "max": 255, "label": "Sound control", "effectName": "sound" }
+              ]
+            },
+            { "name": "Show mode speed / Sound sensitivity", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Light control",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "effect", "min": 0, "max": 30, "label": "Auto color change", "effectName": "auto-color" },
+                { "kind": "color", "min": 31, "max": 45, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 46, "max": 60, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 61, "max": 75, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 76, "max": 90, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 91, "max": 105, "label": "Red + Green", "color": "#ffff00" },
+                { "kind": "color", "min": 106, "max": 120, "label": "Red + Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 121, "max": 135, "label": "Red + White", "color": "#ff8080" },
+                { "kind": "color", "min": 136, "max": 150, "label": "Green + Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 151, "max": 165, "label": "Green + White", "color": "#80ff80" },
+                { "kind": "color", "min": 166, "max": 180, "label": "Blue + White", "color": "#8080ff" },
+                { "kind": "color", "min": 181, "max": 195, "label": "Red + Green + Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 196, "max": 210, "label": "Red + Green + White", "color": "#ffff80" },
+                { "kind": "color", "min": 211, "max": 225, "label": "Red + Blue + White", "color": "#ff80ff" },
+                { "kind": "color", "min": 226, "max": 240, "label": "Green + Blue + White", "color": "#80ffff" },
+                { "kind": "color", "min": 241, "max": 255, "label": "Red + Green + Blue + White", "color": "#ffffff" }
+              ]
+            },
+            { "name": "Auto color change speed", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master Pan fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master Tilt fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "16ch",
+          "name": "16ch (Master RGBW + 3 heads Pan/Tilt/Dim)",
+          "channels": [
+            { "name": "Master Dimmer", "typeId": "intensity-master", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe slow to fast", "mode": "strobe", "rateHz": 30 }
+              ]
+            },
+            { "name": "Master Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master White", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pan 1", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 1", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Dimmer 1", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pan 2", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 2", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Dimmer 2", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pan 3", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 3", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Dimmer 3", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Head speed",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 255, "label": "Speed fast to slow" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "26ch",
+          "name": "26ch (3 heads 16-bit P/T + Color, Master RGBW)",
+          "channels": [
+            { "name": "Master Dimmer", "typeId": "intensity-master", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe slow to fast", "mode": "strobe", "rateHz": 30 }
+              ]
+            },
+            { "name": "Pan 1", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan 1 fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt 1", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 1 fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Head Speed 1",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Slow" },
+                { "kind": "range", "min": 11, "max": 255, "label": "Speed slow to fast" }
+              ]
+            },
+            {
+              "name": "Color 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 30, "label": "Use master color dimmers" },
+                { "kind": "color", "min": 31, "max": 45, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 46, "max": 60, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 61, "max": 75, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 76, "max": 90, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 91, "max": 105, "label": "Red + Green", "color": "#ffff00" },
+                { "kind": "color", "min": 106, "max": 120, "label": "Red + Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 121, "max": 135, "label": "Red + White", "color": "#ff8080" },
+                { "kind": "color", "min": 136, "max": 150, "label": "Green + Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 151, "max": 165, "label": "Green + White", "color": "#80ff80" },
+                { "kind": "color", "min": 166, "max": 180, "label": "Blue + White", "color": "#8080ff" },
+                { "kind": "color", "min": 181, "max": 195, "label": "Red + Green + Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 196, "max": 210, "label": "Red + Green + White", "color": "#ffff80" },
+                { "kind": "color", "min": 211, "max": 225, "label": "Red + Blue + White", "color": "#ff80ff" },
+                { "kind": "color", "min": 226, "max": 240, "label": "Green + Blue + White", "color": "#80ffff" },
+                { "kind": "color", "min": 241, "max": 255, "label": "Red + Green + Blue + White", "color": "#ffffff" }
+              ]
+            },
+            { "name": "Pan 2", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan 2 fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt 2", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 2 fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Head Speed 2",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Slow" },
+                { "kind": "range", "min": 11, "max": 255, "label": "Speed slow to fast" }
+              ]
+            },
+            {
+              "name": "Color 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 30, "label": "Use master color dimmers" },
+                { "kind": "color", "min": 31, "max": 45, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 46, "max": 60, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 61, "max": 75, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 76, "max": 90, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 91, "max": 105, "label": "Red + Green", "color": "#ffff00" },
+                { "kind": "color", "min": 106, "max": 120, "label": "Red + Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 121, "max": 135, "label": "Red + White", "color": "#ff8080" },
+                { "kind": "color", "min": 136, "max": 150, "label": "Green + Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 151, "max": 165, "label": "Green + White", "color": "#80ff80" },
+                { "kind": "color", "min": 166, "max": 180, "label": "Blue + White", "color": "#8080ff" },
+                { "kind": "color", "min": 181, "max": 195, "label": "Red + Green + Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 196, "max": 210, "label": "Red + Green + White", "color": "#ffff80" },
+                { "kind": "color", "min": 211, "max": 225, "label": "Red + Blue + White", "color": "#ff80ff" },
+                { "kind": "color", "min": 226, "max": 240, "label": "Green + Blue + White", "color": "#80ffff" },
+                { "kind": "color", "min": 241, "max": 255, "label": "Red + Green + Blue + White", "color": "#ffffff" }
+              ]
+            },
+            { "name": "Pan 3", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan 3 fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt 3", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 3 fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Head Speed 3",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Slow" },
+                { "kind": "range", "min": 11, "max": 255, "label": "Speed slow to fast" }
+              ]
+            },
+            {
+              "name": "Color 3",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 30, "label": "Use master color dimmers" },
+                { "kind": "color", "min": 31, "max": 45, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 46, "max": 60, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 61, "max": 75, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 76, "max": 90, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 91, "max": 105, "label": "Red + Green", "color": "#ffff00" },
+                { "kind": "color", "min": 106, "max": 120, "label": "Red + Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 121, "max": 135, "label": "Red + White", "color": "#ff8080" },
+                { "kind": "color", "min": 136, "max": 150, "label": "Green + Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 151, "max": 165, "label": "Green + White", "color": "#80ff80" },
+                { "kind": "color", "min": 166, "max": 180, "label": "Blue + White", "color": "#8080ff" },
+                { "kind": "color", "min": 181, "max": 195, "label": "Red + Green + Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 196, "max": 210, "label": "Red + Green + White", "color": "#ffff80" },
+                { "kind": "color", "min": 211, "max": 225, "label": "Red + Blue + White", "color": "#ff80ff" },
+                { "kind": "color", "min": 226, "max": 240, "label": "Green + Blue + White", "color": "#80ffff" },
+                { "kind": "color", "min": 241, "max": 255, "label": "Red + Green + Blue + White", "color": "#ffffff" }
+              ]
+            },
+            {
+              "name": "Sound mode / Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 199, "label": "No function" },
+                { "kind": "range", "min": 200, "max": 209, "label": "Reset" },
+                { "kind": "range", "min": 210, "max": 240, "label": "No function" },
+                { "kind": "effect", "min": 241, "max": 255, "label": "Sound control", "effectName": "sound" }
+              ]
+            },
+            { "name": "Sound sensitivity", "typeId": "sound", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master Red", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master Green", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master Blue", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "Master White", "typeId": "white", "defaultValue": 0, "capabilities": [] }
+          ]
+        },
+        {
+          "id": "42ch",
+          "name": "42ch (3 heads full individual control)",
+          "channels": [
+            { "name": "Pan 1", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan 1 fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt 1", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 1 fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Head Speed 1",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 255, "label": "Speed fast to slow" }
+              ]
+            },
+            { "name": "Dimmer 1", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe 1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe slow to fast", "mode": "strobe", "rateHz": 30 }
+              ]
+            },
+            {
+              "name": "Color 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 30, "label": "Use color dimmers" },
+                { "kind": "color", "min": 31, "max": 45, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 46, "max": 60, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 61, "max": 75, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 76, "max": 90, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 91, "max": 105, "label": "Red + Green", "color": "#ffff00" },
+                { "kind": "color", "min": 106, "max": 120, "label": "Red + Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 121, "max": 135, "label": "Red + White", "color": "#ff8080" },
+                { "kind": "color", "min": 136, "max": 150, "label": "Green + Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 151, "max": 165, "label": "Green + White", "color": "#80ff80" },
+                { "kind": "color", "min": 166, "max": 180, "label": "Blue + White", "color": "#8080ff" },
+                { "kind": "color", "min": 181, "max": 195, "label": "Red + Green + Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 196, "max": 210, "label": "Red + Green + White", "color": "#ffff80" },
+                { "kind": "color", "min": 211, "max": 225, "label": "Red + Blue + White", "color": "#ff80ff" },
+                { "kind": "color", "min": 226, "max": 240, "label": "Green + Blue + White", "color": "#80ffff" },
+                { "kind": "color", "min": 241, "max": 255, "label": "Red + Green + Blue + White", "color": "#ffffff" }
+              ]
+            },
+            {
+              "name": "Mode 1",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7, "label": "No function" },
+                { "kind": "effect", "min": 8, "max": 99, "label": "Show modes 1-4", "effectName": "show" },
+                { "kind": "effect", "min": 100, "max": 122, "label": "Sound control", "effectName": "sound" },
+                { "kind": "range", "min": 123, "max": 199, "label": "No function" },
+                { "kind": "range", "min": 200, "max": 224, "label": "Reset" },
+                { "kind": "range", "min": 225, "max": 255, "label": "No function" }
+              ]
+            },
+            { "name": "Show mode speed / Sound sensitivity 1", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red 1", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green 1", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue 1", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "White 1", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pan 2", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan 2 fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt 2", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 2 fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Head Speed 2",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 255, "label": "Speed fast to slow" }
+              ]
+            },
+            { "name": "Dimmer 2", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe 2",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe slow to fast", "mode": "strobe", "rateHz": 30 }
+              ]
+            },
+            {
+              "name": "Color 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 30, "label": "Use color dimmers" },
+                { "kind": "color", "min": 31, "max": 45, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 46, "max": 60, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 61, "max": 75, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 76, "max": 90, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 91, "max": 105, "label": "Red + Green", "color": "#ffff00" },
+                { "kind": "color", "min": 106, "max": 120, "label": "Red + Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 121, "max": 135, "label": "Red + White", "color": "#ff8080" },
+                { "kind": "color", "min": 136, "max": 150, "label": "Green + Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 151, "max": 165, "label": "Green + White", "color": "#80ff80" },
+                { "kind": "color", "min": 166, "max": 180, "label": "Blue + White", "color": "#8080ff" },
+                { "kind": "color", "min": 181, "max": 195, "label": "Red + Green + Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 196, "max": 210, "label": "Red + Green + White", "color": "#ffff80" },
+                { "kind": "color", "min": 211, "max": 225, "label": "Red + Blue + White", "color": "#ff80ff" },
+                { "kind": "color", "min": 226, "max": 240, "label": "Green + Blue + White", "color": "#80ffff" },
+                { "kind": "color", "min": 241, "max": 255, "label": "Red + Green + Blue + White", "color": "#ffffff" }
+              ]
+            },
+            {
+              "name": "Mode 2",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7, "label": "No function" },
+                { "kind": "effect", "min": 8, "max": 99, "label": "Show modes 1-4", "effectName": "show" },
+                { "kind": "effect", "min": 100, "max": 122, "label": "Sound control", "effectName": "sound" },
+                { "kind": "range", "min": 123, "max": 199, "label": "No function" },
+                { "kind": "range", "min": 200, "max": 224, "label": "Reset" },
+                { "kind": "range", "min": 225, "max": 255, "label": "No function" }
+              ]
+            },
+            { "name": "Show mode speed / Sound sensitivity 2", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red 2", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green 2", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue 2", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "White 2", "typeId": "white", "defaultValue": 0, "capabilities": [] },
+            { "name": "Pan 3", "typeId": "pan", "defaultValue": 128, "capabilities": [] },
+            { "name": "Pan 3 fine", "typeId": "pan-fine", "defaultValue": 0, "capabilities": [] },
+            { "name": "Tilt 3", "typeId": "tilt", "defaultValue": 128, "capabilities": [] },
+            { "name": "Tilt 3 fine", "typeId": "tilt-fine", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Head Speed 3",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 255, "label": "Speed fast to slow" }
+              ]
+            },
+            { "name": "Dimmer 3", "typeId": "intensity", "defaultValue": 0, "capabilities": [] },
+            {
+              "name": "Strobe 3",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 10, "label": "Open" },
+                { "kind": "shutter", "min": 11, "max": 255, "label": "Strobe slow to fast", "mode": "strobe", "rateHz": 30 }
+              ]
+            },
+            {
+              "name": "Color 3",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 30, "label": "Use color dimmers" },
+                { "kind": "color", "min": 31, "max": 45, "label": "Red", "color": "#ff0000" },
+                { "kind": "color", "min": 46, "max": 60, "label": "Green", "color": "#00ff00" },
+                { "kind": "color", "min": 61, "max": 75, "label": "Blue", "color": "#0000ff" },
+                { "kind": "color", "min": 76, "max": 90, "label": "White", "color": "#ffffff" },
+                { "kind": "color", "min": 91, "max": 105, "label": "Red + Green", "color": "#ffff00" },
+                { "kind": "color", "min": 106, "max": 120, "label": "Red + Blue", "color": "#ff00ff" },
+                { "kind": "color", "min": 121, "max": 135, "label": "Red + White", "color": "#ff8080" },
+                { "kind": "color", "min": 136, "max": 150, "label": "Green + Blue", "color": "#00ffff" },
+                { "kind": "color", "min": 151, "max": 165, "label": "Green + White", "color": "#80ff80" },
+                { "kind": "color", "min": 166, "max": 180, "label": "Blue + White", "color": "#8080ff" },
+                { "kind": "color", "min": 181, "max": 195, "label": "Red + Green + Blue", "color": "#ffffff" },
+                { "kind": "color", "min": 196, "max": 210, "label": "Red + Green + White", "color": "#ffff80" },
+                { "kind": "color", "min": 211, "max": 225, "label": "Red + Blue + White", "color": "#ff80ff" },
+                { "kind": "color", "min": 226, "max": 240, "label": "Green + Blue + White", "color": "#80ffff" },
+                { "kind": "color", "min": 241, "max": 255, "label": "Red + Green + Blue + White", "color": "#ffffff" }
+              ]
+            },
+            {
+              "name": "Mode 3",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                { "kind": "range", "min": 0, "max": 7, "label": "No function" },
+                { "kind": "effect", "min": 8, "max": 99, "label": "Show modes 1-4", "effectName": "show" },
+                { "kind": "effect", "min": 100, "max": 122, "label": "Sound control", "effectName": "sound" },
+                { "kind": "range", "min": 123, "max": 199, "label": "No function" },
+                { "kind": "range", "min": 200, "max": 224, "label": "Reset" },
+                { "kind": "range", "min": 225, "max": 255, "label": "No function" }
+              ]
+            },
+            { "name": "Show mode speed / Sound sensitivity 3", "typeId": "effect-speed", "defaultValue": 0, "capabilities": [] },
+            { "name": "Red 3", "typeId": "red", "defaultValue": 0, "capabilities": [] },
+            { "name": "Green 3", "typeId": "green", "defaultValue": 0, "capabilities": [] },
+            { "name": "Blue 3", "typeId": "blue", "defaultValue": 0, "capabilities": [] },
+            { "name": "White 3", "typeId": "white", "defaultValue": 0, "capabilities": [] }
+          ]
+        }
+      ]
+    }
+  ]
+}
