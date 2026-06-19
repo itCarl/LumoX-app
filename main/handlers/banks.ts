@@ -1,5 +1,5 @@
 // Bank IPC — ordered scene containers (CONTROL view): list / add / rename /
-// remove. Removing a bank drops the scenes it held from the engine + show.
+// remove. Removing a bank drops its scenes from the engine + show.
 
 import { ipcMain } from 'electron';
 import { engine, show, banks } from '../context';

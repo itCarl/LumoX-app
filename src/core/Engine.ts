@@ -9,6 +9,7 @@ import { GroupEffects } from '../mix/modules/GroupEffects';
 import { GrandMaster } from '../mix/modules/GrandMaster';
 import { Blackout } from '../mix/modules/Blackout';
 import { createLogger } from '../util/logger';
+import { buffersEqual } from '../mix/MixModule';
 import type { MixContext } from '../mix/MixModule';
 
 const log = createLogger('Engine');
@@ -59,6 +60,8 @@ export class Engine extends EventEmitter {
   _lastTickAt: number;
   _frame: number;
   _running: boolean;
+  // Reused across ticks — modules read it synchronously and must not retain it.
+  _ctx: MixContext;
 
   constructor({ refreshHz = 44, buildDefault = true }: EngineOptions = {}) {
     super();
@@ -74,6 +77,7 @@ export class Engine extends EventEmitter {
     this._lastTickAt = 0;
     this._frame = 0;
     this._running = false;
+    this._ctx = { now: 0, deltaMs: 0, frame: 0 };
   }
 
   _buildDefaultPipeline(): void {
@@ -108,7 +112,10 @@ export class Engine extends EventEmitter {
     const delta = now - this._lastTickAt;
     this._lastTickAt = now;
     this._frame++;
-    const ctx: MixContext = { now, deltaMs: delta, frame: this._frame };
+    const ctx = this._ctx;
+    ctx.now = now;
+    ctx.deltaMs = delta;
+    ctx.frame = this._frame;
 
     for (const u of this.universes.list()) {
       this.mix.process(u, ctx);
@@ -119,10 +126,4 @@ export class Engine extends EventEmitter {
 
     this.emit('tick', delta);
   }
-}
-
-function buffersEqual(a: Uint8Array, b: Uint8Array): boolean {
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
-  return true;
 }

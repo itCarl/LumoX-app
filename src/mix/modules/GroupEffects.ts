@@ -1,6 +1,7 @@
 import { MixModule } from '../MixModule';
 import type { MixModuleConfig, MixContext } from '../MixModule';
 import type { Universe } from '../../core/Universe';
+import { hsvToRgb } from '../../util/Color';
 
 /**
  * Minimal structural type for a patched fixture, as consumed here.
@@ -97,9 +98,11 @@ export class GroupEffects extends MixModule {
       if (members.length === 0) continue;
 
       const groupSize = fx.group.size;
-      members.forEach((fixture, _idxLocal) => {
-        // idxInGroup is the position within the full group (across universes)
-        const idxInGroup = fx.group!.list().indexOf(fixture.id);
+      // Position within the full group (across universes), resolved once.
+      const order = fx.group.list();
+      const indexInGroup = new Map(order.map((id, i) => [id, i]));
+      members.forEach((fixture) => {
+        const idxInGroup = indexInGroup.get(fixture.id) ?? 0;
         const write: GroupWrite = (typeId, value) => {
           const slot = fixture.mode.indexOfType(typeId);
           if (!slot) return;
@@ -113,26 +116,6 @@ export class GroupEffects extends MixModule {
       });
     }
   }
-}
-
-// ---- HSV → RGB --------------------------------------------------------
-function hsvToRgb(h: number, s: number = 1, v: number = 1): [number, number, number] {
-  const i = Math.floor(h * 6);
-  const f = h * 6 - i;
-  const p = v * (1 - s);
-  const q = v * (1 - f * s);
-  const t = v * (1 - (1 - f) * s);
-  let r: number, g: number, b: number;
-  switch (i % 6) {
-    case 0: r = v; g = t; b = p; break;
-    case 1: r = q; g = v; b = p; break;
-    case 2: r = p; g = v; b = t; break;
-    case 3: r = p; g = q; b = v; break;
-    case 4: r = t; g = p; b = v; break;
-    case 5: r = v; g = p; b = q; break;
-    default: r = v; g = v; b = v; break;
-  }
-  return [(r * 255) | 0, (g * 255) | 0, (b * 255) | 0];
 }
 
 // ---- built-in fixture-aware effects -----------------------------------
@@ -163,7 +146,7 @@ export function rainbowGroupEffect({
       const base = (ctx.now % periodMs) / periodMs;
       const offset = count > 0 ? (idx / count) * spread : 0;
       const h = (base + offset) % 1;
-      const [r, g, b] = hsvToRgb(h, saturation, value);
+      const { r, g, b } = hsvToRgb({ h: h * 360, s: saturation, v: value });
       write('red', r); write('green', g); write('blue', b);
       if (alsoLightIntensity) write('intensity', 255);
     },

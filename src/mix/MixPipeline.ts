@@ -8,9 +8,10 @@ import type { MixModule, MixContext } from './MixModule';
  *
  *   1. BaseLayer        copies programmer → data (start of frame)
  *   2. SceneMixer       HTP-merges active scenes
- *   3. Effects          generators (rainbow, strobe, ...) — additive/HTP
- *   4. GrandMaster      scales output
- *   5. Blackout         zeroes if active
+ *   3. Effects          raw-channel generators (sine, strobe, chase) — HTP
+ *   4. GroupEffects     fixture-aware generators (rainbow, flash, ...) — HTP
+ *   5. GrandMaster      scales output
+ *   6. Blackout         zeroes if active
  *
  * Add/remove modules at runtime — order managed by add/insert/move APIs.
  *
