@@ -1,8 +1,8 @@
 // Selection IPC — the transient, ordered live "programming target". It is not
 // part of the saved show (like the programmer); it drives any FX layer whose
-// target is {mode:'selection'}. Quick-select ops (invert / every-Nth / shift /
-// reverse / mirror) and reordering are computed in main against the patch and
-// broadcast back so every view reflects the same order.
+// target is {mode:'selection'}. Quick-select ops (all / invert) and reordering
+// are computed in main against the patch and broadcast back so every view
+// reflects the same order.
 
 import { ipcMain } from 'electron';
 import { getSelection, setSelection, selectionOp } from '../context';
@@ -32,9 +32,5 @@ export function registerSelectionHandlers(): void {
 
   ipcMain.handle('lumox:selection:all',     () => broadcast(selectionOp('all')));
   ipcMain.handle('lumox:selection:invert',  () => broadcast(selectionOp('invert')));
-  ipcMain.handle('lumox:selection:reverse', () => broadcast(selectionOp('reverse')));
-  ipcMain.handle('lumox:selection:mirror',  () => broadcast(selectionOp('mirror')));
-  ipcMain.handle('lumox:selection:everyNth', (_e, { n, offset }) => broadcast(selectionOp('everyNth', { n, offset })));
-  ipcMain.handle('lumox:selection:shift',    (_e, { delta }) => broadcast(selectionOp('shift', { delta })));
   ipcMain.handle('lumox:selection:reorder',  (_e, { from, to }) => broadcast(selectionOp('reorder', { from, to })));
 }

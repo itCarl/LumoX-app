@@ -35,9 +35,6 @@ random`) for further fanning.
 | `:set` | replace (deduped + pruned); the plain mirror of a click/marquee — does **not** broadcast |
 | `:add` / `:remove` / `:clear` | mutate the selection |
 | `:all` / `:invert` | whole-patch ops (against patch order) |
-| `:reverse` / `:mirror` | reorder the current selection (mirror = centre-out) |
-| `:everyNth` (n, offset) | thin to every n-th pick |
-| `:shift` (delta) | step each pick ±delta in patch order (wraps) |
 | `:reorder` (from, to) | move one row within the selection |
 
 Every op except `:set` broadcasts `selection:changed` to the renderer.
@@ -58,9 +55,8 @@ main quick-op   ──selection:changed──► bridge ──FIXTURE_SELECTED(s
 ```
 
 The `src:'main'` tag lets the views adopt a main-driven reorder while the bridge
-ignores its own echo. The stage left rail's **Selection order** group
-(reverse / mirror / shift ◀▶ / ½ / ⅓) calls the IPC and the reordered ids flow
-back through this bridge, renumbering the badges live.
+ignores its own echo. When main reorders the selection, the new ids flow back
+through this bridge, renumbering the badges live.
 
 ## Group fixture order
 

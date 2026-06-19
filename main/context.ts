@@ -288,42 +288,20 @@ export function setSelection(ids: string[]): string[] {
   return selection;
 }
 
-/** Patch-order id list — the candidate universe for invert / every-Nth / shift. */
+/** Patch-order id list — the candidate universe for invert. */
 const patchOrder = (): string[] => show.patch.list().map((f) => f.id);
 
 /** Quick-select / reorder ops over the active selection. Each computes the new
  *  ordered selection (some against the whole patch), stores it, and returns it. */
 export function selectionOp(
-  op: 'all' | 'invert' | 'reverse' | 'mirror' | 'everyNth' | 'shift' | 'reorder',
-  arg: { n?: number; offset?: number; delta?: number; from?: number; to?: number } = {},
+  op: 'all' | 'invert' | 'reorder',
+  arg: { from?: number; to?: number } = {},
 ): string[] {
   const cur = getSelection();
   let next = cur;
   switch (op) {
     case 'all': next = patchOrder(); break;
     case 'invert': { const set = new Set(cur); next = patchOrder().filter((id) => !set.has(id)); break; }
-    case 'reverse': next = [...cur].reverse(); break;
-    case 'mirror': {                                   // centre-out reorder (fan from middle)
-      const c = (cur.length - 1) / 2;
-      next = cur.map((_, i) => i).sort((a, b) => Math.abs(a - c) - Math.abs(b - c)).map((i) => cur[i]);
-      break;
-    }
-    case 'everyNth': {                                 // thin to every n-th, from offset
-      const n = Math.max(1, arg.n ?? 2), off = arg.offset ?? 0;
-      next = cur.filter((_, i) => i >= off && (i - off) % n === 0);
-      break;
-    }
-    case 'shift': {                                    // step each pick ±d in patch order (wraps)
-      const order = patchOrder(), N = order.length;
-      if (!N) { next = []; break; }
-      const d = arg.delta ?? 1, seen = new Set<string>(), out: string[] = [];
-      for (const id of cur) {
-        const i = order.indexOf(id); if (i < 0) continue;
-        const nid = order[(((i + d) % N) + N) % N];
-        if (!seen.has(nid)) { seen.add(nid); out.push(nid); }
-      }
-      next = out; break;
-    }
     case 'reorder': {                                  // drag row from→to within the selection
       next = [...cur];
       const { from = 0, to = 0 } = arg;
