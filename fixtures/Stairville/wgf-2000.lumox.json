@@ -1,0 +1,87 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/WGF-2000",
+      "manufacturer": "Stairville",
+      "model": "WGF-2000",
+      "type": "Smoke",
+      "meta": {
+        "author": "CoS2000",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-WGF-2000.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 345,
+          "height": 360,
+          "depth": 785,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 24,
+          "unit": "kg"
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 2000,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Smoke",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fan",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Heavy Mode (Fluid and Water)",
+                  "color": "#860000"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Light Mode (Water only)",
+                  "color": "#427eff"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

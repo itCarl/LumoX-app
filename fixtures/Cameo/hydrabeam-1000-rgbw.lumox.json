@@ -1,0 +1,849 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Hydrabeam 1000 RGBW",
+      "manufacturer": "Cameo",
+      "model": "Hydrabeam 1000 RGBW",
+      "type": "Moving Head",
+      "meta": {
+        "author": "AxlOtl",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Hydrabeam-1000-RGBW.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 146,
+          "height": 255,
+          "depth": 156,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 100,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 2.5,
+          "degreesMax": 2.5
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 65,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3-CH",
+          "channels": [
+            {
+              "name": "Auto / Sound / Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 30,
+                  "label": "show 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 31,
+                  "max": 53,
+                  "label": "show 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 54,
+                  "max": 76,
+                  "label": "show 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 77,
+                  "max": 99,
+                  "label": "show 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 122,
+                  "label": "sound control"
+                },
+                {
+                  "kind": "range",
+                  "min": 123,
+                  "max": 199,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 224,
+                  "label": "reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 225,
+                  "max": 255,
+                  "label": "no function"
+                }
+              ]
+            },
+            {
+              "name": "Sound sensitivity / Auto speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6-CH",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "no function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Colour macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 30,
+                  "label": "blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 45,
+                  "label": "R (Red)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 60,
+                  "label": "G (Green)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 75,
+                  "label": "B (Blue)",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 90,
+                  "label": "W (White)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 105,
+                  "label": "RG",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 106,
+                  "max": 120,
+                  "label": "RB",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 135,
+                  "label": "RW",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 150,
+                  "label": "GB",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 165,
+                  "label": "GW",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 166,
+                  "max": 180,
+                  "label": "BW",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 181,
+                  "max": 195,
+                  "label": "RGB"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 210,
+                  "label": "RGW"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 225,
+                  "label": "RBW"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 240,
+                  "label": "GBW"
+                },
+                {
+                  "kind": "range",
+                  "min": 241,
+                  "max": 255,
+                  "label": "RGBW"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9-CH",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "no function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12-CH",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "no function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Colour macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 30,
+                  "label": "blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 45,
+                  "label": "R (Red)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 60,
+                  "label": "G (Green)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 75,
+                  "label": "B (Blue)",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 90,
+                  "label": "W (White)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 105,
+                  "label": "RG",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 106,
+                  "max": 120,
+                  "label": "RB",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 135,
+                  "label": "RW",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 150,
+                  "label": "GB",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 165,
+                  "label": "GW",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 166,
+                  "max": 180,
+                  "label": "BW",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 181,
+                  "max": 195,
+                  "label": "RGB"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 210,
+                  "label": "RGW"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 225,
+                  "label": "RBW"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 240,
+                  "label": "GBW"
+                },
+                {
+                  "kind": "range",
+                  "min": 241,
+                  "max": 255,
+                  "label": "RGBW"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "14ch",
+          "name": "14-CH",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "no function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Colour macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 30,
+                  "label": "blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 45,
+                  "label": "R (Red)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 60,
+                  "label": "G (Green)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 75,
+                  "label": "B (Blue)",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 90,
+                  "label": "W (White)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 105,
+                  "label": "RG",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 106,
+                  "max": 120,
+                  "label": "RB",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 135,
+                  "label": "RW",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 150,
+                  "label": "GB",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 165,
+                  "label": "GW",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 166,
+                  "max": 180,
+                  "label": "BW",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 181,
+                  "max": 195,
+                  "label": "RGB"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 210,
+                  "label": "RGW"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 225,
+                  "label": "RBW"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 240,
+                  "label": "GBW"
+                },
+                {
+                  "kind": "range",
+                  "min": 241,
+                  "max": 255,
+                  "label": "RGBW"
+                }
+              ]
+            },
+            {
+              "name": "Auto / Sound / Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 30,
+                  "label": "show 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 31,
+                  "max": 53,
+                  "label": "show 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 54,
+                  "max": 76,
+                  "label": "show 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 77,
+                  "max": 99,
+                  "label": "show 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 122,
+                  "label": "sound control"
+                },
+                {
+                  "kind": "range",
+                  "min": 123,
+                  "max": 199,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 224,
+                  "label": "reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 225,
+                  "max": 255,
+                  "label": "no function"
+                }
+              ]
+            },
+            {
+              "name": "Sound sensitivity / Auto speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/COB 50",
+      "manufacturer": "beamZ",
+      "model": "COB 50",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Yestalgia",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-COB-50.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 200,
+          "height": 191,
+          "depth": 170,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 400,
+          "colourTemperature": 4000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 60,
+          "degreesMax": 60
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 65,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "9ch",
+          "name": "9 Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Auto/Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 50,
+                  "label": "Manual mode, the first 7 channel are effective",
+                  "effectName": "manual-mode-the-first-7-channel-are-effective"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 100,
+                  "label": "Jump variable, The last two figure more big, the colour change",
+                  "effectName": "jump-variable-the-last-two-figure-more-big-the-colour-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 150,
+                  "label": "Gradual variable, The last two figure more big, the colour change",
+                  "effectName": "gradual-variable-the-last-two-figure-more-big-the-colour-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 200,
+                  "label": "Pulse variable, The last two figure more big, the colour change",
+                  "effectName": "pulse-variable-the-last-two-figure-more-big-the-colour-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 250,
+                  "label": "Auto mode, The last two figure more big, the colour change speed",
+                  "effectName": "auto-mode-the-last-two-figure-more-big-the-colour-change-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Sound mode, The last two figure more big, the colour change",
+                  "effectName": "sound-mode-the-last-two-figure-more-big-the-colour-change"
+                }
+              ]
+            },
+            {
+              "name": "Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

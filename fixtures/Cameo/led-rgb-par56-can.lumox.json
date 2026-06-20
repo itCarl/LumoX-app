@@ -1,0 +1,175 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/LED RGB PAR56 Can",
+      "manufacturer": "Cameo",
+      "model": "LED RGB PAR56 Can",
+      "type": "Color Changer",
+      "meta": {
+        "author": "MC Sushii",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-LED-RGB-PAR56-Can.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 210,
+          "height": 213,
+          "depth": 169,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED 5mm, 25W",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "PC",
+          "degreesMin": 25,
+          "degreesMax": 25
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 35,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4-Channel Mode (Red Dot)",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6-Channel Mode (No Dot)",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe / Speed Adjust / Sensitivity Adjust",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 16,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 17,
+                  "max": 255,
+                  "label": "Strobe / Speed Adjust / Sensitivity Adjust"
+                }
+              ]
+            },
+            {
+              "name": "Effect",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 31,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 95,
+                  "label": "Colour Mixing"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 159,
+                  "label": "RGB Colour Change"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 233,
+                  "label": "7 Colour Change"
+                },
+                {
+                  "kind": "range",
+                  "min": 234,
+                  "max": 243,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 244,
+                  "max": 255,
+                  "label": "Sound Activation"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

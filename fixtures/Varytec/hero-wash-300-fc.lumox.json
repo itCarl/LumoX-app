@@ -1,0 +1,1346 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/Hero Wash 300 FC",
+      "manufacturer": "Varytec",
+      "model": "Hero Wash 300 FC",
+      "type": "Moving Head",
+      "meta": {
+        "author": "NostaKhan",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-Hero-Wash-300-FC.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 310,
+          "height": 390,
+          "depth": 208,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 10.1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 7000,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 6,
+          "degreesMax": 50
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 240
+        },
+        "power": {
+          "consumption": 260,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "15ch",
+          "name": "15 Channel",
+          "channels": [
+            {
+              "name": "Rotation Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Inclination Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Rotation Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "focus",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Stroboscope",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "LEDs OFF",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 80,
+                  "label": "Constantly increasing brightness, increasing speed (dimmed bright, quickly dark)",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 81,
+                  "max": 140,
+                  "label": "Constantly decreasing brightness, increasing speed (quickly bright, dimmed dark)",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 141,
+                  "max": 200,
+                  "label": "Impulse effect, increasing speed (dimmed light and dark)",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 201,
+                  "max": 250,
+                  "label": "Strobe effect, constant (0.5 … 20 Hz)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "LEDs On",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Temperature",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Colour temperature white, 2800 K … 6800 K"
+                }
+              ]
+            },
+            {
+              "name": "Segment Pattern",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 15,
+                  "label": "Static Pattern 1",
+                  "effectName": "static-pattern-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Static Pattern 2",
+                  "effectName": "static-pattern-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Static Pattern 3",
+                  "effectName": "static-pattern-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Static Pattern 4",
+                  "effectName": "static-pattern-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Static Pattern 5",
+                  "effectName": "static-pattern-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Static Pattern 6",
+                  "effectName": "static-pattern-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 75,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 90,
+                  "label": "Dynamic Pattern 7",
+                  "effectName": "dynamic-pattern-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 105,
+                  "label": "Dynamic Pattern 8",
+                  "effectName": "dynamic-pattern-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 120,
+                  "label": "Dynamic Pattern 9",
+                  "effectName": "dynamic-pattern-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 135,
+                  "label": "Dynamic Pattern 10",
+                  "effectName": "dynamic-pattern-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 150,
+                  "label": "Dynamic Pattern 11",
+                  "effectName": "dynamic-pattern-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 165,
+                  "label": "Dynamic Pattern 12",
+                  "effectName": "dynamic-pattern-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 180,
+                  "label": "Dynamic Pattern 13",
+                  "effectName": "dynamic-pattern-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 195,
+                  "label": "Dynamic Pattern 14",
+                  "effectName": "dynamic-pattern-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 210,
+                  "label": "Dynamic Pattern 15",
+                  "effectName": "dynamic-pattern-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 225,
+                  "label": "Dynamic Pattern 16",
+                  "effectName": "dynamic-pattern-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 240,
+                  "label": "Dynamic Pattern 17",
+                  "effectName": "dynamic-pattern-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Dynamic Pattern 18",
+                  "effectName": "dynamic-pattern-18"
+                }
+              ]
+            },
+            {
+              "name": "Pattern Transition",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Transition without fading of the dynamic patterns (channel 12), increasing speed",
+                  "effectName": "transition-without-fading-of-the-dynamic-patterns-channel-12-increasing-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Transition with fading of the dynamic patterns (channel 12), increasing speed",
+                  "effectName": "transition-with-fading-of-the-dynamic-patterns-channel-12-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Zoom automatic programme with decreasing speed, 1 (fast)…8 (slow)",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 39,
+                  "label": "Zoom automatic programme 1",
+                  "effectName": "zoom-automatic-programme-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 69,
+                  "label": "Zoom automatic programme 2",
+                  "effectName": "zoom-automatic-programme-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 99,
+                  "label": "Zoom automatic programme 3",
+                  "effectName": "zoom-automatic-programme-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 129,
+                  "label": "Zoom automatic programme 4",
+                  "effectName": "zoom-automatic-programme-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 159,
+                  "label": "Zoom automatic programme 5",
+                  "effectName": "zoom-automatic-programme-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 189,
+                  "label": "Zoom automatic programme 6",
+                  "effectName": "zoom-automatic-programme-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 219,
+                  "label": "Zoom automatic programme 7",
+                  "effectName": "zoom-automatic-programme-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "Zoom automatic programme 8",
+                  "effectName": "zoom-automatic-programme-8"
+                }
+              ]
+            },
+            {
+              "name": "Pan-Tilt Auto Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "Pan-Tilt auto programme 1",
+                  "effectName": "pan-tilt-auto-programme-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Pan-Tilt auto programme 2",
+                  "effectName": "pan-tilt-auto-programme-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "Pan-Tilt auto programme 3",
+                  "effectName": "pan-tilt-auto-programme-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Pan-Tilt auto programme 4",
+                  "effectName": "pan-tilt-auto-programme-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Pan-Tilt auto programme 5",
+                  "effectName": "pan-tilt-auto-programme-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Pan-Tilt auto programme 6",
+                  "effectName": "pan-tilt-auto-programme-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Pan-Tilt auto programme 7",
+                  "effectName": "pan-tilt-auto-programme-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Pan-Tilt auto programme 8",
+                  "effectName": "pan-tilt-auto-programme-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 230,
+                  "label": "Sound control Pan and Tilt",
+                  "effectName": "sound-control-pan-and-tilt"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 240,
+                  "label": "Reset, if the value is transmitted for at least 3 seconds",
+                  "effectName": "reset-if-the-value-is-transmitted-for-at-least-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "26ch",
+          "name": "26 Channel",
+          "channels": [
+            {
+              "name": "Rotation Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fine adjustment rotation (pan)",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Inclination Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fine adjustment inclination (tilt)",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Rotation Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "focus",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Stroboscope",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "LEDs OFF",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 80,
+                  "label": "Constantly increasing brightness, increasing speed (dimmed bright, quickly dark)",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 81,
+                  "max": 140,
+                  "label": "Constantly decreasing brightness, increasing speed (quickly bright, dimmed dark)",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 141,
+                  "max": 200,
+                  "label": "Impulse effect, increasing speed (dimmed light and dark)",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 201,
+                  "max": 250,
+                  "label": "Strobe effect, constant (0.5 … 20 Hz)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "LEDs On",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Intensity red segment 1, 0 % to 100%",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green segment 1, 0 % to 100%",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue segment 1, 0 % to 100%",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white segment 1, 0 % to 100%",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red segment 2, 0 % to 100%",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green segment 2, 0 % to 100%",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue segment 2, 0 % to 100%",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white segment 2, 0 % to 100%",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red segment 3, 0 % to 100%",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green segment 3, 0 % to 100%",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue segment 3, 0 % to 100%",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white segment 3, 0 % to 100%",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Temperature",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Colour temperature white, 2800 K … 6800 K"
+                }
+              ]
+            },
+            {
+              "name": "Colour Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 14,
+                  "label": "Colour macro 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 15,
+                  "max": 18,
+                  "label": "Colour macro 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 19,
+                  "max": 22,
+                  "label": "Colour macro 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 23,
+                  "max": 26,
+                  "label": "Colour macro 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 27,
+                  "max": 30,
+                  "label": "Colour macro 5"
+                },
+                {
+                  "kind": "range",
+                  "min": 31,
+                  "max": 34,
+                  "label": "Colour macro 6"
+                },
+                {
+                  "kind": "range",
+                  "min": 35,
+                  "max": 38,
+                  "label": "Colour macro 7"
+                },
+                {
+                  "kind": "range",
+                  "min": 39,
+                  "max": 42,
+                  "label": "Colour macro 8"
+                },
+                {
+                  "kind": "range",
+                  "min": 43,
+                  "max": 46,
+                  "label": "Colour macro 9"
+                },
+                {
+                  "kind": "range",
+                  "min": 47,
+                  "max": 50,
+                  "label": "Colour macro 10"
+                },
+                {
+                  "kind": "range",
+                  "min": 51,
+                  "max": 54,
+                  "label": "Colour macro 11"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 58,
+                  "label": "Colour macro 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 59,
+                  "max": 62,
+                  "label": "Colour macro 13"
+                },
+                {
+                  "kind": "range",
+                  "min": 63,
+                  "max": 66,
+                  "label": "Colour macro 14"
+                },
+                {
+                  "kind": "range",
+                  "min": 67,
+                  "max": 70,
+                  "label": "Colour macro 15"
+                },
+                {
+                  "kind": "range",
+                  "min": 71,
+                  "max": 74,
+                  "label": "Colour macro 16"
+                },
+                {
+                  "kind": "range",
+                  "min": 75,
+                  "max": 78,
+                  "label": "Colour macro 17"
+                },
+                {
+                  "kind": "range",
+                  "min": 79,
+                  "max": 82,
+                  "label": "Colour macro 18"
+                },
+                {
+                  "kind": "range",
+                  "min": 83,
+                  "max": 86,
+                  "label": "Colour macro 19"
+                },
+                {
+                  "kind": "range",
+                  "min": 87,
+                  "max": 90,
+                  "label": "Colour macro 20"
+                },
+                {
+                  "kind": "range",
+                  "min": 91,
+                  "max": 94,
+                  "label": "Colour macro 21"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 98,
+                  "label": "Colour macro 22"
+                },
+                {
+                  "kind": "range",
+                  "min": 99,
+                  "max": 102,
+                  "label": "Colour macro 23"
+                },
+                {
+                  "kind": "range",
+                  "min": 103,
+                  "max": 106,
+                  "label": "Colour macro 24"
+                },
+                {
+                  "kind": "range",
+                  "min": 107,
+                  "max": 110,
+                  "label": "Colour macro 25"
+                },
+                {
+                  "kind": "range",
+                  "min": 111,
+                  "max": 114,
+                  "label": "Colour macro 26"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 118,
+                  "label": "Colour macro 27"
+                },
+                {
+                  "kind": "range",
+                  "min": 119,
+                  "max": 122,
+                  "label": "Colour macro 28"
+                },
+                {
+                  "kind": "range",
+                  "min": 123,
+                  "max": 126,
+                  "label": "Colour macro 29"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 130,
+                  "label": "Colour macro 30"
+                },
+                {
+                  "kind": "range",
+                  "min": 131,
+                  "max": 134,
+                  "label": "Colour macro 31"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 138,
+                  "label": "Colour macro 32"
+                },
+                {
+                  "kind": "range",
+                  "min": 139,
+                  "max": 142,
+                  "label": "Colour macro 33"
+                },
+                {
+                  "kind": "range",
+                  "min": 143,
+                  "max": 146,
+                  "label": "Colour macro 34"
+                },
+                {
+                  "kind": "range",
+                  "min": 147,
+                  "max": 150,
+                  "label": "Colour macro 35"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 154,
+                  "label": "Colour macro 36"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 158,
+                  "label": "Colour macro 37"
+                },
+                {
+                  "kind": "range",
+                  "min": 159,
+                  "max": 162,
+                  "label": "Colour macro 38"
+                },
+                {
+                  "kind": "range",
+                  "min": 163,
+                  "max": 166,
+                  "label": "Colour macro 39"
+                },
+                {
+                  "kind": "range",
+                  "min": 167,
+                  "max": 170,
+                  "label": "Colour macro 40"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 174,
+                  "label": "Colour macro 41"
+                },
+                {
+                  "kind": "range",
+                  "min": 175,
+                  "max": 178,
+                  "label": "Colour macro 42"
+                },
+                {
+                  "kind": "range",
+                  "min": 179,
+                  "max": 182,
+                  "label": "Colour macro 43"
+                },
+                {
+                  "kind": "range",
+                  "min": 183,
+                  "max": 186,
+                  "label": "Colour macro 44"
+                },
+                {
+                  "kind": "range",
+                  "min": 187,
+                  "max": 190,
+                  "label": "Colour macro 45"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 194,
+                  "label": "Colour macro 46"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 215,
+                  "label": "Macro colour jump, slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 238,
+                  "label": "Macro colour fade, slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 239,
+                  "max": 255,
+                  "label": "Sound control automatic programme"
+                }
+              ]
+            },
+            {
+              "name": "Segment pattern 1 to 18 (1 to 6 static, 7 to 18 dynamic)",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 15,
+                  "label": "Static segment pattern 1",
+                  "effectName": "static-segment-pattern-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Static segment pattern 2",
+                  "effectName": "static-segment-pattern-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Static segment pattern 3",
+                  "effectName": "static-segment-pattern-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Static segment pattern 4",
+                  "effectName": "static-segment-pattern-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Static segment pattern 5",
+                  "effectName": "static-segment-pattern-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Static segment pattern 6",
+                  "effectName": "static-segment-pattern-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 75,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 90,
+                  "label": "Dynamic segment pattern 7",
+                  "effectName": "dynamic-segment-pattern-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 105,
+                  "label": "Dynamic segment pattern 8",
+                  "effectName": "dynamic-segment-pattern-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 120,
+                  "label": "Dynamic segment pattern 9",
+                  "effectName": "dynamic-segment-pattern-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 135,
+                  "label": "Dynamic segment pattern 10",
+                  "effectName": "dynamic-segment-pattern-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 150,
+                  "label": "Dynamic segment pattern 11",
+                  "effectName": "dynamic-segment-pattern-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 165,
+                  "label": "Dynamic segment pattern 12",
+                  "effectName": "dynamic-segment-pattern-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 180,
+                  "label": "Dynamic segment pattern 13",
+                  "effectName": "dynamic-segment-pattern-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 195,
+                  "label": "Dynamic segment pattern 14",
+                  "effectName": "dynamic-segment-pattern-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 210,
+                  "label": "Dynamic segment pattern 15",
+                  "effectName": "dynamic-segment-pattern-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 225,
+                  "label": "Dynamic segment pattern 16",
+                  "effectName": "dynamic-segment-pattern-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 240,
+                  "label": "Dynamic segment pattern 17",
+                  "effectName": "dynamic-segment-pattern-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Dynamic segment pattern 18",
+                  "effectName": "dynamic-segment-pattern-18"
+                }
+              ]
+            },
+            {
+              "name": "Transitions of dynamic pattern",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Transition without fading of the dynamic patterns (channel 23), increasing speed",
+                  "effectName": "transition-without-fading-of-the-dynamic-patterns-channel-23-increasing-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Transition with fading of the dynamic patterns (channel 23), increasing speed",
+                  "effectName": "transition-with-fading-of-the-dynamic-patterns-channel-23-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Zoom automatic programme with decreasing speed, 1 (fast)…8 (slow)",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 39,
+                  "label": "Zoom automatic programme 1",
+                  "effectName": "zoom-automatic-programme-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 69,
+                  "label": "Zoom automatic programme 2",
+                  "effectName": "zoom-automatic-programme-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 99,
+                  "label": "Zoom automatic programme 3",
+                  "effectName": "zoom-automatic-programme-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 129,
+                  "label": "Zoom automatic programme 4",
+                  "effectName": "zoom-automatic-programme-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 159,
+                  "label": "Zoom automatic programme 5",
+                  "effectName": "zoom-automatic-programme-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 189,
+                  "label": "Zoom automatic programme 6",
+                  "effectName": "zoom-automatic-programme-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 219,
+                  "label": "Zoom automatic programme 7",
+                  "effectName": "zoom-automatic-programme-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "Zoom automatic programme 8",
+                  "effectName": "zoom-automatic-programme-8"
+                }
+              ]
+            },
+            {
+              "name": "Pan-Tilt Auto Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "Pan-Tilt auto programme 1",
+                  "effectName": "pan-tilt-auto-programme-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Pan-Tilt auto programme 2",
+                  "effectName": "pan-tilt-auto-programme-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "Pan-Tilt auto programme 3",
+                  "effectName": "pan-tilt-auto-programme-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Pan-Tilt auto programme 4",
+                  "effectName": "pan-tilt-auto-programme-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Pan-Tilt auto programme 5",
+                  "effectName": "pan-tilt-auto-programme-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Pan-Tilt auto programme 6",
+                  "effectName": "pan-tilt-auto-programme-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Pan-Tilt auto programme 7",
+                  "effectName": "pan-tilt-auto-programme-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Pan-Tilt auto programme 8",
+                  "effectName": "pan-tilt-auto-programme-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 230,
+                  "label": "Sound control Pan and Tilt",
+                  "effectName": "sound-control-pan-and-tilt"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 240,
+                  "label": "Reset, if the value is transmitted for at least 3 seconds",
+                  "effectName": "reset-if-the-value-is-transmitted-for-at-least-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

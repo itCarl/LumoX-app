@@ -1,0 +1,220 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/TS 40 WW",
+      "manufacturer": "Cameo",
+      "model": "TS 40 WW",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Andrew",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-TS-40-WW.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 145,
+          "height": 205,
+          "depth": 240,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.8,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 1567,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 15,
+          "degreesMax": 38
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast < 1 Hz - 20 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Set Dimmer Curve",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 63,
+                  "label": "Linear dimmer curve",
+                  "effectName": "linear-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Exponential dimmer curve",
+                  "effectName": "exponential-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Logarithmic dimmer curve",
+                  "effectName": "logarithmic-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "S-curve dimmer curve",
+                  "effectName": "s-curve-dimmer-curve"
+                }
+              ]
+            },
+            {
+              "name": "Device Settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 63,
+                  "label": "Dimmer response LED (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Dimmer response halogen (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast < 1 Hz - 20 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1ch",
+          "name": "1 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

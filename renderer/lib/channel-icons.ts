@@ -5,8 +5,8 @@
 //
 // Glyphs come from the vendored Font Awesome free set (see build.mjs) — the
 // icon system already used across the renderer, so no bespoke SVGs. The
-// channel-type taxonomy and symbol picks take inspiration from the open-source
-// QLC+ fixture editor's capability presets.
+// channel-type taxonomy and symbol picks follow the standard DMX channel
+// presets common to fixture editors.
 
 const DEFAULT = 'fa-solid fa-circle-question';
 

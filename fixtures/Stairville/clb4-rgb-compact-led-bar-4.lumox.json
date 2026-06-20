@@ -1,0 +1,827 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/CLB4 RGB Compact LED Bar 4",
+      "manufacturer": "Stairville",
+      "model": "CLB4 RGB Compact LED Bar 4",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Vasileios Vasilikos",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-CLB4-RGB-Compact-LED-Bar-4.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 682,
+          "height": 270,
+          "depth": 60,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 45,
+          "degreesMax": 45
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 80,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2 Channel",
+          "channels": [
+            {
+              "name": "AutoShow2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "All LEDs Off"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "All Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "All Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "All Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "All Cyan",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "All Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "All Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "All White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Preprogrammed Automatic Show 01"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Preprogrammed Automatic Show 02"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Preprogrammed Automatic Show 03"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Preprogrammed Automatic Show 04"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Preprogrammed Automatic Show 05"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Preprogrammed Automatic Show 06"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Preprogrammed Automatic Show 07"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Preprogrammed Automatic Show 08"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Preprogrammed Automatic Show 09"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Preprogrammed Automatic Show 10"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Preprogrammed Automatic Show 11"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Preprogrammed Automatic Show 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Preprogrammed Automatic Show 13"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Preprogrammed Automatic Show 14"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Preprogrammed Automatic Show 15"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Preprogrammed Automatic Show 16"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound Controlled Show"
+                }
+              ]
+            },
+            {
+              "name": "Speed and Mode Controller",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Sound Mode 01 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Sound Mode 02 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Sound Mode 03 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Sound Mode 04 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Sound Mode 05 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Sound Mode 06 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Sound Mode 07 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Sound Mode 08 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 143,
+                  "label": "Sound Mode 09 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 159,
+                  "label": "Sound Mode 10 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 175,
+                  "label": "Sound Mode 11 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 191,
+                  "label": "Sound Mode 12 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 207,
+                  "label": "Sound Mode 13 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 223,
+                  "label": "Sound Mode 14 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Sound Mode 15 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound Mode 16 (or increase speed when previous channel is [0-239] )"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Red 1234",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1234",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1234",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Red 1234",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1234",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1234",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Red 1234",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1234",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1234",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "AutoShow7",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "All LEDs Set via Channels 1-3"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "All Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "All Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "All Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "All Cyan",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "All Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "All Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "All White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Preprogrammed Automatic Show 01"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Preprogrammed Automatic Show 02"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Preprogrammed Automatic Show 03"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Preprogrammed Automatic Show 04"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Preprogrammed Automatic Show 05"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Preprogrammed Automatic Show 06"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Preprogrammed Automatic Show 07"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Preprogrammed Automatic Show 08"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Preprogrammed Automatic Show 09"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Preprogrammed Automatic Show 10"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Preprogrammed Automatic Show 11"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Preprogrammed Automatic Show 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Preprogrammed Automatic Show 13"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Preprogrammed Automatic Show 14"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Preprogrammed Automatic Show 15"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Preprogrammed Automatic Show 16"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound Controlled Show"
+                }
+              ]
+            },
+            {
+              "name": "Speed and Mode Controller",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Sound Mode 01 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Sound Mode 02 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Sound Mode 03 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Sound Mode 04 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Sound Mode 05 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Sound Mode 06 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Sound Mode 07 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Sound Mode 08 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 143,
+                  "label": "Sound Mode 09 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 159,
+                  "label": "Sound Mode 10 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 175,
+                  "label": "Sound Mode 11 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 191,
+                  "label": "Sound Mode 12 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 207,
+                  "label": "Sound Mode 13 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 223,
+                  "label": "Sound Mode 14 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Sound Mode 15 (or increase speed when previous channel is [0-239] )"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound Mode 16 (or increase speed when previous channel is [0-239] )"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Red 12",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 12",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 12",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 34",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 34",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 34",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "14ch",
+          "name": "14 Channel",
+          "channels": [
+            {
+              "name": "Red Spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

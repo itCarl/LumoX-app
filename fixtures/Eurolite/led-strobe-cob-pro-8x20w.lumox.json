@@ -1,0 +1,147 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED Strobe COB PRO 8x20W",
+      "manufacturer": "Eurolite",
+      "model": "LED Strobe COB PRO 8x20W",
+      "type": "Strobe",
+      "meta": {
+        "author": "Simeon08",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-Strobe-COB-PRO-8x20W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 345,
+          "height": 180,
+          "depth": 110,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.35,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 4800,
+          "colourTemperature": 6500
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 95,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe (Slow to fast)",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 3,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 4,
+                  "max": 255,
+                  "label": "Strobe (Slow to fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Running light effect",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Running light effect"
+                }
+              ]
+            },
+            {
+              "name": "Blinder effect",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Blinder Effect for 2 seconds"
+                }
+              ]
+            },
+            {
+              "name": "Auto programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Auto programs with increasing speed",
+                  "effectName": "auto-programs-with-increasing-speed"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,408 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Thunder Wash 600 W",
+      "manufacturer": "Cameo",
+      "model": "Thunder Wash 600 W",
+      "type": "Strobe",
+      "meta": {
+        "author": "JP",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Thunder-Wash-600-W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 335,
+          "height": 182,
+          "depth": 93,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.25,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 75,
+          "degreesMax": 75
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 135,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1-CH",
+          "channels": [
+            {
+              "name": "Strobe A",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe 0…30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2-CH",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe B",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 250,
+                  "label": "Strobe 0…30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3-CH",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe B",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 250,
+                  "label": "Strobe 0…30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5-CH",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe C",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Shutter open (react to dimmer CH1)",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse random slow…fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up random slow…fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down random slow…fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random strobe slow…fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe break effect 5…1s (very short flash)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe 0…30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe Programs (alternating segments)",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Sound",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Sound Control OFF (Mic Sensitivity)"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Sound Control ON Low -> High (Mic Sensitivity)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7-CH",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe B",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 250,
+                  "label": "Strobe 0…30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED1 Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED2 Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED3 Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED4 Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

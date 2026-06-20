@@ -1,0 +1,220 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED PMB-4 COB RGB 30W Bar",
+      "manufacturer": "Eurolite",
+      "model": "LED PMB-4 COB RGB 30W Bar",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Thomas Demmel",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-PMB-4-COB-RGB-30W-Bar.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 440,
+          "height": 165,
+          "depth": 150,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 60,
+          "degreesMax": 60
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 130,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3-Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5-Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "STL / Strobe",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 5,
+                  "label": "STL (Seven Colors)",
+                  "effectName": "stl-seven-colors"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe (increasing)",
+                  "effectName": "strobe-increasing"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12-Channel",
+          "channels": [
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

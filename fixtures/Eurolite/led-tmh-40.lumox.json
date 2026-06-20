@@ -1,0 +1,1289 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED TMH-40",
+      "manufacturer": "Eurolite",
+      "model": "LED TMH-40",
+      "type": "Moving Head",
+      "meta": {
+        "author": "thegasta",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-TMH-40.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 245,
+          "height": 310,
+          "depth": 245,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 140,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "9ch",
+          "name": "9 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PanTilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (all)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (all)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (all)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Neutral",
+                  "effectName": "neutral"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "Red out",
+                  "effectName": "red-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Green center",
+                  "effectName": "green-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "Blue in",
+                  "effectName": "blue-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Verde out",
+                  "effectName": "verde-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Blue center",
+                  "effectName": "blue-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Red in",
+                  "effectName": "red-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Blue out",
+                  "effectName": "blue-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Red center",
+                  "effectName": "red-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "Green in",
+                  "effectName": "green-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "Yellow out",
+                  "effectName": "yellow-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "Cyan center",
+                  "effectName": "cyan-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "Magenta in",
+                  "effectName": "magenta-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "Cyan out",
+                  "effectName": "cyan-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "Magenta center",
+                  "effectName": "magenta-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "Yellow in",
+                  "effectName": "yellow-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "Magenta out",
+                  "effectName": "magenta-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 180,
+                  "label": "Yellow center",
+                  "effectName": "yellow-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 190,
+                  "label": "Cyan in",
+                  "effectName": "cyan-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 191,
+                  "max": 200,
+                  "label": "Red",
+                  "effectName": "red"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 210,
+                  "label": "Green",
+                  "effectName": "green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 220,
+                  "label": "Blue",
+                  "effectName": "blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 230,
+                  "label": "Yellow",
+                  "effectName": "yellow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 240,
+                  "label": "Cyan",
+                  "effectName": "cyan"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 250,
+                  "label": "Magenta",
+                  "effectName": "magenta"
+                },
+                {
+                  "kind": "effect",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Auto sequence",
+                  "effectName": "auto-sequence"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 20,
+                  "label": "Neutral",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Reset",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 31,
+                  "max": 250,
+                  "label": "Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Neutral",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "11ch",
+          "name": "11 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PanTilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (all)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (all)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (all)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Neutral",
+                  "effectName": "neutral"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "Red out",
+                  "effectName": "red-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Green center",
+                  "effectName": "green-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "Blue in",
+                  "effectName": "blue-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Verde out",
+                  "effectName": "verde-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Blue center",
+                  "effectName": "blue-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Red in",
+                  "effectName": "red-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Blue out",
+                  "effectName": "blue-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Red center",
+                  "effectName": "red-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "Green in",
+                  "effectName": "green-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "Yellow out",
+                  "effectName": "yellow-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "Cyan center",
+                  "effectName": "cyan-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "Magenta in",
+                  "effectName": "magenta-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "Cyan out",
+                  "effectName": "cyan-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "Magenta center",
+                  "effectName": "magenta-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "Yellow in",
+                  "effectName": "yellow-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "Magenta out",
+                  "effectName": "magenta-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 180,
+                  "label": "Yellow center",
+                  "effectName": "yellow-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 190,
+                  "label": "Cyan in",
+                  "effectName": "cyan-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 191,
+                  "max": 200,
+                  "label": "Red",
+                  "effectName": "red"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 210,
+                  "label": "Green",
+                  "effectName": "green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 220,
+                  "label": "Blue",
+                  "effectName": "blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 230,
+                  "label": "Yellow",
+                  "effectName": "yellow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 240,
+                  "label": "Cyan",
+                  "effectName": "cyan"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 250,
+                  "label": "Magenta",
+                  "effectName": "magenta"
+                },
+                {
+                  "kind": "effect",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Auto sequence",
+                  "effectName": "auto-sequence"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 20,
+                  "label": "Neutral",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Reset",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 31,
+                  "max": 250,
+                  "label": "Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Neutral",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "18ch",
+          "name": "18 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PanTilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (all)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (all)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (all)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (outer)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (outer)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (outer)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (middle)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (middle)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (middle)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (inner)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (inner)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (inner)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Neutral",
+                  "effectName": "neutral"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "Red out",
+                  "effectName": "red-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Green center",
+                  "effectName": "green-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "Blue in",
+                  "effectName": "blue-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Verde out",
+                  "effectName": "verde-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Blue center",
+                  "effectName": "blue-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Red in",
+                  "effectName": "red-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Blue out",
+                  "effectName": "blue-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Red center",
+                  "effectName": "red-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "Green in",
+                  "effectName": "green-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "Yellow out",
+                  "effectName": "yellow-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "Cyan center",
+                  "effectName": "cyan-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "Magenta in",
+                  "effectName": "magenta-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "Cyan out",
+                  "effectName": "cyan-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "Magenta center",
+                  "effectName": "magenta-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "Yellow in",
+                  "effectName": "yellow-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "Magenta out",
+                  "effectName": "magenta-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 180,
+                  "label": "Yellow center",
+                  "effectName": "yellow-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 190,
+                  "label": "Cyan in",
+                  "effectName": "cyan-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 191,
+                  "max": 200,
+                  "label": "Red",
+                  "effectName": "red"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 210,
+                  "label": "Green",
+                  "effectName": "green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 220,
+                  "label": "Blue",
+                  "effectName": "blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 230,
+                  "label": "Yellow",
+                  "effectName": "yellow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 240,
+                  "label": "Cyan",
+                  "effectName": "cyan"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 250,
+                  "label": "Magenta",
+                  "effectName": "magenta"
+                },
+                {
+                  "kind": "effect",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Auto sequence",
+                  "effectName": "auto-sequence"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 20,
+                  "label": "Neutral",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Reset",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 31,
+                  "max": 250,
+                  "label": "Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Neutral",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "20ch",
+          "name": "20 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PanTilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (all)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (all)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (all)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (outer)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (outer)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (outer)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (middle)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (middle)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (middle)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red (inner)",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green (inner)",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue (inner)",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Neutral",
+                  "effectName": "neutral"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "Red out",
+                  "effectName": "red-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Green center",
+                  "effectName": "green-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "Blue in",
+                  "effectName": "blue-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Verde out",
+                  "effectName": "verde-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Blue center",
+                  "effectName": "blue-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Red in",
+                  "effectName": "red-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Blue out",
+                  "effectName": "blue-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Red center",
+                  "effectName": "red-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "Green in",
+                  "effectName": "green-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "Yellow out",
+                  "effectName": "yellow-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "Cyan center",
+                  "effectName": "cyan-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "Magenta in",
+                  "effectName": "magenta-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "Cyan out",
+                  "effectName": "cyan-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "Magenta center",
+                  "effectName": "magenta-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "Yellow in",
+                  "effectName": "yellow-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "Magenta out",
+                  "effectName": "magenta-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 180,
+                  "label": "Yellow center",
+                  "effectName": "yellow-center"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 190,
+                  "label": "Cyan in",
+                  "effectName": "cyan-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 191,
+                  "max": 200,
+                  "label": "Red",
+                  "effectName": "red"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 210,
+                  "label": "Green",
+                  "effectName": "green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 220,
+                  "label": "Blue",
+                  "effectName": "blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 230,
+                  "label": "Yellow",
+                  "effectName": "yellow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 240,
+                  "label": "Cyan",
+                  "effectName": "cyan"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 250,
+                  "label": "Magenta",
+                  "effectName": "magenta"
+                },
+                {
+                  "kind": "effect",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Auto sequence",
+                  "effectName": "auto-sequence"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 20,
+                  "label": "Neutral",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Reset",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 31,
+                  "max": 250,
+                  "label": "Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Neutral",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

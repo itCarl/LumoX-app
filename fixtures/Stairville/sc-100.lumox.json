@@ -1,0 +1,130 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/SC-100",
+      "manufacturer": "Stairville",
+      "model": "SC-100",
+      "type": "Scanner",
+      "meta": {
+        "author": "Lars Kildholt",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-SC-100.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 117,
+          "height": 140,
+          "depth": 420,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 180,
+          "tiltMax": 45
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "Alm",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Patterne/Chase",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 159,
+                  "label": "Pattern",
+                  "effectName": "pattern"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 255,
+                  "label": "Chase",
+                  "effectName": "chase"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 249,
+                  "label": "Strobe Speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Stand Alone",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

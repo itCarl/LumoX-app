@@ -1,0 +1,635 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/CLB2.4 Compact LED PAR System",
+      "manufacturer": "Stairville",
+      "model": "CLB2.4 Compact LED PAR System",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Patrick Rabl/Klaus Muth",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-CLB2.4-CompactLED.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1007,
+          "height": 305,
+          "depth": 63,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 1364,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 50,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "14ch",
+          "name": "14 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Master Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 1-2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 1-2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 1-2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 3-4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 3-4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 3-4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 Channel",
+          "channels": [
+            {
+              "name": "Preprogrammed automatic Shows",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 17,
+                  "label": "auto Show 1",
+                  "effectName": "auto-show-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 18,
+                  "max": 35,
+                  "label": "auto Show 2",
+                  "effectName": "auto-show-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 53,
+                  "label": "auto Show 3",
+                  "effectName": "auto-show-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 54,
+                  "max": 71,
+                  "label": "auto Show 4",
+                  "effectName": "auto-show-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 89,
+                  "label": "auto Show 5",
+                  "effectName": "auto-show-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 107,
+                  "label": "auto Show 6",
+                  "effectName": "auto-show-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 125,
+                  "label": "auto Show 7",
+                  "effectName": "auto-show-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 143,
+                  "label": "auto Show 8",
+                  "effectName": "auto-show-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 161,
+                  "label": "auto Show 9",
+                  "effectName": "auto-show-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 179,
+                  "label": "auto Show 10",
+                  "effectName": "auto-show-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 197,
+                  "label": "auto Show 11",
+                  "effectName": "auto-show-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 215,
+                  "label": "auto Show 12",
+                  "effectName": "auto-show-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 233,
+                  "label": "auto Show 13",
+                  "effectName": "auto-show-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 234,
+                  "max": 251,
+                  "label": "auto Show 14",
+                  "effectName": "auto-show-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Sound",
+                  "effectName": "sound"
+                }
+              ]
+            },
+            {
+              "name": "Fixed colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 17,
+                  "label": "LEDs off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 18,
+                  "max": 35,
+                  "label": "Cyan",
+                  "color": "#19fcff"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 53,
+                  "label": "Purple",
+                  "color": "#800080"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 71,
+                  "label": "Pink",
+                  "color": "#ff4fde"
+                },
+                {
+                  "kind": "color",
+                  "min": 72,
+                  "max": 89,
+                  "label": "Orange",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 107,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 108,
+                  "max": 125,
+                  "label": "Light red",
+                  "color": "#ff5163"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 143,
+                  "label": "Light green",
+                  "color": "#a8ffa6"
+                },
+                {
+                  "kind": "color",
+                  "min": 144,
+                  "max": 161,
+                  "label": "Light blue",
+                  "color": "#89abff"
+                },
+                {
+                  "kind": "color",
+                  "min": 162,
+                  "max": 179,
+                  "label": "Yellow",
+                  "color": "#fffb11"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 197,
+                  "label": "Warm white",
+                  "color": "#fff2d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 198,
+                  "max": 215,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 216,
+                  "max": 233,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 234,
+                  "max": 251,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Amber",
+                  "color": "#ff713b"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preprogrammed automatic Shows",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 17,
+                  "label": "auto Show 1",
+                  "effectName": "auto-show-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 18,
+                  "max": 35,
+                  "label": "auto Show 2",
+                  "effectName": "auto-show-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 53,
+                  "label": "auto Show 3",
+                  "effectName": "auto-show-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 54,
+                  "max": 71,
+                  "label": "auto Show 4",
+                  "effectName": "auto-show-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 89,
+                  "label": "auto Show 5",
+                  "effectName": "auto-show-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 107,
+                  "label": "auto Show 6",
+                  "effectName": "auto-show-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 125,
+                  "label": "auto Show 7",
+                  "effectName": "auto-show-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 143,
+                  "label": "auto Show 8",
+                  "effectName": "auto-show-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 161,
+                  "label": "auto Show 9",
+                  "effectName": "auto-show-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 179,
+                  "label": "auto Show 10",
+                  "effectName": "auto-show-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 197,
+                  "label": "auto Show 11",
+                  "effectName": "auto-show-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 215,
+                  "label": "auto Show 12",
+                  "effectName": "auto-show-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 233,
+                  "label": "auto Show 13",
+                  "effectName": "auto-show-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 234,
+                  "max": 251,
+                  "label": "auto Show 14",
+                  "effectName": "auto-show-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Sound",
+                  "effectName": "sound"
+                }
+              ]
+            },
+            {
+              "name": "Speed/Sensitivity",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

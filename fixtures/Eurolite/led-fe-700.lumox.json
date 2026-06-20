@@ -1,0 +1,428 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED FE-700",
+      "manufacturer": "Eurolite",
+      "model": "LED FE-700",
+      "type": "Effect",
+      "meta": {
+        "author": "Flox Garden",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-FE-700.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 300,
+          "height": 310,
+          "depth": 200,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 60,
+          "degreesMax": 60
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 24,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffb500"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red & Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Green & Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Blue & White",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "White & Amber",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Amber & Magenta",
+                  "color": "#ffb400"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Red & Magenta",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green & Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Red & Green & Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Red & Green & Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red & Green & Magenta"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Red & Blue & Magenta"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue & White & Magenta"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Blue & White & Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Green & Blue & White"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Green & Blue & Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red & Blue & White"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red & Blue & Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Red & White & Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Green & White & Magenta"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe Slow->Fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Stop",
+                  "effectName": "stop"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 127,
+                  "label": "Rotation Clockwise Slow->Fast",
+                  "effectName": "rotation-clockwise-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 138,
+                  "label": "Stop",
+                  "effectName": "stop"
+                },
+                {
+                  "kind": "effect",
+                  "min": 139,
+                  "max": 255,
+                  "label": "Rotation Counter-Clockwise Slow->Fast",
+                  "effectName": "rotation-counter-clockwise-slow-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "10 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pink",
+              "typeId": "magenta",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe Slow->Fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Stop",
+                  "effectName": "stop"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 127,
+                  "label": "Rotation Clockwise Slow->Fast",
+                  "effectName": "rotation-clockwise-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 138,
+                  "label": "Stop",
+                  "effectName": "stop"
+                },
+                {
+                  "kind": "effect",
+                  "min": 139,
+                  "max": 255,
+                  "label": "Rotation Counter-Clockwise Slow->Fast",
+                  "effectName": "rotation-counter-clockwise-slow-fast"
+                }
+              ]
+            },
+            {
+              "name": "Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 200,
+                  "label": "Auto Program",
+                  "effectName": "auto-program"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 255,
+                  "label": "Sound Program",
+                  "effectName": "sound-program"
+                }
+              ]
+            },
+            {
+              "name": "Program Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

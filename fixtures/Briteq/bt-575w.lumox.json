@@ -1,0 +1,570 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Briteq/BT-575W",
+      "manufacturer": "Briteq",
+      "model": "BT-575W",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Carlitos AntiCrispis",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Briteq-BT-575W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 428,
+          "height": 387,
+          "depth": 491,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 30.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "MSR 575W",
+          "lumens": 28000,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Fresnel",
+          "degreesMin": 11,
+          "degreesMax": 28
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 800,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "16ch",
+          "name": "16 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "BlackOut",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 131,
+                  "label": "Shutter (Slow > Fast)",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 132,
+                  "max": 247,
+                  "label": "Free Shutter",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Color",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 18,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 19,
+                  "max": 36,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 54,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 72,
+                  "label": "Orange",
+                  "color": "#ff7300"
+                },
+                {
+                  "kind": "color",
+                  "min": 73,
+                  "max": 90,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 108,
+                  "label": "Cyan",
+                  "color": "#00ffee"
+                },
+                {
+                  "kind": "color",
+                  "min": 109,
+                  "max": 127,
+                  "label": "Purple",
+                  "color": "#d900ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Color wheel clockwise",
+                  "color": "#23ffd3"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Color wheel anti-clockwise",
+                  "color": "#ee01ff"
+                }
+              ]
+            },
+            {
+              "name": "Cyan",
+              "typeId": "cyan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Magenta",
+              "typeId": "magenta",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Yellow",
+              "typeId": "yellow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "CMY Mix Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Open"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 11,
+                  "label": "White"
+                },
+                {
+                  "kind": "range",
+                  "min": 12,
+                  "max": 127,
+                  "label": "32 Colors"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Macro"
+                }
+              ]
+            },
+            {
+              "name": "CMY Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Open",
+                  "effectName": "open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 32,
+                  "label": "Beam Shape",
+                  "effectName": "beam-shape"
+                },
+                {
+                  "kind": "effect",
+                  "min": 33,
+                  "max": 239,
+                  "label": "Beam Shape Rotation",
+                  "effectName": "beam-shape-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Frost",
+                  "effectName": "frost"
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan Fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt Fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Lamp On/Off/Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 129,
+                  "label": "Normal"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Lamp On (Keep 5 seconds to activate)"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 199,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "DMX Reset (Keep 5 seconds to activate)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 229,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Lamp Off (Keep 5 seconds to activate)"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "BlackOut",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 131,
+                  "label": "Shutter (Slow > Fast)",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 132,
+                  "max": 247,
+                  "label": "Free Shutter",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Open",
+                  "effectName": "open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 32,
+                  "label": "Beam Shape",
+                  "effectName": "beam-shape"
+                },
+                {
+                  "kind": "effect",
+                  "min": 33,
+                  "max": 239,
+                  "label": "Beam Shape Rotation",
+                  "effectName": "beam-shape-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Frost",
+                  "effectName": "frost"
+                }
+              ]
+            },
+            {
+              "name": "Color",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 18,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 19,
+                  "max": 36,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 54,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 72,
+                  "label": "Orange",
+                  "color": "#ff7300"
+                },
+                {
+                  "kind": "color",
+                  "min": 73,
+                  "max": 90,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 108,
+                  "label": "Cyan",
+                  "color": "#00ffee"
+                },
+                {
+                  "kind": "color",
+                  "min": 109,
+                  "max": 127,
+                  "label": "Purple",
+                  "color": "#d900ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Color wheel clockwise",
+                  "color": "#23ffd3"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Color wheel anti-clockwise",
+                  "color": "#ee01ff"
+                }
+              ]
+            },
+            {
+              "name": "CMY Mix Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Open"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 11,
+                  "label": "White"
+                },
+                {
+                  "kind": "range",
+                  "min": 12,
+                  "max": 127,
+                  "label": "32 Colors"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Macro"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

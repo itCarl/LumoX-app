@@ -1,0 +1,205 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/LED Par 64 36x3W",
+      "manufacturer": "Showtec",
+      "model": "LED Par 64 36x3W",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Bostjan Vodnik",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-LED-Par-64-36x3W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 140,
+          "height": 282,
+          "depth": 285,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.62,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 25,
+          "degreesMax": 25
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 105,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1-Channel",
+          "channels": [
+            {
+              "name": "36 Macro colors",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2-Channel",
+          "channels": [
+            {
+              "name": "36 Macro colors",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3-Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7-Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "36 Macro colors",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Built-in Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 35,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 71,
+                  "label": "Slow Fade in to Full beam then Out",
+                  "effectName": "slow-fade-in-to-full-beam-then-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 107,
+                  "label": "Full beam to slow Fade out",
+                  "effectName": "full-beam-to-slow-fade-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 143,
+                  "label": "Slow Fade in to Full beam to Slow Fade Out",
+                  "effectName": "slow-fade-in-to-full-beam-to-slow-fade-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 179,
+                  "label": "Continuous flow of all colors from slow to fast",
+                  "effectName": "continuous-flow-of-all-colors-from-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 251,
+                  "label": "Color Switching",
+                  "effectName": "color-switching"
+                },
+                {
+                  "kind": "effect",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Sound-controlled",
+                  "effectName": "sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

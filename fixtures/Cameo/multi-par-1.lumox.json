@@ -1,0 +1,737 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Multi Par 1",
+      "manufacturer": "Cameo",
+      "model": "Multi Par 1",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Santiago Benejam Torres",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Multi-PAR-1.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1030,
+          "height": 290,
+          "depth": 100,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 25,
+          "degreesMax": 25
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 50,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6 CH - Mode",
+          "channels": [
+            {
+              "name": "Blackout/Dimmer/Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 21,
+                  "label": "Dimmer",
+                  "effectName": "dimmer"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 32,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 33,
+                  "max": 43,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 44,
+                  "max": 54,
+                  "label": "Green",
+                  "color": "#005500"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 65,
+                  "label": "Cyan",
+                  "color": "#00aaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 76,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 77,
+                  "max": 87,
+                  "label": "Purple",
+                  "effectName": "purple"
+                },
+                {
+                  "kind": "color",
+                  "min": 88,
+                  "max": 98,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 109,
+                  "label": "Dream",
+                  "effectName": "dream"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 120,
+                  "label": "Meteor",
+                  "effectName": "meteor"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 131,
+                  "label": "Fade",
+                  "effectName": "fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 142,
+                  "label": "Change",
+                  "effectName": "change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 153,
+                  "label": "Flow 1",
+                  "effectName": "flow-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 154,
+                  "max": 164,
+                  "label": "Flow 2",
+                  "effectName": "flow-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 165,
+                  "max": 175,
+                  "label": "Flow 3",
+                  "effectName": "flow-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 186,
+                  "label": "Flow 4",
+                  "effectName": "flow-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 187,
+                  "max": 197,
+                  "label": "Flow 5",
+                  "effectName": "flow-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 208,
+                  "label": "Flow 6",
+                  "effectName": "flow-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 209,
+                  "max": 219,
+                  "label": "Flow 7",
+                  "effectName": "flow-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 230,
+                  "label": "Flow 8",
+                  "effectName": "flow-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 241,
+                  "label": "Flow 9",
+                  "effectName": "flow-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 242,
+                  "max": 255,
+                  "label": "Sound Control",
+                  "effectName": "sound-control"
+                }
+              ]
+            },
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Flash",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "R1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "G1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "B1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 CH - Mode",
+          "channels": [
+            {
+              "name": "Blackout/Dimmer/Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 21,
+                  "label": "Dimmer",
+                  "effectName": "dimmer"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 32,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 33,
+                  "max": 43,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 44,
+                  "max": 54,
+                  "label": "Green",
+                  "color": "#005500"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 65,
+                  "label": "Cyan",
+                  "color": "#00aaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 76,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 77,
+                  "max": 87,
+                  "label": "Purple",
+                  "effectName": "purple"
+                },
+                {
+                  "kind": "color",
+                  "min": 88,
+                  "max": 98,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 109,
+                  "label": "Dream",
+                  "effectName": "dream"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 120,
+                  "label": "Meteor",
+                  "effectName": "meteor"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 131,
+                  "label": "Fade",
+                  "effectName": "fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 142,
+                  "label": "Change",
+                  "effectName": "change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 153,
+                  "label": "Flow 1",
+                  "effectName": "flow-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 154,
+                  "max": 164,
+                  "label": "Flow 2",
+                  "effectName": "flow-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 165,
+                  "max": 175,
+                  "label": "Flow 3",
+                  "effectName": "flow-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 186,
+                  "label": "Flow 4",
+                  "effectName": "flow-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 187,
+                  "max": 197,
+                  "label": "Flow 5",
+                  "effectName": "flow-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 208,
+                  "label": "Flow 6",
+                  "effectName": "flow-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 209,
+                  "max": 219,
+                  "label": "Flow 7",
+                  "effectName": "flow-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 230,
+                  "label": "Flow 8",
+                  "effectName": "flow-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 241,
+                  "label": "Flow 9",
+                  "effectName": "flow-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 242,
+                  "max": 255,
+                  "label": "Sound Control",
+                  "effectName": "sound-control"
+                }
+              ]
+            },
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Flash",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "R1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "G1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "B1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "R2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "G2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "B2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "15ch",
+          "name": "15 CH - Mode",
+          "channels": [
+            {
+              "name": "Blackout/Dimmer/Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 21,
+                  "label": "Dimmer",
+                  "effectName": "dimmer"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 32,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 33,
+                  "max": 43,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 44,
+                  "max": 54,
+                  "label": "Green",
+                  "color": "#005500"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 65,
+                  "label": "Cyan",
+                  "color": "#00aaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 76,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 77,
+                  "max": 87,
+                  "label": "Purple",
+                  "effectName": "purple"
+                },
+                {
+                  "kind": "color",
+                  "min": 88,
+                  "max": 98,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 109,
+                  "label": "Dream",
+                  "effectName": "dream"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 120,
+                  "label": "Meteor",
+                  "effectName": "meteor"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 131,
+                  "label": "Fade",
+                  "effectName": "fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 142,
+                  "label": "Change",
+                  "effectName": "change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 153,
+                  "label": "Flow 1",
+                  "effectName": "flow-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 154,
+                  "max": 164,
+                  "label": "Flow 2",
+                  "effectName": "flow-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 165,
+                  "max": 175,
+                  "label": "Flow 3",
+                  "effectName": "flow-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 186,
+                  "label": "Flow 4",
+                  "effectName": "flow-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 187,
+                  "max": 197,
+                  "label": "Flow 5",
+                  "effectName": "flow-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 208,
+                  "label": "Flow 6",
+                  "effectName": "flow-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 209,
+                  "max": 219,
+                  "label": "Flow 7",
+                  "effectName": "flow-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 230,
+                  "label": "Flow 8",
+                  "effectName": "flow-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 241,
+                  "label": "Flow 9",
+                  "effectName": "flow-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 242,
+                  "max": 255,
+                  "label": "Sound Control",
+                  "effectName": "sound-control"
+                }
+              ]
+            },
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Flash",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "R1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "G1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "B1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "R2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "G2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "B2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "R3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "G3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "B3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "R4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "G4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "B4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1650 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Infinity iW-720",
+      "manufacturer": "Showtec",
+      "model": "Infinity iW-720",
+      "type": "Moving Head",
+      "meta": {
+        "author": "uchris",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Infinity-iW-720.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 290,
+          "height": 388,
+          "depth": 204,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 8,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 7,
+          "degreesMax": 50
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 240,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "29ch",
+          "name": "29 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 1 - top+topright",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1 - top+topright",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1 - top+topright",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1 - top+topright",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2 - bottom+bottomright",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2 - bottom+bottomright",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2 - bottom+bottomright",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 2 - bottom+bottomright",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3 - lefttop+leftbottom",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3 - lefttop+leftbottom",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3 - lefttop+leftbottom",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 3 - lefttop+leftbottom",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4 - middle",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4 - middle",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4 - middle",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 4 - middle",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Built-in Colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 9,
+                  "label": "Color 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Color 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 15,
+                  "max": 19,
+                  "label": "Color 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Color 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 25,
+                  "max": 29,
+                  "label": "Color 5"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 34,
+                  "label": "Color 6"
+                },
+                {
+                  "kind": "range",
+                  "min": 35,
+                  "max": 39,
+                  "label": "Color 7"
+                },
+                {
+                  "kind": "range",
+                  "min": 40,
+                  "max": 44,
+                  "label": "Color 8"
+                },
+                {
+                  "kind": "range",
+                  "min": 45,
+                  "max": 49,
+                  "label": "Color 9"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Color 10"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Color 11"
+                },
+                {
+                  "kind": "range",
+                  "min": 60,
+                  "max": 64,
+                  "label": "Color 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Color 13"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Color 14"
+                },
+                {
+                  "kind": "range",
+                  "min": 75,
+                  "max": 79,
+                  "label": "Color 15"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 84,
+                  "label": "Color 16"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Color 17"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 94,
+                  "label": "Color 18"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Color 19"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 104,
+                  "label": "Color 20"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Color 21"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 114,
+                  "label": "Color 22"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Color 23"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Color 24"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Color 25"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Color 26"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Color 27"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Color 28"
+                },
+                {
+                  "kind": "range",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Color 29"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 154,
+                  "label": "Color 30"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 159,
+                  "label": "Color 31"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 164,
+                  "label": "Color 32"
+                },
+                {
+                  "kind": "range",
+                  "min": 165,
+                  "max": 169,
+                  "label": "Color 33"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 174,
+                  "label": "Color 34"
+                },
+                {
+                  "kind": "range",
+                  "min": 175,
+                  "max": 179,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 201,
+                  "label": "CW Color-flow from fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 207,
+                  "label": "Stop color at this point"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 229,
+                  "label": "CCW Color-flow from fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 234,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 235,
+                  "max": 249,
+                  "label": "Color Jump from fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Built-in LED",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Built-in 1 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-1-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Built-in 2 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-2-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Built-in 3 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-3-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Built-in 4 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-4-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Built-in 5 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-5-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Built-in 6 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-6-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Built-in 7 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-7-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 143,
+                  "label": "Built-in 8 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-8-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 159,
+                  "label": "Built-in 9 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-9-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 175,
+                  "label": "Built-in 10 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-10-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 191,
+                  "label": "Built-in 11 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-11-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 207,
+                  "label": "Built-in 12 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-12-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 223,
+                  "label": "Built-in 13 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-13-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Built-in 14 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-14-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Built-in 15 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-15-dimmer-and-shutter-strobe-must-be-open"
+                }
+              ]
+            },
+            {
+              "name": "Built-in Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter/Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 19,
+                  "label": "Close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Shutter Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 25,
+                  "max": 64,
+                  "label": "Shutter effect 1, from fast to slow",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Shutter Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 70,
+                  "max": 84,
+                  "label": "Strobe effect 2 (fast on and slow off), from fast to slow",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 90,
+                  "max": 104,
+                  "label": "Strobe effect 3 (slow on and fast off), from fast to slow",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 124,
+                  "label": "Strobe effect 4 (random strobe), from fast to slow",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 130,
+                  "max": 144,
+                  "label": "Strobe effect 5 (random strobe fast on and slow off), from fast to slow",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 150,
+                  "max": 164,
+                  "label": "Strobe effect 6 (random strobe slow on and fast off), from fast to slow",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 165,
+                  "max": 169,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 170,
+                  "max": 184,
+                  "label": "Strobe effect 7 (pulse strobe), from fast to slow",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 185,
+                  "max": 189,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 204,
+                  "label": "Strobe effect 8 (random pulse frequency strobe), from fast to slow",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 205,
+                  "max": 209,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 210,
+                  "max": 224,
+                  "label": "Strobe effect 9 (strobe light, gradually destroy), from fast to slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 225,
+                  "max": 229,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 230,
+                  "max": 244,
+                  "label": "Strobe effect 10 (pulse strobe), from fast to slow",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 245,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Channel Functions",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Blackout during Pan/Tilt movement",
+                  "effectName": "blackout-during-pan-tilt-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 15,
+                  "max": 49,
+                  "label": "Reserved",
+                  "effectName": "reserved"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Reset Pan after 3 seconds",
+                  "effectName": "reset-pan-after-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Reset Tilt after 3 seconds",
+                  "effectName": "reset-tilt-after-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 64,
+                  "label": "Reset Zoom after 3 seconds",
+                  "effectName": "reset-zoom-after-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Reserved",
+                  "effectName": "reserved"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Reset all",
+                  "effectName": "reset-all"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 114,
+                  "label": "Reserved",
+                  "effectName": "reserved"
+                },
+                {
+                  "kind": "effect",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Pan/Tilt Speed Fast",
+                  "effectName": "pan-tilt-speed-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Pan/Tilt Speed Slow",
+                  "effectName": "pan-tilt-speed-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Fan Full Speed",
+                  "effectName": "fan-full-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Fan Temperature controlled",
+                  "effectName": "fan-temperature-controlled"
+                },
+                {
+                  "kind": "effect",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Dimming Fast",
+                  "effectName": "dimming-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Dimming Smooth",
+                  "effectName": "dimming-smooth"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 239,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 247,
+                  "label": "XY Smoothing model open",
+                  "effectName": "xy-smoothing-model-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "XY Smoothing model to shut down",
+                  "effectName": "xy-smoothing-model-to-shut-down"
+                }
+              ]
+            },
+            {
+              "name": "Built-in Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 23,
+                  "label": "Built-in Program 1",
+                  "effectName": "built-in-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 39,
+                  "label": "Built-in Program 2",
+                  "effectName": "built-in-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 55,
+                  "label": "Built-in Program 3",
+                  "effectName": "built-in-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 71,
+                  "label": "Built-in Program 4",
+                  "effectName": "built-in-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 87,
+                  "label": "Built-in Program 5",
+                  "effectName": "built-in-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 103,
+                  "label": "Built-in Program 6",
+                  "effectName": "built-in-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 119,
+                  "label": "Built-in Program 7",
+                  "effectName": "built-in-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 135,
+                  "label": "Built-in Program 8",
+                  "effectName": "built-in-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 151,
+                  "label": "Sound-controlled Program 1",
+                  "effectName": "sound-controlled-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 167,
+                  "label": "Sound-controlled Program 2",
+                  "effectName": "sound-controlled-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 183,
+                  "label": "Sound-controlled Program 3",
+                  "effectName": "sound-controlled-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 199,
+                  "label": "Sound-controlled Program 4",
+                  "effectName": "sound-controlled-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 215,
+                  "label": "Sound-controlled Program 5",
+                  "effectName": "sound-controlled-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 231,
+                  "label": "Sound-controlled Program 6",
+                  "effectName": "sound-controlled-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 247,
+                  "label": "Sound-controlled Program 7",
+                  "effectName": "sound-controlled-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound-controlled Program 8",
+                  "effectName": "sound-controlled-program-8"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "14ch",
+          "name": "14 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Built-in LED",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Built-in 1 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-1-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Built-in 2 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-2-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Built-in 3 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-3-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Built-in 4 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-4-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Built-in 5 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-5-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Built-in 6 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-6-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Built-in 7 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-7-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 143,
+                  "label": "Built-in 8 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-8-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 159,
+                  "label": "Built-in 9 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-9-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 175,
+                  "label": "Built-in 10 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-10-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 191,
+                  "label": "Built-in 11 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-11-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 207,
+                  "label": "Built-in 12 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-12-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 223,
+                  "label": "Built-in 13 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-13-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Built-in 14 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-14-dimmer-and-shutter-strobe-must-be-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Built-in 15 (Dimmer and Shutter/Strobe must be open)",
+                  "effectName": "built-in-15-dimmer-and-shutter-strobe-must-be-open"
+                }
+              ]
+            },
+            {
+              "name": "Built-in Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter/Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 19,
+                  "label": "Close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Shutter Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 25,
+                  "max": 64,
+                  "label": "Shutter effect 1, from fast to slow",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Shutter Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 70,
+                  "max": 84,
+                  "label": "Strobe effect 2 (fast on and slow off), from fast to slow",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 90,
+                  "max": 104,
+                  "label": "Strobe effect 3 (slow on and fast off), from fast to slow",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 124,
+                  "label": "Strobe effect 4 (random strobe), from fast to slow",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 130,
+                  "max": 144,
+                  "label": "Strobe effect 5 (random strobe fast on and slow off), from fast to slow",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 150,
+                  "max": 164,
+                  "label": "Strobe effect 6 (random strobe slow on and fast off), from fast to slow",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 165,
+                  "max": 169,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 170,
+                  "max": 184,
+                  "label": "Strobe effect 7 (pulse strobe), from fast to slow",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 185,
+                  "max": 189,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 204,
+                  "label": "Strobe effect 8 (random pulse frequency strobe), from fast to slow",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 205,
+                  "max": 209,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 210,
+                  "max": 224,
+                  "label": "Strobe effect 9 (strobe light, gradually destroy), from fast to slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 225,
+                  "max": 229,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 230,
+                  "max": 244,
+                  "label": "Strobe effect 10 (pulse strobe), from fast to slow",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 245,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Channel Functions",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Blackout during Pan/Tilt movement",
+                  "effectName": "blackout-during-pan-tilt-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 15,
+                  "max": 49,
+                  "label": "Reserved",
+                  "effectName": "reserved"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Reset Pan after 3 seconds",
+                  "effectName": "reset-pan-after-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Reset Tilt after 3 seconds",
+                  "effectName": "reset-tilt-after-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 64,
+                  "label": "Reset Zoom after 3 seconds",
+                  "effectName": "reset-zoom-after-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Reserved",
+                  "effectName": "reserved"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Reset all",
+                  "effectName": "reset-all"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 114,
+                  "label": "Reserved",
+                  "effectName": "reserved"
+                },
+                {
+                  "kind": "effect",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Pan/Tilt Speed Fast",
+                  "effectName": "pan-tilt-speed-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Pan/Tilt Speed Slow",
+                  "effectName": "pan-tilt-speed-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Fan Full Speed",
+                  "effectName": "fan-full-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Fan Temperature controlled",
+                  "effectName": "fan-temperature-controlled"
+                },
+                {
+                  "kind": "effect",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Dimming Fast",
+                  "effectName": "dimming-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Dimming Smooth",
+                  "effectName": "dimming-smooth"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 239,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 247,
+                  "label": "XY Smoothing model open",
+                  "effectName": "xy-smoothing-model-open"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "XY Smoothing model to shut down",
+                  "effectName": "xy-smoothing-model-to-shut-down"
+                }
+              ]
+            },
+            {
+              "name": "Built-in Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 23,
+                  "label": "Built-in Program 1",
+                  "effectName": "built-in-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 39,
+                  "label": "Built-in Program 2",
+                  "effectName": "built-in-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 55,
+                  "label": "Built-in Program 3",
+                  "effectName": "built-in-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 71,
+                  "label": "Built-in Program 4",
+                  "effectName": "built-in-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 87,
+                  "label": "Built-in Program 5",
+                  "effectName": "built-in-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 103,
+                  "label": "Built-in Program 6",
+                  "effectName": "built-in-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 119,
+                  "label": "Built-in Program 7",
+                  "effectName": "built-in-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 135,
+                  "label": "Built-in Program 8",
+                  "effectName": "built-in-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 151,
+                  "label": "Sound-controlled Program 1",
+                  "effectName": "sound-controlled-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 167,
+                  "label": "Sound-controlled Program 2",
+                  "effectName": "sound-controlled-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 183,
+                  "label": "Sound-controlled Program 3",
+                  "effectName": "sound-controlled-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 199,
+                  "label": "Sound-controlled Program 4",
+                  "effectName": "sound-controlled-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 215,
+                  "label": "Sound-controlled Program 5",
+                  "effectName": "sound-controlled-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 231,
+                  "label": "Sound-controlled Program 6",
+                  "effectName": "sound-controlled-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 247,
+                  "label": "Sound-controlled Program 7",
+                  "effectName": "sound-controlled-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound-controlled Program 8",
+                  "effectName": "sound-controlled-program-8"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

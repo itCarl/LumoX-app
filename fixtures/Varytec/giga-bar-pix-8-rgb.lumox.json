@@ -1,0 +1,352 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/Giga Bar Pix 8 RGB",
+      "manufacturer": "Varytec",
+      "model": "Giga Bar Pix 8 RGB",
+      "type": "LED Bar",
+      "meta": {
+        "author": "vidschofelix",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-Giga-Bar-Pix-8-RGB.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1020,
+          "height": 80,
+          "depth": 65,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 30,
+          "degreesMax": 30
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 25,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2 Channel",
+          "channels": [
+            {
+              "name": "Function",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "LEDs off",
+                  "effectName": "leds-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Constant unicoloured pattern in red",
+                  "effectName": "constant-unicoloured-pattern-in-red"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Constant unicoloured pattern in red and green",
+                  "effectName": "constant-unicoloured-pattern-in-red-and-green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Constant unicoloured pattern in green",
+                  "effectName": "constant-unicoloured-pattern-in-green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Constant unicoloured pattern in blue and green",
+                  "effectName": "constant-unicoloured-pattern-in-blue-and-green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Constant unicoloured pattern in blue",
+                  "effectName": "constant-unicoloured-pattern-in-blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Constant unicoloured pattern in blue and red",
+                  "effectName": "constant-unicoloured-pattern-in-blue-and-red"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Constant unicoloured pattern in red, green and blue",
+                  "effectName": "constant-unicoloured-pattern-in-red-green-and-blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 231,
+                  "label": "Built-in automatic show programs",
+                  "effectName": "built-in-automatic-show-programs"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 255,
+                  "label": "Sound-controlled show",
+                  "effectName": "sound-controlled-show"
+                }
+              ]
+            },
+            {
+              "name": "No function",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "24ch",
+          "name": "24 Channel",
+          "channels": [
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red7",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green7",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue7",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

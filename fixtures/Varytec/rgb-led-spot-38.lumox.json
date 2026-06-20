@@ -1,0 +1,83 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/RGB LED Spot 38",
+      "manufacturer": "Varytec",
+      "model": "RGB LED Spot 38",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Massimo Callegari",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-RGB-LED-Spot-38.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 140,
+          "height": 140,
+          "depth": 195,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 10,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Dimmer/Strobe",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

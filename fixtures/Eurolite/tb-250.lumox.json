@@ -1,0 +1,378 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/TB-250",
+      "manufacturer": "Eurolite",
+      "model": "TB-250",
+      "type": "Scanner",
+      "meta": {
+        "author": "Ovidijus Cepukas",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-TB-250.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 270,
+          "height": 555,
+          "depth": 285,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 8.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "MSD 250W",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 120,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 450,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "Protocol",
+          "channels": [
+            {
+              "name": "Mirrored cylinder movement",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Mirrored cylinder rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 120,
+                  "label": "Forwards rotation with increasing speed",
+                  "effectName": "forwards-rotation-with-increasing-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 139,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 255,
+                  "label": "Backwards rotation with increasing speed",
+                  "effectName": "backwards-rotation-with-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Colour-wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 17,
+                  "label": "Open / white",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 18,
+                  "max": 35,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 53,
+                  "label": "Yellow",
+                  "color": "#e2e200"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 71,
+                  "label": "Violet",
+                  "color": "#b10d74"
+                },
+                {
+                  "kind": "color",
+                  "min": 72,
+                  "max": 89,
+                  "label": "Green",
+                  "color": "#3aa91b"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 107,
+                  "label": "Orange",
+                  "color": "#ff8000"
+                },
+                {
+                  "kind": "color",
+                  "min": 108,
+                  "max": 125,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 143,
+                  "label": "Pink",
+                  "color": "#ff5fef"
+                },
+                {
+                  "kind": "color",
+                  "min": 144,
+                  "max": 161,
+                  "label": "Light green",
+                  "color": "#2aff2e"
+                },
+                {
+                  "kind": "color",
+                  "min": 162,
+                  "max": 179,
+                  "label": "Light blue",
+                  "color": "#46aeff"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 197,
+                  "label": "Orange",
+                  "color": "#ff8000"
+                },
+                {
+                  "kind": "color",
+                  "min": 198,
+                  "max": 215,
+                  "label": "Light yellow",
+                  "color": "#ffffe0"
+                },
+                {
+                  "kind": "color",
+                  "min": 216,
+                  "max": 233,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 234,
+                  "max": 251,
+                  "label": "Red/blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Yellow/green",
+                  "color": "#ffff00"
+                }
+              ]
+            },
+            {
+              "name": "Gobo-wheel",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 17,
+                  "label": "Open",
+                  "image": "Others/open.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 18,
+                  "max": 35,
+                  "label": "Gobo 1",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 36,
+                  "max": 53,
+                  "label": "Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 54,
+                  "max": 71,
+                  "label": "Gobo 3",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 72,
+                  "max": 89,
+                  "label": "Gobo 4",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 90,
+                  "max": 107,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 108,
+                  "max": 125,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 126,
+                  "max": 143,
+                  "label": "Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 144,
+                  "max": 161,
+                  "label": "Gobo 8",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 162,
+                  "max": 179,
+                  "label": "Gobo 9",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 180,
+                  "max": 197,
+                  "label": "Gobo 10",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 198,
+                  "max": 215,
+                  "label": "Gobo 11",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 216,
+                  "max": 233,
+                  "label": "Gobo 12",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 234,
+                  "max": 251,
+                  "label": "Gobo 13",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Gobo 14",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Shutter, strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 14,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 15,
+                  "max": 29,
+                  "label": "No function (shutter open)",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 30,
+                  "max": 250,
+                  "label": "Strobe-effect with increasing speed (max. 7 flashes/sec.)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "No function (shutter open)",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

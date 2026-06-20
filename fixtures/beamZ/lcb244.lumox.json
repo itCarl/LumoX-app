@@ -1,0 +1,1627 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/LCB244",
+      "manufacturer": "beamZ",
+      "model": "LCB244",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Bjorn Roesbeke",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-LCB244.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1020,
+          "height": 67,
+          "depth": 67,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 430,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "PC",
+          "degreesMin": 20,
+          "degreesMax": 20
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 160,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Chase and Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 22,
+                  "label": "Colour effect 1",
+                  "effectName": "colour-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 37,
+                  "label": "Colour effect 2",
+                  "effectName": "colour-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 52,
+                  "label": "Colour effect 3",
+                  "effectName": "colour-effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 67,
+                  "label": "Colour effect 4",
+                  "effectName": "colour-effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 82,
+                  "label": "Colour effect 5",
+                  "effectName": "colour-effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 97,
+                  "label": "Colour effect 6",
+                  "effectName": "colour-effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 112,
+                  "label": "Colour effect 7",
+                  "effectName": "colour-effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 127,
+                  "label": "Colour effect 8",
+                  "effectName": "colour-effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 142,
+                  "label": "Colour effect 9",
+                  "effectName": "colour-effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 157,
+                  "label": "Colour effect 10",
+                  "effectName": "colour-effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 158,
+                  "max": 172,
+                  "label": "Colour effect 11",
+                  "effectName": "colour-effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 173,
+                  "max": 187,
+                  "label": "Colour effect 12",
+                  "effectName": "colour-effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 202,
+                  "label": "Colour effect 13",
+                  "effectName": "colour-effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 203,
+                  "max": 217,
+                  "label": "Colour effect 14",
+                  "effectName": "colour-effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 232,
+                  "label": "Colour effect 15",
+                  "effectName": "colour-effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 233,
+                  "max": 247,
+                  "label": "Colour effect 16",
+                  "effectName": "colour-effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound effect 1-16",
+                  "effectName": "sound-effect-1-16"
+                }
+              ]
+            },
+            {
+              "name": "Chase speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 Channel",
+          "channels": [
+            {
+              "name": "Dimming",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Disabled"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "Chase and Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 22,
+                  "label": "Colour effect 1",
+                  "effectName": "colour-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 37,
+                  "label": "Colour effect 2",
+                  "effectName": "colour-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 52,
+                  "label": "Colour effect 3",
+                  "effectName": "colour-effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 67,
+                  "label": "Colour effect 4",
+                  "effectName": "colour-effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 82,
+                  "label": "Colour effect 5",
+                  "effectName": "colour-effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 97,
+                  "label": "Colour effect 6",
+                  "effectName": "colour-effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 112,
+                  "label": "Colour effect 7",
+                  "effectName": "colour-effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 127,
+                  "label": "Colour effect 8",
+                  "effectName": "colour-effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 142,
+                  "label": "Colour effect 9",
+                  "effectName": "colour-effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 157,
+                  "label": "Colour effect 10",
+                  "effectName": "colour-effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 158,
+                  "max": 172,
+                  "label": "Colour effect 11",
+                  "effectName": "colour-effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 173,
+                  "max": 187,
+                  "label": "Colour effect 12",
+                  "effectName": "colour-effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 202,
+                  "label": "Colour effect 13",
+                  "effectName": "colour-effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 203,
+                  "max": 217,
+                  "label": "Colour effect 14",
+                  "effectName": "colour-effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 232,
+                  "label": "Colour effect 15",
+                  "effectName": "colour-effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 233,
+                  "max": 247,
+                  "label": "Colour effect 16",
+                  "effectName": "colour-effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound effect 1-16",
+                  "effectName": "sound-effect-1-16"
+                }
+              ]
+            },
+            {
+              "name": "Chase speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "16ch",
+          "name": "16 Channel",
+          "channels": [
+            {
+              "name": "All dimming 1",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 1",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 2",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 2",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 2",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "Chase and Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 22,
+                  "label": "Colour effect 1",
+                  "effectName": "colour-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 37,
+                  "label": "Colour effect 2",
+                  "effectName": "colour-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 52,
+                  "label": "Colour effect 3",
+                  "effectName": "colour-effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 67,
+                  "label": "Colour effect 4",
+                  "effectName": "colour-effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 82,
+                  "label": "Colour effect 5",
+                  "effectName": "colour-effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 97,
+                  "label": "Colour effect 6",
+                  "effectName": "colour-effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 112,
+                  "label": "Colour effect 7",
+                  "effectName": "colour-effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 127,
+                  "label": "Colour effect 8",
+                  "effectName": "colour-effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 142,
+                  "label": "Colour effect 9",
+                  "effectName": "colour-effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 157,
+                  "label": "Colour effect 10",
+                  "effectName": "colour-effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 158,
+                  "max": 172,
+                  "label": "Colour effect 11",
+                  "effectName": "colour-effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 173,
+                  "max": 187,
+                  "label": "Colour effect 12",
+                  "effectName": "colour-effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 202,
+                  "label": "Colour effect 13",
+                  "effectName": "colour-effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 203,
+                  "max": 217,
+                  "label": "Colour effect 14",
+                  "effectName": "colour-effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 232,
+                  "label": "Colour effect 15",
+                  "effectName": "colour-effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 233,
+                  "max": 247,
+                  "label": "Colour effect 16",
+                  "effectName": "colour-effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound effect 1-16",
+                  "effectName": "sound-effect-1-16"
+                }
+              ]
+            },
+            {
+              "name": "Chase speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "30ch",
+          "name": "30 Channel",
+          "channels": [
+            {
+              "name": "All dimming 1",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 1",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 2",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 2",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 2",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 3",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 3",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 3",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 4",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 4",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 4",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "Chase and Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 22,
+                  "label": "Colour effect 1",
+                  "effectName": "colour-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 37,
+                  "label": "Colour effect 2",
+                  "effectName": "colour-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 52,
+                  "label": "Colour effect 3",
+                  "effectName": "colour-effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 67,
+                  "label": "Colour effect 4",
+                  "effectName": "colour-effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 82,
+                  "label": "Colour effect 5",
+                  "effectName": "colour-effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 97,
+                  "label": "Colour effect 6",
+                  "effectName": "colour-effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 112,
+                  "label": "Colour effect 7",
+                  "effectName": "colour-effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 127,
+                  "label": "Colour effect 8",
+                  "effectName": "colour-effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 142,
+                  "label": "Colour effect 9",
+                  "effectName": "colour-effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 157,
+                  "label": "Colour effect 10",
+                  "effectName": "colour-effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 158,
+                  "max": 172,
+                  "label": "Colour effect 11",
+                  "effectName": "colour-effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 173,
+                  "max": 187,
+                  "label": "Colour effect 12",
+                  "effectName": "colour-effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 202,
+                  "label": "Colour effect 13",
+                  "effectName": "colour-effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 203,
+                  "max": 217,
+                  "label": "Colour effect 14",
+                  "effectName": "colour-effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 232,
+                  "label": "Colour effect 15",
+                  "effectName": "colour-effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 233,
+                  "max": 247,
+                  "label": "Colour effect 16",
+                  "effectName": "colour-effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound effect 1-16",
+                  "effectName": "sound-effect-1-16"
+                }
+              ]
+            },
+            {
+              "name": "Chase speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "58ch",
+          "name": "58 Channel",
+          "channels": [
+            {
+              "name": "All dimming 1",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 1",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 2",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 2",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 2",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 3",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 3",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 3",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 4",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 4",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 4",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 5",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 5",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 5",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 6",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 6",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 6",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 7",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 7",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 7",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 7",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 7",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 7",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 7",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "All dimming 8",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe 8",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 8",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto program 8",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "Chase and Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 22,
+                  "label": "Colour effect 1",
+                  "effectName": "colour-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 37,
+                  "label": "Colour effect 2",
+                  "effectName": "colour-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 52,
+                  "label": "Colour effect 3",
+                  "effectName": "colour-effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 67,
+                  "label": "Colour effect 4",
+                  "effectName": "colour-effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 82,
+                  "label": "Colour effect 5",
+                  "effectName": "colour-effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 97,
+                  "label": "Colour effect 6",
+                  "effectName": "colour-effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 112,
+                  "label": "Colour effect 7",
+                  "effectName": "colour-effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 127,
+                  "label": "Colour effect 8",
+                  "effectName": "colour-effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 142,
+                  "label": "Colour effect 9",
+                  "effectName": "colour-effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 157,
+                  "label": "Colour effect 10",
+                  "effectName": "colour-effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 158,
+                  "max": 172,
+                  "label": "Colour effect 11",
+                  "effectName": "colour-effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 173,
+                  "max": 187,
+                  "label": "Colour effect 12",
+                  "effectName": "colour-effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 202,
+                  "label": "Colour effect 13",
+                  "effectName": "colour-effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 203,
+                  "max": 217,
+                  "label": "Colour effect 14",
+                  "effectName": "colour-effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 232,
+                  "label": "Colour effect 15",
+                  "effectName": "colour-effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 233,
+                  "max": 247,
+                  "label": "Colour effect 16",
+                  "effectName": "colour-effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound effect 1-16",
+                  "effectName": "sound-effect-1-16"
+                }
+              ]
+            },
+            {
+              "name": "Chase speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

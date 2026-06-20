@@ -1,0 +1,1019 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Event Spot 1800 Q4",
+      "manufacturer": "Showtec",
+      "model": "Event Spot 1800 Q4",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Andreani Lorenzo",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Event-Spot-1800-Q4.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 154,
+          "height": 154,
+          "depth": 287,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 600,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "10ch",
+          "name": "TOUR",
+          "channels": [
+            {
+              "name": "Dimmer Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 30,
+                  "label": "Red 100% / Green Up / Blue 0%",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 50,
+                  "label": "Red Down / Green 100% / Blue 0%",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 70,
+                  "label": "Red 0% / Green 100% / Blue Up",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 71,
+                  "max": 90,
+                  "label": "Red 0% / Green Down / Blue 100%",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 110,
+                  "label": "Red Up / Green 0% / Blue 100%",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 130,
+                  "label": "Red 100% / Green 0% / Blue Down",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 131,
+                  "max": 150,
+                  "label": "Red 100% / Green Up / Blue Up",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 170,
+                  "label": "Red Down / Green Down / Blue 100%",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 171,
+                  "max": 200,
+                  "label": "Red 100% / Green 100% / Blue 100% / White 100% / Amber 100%",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 205,
+                  "label": "White 1: 3200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 206,
+                  "max": 210,
+                  "label": "White 2: 3400K"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 215,
+                  "label": "White 3: 4200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 220,
+                  "label": "White 4: 4900K"
+                },
+                {
+                  "kind": "range",
+                  "min": 221,
+                  "max": 225,
+                  "label": "White 5: 5600K"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 230,
+                  "label": "White 6: 5900K"
+                },
+                {
+                  "kind": "range",
+                  "min": 231,
+                  "max": 235,
+                  "label": "White 7: 6500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 236,
+                  "max": 240,
+                  "label": "White 8: 7200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 241,
+                  "max": 245,
+                  "label": "White 9: 8000K"
+                },
+                {
+                  "kind": "range",
+                  "min": 246,
+                  "max": 250,
+                  "label": "White 10: 8500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 251,
+                  "max": 255,
+                  "label": "White 11: 10000K"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto + Custom",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 40,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Auto 1",
+                  "effectName": "auto-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Auto 2",
+                  "effectName": "auto-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Auto 3",
+                  "effectName": "auto-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Auto 4",
+                  "effectName": "auto-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Auto 5",
+                  "effectName": "auto-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "Auto 6",
+                  "effectName": "auto-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "Auto 7",
+                  "effectName": "auto-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "Auto 8",
+                  "effectName": "auto-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "Auto 9",
+                  "effectName": "auto-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "Auto 10",
+                  "effectName": "auto-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "Custom 1",
+                  "effectName": "custom-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "Custom 2",
+                  "effectName": "custom-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "Custom 3",
+                  "effectName": "custom-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 180,
+                  "label": "Custom 4",
+                  "effectName": "custom-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 190,
+                  "label": "Custom 5",
+                  "effectName": "custom-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 191,
+                  "max": 200,
+                  "label": "Custom 6",
+                  "effectName": "custom-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 210,
+                  "label": "Custom 7",
+                  "effectName": "custom-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 220,
+                  "label": "Custom 8",
+                  "effectName": "custom-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 230,
+                  "label": "Custom 9",
+                  "effectName": "custom-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Custom 10",
+                  "effectName": "custom-10"
+                }
+              ]
+            },
+            {
+              "name": "Speed Auto Programs",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed Dimmer",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Preset Dimmer Speed from Display Menu"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Linear Dimmer"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 69,
+                  "label": "Non Linear Dimmer (fastest) 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Non Linear Dimmer 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Non Linear Dimmer 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Non Linear Dimmer (slowest) 4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "15ch",
+          "name": "TR16",
+          "channels": [
+            {
+              "name": "Dimmer Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Fine",
+              "typeId": "red-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Fine",
+              "typeId": "green-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Fine",
+              "typeId": "blue-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Fine",
+              "typeId": "amber-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 30,
+                  "label": "Red 100% / Green Up / Blue 0%",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 50,
+                  "label": "Red Down / Green 100% / Blue 0%",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 70,
+                  "label": "Red 0% / Green 100% / Blue Up",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 71,
+                  "max": 90,
+                  "label": "Red 0% / Green Down / Blue 100%",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 110,
+                  "label": "Red Up / Green 0% / Blue 100%",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 130,
+                  "label": "Red 100% / Green 0% / Blue Down",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 131,
+                  "max": 150,
+                  "label": "Red 100% / Green Up / Blue Up",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 170,
+                  "label": "Red Down / Green Down / Blue 100%",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 171,
+                  "max": 200,
+                  "label": "Red 100% / Green 100% / Blue 100% / White 100% / Amber 100%",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 205,
+                  "label": "White 1: 3200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 206,
+                  "max": 210,
+                  "label": "White 2: 3400K"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 215,
+                  "label": "White 3: 4200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 220,
+                  "label": "White 4: 4900K"
+                },
+                {
+                  "kind": "range",
+                  "min": 221,
+                  "max": 225,
+                  "label": "White 5: 5600K"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 230,
+                  "label": "White 6: 5900K"
+                },
+                {
+                  "kind": "range",
+                  "min": 231,
+                  "max": 235,
+                  "label": "White 7: 6500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 236,
+                  "max": 240,
+                  "label": "White 8: 7200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 241,
+                  "max": 245,
+                  "label": "White 9: 8000K"
+                },
+                {
+                  "kind": "range",
+                  "min": 246,
+                  "max": 250,
+                  "label": "White 10: 8500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 251,
+                  "max": 255,
+                  "label": "White 11: 10000K"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto + Custom",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 40,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Auto 1",
+                  "effectName": "auto-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Auto 2",
+                  "effectName": "auto-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Auto 3",
+                  "effectName": "auto-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Auto 4",
+                  "effectName": "auto-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Auto 5",
+                  "effectName": "auto-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "Auto 6",
+                  "effectName": "auto-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "Auto 7",
+                  "effectName": "auto-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "Auto 8",
+                  "effectName": "auto-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "Auto 9",
+                  "effectName": "auto-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "Auto 10",
+                  "effectName": "auto-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "Custom 1",
+                  "effectName": "custom-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "Custom 2",
+                  "effectName": "custom-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "Custom 3",
+                  "effectName": "custom-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 180,
+                  "label": "Custom 4",
+                  "effectName": "custom-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 190,
+                  "label": "Custom 5",
+                  "effectName": "custom-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 191,
+                  "max": 200,
+                  "label": "Custom 6",
+                  "effectName": "custom-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 210,
+                  "label": "Custom 7",
+                  "effectName": "custom-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 220,
+                  "label": "Custom 8",
+                  "effectName": "custom-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 230,
+                  "label": "Custom 9",
+                  "effectName": "custom-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Custom 10",
+                  "effectName": "custom-10"
+                }
+              ]
+            },
+            {
+              "name": "Speed Auto Programs",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed Dimmer",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Preset Dimmer Speed from Display Menu"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Linear Dimmer"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 69,
+                  "label": "Non Linear Dimmer (fastest) 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Non Linear Dimmer 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Non Linear Dimmer 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Non Linear Dimmer (slowest) 4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "ARC1",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "AR1.D",
+          "channels": [
+            {
+              "name": "Dimmer Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch-2",
+          "name": "ARC2",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "AR2.D",
+          "channels": [
+            {
+              "name": "Dimmer Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "AR2.S",
+          "channels": [
+            {
+              "name": "Dimmer Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

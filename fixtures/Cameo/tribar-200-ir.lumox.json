@@ -1,0 +1,205 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Tribar 200 IR",
+      "manufacturer": "Cameo",
+      "model": "Tribar 200 IR",
+      "type": "LED Bar",
+      "meta": {
+        "author": "David Morgenschweis",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Tribar-200-IR.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1022,
+          "height": 66,
+          "depth": 65,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.8,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 2340,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "PC",
+          "degreesMin": 20,
+          "degreesMax": 20
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 50,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "9ch",
+          "name": "9-Channel",
+          "channels": [
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2-Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 36,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 73,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 74,
+                  "max": 110,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 147,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 148,
+                  "max": 184,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 221,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 222,
+                  "max": 255,
+                  "label": "White",
+                  "color": "#ffffff"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3-Channel 2",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

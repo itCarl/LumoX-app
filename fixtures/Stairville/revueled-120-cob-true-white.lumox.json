@@ -1,0 +1,219 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/RevueLED 120 COB True White",
+      "manufacturer": "Stairville",
+      "model": "RevueLED 120 COB True White",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Liam Clark",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-RevueLED-120-COB-True-White.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 440,
+          "height": 250,
+          "depth": 160,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 7000,
+          "colourTemperature": 2800
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 50,
+          "degreesMax": 50
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 120,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 Channel 1",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Temperature",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Color Temp. follows Dimmer Control",
+                  "effectName": "color-temp-follows-dimmer-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 255,
+                  "label": "2800K -> 7800K",
+                  "effectName": "2800k-7800k"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2ch-2",
+          "name": "2 Channel 2",
+          "channels": [
+            {
+              "name": "Intensity Warm White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Cold White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe ON",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe 1Hz -> 30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Color Temperature",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Color Temp. follows Dimmer Control",
+                  "effectName": "color-temp-follows-dimmer-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 255,
+                  "label": "2800K -> 7800K",
+                  "effectName": "2800k-7800k"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe ON",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe 1Hz -> 30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Intensity Warm White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Cold White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

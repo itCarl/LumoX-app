@@ -1,0 +1,376 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/DJ Lase GR-140 RGY MKII",
+      "manufacturer": "Stairville",
+      "model": "DJ Lase GR-140 RGY MKII",
+      "type": "Laser",
+      "meta": {
+        "author": "Hadley Denton",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-DJ-Lase-GR-140-RGY-MKII.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 145,
+          "height": 80,
+          "depth": 160,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.8,
+          "unit": "kg"
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 15,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "DMX 1 mode",
+          "channels": [
+            {
+              "name": "Mode selection",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 50,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 51,
+                  "max": 100,
+                  "label": "Auto show"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 150,
+                  "label": "Sound-controlled automatic show"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 200,
+                  "label": "DMX 1 mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 255,
+                  "label": "DMX 2 mode"
+                }
+              ]
+            },
+            {
+              "name": "Patten rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Clockwise rotation (slow to fast)",
+                  "effectName": "clockwise-rotation-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 133,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Counterclockwise rotation (slow to fast)",
+                  "effectName": "counterclockwise-rotation-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Vibration",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Laser",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 10,
+                  "label": "Laser on"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 254,
+                  "label": "Strobing (strobe effect), slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound-controlled strobe effect"
+                }
+              ]
+            },
+            {
+              "name": "Green Laser",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 10,
+                  "label": "Laser on"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 254,
+                  "label": "Strobing (strobe effect), slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound-controlled strobe effect"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5ch-2",
+          "name": "DMX 2 mode",
+          "channels": [
+            {
+              "name": "Mode selection",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 50,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 51,
+                  "max": 100,
+                  "label": "Auto show"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 150,
+                  "label": "Sound-controlled automatic show"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 200,
+                  "label": "DMX 1 mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 255,
+                  "label": "DMX 2 mode"
+                }
+              ]
+            },
+            {
+              "name": "Patten rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Clockwise rotation (slow to fast)",
+                  "effectName": "clockwise-rotation-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 133,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Counterclockwise rotation (slow to fast)",
+                  "effectName": "counterclockwise-rotation-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Vibration",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour selection",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 20,
+                  "label": "Constantly red"
+                },
+                {
+                  "kind": "range",
+                  "min": 21,
+                  "max": 35,
+                  "label": "Red off, constantly green"
+                },
+                {
+                  "kind": "range",
+                  "min": 36,
+                  "max": 50,
+                  "label": "Red and green constantly"
+                },
+                {
+                  "kind": "range",
+                  "min": 51,
+                  "max": 80,
+                  "label": "Strobe effect for red, green off"
+                },
+                {
+                  "kind": "range",
+                  "min": 81,
+                  "max": 110,
+                  "label": "Red off, strobe effect for green"
+                },
+                {
+                  "kind": "range",
+                  "min": 111,
+                  "max": 140,
+                  "label": "Strobe effect for red and green"
+                },
+                {
+                  "kind": "range",
+                  "min": 141,
+                  "max": 170,
+                  "label": "Constantly red, strobe effect for green"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 200,
+                  "label": "Strobe effect for red, constantly green"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 255,
+                  "label": "Alternating strobe effect for red and green"
+                }
+              ]
+            },
+            {
+              "name": "Strobing (strobe effect)",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 5,
+                  "max": 254,
+                  "label": "Strobing (strobe effect), slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound-controlled strobe effect",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

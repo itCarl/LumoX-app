@@ -1,0 +1,171 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/LED PAR64",
+      "manufacturer": "Stairville",
+      "model": "LED PAR64",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Jászberényi Szabolcs",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-LED-PAR64.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 230,
+          "height": 400,
+          "depth": 230,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.7,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 17,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "7ch",
+          "name": "Normal",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Macro"
+                }
+              ]
+            },
+            {
+              "name": "Speed/Strobe",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Strobe",
+                  "effectName": "strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Fade_out",
+                  "effectName": "fade-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Fade_in",
+                  "effectName": "fade-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Fade_in/out",
+                  "effectName": "fade-in-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Auto_mix",
+                  "effectName": "auto-mix"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 191,
+                  "label": "3_colour_chases",
+                  "effectName": "3-colour-chases"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 223,
+                  "label": "7_colour_chases",
+                  "effectName": "7-colour-chases"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Sound_to_light",
+                  "effectName": "sound-to-light"
+                }
+              ]
+            },
+            {
+              "name": "Master Dim",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

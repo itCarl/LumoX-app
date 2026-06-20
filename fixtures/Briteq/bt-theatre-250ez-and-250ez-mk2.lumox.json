@@ -1,0 +1,311 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Briteq/BT Theatre 250EZ (and 250EZ Mk2)",
+      "manufacturer": "Briteq",
+      "model": "BT Theatre 250EZ (and 250EZ Mk2)",
+      "type": "Dimmer",
+      "meta": {
+        "author": "Christoph Müllner",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Briteq-BT-Theatre-250EZ.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 336,
+          "height": 297,
+          "depth": 458,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 9,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 14000,
+          "colourTemperature": 3200
+        },
+        "lens": {
+          "name": "Fresnel",
+          "degreesMin": 10,
+          "degreesMax": 50
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 250,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 Channel Dimmer",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 Channel Dimmer + Strobe",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 125,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 136,
+                  "max": 255,
+                  "label": "Random strobe slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel Dimmer + Strobe + Focus",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 125,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 136,
+                  "max": 255,
+                  "label": "Random strobe slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Focus",
+              "typeId": "focus",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch-2",
+          "name": "2 Channel Dimmer 16 bit",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch-2",
+          "name": "3 Channel Dimmer 16 bit + Strobe",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 125,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 136,
+                  "max": 255,
+                  "label": "Random strobe slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel Dimmer 16 bit + Strobe + Focus",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 125,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 136,
+                  "max": 255,
+                  "label": "Random strobe slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Focus",
+              "typeId": "focus",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

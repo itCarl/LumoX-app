@@ -1,0 +1,250 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/BT270 LED FlatPAR",
+      "manufacturer": "beamZ",
+      "model": "BT270 LED FlatPAR",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Herbie",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-BT270-LED-FlatPAR.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 210,
+          "height": 235,
+          "depth": 120,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 72,
+          "degreesMax": 72
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 30,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Dimming",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 49,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 89,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 109,
+                  "label": "Red + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 129,
+                  "label": "Red + Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 149,
+                  "label": "Red + Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 169,
+                  "label": "Green + Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 189,
+                  "label": "Green + Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 209,
+                  "label": "Blue + Amber",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red + Green + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red + Blue + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green + Blue + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red + Green + Blue + Amber"
+                }
+              ]
+            },
+            {
+              "name": "Colour Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 69,
+                  "label": "Auto Colour blending",
+                  "effectName": "auto-colour-blending"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Auto Colour change",
+                  "effectName": "auto-colour-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Sound Colour blending",
+                  "effectName": "sound-colour-blending"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Sound Colour change",
+                  "effectName": "sound-colour-change"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

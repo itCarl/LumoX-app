@@ -1,0 +1,132 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Briteq/COB Blinder 2x100W",
+      "manufacturer": "Briteq",
+      "model": "COB Blinder 2x100W",
+      "type": "Strobe",
+      "meta": {
+        "author": "Giacomo Gorini",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Briteq-COB-Blinder-2x100W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 440,
+          "height": 253,
+          "depth": 144,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.9,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 4000,
+          "colourTemperature": 3200
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 60,
+          "degreesMax": 60
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 235,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 Channel",
+          "channels": [
+            {
+              "name": "Dim Left",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Dim Left",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dim Right",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Curve",
+              "typeId": "function",
+              "defaultValue": 22,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Fixture Selected Curve"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 135,
+                  "label": "Linear Curve"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 255,
+                  "label": "Square Curve"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

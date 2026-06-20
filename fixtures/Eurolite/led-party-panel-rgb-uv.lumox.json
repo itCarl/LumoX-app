@@ -1,0 +1,519 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED Party Panel RGB+UV",
+      "manufacturer": "Eurolite",
+      "model": "LED Party Panel RGB+UV",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Stefan Krumm",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-Party-Panel-RGB+UV.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 150,
+          "height": 150,
+          "depth": 51,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 0.7,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 36,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff2600"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00f900"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0433ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "UV",
+                  "color": "#9400d3"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#fffb00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff40ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00fdff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#eb8f21"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#efff34"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#ffd8c7"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#6cffe3"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#a8ff9b"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ff9300"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Lavender",
+                  "color": "#bf6eff"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Light blue",
+                  "color": "#10adff"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Dark blue",
+                  "color": "#0433eb"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 255,
+                  "label": "Pink",
+                  "color": "#e331ef"
+                }
+              ]
+            },
+            {
+              "name": "Internal programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 69,
+                  "label": "Auto program 1 color blending slow > fast",
+                  "effectName": "auto-program-1-color-blending-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Auto program 2 color change slow > fast",
+                  "effectName": "auto-program-2-color-change-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Sound program 1 color blending slow > fast",
+                  "effectName": "sound-program-1-color-blending-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Sound program 2 color change slow > fast",
+                  "effectName": "sound-program-2-color-change-slow-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff2600"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00f900"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0433ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "UV",
+                  "color": "#9400d3"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#fffb00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff40ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00fdff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#eb8f21"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#efff34"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#ffd8c7"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#6cffe3"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#a8ff9b"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ff9300"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Lavender",
+                  "color": "#bf6eff"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Light blue",
+                  "color": "#10adff"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Dark blue",
+                  "color": "#0433eb"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 255,
+                  "label": "Pink",
+                  "color": "#e331ef"
+                }
+              ]
+            },
+            {
+              "name": "Internal programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 69,
+                  "label": "Auto program 1 color blending slow > fast",
+                  "effectName": "auto-program-1-color-blending-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Auto program 2 color change slow > fast",
+                  "effectName": "auto-program-2-color-change-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Sound program 1 color blending slow > fast",
+                  "effectName": "sound-program-1-color-blending-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Sound program 2 color change slow > fast",
+                  "effectName": "sound-program-2-color-change-slow-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

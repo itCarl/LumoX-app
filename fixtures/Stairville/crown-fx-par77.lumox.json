@@ -1,0 +1,844 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/Crown FX PAR77",
+      "manufacturer": "Stairville",
+      "model": "Crown FX PAR77",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Andres Robles",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-Crown-FX-PAR77.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 275,
+          "height": 280,
+          "depth": 76,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.7,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 78,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2 Channel",
+          "channels": [
+            {
+              "name": "Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "all LEDs off",
+                  "effectName": "all-leds-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 19,
+                  "label": "Auto program 1, if channel 2 = 0 ... 250 Sound program 1, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-1-if-channel-2-0-250-sound-program-1-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 34,
+                  "label": "Auto program 2, if channel 2 = 0 ... 250 Sound program 2, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-2-if-channel-2-0-250-sound-program-2-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 35,
+                  "max": 48,
+                  "label": "Auto program 3, if channel 2 = 0 ... 250 Sound program 3, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-3-if-channel-2-0-250-sound-program-3-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 49,
+                  "max": 63,
+                  "label": "Auto program 4, if channel 2 = 0 ... 250 Sound program 4, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-4-if-channel-2-0-250-sound-program-4-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 77,
+                  "label": "Auto program 5, if channel 2 = 0 ... 250 Sound program 5, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-5-if-channel-2-0-250-sound-program-5-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 92,
+                  "label": "Auto program 6, if channel 2 = 0 ... 250 Sound program 6, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-6-if-channel-2-0-250-sound-program-6-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 93,
+                  "max": 106,
+                  "label": "Auto program 7, if channel 2 = 0 ... 250 Sound program 7, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-7-if-channel-2-0-250-sound-program-7-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 107,
+                  "max": 121,
+                  "label": "Auto program 8, if channel 2 = 0 ... 250 Sound program 8, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-8-if-channel-2-0-250-sound-program-8-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 122,
+                  "max": 135,
+                  "label": "Auto program 9, if channel 2 = 0 ... 250 Sound program 9, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-9-if-channel-2-0-250-sound-program-9-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 150,
+                  "label": "Auto program 10, if channel 2 = 0 ... 250 Sound program 10, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-10-if-channel-2-0-250-sound-program-10-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 164,
+                  "label": "Auto program 11, if channel 2 = 0 ... 250 Sound program 11, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-11-if-channel-2-0-250-sound-program-11-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 165,
+                  "max": 179,
+                  "label": "Auto program 12, if channel 2 = 0 ... 250 Sound program 12, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-12-if-channel-2-0-250-sound-program-12-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 193,
+                  "label": "Auto program 13, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-13-if-channel-2-0-250-sound-program-13-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 194,
+                  "max": 208,
+                  "label": "Auto program 14, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-14-if-channel-2-0-250-sound-program-13-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 209,
+                  "max": 222,
+                  "label": "Auto program 15, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-15-if-channel-2-0-250-sound-program-13-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 223,
+                  "max": 237,
+                  "label": "Auto program 16, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-16-if-channel-2-0-250-sound-program-13-if-channel-2-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 238,
+                  "max": 255,
+                  "label": "Auto program 17, if channel 2 = 0 ... 250 Sound program 13, if channel 2 = 251 ... 255",
+                  "effectName": "auto-program-17-if-channel-2-0-250-sound-program-13-if-channel-2-251-255"
+                }
+              ]
+            },
+            {
+              "name": "Program mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 250,
+                  "label": "Program speed increasing",
+                  "effectName": "program-speed-increasing"
+                },
+                {
+                  "kind": "effect",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Sound-controlled mode, specifies the auto program / sound program setting for channel 21.",
+                  "effectName": "sound-controlled-mode-specifies-the-auto-program-sound-program-setting-for-channel-21"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Intensity red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe effect off",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, all colour LEDs",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, all colour LEDs",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Strobe function",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 20,
+                  "label": "Strobe LED ring constantly on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 21,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, strobe LED ring",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, strobe LED ring",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 Channel",
+          "channels": [
+            {
+              "name": "Intensity red PAR LEDs",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green PAR LEDs",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue PAR LEDs",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity UV (0 % to 100 %), PAR LEDs",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red COB LED",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity COB LED",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue COB LED",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect2",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe effect off",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, all colour LEDs",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, all colour LEDs",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Strobe function2",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 20,
+                  "label": "Strobe LED ring constantly on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 21,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, strobe LED ring",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, strobe LED ring",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "22ch",
+          "name": "22 Channel",
+          "channels": [
+            {
+              "name": "Intensity red PAR LEDs zone 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green PAR LEDs zone 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue PAR LEDs zone 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity UV PAR LEDs zone 1",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect zone 1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe effect off, zone 1",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, zone 1",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, zone 1",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Intensity red PAR LEDs zone 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green PAR LEDs zone 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue PAR LEDs zone 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity UV PAR LEDs zone 2",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect zone 2",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe effect off, zone 2",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, zone 2",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, zone 2",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Intensity red PAR LEDs zone 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green PAR LEDs zone 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue PAR LEDs zone 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity UV PAR LEDs zone 3",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect zone 3",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe effect off, zone 3",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, zone 3",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, zone 3",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Intensity red COB LED",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity COB LED",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue COB LED",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect COB LED",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe effect off",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, COB LED",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, COB LED",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Strobe LED ring",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 20,
+                  "label": "Strobe LED ring constantly on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 21,
+                  "max": 250,
+                  "label": "Strobe effect, increasing speed, strobe LED ring",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe effect sound mode, strobe LED ring",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Auto programs, Sound programs",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "all LEDs off",
+                  "effectName": "all-leds-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 19,
+                  "label": "Auto program 1, if channel 22 = 0 ... 250 Sound program 1, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-1-if-channel-22-0-250-sound-program-1-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 34,
+                  "label": "Auto program 2, if channel 22 = 0 ... 250 Sound program 2, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-2-if-channel-22-0-250-sound-program-2-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 35,
+                  "max": 48,
+                  "label": "Auto program 3, if channel 22 = 0 ... 250 Sound program 3, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-3-if-channel-22-0-250-sound-program-3-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 49,
+                  "max": 63,
+                  "label": "Auto program 4, if channel 22 = 0 ... 250 Sound program 4, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-4-if-channel-22-0-250-sound-program-4-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 77,
+                  "label": "Auto program 5, if channel 22 = 0 ... 250 Sound program 5, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-5-if-channel-22-0-250-sound-program-5-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 92,
+                  "label": "Auto program 6, if channel 22 = 0 ... 250 Sound program 6, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-6-if-channel-22-0-250-sound-program-6-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 93,
+                  "max": 106,
+                  "label": "Auto program 7, if channel 22 = 0 ... 250 Sound program 7, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-7-if-channel-22-0-250-sound-program-7-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 107,
+                  "max": 121,
+                  "label": "Auto program 8, if channel 22 = 0 ... 250 Sound program 8, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-8-if-channel-22-0-250-sound-program-8-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 122,
+                  "max": 135,
+                  "label": "Auto program 9, if channel 22 = 0 ... 250 Sound program 9, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-9-if-channel-22-0-250-sound-program-9-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 150,
+                  "label": "Auto program 10, if channel 22 = 0 ... 250 Sound program 10, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-10-if-channel-22-0-250-sound-program-10-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 164,
+                  "label": "Auto program 11, if channel 22 = 0 ... 250 Sound program 11, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-11-if-channel-22-0-250-sound-program-11-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 165,
+                  "max": 179,
+                  "label": "Auto program 12, if channel 22 = 0 ... 250 Sound program 12, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-12-if-channel-22-0-250-sound-program-12-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 193,
+                  "label": "Auto program 13, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-13-if-channel-22-0-250-sound-program-13-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 194,
+                  "max": 208,
+                  "label": "Auto program 14, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-14-if-channel-22-0-250-sound-program-13-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 209,
+                  "max": 222,
+                  "label": "Auto program 15, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-15-if-channel-22-0-250-sound-program-13-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 223,
+                  "max": 237,
+                  "label": "Auto program 16, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-16-if-channel-22-0-250-sound-program-13-if-channel-22-251-255"
+                },
+                {
+                  "kind": "effect",
+                  "min": 238,
+                  "max": 255,
+                  "label": "Auto program 17, if channel 22 = 0 ... 250 Sound program 13, if channel 22 = 251 ... 255",
+                  "effectName": "auto-program-17-if-channel-22-0-250-sound-program-13-if-channel-22-251-255"
+                }
+              ]
+            },
+            {
+              "name": "Program mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 250,
+                  "label": "Program speed increasing",
+                  "effectName": "program-speed-increasing"
+                },
+                {
+                  "kind": "effect",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Sound-controlled mode, specifies the auto program / sound program setting for channel 21.",
+                  "effectName": "sound-controlled-mode-specifies-the-auto-program-sound-program-setting-for-channel-21"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

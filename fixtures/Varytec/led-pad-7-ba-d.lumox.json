@@ -1,0 +1,208 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/LED Pad 7 BA-D",
+      "manufacturer": "Varytec",
+      "model": "LED Pad 7 BA-D",
+      "type": "Color Changer",
+      "meta": {
+        "author": "DjProWings",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-LED-Pad-7-BA-D.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 265,
+          "height": 274,
+          "depth": 109,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 1015,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 30,
+          "degreesMax": 30
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 25,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer For Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer For Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer For Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Macros",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Scene with R - G - B - RG - G",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Scene with G - GB - B - RB - R",
+                  "color": "#55ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Scene with R - B - G - RG - G",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Scene with R - G - GB - RGB - G",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Scene with B - BG - RGB - RG - G",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Colour continuous strobe",
+                  "effectName": "colour-continuous-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Gradient",
+                  "effectName": "gradient"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 143,
+                  "label": "Colour swap",
+                  "effectName": "colour-swap"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 159,
+                  "label": "Colour change and strobe",
+                  "effectName": "colour-change-and-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 175,
+                  "label": "Colour ramp down",
+                  "effectName": "colour-ramp-down"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 191,
+                  "label": "Colour Ramp in",
+                  "effectName": "colour-ramp-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 207,
+                  "label": "Colour triangular",
+                  "effectName": "colour-triangular"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 223,
+                  "label": "Colour glide",
+                  "effectName": "colour-glide"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Sound 1",
+                  "effectName": "sound-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound 2",
+                  "effectName": "sound-2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

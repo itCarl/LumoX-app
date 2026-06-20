@@ -1,0 +1,143 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/BUV 463 LED UV",
+      "manufacturer": "beamZ",
+      "model": "BUV 463 LED UV",
+      "type": "Other",
+      "meta": {
+        "author": "Michel Sliepenbeek",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-BUV-463-LED-UV.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 330,
+          "height": 185,
+          "depth": 130,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 80,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "8ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 50,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 100,
+                  "label": "Auto Program 1",
+                  "effectName": "auto-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 150,
+                  "label": "Auto Program 2",
+                  "effectName": "auto-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 200,
+                  "label": "Auto Program 3",
+                  "effectName": "auto-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 255,
+                  "label": "Sound Controlled",
+                  "effectName": "sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Change Color Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 1",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 2",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 3",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 4",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

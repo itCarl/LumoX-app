@@ -1,0 +1,173 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/Z100M",
+      "manufacturer": "Stairville",
+      "model": "Z100M",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Stefan",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-Z100M.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 275,
+          "height": 224,
+          "depth": 491,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 3000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 11,
+          "degreesMax": 35
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 115,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1-Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2-Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Stroboscope",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Strobe Effect",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 95,
+                  "label": "Stroboscope Effect, Speed increasing (1 Hz ... 25 Hz)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 175,
+                  "label": "Stroboscope Effect, Speed increasing (1 Hz)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 176,
+                  "max": 255,
+                  "label": "Stroboscope Effect, random speed",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3-Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fine Dimmer",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Stroboscope",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Strobe Effect",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 95,
+                  "label": "Stroboscope Effect, Speed increasing (1 Hz ... 25 Hz)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 175,
+                  "label": "Stroboscope Effect, Speed increasing (1 Hz)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 176,
+                  "max": 255,
+                  "label": "Stroboscope Effect, random speed",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4298 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/STB448 Strobe Bar RGBAW",
+      "manufacturer": "beamZ",
+      "model": "STB448 Strobe Bar RGBAW",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Daniel Wright",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-STB448-Strobe-Bar-RGBAW.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1000,
+          "height": 100,
+          "depth": 55,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.15,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 224,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "13ch",
+          "name": "13 Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Strobe Amber/Cool White",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe Amber/Cool White from slow to fast",
+                  "effectName": "strobe-amber-cool-white-from-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red/Green/Blue Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 2,
+                  "label": "Effect 1",
+                  "effectName": "effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 3,
+                  "max": 5,
+                  "label": "Effect 2",
+                  "effectName": "effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 8,
+                  "label": "Effect 3",
+                  "effectName": "effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 9,
+                  "max": 11,
+                  "label": "Effect 4",
+                  "effectName": "effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 12,
+                  "max": 14,
+                  "label": "Effect 5",
+                  "effectName": "effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 15,
+                  "max": 17,
+                  "label": "Effect 6",
+                  "effectName": "effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 18,
+                  "max": 20,
+                  "label": "Effect 7",
+                  "effectName": "effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 23,
+                  "label": "Effect 8",
+                  "effectName": "effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 26,
+                  "label": "Effect 9",
+                  "effectName": "effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 27,
+                  "max": 29,
+                  "label": "Effect 10",
+                  "effectName": "effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 32,
+                  "label": "Effect 11",
+                  "effectName": "effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 33,
+                  "max": 35,
+                  "label": "Effect 12",
+                  "effectName": "effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 38,
+                  "label": "Effect 13",
+                  "effectName": "effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 39,
+                  "max": 41,
+                  "label": "Effect 14",
+                  "effectName": "effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 44,
+                  "label": "Effect 15",
+                  "effectName": "effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 45,
+                  "max": 47,
+                  "label": "Effect 16",
+                  "effectName": "effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 50,
+                  "label": "Effect 17",
+                  "effectName": "effect-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 53,
+                  "label": "Effect 18",
+                  "effectName": "effect-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 54,
+                  "max": 56,
+                  "label": "Effect 19",
+                  "effectName": "effect-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 57,
+                  "max": 59,
+                  "label": "Effect 20",
+                  "effectName": "effect-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 62,
+                  "label": "Effect 21",
+                  "effectName": "effect-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 63,
+                  "max": 65,
+                  "label": "Effect 22",
+                  "effectName": "effect-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 68,
+                  "label": "Effect 23",
+                  "effectName": "effect-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 69,
+                  "max": 71,
+                  "label": "Effect 24",
+                  "effectName": "effect-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 74,
+                  "label": "Effect 25",
+                  "effectName": "effect-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 77,
+                  "label": "Effect 26",
+                  "effectName": "effect-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 80,
+                  "label": "Effect 27",
+                  "effectName": "effect-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 83,
+                  "label": "Effect 28",
+                  "effectName": "effect-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 84,
+                  "max": 86,
+                  "label": "Effect 29",
+                  "effectName": "effect-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 87,
+                  "max": 89,
+                  "label": "Effect 30",
+                  "effectName": "effect-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 92,
+                  "label": "Effect 31",
+                  "effectName": "effect-31"
+                },
+                {
+                  "kind": "effect",
+                  "min": 93,
+                  "max": 95,
+                  "label": "Effect 32",
+                  "effectName": "effect-32"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 98,
+                  "label": "Effect 33",
+                  "effectName": "effect-33"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 101,
+                  "label": "Effect 34",
+                  "effectName": "effect-34"
+                },
+                {
+                  "kind": "effect",
+                  "min": 102,
+                  "max": 104,
+                  "label": "Effect 35",
+                  "effectName": "effect-35"
+                },
+                {
+                  "kind": "effect",
+                  "min": 105,
+                  "max": 107,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 110,
+                  "label": "Effect 36",
+                  "effectName": "effect-36"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 113,
+                  "label": "Effect 37",
+                  "effectName": "effect-37"
+                },
+                {
+                  "kind": "effect",
+                  "min": 114,
+                  "max": 116,
+                  "label": "Effect 38",
+                  "effectName": "effect-38"
+                },
+                {
+                  "kind": "effect",
+                  "min": 117,
+                  "max": 119,
+                  "label": "Effect 39",
+                  "effectName": "effect-39"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 122,
+                  "label": "Effect 40",
+                  "effectName": "effect-40"
+                },
+                {
+                  "kind": "effect",
+                  "min": 123,
+                  "max": 125,
+                  "label": "Effect 41",
+                  "effectName": "effect-41"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 128,
+                  "label": "Effect 42",
+                  "effectName": "effect-42"
+                },
+                {
+                  "kind": "effect",
+                  "min": 129,
+                  "max": 131,
+                  "label": "Effect 43",
+                  "effectName": "effect-43"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 134,
+                  "label": "Effect 44",
+                  "effectName": "effect-44"
+                },
+                {
+                  "kind": "effect",
+                  "min": 135,
+                  "max": 137,
+                  "label": "Effect 45",
+                  "effectName": "effect-45"
+                },
+                {
+                  "kind": "effect",
+                  "min": 138,
+                  "max": 140,
+                  "label": "Effect 46",
+                  "effectName": "effect-46"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 143,
+                  "label": "Effect 47",
+                  "effectName": "effect-47"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 146,
+                  "label": "Effect 48",
+                  "effectName": "effect-48"
+                },
+                {
+                  "kind": "effect",
+                  "min": 147,
+                  "max": 149,
+                  "label": "Effect 49",
+                  "effectName": "effect-49"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 152,
+                  "label": "Effect 50",
+                  "effectName": "effect-50"
+                },
+                {
+                  "kind": "effect",
+                  "min": 153,
+                  "max": 155,
+                  "label": "Effect 51",
+                  "effectName": "effect-51"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 158,
+                  "label": "Effect 52",
+                  "effectName": "effect-52"
+                },
+                {
+                  "kind": "effect",
+                  "min": 159,
+                  "max": 161,
+                  "label": "Effect 53",
+                  "effectName": "effect-53"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 164,
+                  "label": "Effect 54",
+                  "effectName": "effect-54"
+                },
+                {
+                  "kind": "effect",
+                  "min": 165,
+                  "max": 167,
+                  "label": "Effect 55",
+                  "effectName": "effect-55"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 170,
+                  "label": "Effect 56",
+                  "effectName": "effect-56"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 173,
+                  "label": "Effect 57",
+                  "effectName": "effect-57"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 176,
+                  "label": "Effect 58",
+                  "effectName": "effect-58"
+                },
+                {
+                  "kind": "effect",
+                  "min": 177,
+                  "max": 179,
+                  "label": "Effect 59",
+                  "effectName": "effect-59"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 182,
+                  "label": "Effect 60",
+                  "effectName": "effect-60"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 185,
+                  "label": "Effect 61",
+                  "effectName": "effect-61"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 188,
+                  "label": "Effect 62",
+                  "effectName": "effect-62"
+                },
+                {
+                  "kind": "effect",
+                  "min": 189,
+                  "max": 191,
+                  "label": "Effect 63",
+                  "effectName": "effect-63"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 194,
+                  "label": "Effect 64",
+                  "effectName": "effect-64"
+                },
+                {
+                  "kind": "effect",
+                  "min": 195,
+                  "max": 197,
+                  "label": "Effect 65",
+                  "effectName": "effect-65"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 200,
+                  "label": "Effect 66",
+                  "effectName": "effect-66"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 203,
+                  "label": "Effect 67",
+                  "effectName": "effect-67"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 206,
+                  "label": "Effect 68",
+                  "effectName": "effect-68"
+                },
+                {
+                  "kind": "effect",
+                  "min": 207,
+                  "max": 209,
+                  "label": "Auto Run",
+                  "effectName": "auto-run"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 212,
+                  "label": "Sound Effect 1",
+                  "effectName": "sound-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 213,
+                  "max": 215,
+                  "label": "Sound Effect 2",
+                  "effectName": "sound-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 255,
+                  "label": "Sound Effect 3",
+                  "effectName": "sound-effect-3"
+                }
+              ]
+            },
+            {
+              "name": "Effect Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Background Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 11,
+                  "label": "Red:000 Green:000 Blue:000",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 12,
+                  "max": 23,
+                  "label": "Red:050 Green:000 Blue:000",
+                  "color": "#320000"
+                },
+                {
+                  "kind": "color",
+                  "min": 24,
+                  "max": 35,
+                  "label": "Red:150 Green:000 Blue:000",
+                  "color": "#960000"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 47,
+                  "label": "Red:255 Green:000 Blue:000",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 59,
+                  "label": "Red:000 Green:050 Blue:000",
+                  "color": "#003200"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 71,
+                  "label": "Red:000 Green:150 Blue:000",
+                  "color": "#009600"
+                },
+                {
+                  "kind": "color",
+                  "min": 72,
+                  "max": 83,
+                  "label": "Red:000 Green:255 Blue:000",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 84,
+                  "max": 95,
+                  "label": "Red:000 Green:000 Blue:050",
+                  "color": "#000032"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 107,
+                  "label": "Red:000 Green:000 Blue:150",
+                  "color": "#000096"
+                },
+                {
+                  "kind": "color",
+                  "min": 108,
+                  "max": 119,
+                  "label": "Red:000 Green:000 Blue:255",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 131,
+                  "label": "Red:050 Green:050 Blue:000",
+                  "color": "#323200"
+                },
+                {
+                  "kind": "color",
+                  "min": 132,
+                  "max": 143,
+                  "label": "Red:150 Green:150 Blue:000",
+                  "color": "#969600"
+                },
+                {
+                  "kind": "color",
+                  "min": 144,
+                  "max": 155,
+                  "label": "Red:255 Green:255 Blue:000",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 156,
+                  "max": 167,
+                  "label": "Red:050 Green:000 Blue:050",
+                  "color": "#320032"
+                },
+                {
+                  "kind": "color",
+                  "min": 168,
+                  "max": 179,
+                  "label": "Red:150 Green:000 Blue:150",
+                  "color": "#960096"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 191,
+                  "label": "Red:255 Green:000 Blue:255",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 203,
+                  "label": "Red:000 Green:050 Blue:050",
+                  "color": "#003232"
+                },
+                {
+                  "kind": "color",
+                  "min": 204,
+                  "max": 215,
+                  "label": "Red:000 Green:150 Blue:150",
+                  "color": "#009696"
+                },
+                {
+                  "kind": "color",
+                  "min": 216,
+                  "max": 227,
+                  "label": "Red:000 Green:255 Blue:255",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 228,
+                  "max": 239,
+                  "label": "Red:020 Green:020 Blue:020",
+                  "color": "#141414"
+                },
+                {
+                  "kind": "color",
+                  "min": 240,
+                  "max": 251,
+                  "label": "Red:060 Green:060 Blue:060",
+                  "color": "#3c3c3c"
+                },
+                {
+                  "kind": "color",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Red:100 Green:100 Blue:100",
+                  "color": "#646464"
+                }
+              ]
+            },
+            {
+              "name": "Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 11,
+                  "label": "Effect 1",
+                  "effectName": "effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 12,
+                  "max": 17,
+                  "label": "Effect 2",
+                  "effectName": "effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 18,
+                  "max": 23,
+                  "label": "Effect 3",
+                  "effectName": "effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 29,
+                  "label": "Effect 4",
+                  "effectName": "effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 35,
+                  "label": "Effect 5",
+                  "effectName": "effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 41,
+                  "label": "Effect 6",
+                  "effectName": "effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 47,
+                  "label": "Effect 7",
+                  "effectName": "effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 53,
+                  "label": "Effect 8",
+                  "effectName": "effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 54,
+                  "max": 59,
+                  "label": "Effect 9",
+                  "effectName": "effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 65,
+                  "label": "Effect 10",
+                  "effectName": "effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 71,
+                  "label": "Effect 11",
+                  "effectName": "effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 77,
+                  "label": "Effect 12",
+                  "effectName": "effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 83,
+                  "label": "Effect 13",
+                  "effectName": "effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 84,
+                  "max": 89,
+                  "label": "Effect 14",
+                  "effectName": "effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 95,
+                  "label": "Effect 15",
+                  "effectName": "effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 101,
+                  "label": "Effect 16",
+                  "effectName": "effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 102,
+                  "max": 107,
+                  "label": "Effect 17",
+                  "effectName": "effect-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 113,
+                  "label": "Effect 18",
+                  "effectName": "effect-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 114,
+                  "max": 119,
+                  "label": "Effect 19",
+                  "effectName": "effect-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 125,
+                  "label": "Effect 20",
+                  "effectName": "effect-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 131,
+                  "label": "Effect 21",
+                  "effectName": "effect-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 137,
+                  "label": "Effect 22",
+                  "effectName": "effect-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 138,
+                  "max": 143,
+                  "label": "Effect 23",
+                  "effectName": "effect-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 149,
+                  "label": "Effect 24",
+                  "effectName": "effect-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 155,
+                  "label": "Effect 25",
+                  "effectName": "effect-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 161,
+                  "label": "Effect 26",
+                  "effectName": "effect-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 167,
+                  "label": "Effect 27",
+                  "effectName": "effect-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 173,
+                  "label": "Effect 28",
+                  "effectName": "effect-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 179,
+                  "label": "Effect 29",
+                  "effectName": "effect-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 185,
+                  "label": "Effect 30",
+                  "effectName": "effect-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 191,
+                  "label": "Effect 31",
+                  "effectName": "effect-31"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 197,
+                  "label": "Effect 32",
+                  "effectName": "effect-32"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 203,
+                  "label": "Effect 33",
+                  "effectName": "effect-33"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 209,
+                  "label": "Effect 34",
+                  "effectName": "effect-34"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 215,
+                  "label": "Effect 35",
+                  "effectName": "effect-35"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 221,
+                  "label": "Effect 36",
+                  "effectName": "effect-36"
+                },
+                {
+                  "kind": "effect",
+                  "min": 222,
+                  "max": 255,
+                  "label": "Auto effect",
+                  "effectName": "auto-effect"
+                }
+              ]
+            },
+            {
+              "name": "Effect Speed ACW",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "82ch",
+          "name": "82 Channel",
+          "channels": [
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 7",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 7",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 7",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 9",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 9",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 9",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 10",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 10",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 10",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 11",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 11",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 11",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 12",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 12",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 12",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 13",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 13",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 13",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 14",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 14",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 14",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 15",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 15",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 15",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 16",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 16",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 16",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 1",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 2",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 3",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 4",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 5",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 6",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 7",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 8",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 9",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 10",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 11",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 12",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 13",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 14",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 15",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 16",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 7",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 8",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 9",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 10",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 11",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 12",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 13",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 14",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 15",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 16",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Strobe Amber/Cool White",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe Amber/Cool White from slow to fast",
+                  "effectName": "strobe-amber-cool-white-from-slow-to-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "130ch",
+          "name": "130 Channel",
+          "channels": [
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 7",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 7",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 7",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 9",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 9",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 9",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 10",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 10",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 10",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 11",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 11",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 11",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 12",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 12",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 12",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 13",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 13",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 13",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 14",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 14",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 14",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 15",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 15",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 15",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 16",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 16",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 16",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 17",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 17",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 17",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 18",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 18",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 18",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 19",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 19",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 19",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 20",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 20",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 20",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 21",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 21",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 21",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 22",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 22",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 22",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 23",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 23",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 23",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 24",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 24",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 24",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 25",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 25",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 25",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 26",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 26",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 26",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 27",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 27",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 27",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 28",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 28",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 28",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 29",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 29",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 29",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 30",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 30",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 30",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 31",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 31",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 31",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 32",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 32",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 32",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 1",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 2",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 3",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 4",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 5",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 6",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 7",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 8",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 9",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 10",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 11",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 12",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 13",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 14",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 15",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 16",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 7",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 8",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 9",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 10",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 11",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 12",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 13",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 14",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 15",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 16",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Strobe Amber/Cool White",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe Amber/Cool White from slow to fast",
+                  "effectName": "strobe-amber-cool-white-from-slow-to-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "135ch",
+          "name": "135 Channel",
+          "channels": [
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 7",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 7",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 7",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 9",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 9",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 9",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 10",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 10",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 10",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 11",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 11",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 11",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 12",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 12",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 12",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 13",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 13",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 13",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 14",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 14",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 14",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 15",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 15",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 15",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 16",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 16",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 16",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 17",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 17",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 17",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 18",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 18",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 18",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 19",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 19",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 19",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 20",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 20",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 20",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 21",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 21",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 21",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 22",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 22",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 22",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 23",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 23",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 23",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 24",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 24",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 24",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 25",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 25",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 25",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 26",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 26",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 26",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 27",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 27",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 27",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 28",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 28",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 28",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 29",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 29",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 29",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 30",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 30",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 30",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 31",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 31",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 31",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 32",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 32",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 32",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 1",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 2",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 3",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 4",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 5",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 6",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 7",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 8",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 9",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 10",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 11",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 12",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 13",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 14",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 15",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 16",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 7",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 8",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 9",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 10",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 11",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 12",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 13",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 14",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 15",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cool White 16",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Strobe Amber/Cool White",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe Amber/Cool White from slow to fast",
+                  "effectName": "strobe-amber-cool-white-from-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Red/Green/Blue Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 2,
+                  "label": "Effect 1",
+                  "effectName": "effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 3,
+                  "max": 5,
+                  "label": "Effect 2",
+                  "effectName": "effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 8,
+                  "label": "Effect 3",
+                  "effectName": "effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 9,
+                  "max": 11,
+                  "label": "Effect 4",
+                  "effectName": "effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 12,
+                  "max": 14,
+                  "label": "Effect 5",
+                  "effectName": "effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 15,
+                  "max": 17,
+                  "label": "Effect 6",
+                  "effectName": "effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 18,
+                  "max": 20,
+                  "label": "Effect 7",
+                  "effectName": "effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 23,
+                  "label": "Effect 8",
+                  "effectName": "effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 26,
+                  "label": "Effect 9",
+                  "effectName": "effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 27,
+                  "max": 29,
+                  "label": "Effect 10",
+                  "effectName": "effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 32,
+                  "label": "Effect 11",
+                  "effectName": "effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 33,
+                  "max": 35,
+                  "label": "Effect 12",
+                  "effectName": "effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 38,
+                  "label": "Effect 13",
+                  "effectName": "effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 39,
+                  "max": 41,
+                  "label": "Effect 14",
+                  "effectName": "effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 44,
+                  "label": "Effect 15",
+                  "effectName": "effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 45,
+                  "max": 47,
+                  "label": "Effect 16",
+                  "effectName": "effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 50,
+                  "label": "Effect 17",
+                  "effectName": "effect-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 53,
+                  "label": "Effect 18",
+                  "effectName": "effect-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 54,
+                  "max": 56,
+                  "label": "Effect 19",
+                  "effectName": "effect-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 57,
+                  "max": 59,
+                  "label": "Effect 20",
+                  "effectName": "effect-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 62,
+                  "label": "Effect 21",
+                  "effectName": "effect-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 63,
+                  "max": 65,
+                  "label": "Effect 22",
+                  "effectName": "effect-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 68,
+                  "label": "Effect 23",
+                  "effectName": "effect-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 69,
+                  "max": 71,
+                  "label": "Effect 24",
+                  "effectName": "effect-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 74,
+                  "label": "Effect 25",
+                  "effectName": "effect-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 77,
+                  "label": "Effect 26",
+                  "effectName": "effect-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 80,
+                  "label": "Effect 27",
+                  "effectName": "effect-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 83,
+                  "label": "Effect 28",
+                  "effectName": "effect-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 84,
+                  "max": 86,
+                  "label": "Effect 29",
+                  "effectName": "effect-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 87,
+                  "max": 89,
+                  "label": "Effect 30",
+                  "effectName": "effect-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 92,
+                  "label": "Effect 31",
+                  "effectName": "effect-31"
+                },
+                {
+                  "kind": "effect",
+                  "min": 93,
+                  "max": 95,
+                  "label": "Effect 32",
+                  "effectName": "effect-32"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 98,
+                  "label": "Effect 33",
+                  "effectName": "effect-33"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 101,
+                  "label": "Effect 34",
+                  "effectName": "effect-34"
+                },
+                {
+                  "kind": "effect",
+                  "min": 102,
+                  "max": 104,
+                  "label": "Effect 35",
+                  "effectName": "effect-35"
+                },
+                {
+                  "kind": "effect",
+                  "min": 105,
+                  "max": 107,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 110,
+                  "label": "Effect 36",
+                  "effectName": "effect-36"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 113,
+                  "label": "Effect 37",
+                  "effectName": "effect-37"
+                },
+                {
+                  "kind": "effect",
+                  "min": 114,
+                  "max": 116,
+                  "label": "Effect 38",
+                  "effectName": "effect-38"
+                },
+                {
+                  "kind": "effect",
+                  "min": 117,
+                  "max": 119,
+                  "label": "Effect 39",
+                  "effectName": "effect-39"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 122,
+                  "label": "Effect 40",
+                  "effectName": "effect-40"
+                },
+                {
+                  "kind": "effect",
+                  "min": 123,
+                  "max": 125,
+                  "label": "Effect 41",
+                  "effectName": "effect-41"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 128,
+                  "label": "Effect 42",
+                  "effectName": "effect-42"
+                },
+                {
+                  "kind": "effect",
+                  "min": 129,
+                  "max": 131,
+                  "label": "Effect 43",
+                  "effectName": "effect-43"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 134,
+                  "label": "Effect 44",
+                  "effectName": "effect-44"
+                },
+                {
+                  "kind": "effect",
+                  "min": 135,
+                  "max": 137,
+                  "label": "Effect 45",
+                  "effectName": "effect-45"
+                },
+                {
+                  "kind": "effect",
+                  "min": 138,
+                  "max": 140,
+                  "label": "Effect 46",
+                  "effectName": "effect-46"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 143,
+                  "label": "Effect 47",
+                  "effectName": "effect-47"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 146,
+                  "label": "Effect 48",
+                  "effectName": "effect-48"
+                },
+                {
+                  "kind": "effect",
+                  "min": 147,
+                  "max": 149,
+                  "label": "Effect 49",
+                  "effectName": "effect-49"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 152,
+                  "label": "Effect 50",
+                  "effectName": "effect-50"
+                },
+                {
+                  "kind": "effect",
+                  "min": 153,
+                  "max": 155,
+                  "label": "Effect 51",
+                  "effectName": "effect-51"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 158,
+                  "label": "Effect 52",
+                  "effectName": "effect-52"
+                },
+                {
+                  "kind": "effect",
+                  "min": 159,
+                  "max": 161,
+                  "label": "Effect 53",
+                  "effectName": "effect-53"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 164,
+                  "label": "Effect 54",
+                  "effectName": "effect-54"
+                },
+                {
+                  "kind": "effect",
+                  "min": 165,
+                  "max": 167,
+                  "label": "Effect 55",
+                  "effectName": "effect-55"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 170,
+                  "label": "Effect 56",
+                  "effectName": "effect-56"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 173,
+                  "label": "Effect 57",
+                  "effectName": "effect-57"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 176,
+                  "label": "Effect 58",
+                  "effectName": "effect-58"
+                },
+                {
+                  "kind": "effect",
+                  "min": 177,
+                  "max": 179,
+                  "label": "Effect 59",
+                  "effectName": "effect-59"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 182,
+                  "label": "Effect 60",
+                  "effectName": "effect-60"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 185,
+                  "label": "Effect 61",
+                  "effectName": "effect-61"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 188,
+                  "label": "Effect 62",
+                  "effectName": "effect-62"
+                },
+                {
+                  "kind": "effect",
+                  "min": 189,
+                  "max": 191,
+                  "label": "Effect 63",
+                  "effectName": "effect-63"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 194,
+                  "label": "Effect 64",
+                  "effectName": "effect-64"
+                },
+                {
+                  "kind": "effect",
+                  "min": 195,
+                  "max": 197,
+                  "label": "Effect 65",
+                  "effectName": "effect-65"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 200,
+                  "label": "Effect 66",
+                  "effectName": "effect-66"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 203,
+                  "label": "Effect 67",
+                  "effectName": "effect-67"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 206,
+                  "label": "Effect 68",
+                  "effectName": "effect-68"
+                },
+                {
+                  "kind": "effect",
+                  "min": 207,
+                  "max": 209,
+                  "label": "Auto Run",
+                  "effectName": "auto-run"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 212,
+                  "label": "Sound Effect 1",
+                  "effectName": "sound-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 213,
+                  "max": 215,
+                  "label": "Sound Effect 2",
+                  "effectName": "sound-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 255,
+                  "label": "Sound Effect 3",
+                  "effectName": "sound-effect-3"
+                }
+              ]
+            },
+            {
+              "name": "Effect Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Background Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 11,
+                  "label": "Red:000 Green:000 Blue:000",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 12,
+                  "max": 23,
+                  "label": "Red:050 Green:000 Blue:000",
+                  "color": "#320000"
+                },
+                {
+                  "kind": "color",
+                  "min": 24,
+                  "max": 35,
+                  "label": "Red:150 Green:000 Blue:000",
+                  "color": "#960000"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 47,
+                  "label": "Red:255 Green:000 Blue:000",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 59,
+                  "label": "Red:000 Green:050 Blue:000",
+                  "color": "#003200"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 71,
+                  "label": "Red:000 Green:150 Blue:000",
+                  "color": "#009600"
+                },
+                {
+                  "kind": "color",
+                  "min": 72,
+                  "max": 83,
+                  "label": "Red:000 Green:255 Blue:000",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 84,
+                  "max": 95,
+                  "label": "Red:000 Green:000 Blue:050",
+                  "color": "#000032"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 107,
+                  "label": "Red:000 Green:000 Blue:150",
+                  "color": "#000096"
+                },
+                {
+                  "kind": "color",
+                  "min": 108,
+                  "max": 119,
+                  "label": "Red:000 Green:000 Blue:255",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 131,
+                  "label": "Red:050 Green:050 Blue:000",
+                  "color": "#323200"
+                },
+                {
+                  "kind": "color",
+                  "min": 132,
+                  "max": 143,
+                  "label": "Red:150 Green:150 Blue:000",
+                  "color": "#969600"
+                },
+                {
+                  "kind": "color",
+                  "min": 144,
+                  "max": 155,
+                  "label": "Red:255 Green:255 Blue:000",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 156,
+                  "max": 167,
+                  "label": "Red:050 Green:000 Blue:050",
+                  "color": "#320032"
+                },
+                {
+                  "kind": "color",
+                  "min": 168,
+                  "max": 179,
+                  "label": "Red:150 Green:000 Blue:150",
+                  "color": "#960096"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 191,
+                  "label": "Red:255 Green:000 Blue:255",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 203,
+                  "label": "Red:000 Green:050 Blue:050",
+                  "color": "#003232"
+                },
+                {
+                  "kind": "color",
+                  "min": 204,
+                  "max": 215,
+                  "label": "Red:000 Green:150 Blue:150",
+                  "color": "#009696"
+                },
+                {
+                  "kind": "color",
+                  "min": 216,
+                  "max": 227,
+                  "label": "Red:000 Green:255 Blue:255",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 228,
+                  "max": 239,
+                  "label": "Red:020 Green:020 Blue:020",
+                  "color": "#141414"
+                },
+                {
+                  "kind": "color",
+                  "min": 240,
+                  "max": 251,
+                  "label": "Red:060 Green:060 Blue:060",
+                  "color": "#3c3c3c"
+                },
+                {
+                  "kind": "color",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Red:100 Green:100 Blue:100",
+                  "color": "#646464"
+                }
+              ]
+            },
+            {
+              "name": "Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 11,
+                  "label": "Effect 1",
+                  "effectName": "effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 12,
+                  "max": 17,
+                  "label": "Effect 2",
+                  "effectName": "effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 18,
+                  "max": 23,
+                  "label": "Effect 3",
+                  "effectName": "effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 29,
+                  "label": "Effect 4",
+                  "effectName": "effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 35,
+                  "label": "Effect 5",
+                  "effectName": "effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 41,
+                  "label": "Effect 6",
+                  "effectName": "effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 47,
+                  "label": "Effect 7",
+                  "effectName": "effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 53,
+                  "label": "Effect 8",
+                  "effectName": "effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 54,
+                  "max": 59,
+                  "label": "Effect 9",
+                  "effectName": "effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 65,
+                  "label": "Effect 10",
+                  "effectName": "effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 71,
+                  "label": "Effect 11",
+                  "effectName": "effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 77,
+                  "label": "Effect 12",
+                  "effectName": "effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 83,
+                  "label": "Effect 13",
+                  "effectName": "effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 84,
+                  "max": 89,
+                  "label": "Effect 14",
+                  "effectName": "effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 95,
+                  "label": "Effect 15",
+                  "effectName": "effect-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 101,
+                  "label": "Effect 16",
+                  "effectName": "effect-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 102,
+                  "max": 107,
+                  "label": "Effect 17",
+                  "effectName": "effect-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 113,
+                  "label": "Effect 18",
+                  "effectName": "effect-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 114,
+                  "max": 119,
+                  "label": "Effect 19",
+                  "effectName": "effect-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 125,
+                  "label": "Effect 20",
+                  "effectName": "effect-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 131,
+                  "label": "Effect 21",
+                  "effectName": "effect-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 137,
+                  "label": "Effect 22",
+                  "effectName": "effect-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 138,
+                  "max": 143,
+                  "label": "Effect 23",
+                  "effectName": "effect-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 149,
+                  "label": "Effect 24",
+                  "effectName": "effect-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 155,
+                  "label": "Effect 25",
+                  "effectName": "effect-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 161,
+                  "label": "Effect 26",
+                  "effectName": "effect-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 167,
+                  "label": "Effect 27",
+                  "effectName": "effect-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 173,
+                  "label": "Effect 28",
+                  "effectName": "effect-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 179,
+                  "label": "Effect 29",
+                  "effectName": "effect-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 185,
+                  "label": "Effect 30",
+                  "effectName": "effect-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 191,
+                  "label": "Effect 31",
+                  "effectName": "effect-31"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 197,
+                  "label": "Effect 32",
+                  "effectName": "effect-32"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 203,
+                  "label": "Effect 33",
+                  "effectName": "effect-33"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 209,
+                  "label": "Effect 34",
+                  "effectName": "effect-34"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 215,
+                  "label": "Effect 35",
+                  "effectName": "effect-35"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 221,
+                  "label": "Effect 36",
+                  "effectName": "effect-36"
+                },
+                {
+                  "kind": "effect",
+                  "min": 222,
+                  "max": 255,
+                  "label": "Auto effect",
+                  "effectName": "auto-effect"
+                }
+              ]
+            },
+            {
+              "name": "Effect Speed ACW",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

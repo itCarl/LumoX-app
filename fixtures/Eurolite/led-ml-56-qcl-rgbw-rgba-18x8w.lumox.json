@@ -1,0 +1,491 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED ML-56 QCL RGBW-RGBA 18x8W",
+      "manufacturer": "Eurolite",
+      "model": "LED ML-56 QCL RGBW-RGBA 18x8W",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Matthijs ten Berge",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-ML-56-QCL-RGBW-RGBA-18x8W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 300,
+          "height": 310,
+          "depth": 240,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 18,
+          "degreesMax": 18
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 190,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "8ch",
+          "name": "8 Channel Mode",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Secondary Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Secondary Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Secondary Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel Mode",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Sound Control, Strobe",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 5,
+                  "label": "Sound control (30 colors)",
+                  "effectName": "sound-control-30-colors"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe (increasing)",
+                  "effectName": "strobe-increasing"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5 Channel Mode",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel Mode",
+          "channels": [
+            {
+              "name": "Color Selection",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Cold white",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Amber",
+                  "color": "#ff8000"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Spring yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 71,
+                  "label": "Pale blue",
+                  "color": "#8080ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Warm white tone 1",
+                  "color": "#fffae4"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Pale red",
+                  "color": "#ff8080"
+                },
+                {
+                  "kind": "color",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Pale green",
+                  "color": "#80ff80"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Medium blue",
+                  "color": "#3033ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Lilac tint",
+                  "color": "#aa55ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Salmon",
+                  "color": "#ffc572"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Medium green",
+                  "color": "#55ff7f"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 135,
+                  "label": "White frost",
+                  "color": "#e2e7ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Cyan tone 1",
+                  "color": "#57fff1"
+                },
+                {
+                  "kind": "color",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Light blue",
+                  "color": "#b3b3ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Medium pink",
+                  "color": "#ff7bd1"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Green tone 2",
+                  "color": "#2b9a4a"
+                },
+                {
+                  "kind": "color",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Medium yellow",
+                  "color": "#ffff45"
+                },
+                {
+                  "kind": "color",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Light green",
+                  "color": "#b5ffaf"
+                },
+                {
+                  "kind": "color",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Pink",
+                  "color": "#ff2e82"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Light pink",
+                  "color": "#ff78a7"
+                },
+                {
+                  "kind": "color",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Blue mist",
+                  "color": "#7a7bad"
+                },
+                {
+                  "kind": "color",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Medium white",
+                  "color": "#8b8b8b"
+                },
+                {
+                  "kind": "color",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Light cyan",
+                  "color": "#90ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Steel blue",
+                  "color": "#39579d"
+                },
+                {
+                  "kind": "color",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Green yellow",
+                  "color": "#d1ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Warm white tone 2",
+                  "color": "#fff4c6"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Sound Control, Strobe",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 5,
+                  "label": "Sound control (30 colors)",
+                  "effectName": "sound-control-30-colors"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe (increasing)",
+                  "effectName": "strobe-increasing"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,593 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/Easy Move LED XS Wash",
+      "manufacturer": "Varytec",
+      "model": "Easy Move LED XS Wash",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Heikki Junnila",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-Easy-Move-LED-XS-Wash.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 173,
+          "height": 249,
+          "depth": 173,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "18x3W LED, RGB",
+          "lumens": 100,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "PC",
+          "degreesMin": 15,
+          "degreesMax": 15
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 50,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "12ch",
+          "name": "12 channels",
+          "channels": [
+            {
+              "name": "Pan coarse",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt coarse",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Vector speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer/Strobe",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Closed"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 134,
+                  "label": "100% -> 0%"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 239,
+                  "label": "Strobe speed (slow -> fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Open"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 8,
+                  "max": 21,
+                  "label": "White",
+                  "color": "#fff6fc"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 35,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 49,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 63,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 77,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 91,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 92,
+                  "max": 105,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 106,
+                  "max": 119,
+                  "label": "Orange",
+                  "color": "#ff8000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 133,
+                  "label": "Pink",
+                  "color": "#ff006e"
+                },
+                {
+                  "kind": "color",
+                  "min": 134,
+                  "max": 147,
+                  "label": "Bright Purple",
+                  "color": "#dfd4ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 148,
+                  "max": 161,
+                  "label": "Purple",
+                  "color": "#a800ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 162,
+                  "max": 175,
+                  "label": "Cyano Brown",
+                  "color": "#4ee5f7"
+                },
+                {
+                  "kind": "color",
+                  "min": 176,
+                  "max": 189,
+                  "label": "Gold",
+                  "color": "#ffcf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 203,
+                  "label": "Cold White",
+                  "color": "#ebebff"
+                },
+                {
+                  "kind": "color",
+                  "min": 204,
+                  "max": 217,
+                  "label": "Warm White",
+                  "color": "#ffebeb"
+                },
+                {
+                  "kind": "color",
+                  "min": 218,
+                  "max": 231,
+                  "label": "Grape",
+                  "color": "#db00ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 242,
+                  "label": "Colour-Change Switch"
+                },
+                {
+                  "kind": "range",
+                  "min": 243,
+                  "max": 255,
+                  "label": "Colour-Change Fade"
+                }
+              ]
+            },
+            {
+              "name": "Colour speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Movement macros",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 22,
+                  "label": "Auto program 1",
+                  "effectName": "auto-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 37,
+                  "label": "Auto program 2",
+                  "effectName": "auto-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 52,
+                  "label": "Auto program 3",
+                  "effectName": "auto-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 67,
+                  "label": "Auto program 4",
+                  "effectName": "auto-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 82,
+                  "label": "Auto program 5",
+                  "effectName": "auto-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 97,
+                  "label": "Auto program 6",
+                  "effectName": "auto-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 112,
+                  "label": "Auto program 7",
+                  "effectName": "auto-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 127,
+                  "label": "Auto program 8",
+                  "effectName": "auto-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 142,
+                  "label": "Sound active 1",
+                  "effectName": "sound-active-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 157,
+                  "label": "Sound active 2",
+                  "effectName": "sound-active-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 158,
+                  "max": 172,
+                  "label": "Sound active 3",
+                  "effectName": "sound-active-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 173,
+                  "max": 187,
+                  "label": "Sound active 4",
+                  "effectName": "sound-active-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 202,
+                  "label": "Sound active 5",
+                  "effectName": "sound-active-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 203,
+                  "max": 217,
+                  "label": "Sound active 6",
+                  "effectName": "sound-active-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 232,
+                  "label": "Sound active 7",
+                  "effectName": "sound-active-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 233,
+                  "max": 255,
+                  "label": "Sound active 8",
+                  "effectName": "sound-active-8"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 channels",
+          "channels": [
+            {
+              "name": "Pan coarse",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt coarse",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer/Strobe",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Closed"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 134,
+                  "label": "100% -> 0%"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 239,
+                  "label": "Strobe speed (slow -> fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Open"
+                }
+              ]
+            },
+            {
+              "name": "Colour macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 8,
+                  "max": 21,
+                  "label": "White",
+                  "color": "#fff6fc"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 35,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 49,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 63,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 77,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 91,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 92,
+                  "max": 105,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 106,
+                  "max": 119,
+                  "label": "Orange",
+                  "color": "#ff8000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 133,
+                  "label": "Pink",
+                  "color": "#ff006e"
+                },
+                {
+                  "kind": "color",
+                  "min": 134,
+                  "max": 147,
+                  "label": "Bright Purple",
+                  "color": "#dfd4ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 148,
+                  "max": 161,
+                  "label": "Purple",
+                  "color": "#a800ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 162,
+                  "max": 175,
+                  "label": "Cyano Brown",
+                  "color": "#4ee5f7"
+                },
+                {
+                  "kind": "color",
+                  "min": 176,
+                  "max": 189,
+                  "label": "Gold",
+                  "color": "#ffcf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 203,
+                  "label": "Cold White",
+                  "color": "#ebebff"
+                },
+                {
+                  "kind": "color",
+                  "min": 204,
+                  "max": 217,
+                  "label": "Warm White",
+                  "color": "#ffebeb"
+                },
+                {
+                  "kind": "color",
+                  "min": 218,
+                  "max": 231,
+                  "label": "Grape",
+                  "color": "#db00ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 242,
+                  "label": "Colour-Change Switch"
+                },
+                {
+                  "kind": "range",
+                  "min": 243,
+                  "max": 255,
+                  "label": "Colour-Change Fade"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,757 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/BT430 PAR",
+      "manufacturer": "beamZ",
+      "model": "BT430 PAR",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Pascal Fleury",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-BT430.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 285,
+          "height": 214,
+          "depth": 118,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.85,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 2617,
+          "colourTemperature": 5000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 64,
+          "degreesMax": 64
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 72,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 31,
+                  "label": "no function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Full on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 64,
+                  "max": 95,
+                  "label": "strobe effect slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 127,
+                  "label": "full on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 159,
+                  "label": "pulse effect slow to fast",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 160,
+                  "max": 191,
+                  "label": "full on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 192,
+                  "max": 223,
+                  "label": "randon strobe effect slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 224,
+                  "max": 255,
+                  "label": "full on",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Warm white",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cold white",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Temperature",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 45,
+                  "label": "Below 3200K",
+                  "color": "#ffcb7b"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 75,
+                  "label": "3200K-3500K",
+                  "color": "#f9e990"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 105,
+                  "label": "3500K-5000K",
+                  "color": "#f9f7a4"
+                },
+                {
+                  "kind": "color",
+                  "min": 106,
+                  "max": 135,
+                  "label": "5000K-5500K",
+                  "color": "#f1f9b3"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 165,
+                  "label": "5500K-6000K",
+                  "color": "#fafbd0"
+                },
+                {
+                  "kind": "color",
+                  "min": 166,
+                  "max": 195,
+                  "label": "6000K-6500K",
+                  "color": "#f3fef1"
+                },
+                {
+                  "kind": "color",
+                  "min": 196,
+                  "max": 225,
+                  "label": "6500K-7000K",
+                  "color": "#c4fef1"
+                },
+                {
+                  "kind": "color",
+                  "min": 226,
+                  "max": 255,
+                  "label": "7000K-8000K",
+                  "color": "#61fef5"
+                }
+              ]
+            },
+            {
+              "name": "Macro Run",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 26,
+                  "label": "Macro Run 1",
+                  "effectName": "macro-run-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 27,
+                  "max": 38,
+                  "label": "Macro Run 2",
+                  "effectName": "macro-run-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 39,
+                  "max": 50,
+                  "label": "Macro Run 3",
+                  "effectName": "macro-run-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 62,
+                  "label": "Macro Run 4",
+                  "effectName": "macro-run-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 63,
+                  "max": 74,
+                  "label": "Macro Run 5",
+                  "effectName": "macro-run-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 86,
+                  "label": "Macro Run 6",
+                  "effectName": "macro-run-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 87,
+                  "max": 98,
+                  "label": "Macro Run 7",
+                  "effectName": "macro-run-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 110,
+                  "label": "Macro Run 8",
+                  "effectName": "macro-run-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 122,
+                  "label": "Macro Run 9",
+                  "effectName": "macro-run-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 123,
+                  "max": 134,
+                  "label": "Macro Run 10",
+                  "effectName": "macro-run-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 135,
+                  "max": 146,
+                  "label": "Macro Run 11",
+                  "effectName": "macro-run-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 147,
+                  "max": 158,
+                  "label": "Macro Run 12",
+                  "effectName": "macro-run-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 159,
+                  "max": 170,
+                  "label": "Macro Run 13",
+                  "effectName": "macro-run-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 182,
+                  "label": "Macro Run 14",
+                  "effectName": "macro-run-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 194,
+                  "label": "Macro Run 15",
+                  "effectName": "macro-run-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 195,
+                  "max": 206,
+                  "label": "Macro Sound 1",
+                  "effectName": "macro-sound-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 207,
+                  "max": 218,
+                  "label": "Macro Sound 2",
+                  "effectName": "macro-sound-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 219,
+                  "max": 230,
+                  "label": "Macro Sound 3",
+                  "effectName": "macro-sound-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 242,
+                  "label": "Macro Sound 4",
+                  "effectName": "macro-sound-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 243,
+                  "max": 255,
+                  "label": "Macro Sound 5",
+                  "effectName": "macro-sound-5"
+                }
+              ]
+            },
+            {
+              "name": "Macro Run Speed",
+              "typeId": "pan-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "16ch",
+          "name": "16 Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 31,
+                  "label": "no function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Full on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 64,
+                  "max": 95,
+                  "label": "strobe effect slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 127,
+                  "label": "full on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 159,
+                  "label": "pulse effect slow to fast",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 160,
+                  "max": 191,
+                  "label": "full on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 192,
+                  "max": 223,
+                  "label": "randon strobe effect slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 224,
+                  "max": 255,
+                  "label": "full on",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Warm white",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Cold white",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Temperature",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 45,
+                  "label": "Below 3200K",
+                  "color": "#ffcb7b"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 75,
+                  "label": "3200K-3500K",
+                  "color": "#f9e990"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 105,
+                  "label": "3500K-5000K",
+                  "color": "#f9f7a4"
+                },
+                {
+                  "kind": "color",
+                  "min": 106,
+                  "max": 135,
+                  "label": "5000K-5500K",
+                  "color": "#f1f9b3"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 165,
+                  "label": "5500K-6000K",
+                  "color": "#fafbd0"
+                },
+                {
+                  "kind": "color",
+                  "min": 166,
+                  "max": 195,
+                  "label": "6000K-6500K",
+                  "color": "#f3fef1"
+                },
+                {
+                  "kind": "color",
+                  "min": 196,
+                  "max": 225,
+                  "label": "6500K-7000K",
+                  "color": "#c4fef1"
+                },
+                {
+                  "kind": "color",
+                  "min": 226,
+                  "max": 255,
+                  "label": "7000K-8000K",
+                  "color": "#61fef5"
+                }
+              ]
+            },
+            {
+              "name": "Macro Run",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 26,
+                  "label": "Macro Run 1",
+                  "effectName": "macro-run-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 27,
+                  "max": 38,
+                  "label": "Macro Run 2",
+                  "effectName": "macro-run-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 39,
+                  "max": 50,
+                  "label": "Macro Run 3",
+                  "effectName": "macro-run-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 62,
+                  "label": "Macro Run 4",
+                  "effectName": "macro-run-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 63,
+                  "max": 74,
+                  "label": "Macro Run 5",
+                  "effectName": "macro-run-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 86,
+                  "label": "Macro Run 6",
+                  "effectName": "macro-run-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 87,
+                  "max": 98,
+                  "label": "Macro Run 7",
+                  "effectName": "macro-run-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 110,
+                  "label": "Macro Run 8",
+                  "effectName": "macro-run-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 122,
+                  "label": "Macro Run 9",
+                  "effectName": "macro-run-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 123,
+                  "max": 134,
+                  "label": "Macro Run 10",
+                  "effectName": "macro-run-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 135,
+                  "max": 146,
+                  "label": "Macro Run 11",
+                  "effectName": "macro-run-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 147,
+                  "max": 158,
+                  "label": "Macro Run 12",
+                  "effectName": "macro-run-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 159,
+                  "max": 170,
+                  "label": "Macro Run 13",
+                  "effectName": "macro-run-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 182,
+                  "label": "Macro Run 14",
+                  "effectName": "macro-run-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 194,
+                  "label": "Macro Run 15",
+                  "effectName": "macro-run-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 195,
+                  "max": 206,
+                  "label": "Macro Sound 1",
+                  "effectName": "macro-sound-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 207,
+                  "max": 218,
+                  "label": "Macro Sound 2",
+                  "effectName": "macro-sound-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 219,
+                  "max": 230,
+                  "label": "Macro Sound 3",
+                  "effectName": "macro-sound-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 242,
+                  "label": "Macro Sound 4",
+                  "effectName": "macro-sound-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 243,
+                  "max": 255,
+                  "label": "Macro Sound 5",
+                  "effectName": "macro-sound-5"
+                }
+              ]
+            },
+            {
+              "name": "Macro Run Speed",
+              "typeId": "pan-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 1",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 2",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 3",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 4",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 5",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 6",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 7",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 8",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Warm White - Ring 9",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

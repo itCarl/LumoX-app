@@ -1,0 +1,2929 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/KLS-180-6",
+      "manufacturer": "Eurolite",
+      "model": "KLS-180-6",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Fede79",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-KLS-180-6.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 926,
+          "height": 267,
+          "depth": 146,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 9,
+          "degreesMax": 18
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 90,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Spots Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Spots Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Bar Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Bar",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 149,
+                  "label": "Different patterns",
+                  "effectName": "different-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 255,
+                  "label": "Different patterns with increasing speed",
+                  "effectName": "different-patterns-with-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Internal programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 39,
+                  "label": "Auto program 1,slow > fast",
+                  "effectName": "auto-program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 69,
+                  "label": "Auto program 2,slow > fast",
+                  "effectName": "auto-program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 99,
+                  "label": "Auto program 3,slow > fast",
+                  "effectName": "auto-program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 129,
+                  "label": "Auto program 4,slow > fast",
+                  "effectName": "auto-program-4-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 159,
+                  "label": "Sound program 1, slow > fast",
+                  "effectName": "sound-program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 189,
+                  "label": "Sound program 2, slow > fast",
+                  "effectName": "sound-program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 219,
+                  "label": "Sound program 3, slow > fast",
+                  "effectName": "sound-program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "Sound program 4, slow > fast",
+                  "effectName": "sound-program-4-slow-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Spots Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Spot 1 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Spot 2+3 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Spot 4+5 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Spot 6 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Bar Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Programs via DMX",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 129,
+                  "label": "Auto mode via DMX with increasing speed",
+                  "effectName": "auto-mode-via-dmx-with-increasing-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 255,
+                  "label": "Sound control via DMX with increasing speed",
+                  "effectName": "sound-control-via-dmx-with-increasing-speed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Spots Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Bar Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Bar",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 149,
+                  "label": "Different patterns",
+                  "effectName": "different-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 255,
+                  "label": "Different patterns with increasing speed",
+                  "effectName": "different-patterns-with-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Internal programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 39,
+                  "label": "Auto program 1,slow > fast",
+                  "effectName": "auto-program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 69,
+                  "label": "Auto program 2,slow > fast",
+                  "effectName": "auto-program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 99,
+                  "label": "Auto program 3,slow > fast",
+                  "effectName": "auto-program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 129,
+                  "label": "Auto program 4,slow > fast",
+                  "effectName": "auto-program-4-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 159,
+                  "label": "Sound program 1, slow > fast",
+                  "effectName": "sound-program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 189,
+                  "label": "Sound program 2, slow > fast",
+                  "effectName": "sound-program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 219,
+                  "label": "Sound program 3, slow > fast",
+                  "effectName": "sound-program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "Sound program 4, slow > fast",
+                  "effectName": "sound-program-4-slow-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "11ch",
+          "name": "11 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Spots Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Spot 1 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Spot 2 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Spot 3 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Spot 4 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Spot 5 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Spot 6 Preset colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Straw",
+                  "color": "#ddd26c"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All on",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Bar Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Bar",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 149,
+                  "label": "Different patterns",
+                  "effectName": "different-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 255,
+                  "label": "Different patterns with increasing speed",
+                  "effectName": "different-patterns-with-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Internal programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 39,
+                  "label": "Auto program 1,slow > fast",
+                  "effectName": "auto-program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 69,
+                  "label": "Auto program 2,slow > fast",
+                  "effectName": "auto-program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 99,
+                  "label": "Auto program 3,slow > fast",
+                  "effectName": "auto-program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 129,
+                  "label": "Auto program 4,slow > fast",
+                  "effectName": "auto-program-4-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 159,
+                  "label": "Sound program 1, slow > fast",
+                  "effectName": "sound-program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 189,
+                  "label": "Sound program 2, slow > fast",
+                  "effectName": "sound-program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 219,
+                  "label": "Sound program 3, slow > fast",
+                  "effectName": "sound-program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "Sound program 4, slow > fast",
+                  "effectName": "sound-program-4-slow-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "21ch",
+          "name": "21 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Spots Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Bar Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Bar Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red Spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 2+3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 2+3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 2+3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 2+3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 4+5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 4+5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 4+5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 4+5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Programs via DMX",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 129,
+                  "label": "Auto mode via DMX with increasing speed",
+                  "effectName": "auto-mode-via-dmx-with-increasing-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 255,
+                  "label": "Sound control via DMX with increasing speed",
+                  "effectName": "sound-control-via-dmx-with-increasing-speed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "24ch",
+          "name": "24 Channel",
+          "channels": [
+            {
+              "name": "Red Spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "29ch",
+          "name": "29 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Spots Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red Spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Bar Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Bar",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 149,
+                  "label": "Different patterns",
+                  "effectName": "different-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 255,
+                  "label": "Different patterns with increasing speed",
+                  "effectName": "different-patterns-with-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Internal programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 39,
+                  "label": "Auto program 1,slow > fast",
+                  "effectName": "auto-program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 69,
+                  "label": "Auto program 2,slow > fast",
+                  "effectName": "auto-program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 99,
+                  "label": "Auto program 3,slow > fast",
+                  "effectName": "auto-program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 129,
+                  "label": "Auto program 4,slow > fast",
+                  "effectName": "auto-program-4-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 159,
+                  "label": "Sound program 1, slow > fast",
+                  "effectName": "sound-program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 189,
+                  "label": "Sound program 2, slow > fast",
+                  "effectName": "sound-program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 219,
+                  "label": "Sound program 3, slow > fast",
+                  "effectName": "sound-program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "Sound program 4, slow > fast",
+                  "effectName": "sound-program-4-slow-fast"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,794 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/CLB5 Compact LED Bar RGBW / RGBWW",
+      "manufacturer": "Stairville",
+      "model": "CLB5 Compact LED Bar RGBW / RGBWW",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Dominik Kerner",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-CLB5-Compact-LED-Bar-RGBW-RGBWW.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 681,
+          "height": 238,
+          "depth": 65,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 9900,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 40,
+          "degreesMax": 40
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 110,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4 channel",
+          "channels": [
+            {
+              "name": "Intensity red, all LEDs",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, all LEDs",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, all LEDs",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, all LEDs",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 channel",
+          "channels": [
+            {
+              "name": "Intensity red, spot 1 and 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 1 and 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 1 and 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 1 and 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 3 and 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 3 and 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 3 and 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 3 and 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "16ch",
+          "name": "16 channel",
+          "channels": [
+            {
+              "name": "Intensity red, spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "18ch",
+          "name": "18 channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 5,
+                  "max": 255,
+                  "label": "Stroboscope effect (0 % to 100 %)",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "20ch",
+          "name": "20 channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity red, spot 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity green, spot 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity blue, spot 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity white, spot 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preprogrammed automatic show",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Dimmer",
+                  "effectName": "dimmer"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 5,
+                  "label": "Preprogrammed automatic show 00",
+                  "effectName": "preprogrammed-automatic-show-00"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 11,
+                  "label": "Preprogrammed automatic show 1",
+                  "effectName": "preprogrammed-automatic-show-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 12,
+                  "max": 17,
+                  "label": "Preprogrammed automatic show 2",
+                  "effectName": "preprogrammed-automatic-show-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 18,
+                  "max": 23,
+                  "label": "Preprogrammed automatic show 3",
+                  "effectName": "preprogrammed-automatic-show-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 29,
+                  "label": "Preprogrammed automatic show 4",
+                  "effectName": "preprogrammed-automatic-show-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 35,
+                  "label": "Preprogrammed automatic show 5",
+                  "effectName": "preprogrammed-automatic-show-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 41,
+                  "label": "Preprogrammed automatic show 6",
+                  "effectName": "preprogrammed-automatic-show-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 47,
+                  "label": "Preprogrammed automatic show 7",
+                  "effectName": "preprogrammed-automatic-show-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 53,
+                  "label": "Preprogrammed automatic show 8",
+                  "effectName": "preprogrammed-automatic-show-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 54,
+                  "max": 59,
+                  "label": "Preprogrammed automatic show 9",
+                  "effectName": "preprogrammed-automatic-show-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 65,
+                  "label": "Preprogrammed automatic show 10",
+                  "effectName": "preprogrammed-automatic-show-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 71,
+                  "label": "Preprogrammed automatic show 11",
+                  "effectName": "preprogrammed-automatic-show-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 77,
+                  "label": "Preprogrammed automatic show 12",
+                  "effectName": "preprogrammed-automatic-show-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 83,
+                  "label": "Preprogrammed automatic show 13 (‘Carnival in Rio’)",
+                  "effectName": "preprogrammed-automatic-show-13-carnival-in-rio"
+                },
+                {
+                  "kind": "effect",
+                  "min": 84,
+                  "max": 89,
+                  "label": "Preprogrammed automatic show 14",
+                  "effectName": "preprogrammed-automatic-show-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 95,
+                  "label": "Preprogrammed automatic show 15",
+                  "effectName": "preprogrammed-automatic-show-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 101,
+                  "label": "Preprogrammed automatic show 16",
+                  "effectName": "preprogrammed-automatic-show-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 102,
+                  "max": 107,
+                  "label": "Preprogrammed automatic show 17",
+                  "effectName": "preprogrammed-automatic-show-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 113,
+                  "label": "Preprogrammed automatic show 18",
+                  "effectName": "preprogrammed-automatic-show-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 114,
+                  "max": 119,
+                  "label": "Preprogrammed automatic show 19",
+                  "effectName": "preprogrammed-automatic-show-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 125,
+                  "label": "Preprogrammed automatic show 20",
+                  "effectName": "preprogrammed-automatic-show-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 131,
+                  "label": "Preprogrammed automatic show 21",
+                  "effectName": "preprogrammed-automatic-show-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 137,
+                  "label": "Preprogrammed automatic show 22",
+                  "effectName": "preprogrammed-automatic-show-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 138,
+                  "max": 143,
+                  "label": "Preprogrammed automatic show 23",
+                  "effectName": "preprogrammed-automatic-show-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 149,
+                  "label": "Preprogrammed automatic show 24",
+                  "effectName": "preprogrammed-automatic-show-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 155,
+                  "label": "Preprogrammed automatic show 25",
+                  "effectName": "preprogrammed-automatic-show-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 161,
+                  "label": "Preprogrammed automatic show 26",
+                  "effectName": "preprogrammed-automatic-show-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 167,
+                  "label": "Preprogrammed automatic show 27",
+                  "effectName": "preprogrammed-automatic-show-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 173,
+                  "label": "Preprogrammed automatic show 28",
+                  "effectName": "preprogrammed-automatic-show-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 179,
+                  "label": "Preprogrammed automatic show 29",
+                  "effectName": "preprogrammed-automatic-show-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 185,
+                  "label": "Preprogrammed automatic show 30 (‘Blue & Orange’)",
+                  "effectName": "preprogrammed-automatic-show-30-blue-orange"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 191,
+                  "label": "Preprogrammed automatic show 31 (‘Campfire’)",
+                  "effectName": "preprogrammed-automatic-show-31-campfire"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 197,
+                  "label": "Preprogrammed automatic show 32 (‘Ice Time’)",
+                  "effectName": "preprogrammed-automatic-show-32-ice-time"
+                },
+                {
+                  "kind": "effect",
+                  "min": 198,
+                  "max": 203,
+                  "label": "Preprogrammed automatic show 33 (‘Old School’)",
+                  "effectName": "preprogrammed-automatic-show-33-old-school"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 209,
+                  "label": "Preprogrammed automatic show 34 (‘Pink Panther’)",
+                  "effectName": "preprogrammed-automatic-show-34-pink-panther"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 215,
+                  "label": "Preprogrammed automatic show 35 (‘Rainbow’)",
+                  "effectName": "preprogrammed-automatic-show-35-rainbow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 221,
+                  "label": "Preprogrammed automatic show 36 (‘Reggae’)",
+                  "effectName": "preprogrammed-automatic-show-36-reggae"
+                },
+                {
+                  "kind": "effect",
+                  "min": 222,
+                  "max": 227,
+                  "label": "Preprogrammed automatic show 37 (‘Techno Time’)",
+                  "effectName": "preprogrammed-automatic-show-37-techno-time"
+                },
+                {
+                  "kind": "effect",
+                  "min": 228,
+                  "max": 255,
+                  "label": "Sound-controlled show",
+                  "effectName": "sound-controlled-show"
+                }
+              ]
+            },
+            {
+              "name": "Function depending on setting of channel 18",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 5,
+                  "max": 255,
+                  "label": "Stroboscope effect (0 % to 100 %)",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

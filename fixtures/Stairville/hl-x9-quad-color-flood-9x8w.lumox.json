@@ -1,0 +1,320 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/HL-x9 Quad Color Flood 9x8W",
+      "manufacturer": "Stairville",
+      "model": "HL-x9 Quad Color Flood 9x8W",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Janosch Frank",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-HL-x9-Quad-Color-Flood-9x8W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 300,
+          "height": 165,
+          "depth": 125,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 35,
+          "degreesMax": 35
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 76,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4 Channels",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 channels",
+          "channels": [
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Constant color, set with channels 2-5",
+                  "effectName": "constant-color-set-with-channels-2-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Automatic color change 7 colors",
+                  "effectName": "automatic-color-change-7-colors"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Automatic color change 12 colors",
+                  "effectName": "automatic-color-change-12-colors"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Automatic color change 4 colors",
+                  "effectName": "automatic-color-change-4-colors"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Effect Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No automatic color change"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 100,
+                  "label": "Automatic color change as set in channel 1 (fast to slow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 150,
+                  "label": "No automatic color change"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 255,
+                  "label": "Automatic color change as set in channel 1, speed random"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 channels",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Pattern",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No color pattern"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "One of 31 color patterns (channels 6,7 disabled)"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Strobe (slow to fast), Channel 5 has to be 0-15",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Extended Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Constant color (defined by channels 1-4)",
+                  "effectName": "constant-color-defined-by-channels-1-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Fade-out, speed controlled by channel 6, color defined by channels 2-5",
+                  "effectName": "fade-out-speed-controlled-by-channel-6-color-defined-by-channels-2-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Fade-in, speed controlled by channel 6, color defined by channels 2-5",
+                  "effectName": "fade-in-speed-controlled-by-channel-6-color-defined-by-channels-2-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Fade-in-out, speed controlled by channel 6, color defined by channels 2-5",
+                  "effectName": "fade-in-out-speed-controlled-by-channel-6-color-defined-by-channels-2-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Auto-mix, speed controlled by channel 6, channels 1-5 without function",
+                  "effectName": "auto-mix-speed-controlled-by-channel-6-channels-1-5-without-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Chase (4 colors), speed controlled by channel 6, channels 1-5 without function",
+                  "effectName": "chase-4-colors-speed-controlled-by-channel-6-channels-1-5-without-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Chase (12 colors), speed controlled by channel 6, channels 1-5 without function",
+                  "effectName": "chase-12-colors-speed-controlled-by-channel-6-channels-1-5-without-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Music controlled color change (12 colors)",
+                  "effectName": "music-controlled-color-change-12-colors"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

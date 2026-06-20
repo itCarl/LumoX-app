@@ -1,0 +1,522 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/DJ Lase 25+25-G MK-II",
+      "manufacturer": "Stairville",
+      "model": "DJ Lase 25+25-G MK-II",
+      "type": "Laser",
+      "meta": {
+        "author": "galaris",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-DJ-Lase-25+25-G-MK-II.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 195,
+          "height": 85,
+          "depth": 145,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "Laser",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 90
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 90,
+          "tiltMax": 90
+        },
+        "power": {
+          "consumption": 12,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Operating Mode Selection",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Laser off",
+                  "effectName": "laser-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Automatic show in random order",
+                  "effectName": "automatic-show-in-random-order"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Sound controlled automatic show in random order",
+                  "effectName": "sound-controlled-automatic-show-in-random-order"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Operating mode 'DMX'",
+                  "effectName": "operating-mode-dmx"
+                }
+              ]
+            },
+            {
+              "name": "Pattern selection",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Circle",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Circle (dashed)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Triangle",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Square",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Square (dashed)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Square (in square)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Cross (thick)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Star",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 64,
+                  "max": 71,
+                  "label": "L",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Bow tie",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Spiral",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 88,
+                  "max": 95,
+                  "label": "ƆC",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Spiral (displaced)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Spiral (partial)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Triangle (x2)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Line (big - ZigZag)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 135,
+                  "label": "V",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 136,
+                  "max": 143,
+                  "label": "W (M)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Lines",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Line (small)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Line (small - dashed)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Line (big)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Line (big - two)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Cross (thin)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Line (small - two - displaced)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Line (small - four - displaced)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Square (small - two - displaced)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Square (small - four)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Circle (small)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Line (big - dashed)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Circle (half - dashed)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Line (small - a lot)",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed zoom"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Zoom-in effect, increasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Zoom-out effect, increasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Alternating zoom effect, increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Rotation around the Y-axis (rolling)",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed position of Y-axis (0…359°)",
+                  "effectName": "fixed-position-of-y-axis-0-359"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Rotation effect clockwise, increasing speed",
+                  "effectName": "rotation-effect-clockwise-increasing-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Rotation effect anti-clockwise, increasing speed",
+                  "effectName": "rotation-effect-anti-clockwise-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Rotation around the X-axis (rolling)",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed position of X-axis (0…359°)",
+                  "effectName": "fixed-position-of-x-axis-0-359"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Rotation effect clockwise, increasing speed",
+                  "effectName": "rotation-effect-clockwise-increasing-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Rotation effect anti-clockwise, increasing speed",
+                  "effectName": "rotation-effect-anti-clockwise-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Rotation around the Z-axis (rolling)",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed position of Z-axis (0…359°)",
+                  "effectName": "fixed-position-of-z-axis-0-359"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Rotation effect anti-clockwise, increasing speed",
+                  "effectName": "rotation-effect-anti-clockwise-increasing-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Rotation effect clockwise, increasing speed",
+                  "effectName": "rotation-effect-clockwise-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "X-axis movement",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed positions on X-axis"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Movement effect clockwise, increasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Movement effect anti-clockwise, increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Y-axis movement",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed positions on Y-axis"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Movement effect clockwise, increasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Movement effect anti-clockwise, increasing speed"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

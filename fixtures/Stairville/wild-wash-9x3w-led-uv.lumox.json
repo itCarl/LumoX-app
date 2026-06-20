@@ -1,0 +1,223 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/Wild Wash 9x3W LED UV",
+      "manufacturer": "Stairville",
+      "model": "Wild Wash 9x3W LED UV",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Johannes Felber",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-Wild-Wash-9x3W-LED-UV.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 350,
+          "height": 125,
+          "depth": 75,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.3,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 110,
+          "degreesMax": 110
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 34,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2 Channel 1",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No strobe effect",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe effect, increasing frequency",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2ch-2",
+          "name": "2 Channel 2",
+          "channels": [
+            {
+              "name": "Function",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "All LEDs off",
+                  "effectName": "all-leds-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Auto show selection",
+                  "effectName": "auto-show-selection"
+                }
+              ]
+            },
+            {
+              "name": "Show speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 249,
+                  "label": "Auto show speed, slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Sound-controlled auto show"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "11ch",
+          "name": "11 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No strobe effect",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe effect, increasing frequency",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Brightness LED 1",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Brightness LED 2",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Brightness LED 3",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Brightness LED 4",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Brightness LED 5",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Brightness LED 6",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Brightness LED 7",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Brightness LED 8",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Brightness LED 9",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

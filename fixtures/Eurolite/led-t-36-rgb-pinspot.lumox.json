@@ -1,0 +1,157 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED T-36 RGB Pinspot",
+      "manufacturer": "Eurolite",
+      "model": "LED T-36 RGB Pinspot",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Herbie",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-T-36-RGB-Pinspot.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 155,
+          "height": 130,
+          "depth": 180,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 2000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 15,
+          "degreesMax": 15
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 12,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Macro off"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Macro on"
+                }
+              ]
+            },
+            {
+              "name": "Speed/strobe",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Mode",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Dimmer"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Decreasing brightness"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Increasing brightness"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Pulse fade"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Auto color mix"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 191,
+                  "label": "3-color flash"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 223,
+                  "label": "7-color flash"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Sound control"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

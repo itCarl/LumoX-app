@@ -1,0 +1,1441 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Zenit B200",
+      "manufacturer": "Cameo",
+      "model": "Zenit B200",
+      "type": "Color Changer",
+      "meta": {
+        "author": "ikr",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Zenit-B200.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 377,
+          "height": 256,
+          "depth": 140,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 9.2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 6600,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 21,
+          "degreesMax": 100
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 180,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "15ch",
+          "name": "15 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random strobe effect slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe break effect, 5s.....1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe break effect, 5s.....1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red fine",
+              "typeId": "red-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green fine",
+              "typeId": "green-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue fine",
+              "typeId": "blue-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White fine",
+              "typeId": "white-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macros (override RGBW)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Color off"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#ffde35"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#874c62"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#ffffc0"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#dcf5ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Color Jumping stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Color Jumping speed slow -> fast / color 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Color Fading speed slow -> fast / color 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "Color Temperature Correction (affects RGBW & Color Macros)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Cold -> warm"
+                }
+              ]
+            },
+            {
+              "name": "Set dimmer curve",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 63,
+                  "label": "Linear dimmer curve",
+                  "effectName": "linear-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Exponential dimmer curve",
+                  "effectName": "exponential-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Exponential dimmer curve",
+                  "effectName": "exponential-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "S-Curve dimmer curve",
+                  "effectName": "s-curve-dimmer-curve"
+                }
+              ]
+            },
+            {
+              "name": "Device settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 77,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 78,
+                  "max": 79,
+                  "label": "Dimmer response LED (hold 1,5 s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 81,
+                  "label": "Dimmer response halogen (hold 1,5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 82,
+                  "max": 101,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 102,
+                  "max": 103,
+                  "label": "Silent fan (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 104,
+                  "max": 105,
+                  "label": "Auto fan (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 106,
+                  "max": 123,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 124,
+                  "max": 125,
+                  "label": "PWM 1 (800 Hz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "PWM 2 (1200 Hz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 129,
+                  "label": "PWM 3 (2000 Hz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 131,
+                  "label": "PWM 4 (3600 Hz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 132,
+                  "max": 133,
+                  "label": "PWM 5 (12 kHz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 135,
+                  "label": "PWM 6 (25 kHz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 143,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 145,
+                  "label": "Display on (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 146,
+                  "max": 147,
+                  "label": "Display off (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 148,
+                  "max": 195,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 197,
+                  "label": "No runtime / full LED power (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 198,
+                  "max": 199,
+                  "label": "Set runtime 8h (hold 3S)"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 201,
+                  "label": "Set runtime 12h (hold 3S)"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 203,
+                  "label": "Set runtime 16h (hold 3S)"
+                },
+                {
+                  "kind": "range",
+                  "min": 204,
+                  "max": 205,
+                  "label": "Set runtime 20h (hold 3S)"
+                },
+                {
+                  "kind": "range",
+                  "min": 206,
+                  "max": 207,
+                  "label": "Raw mode (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 209,
+                  "label": "Factory calibrated mode (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 211,
+                  "label": "User calibrated mode (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 212,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "10 Channel Full Access 8 Bit",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random strobe effect slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe break effect, 5s.....1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe break effect, 5s.....1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macros (override RGBW)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Color off"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#ffde35"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#874c62"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#ffffc0"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#dcf5ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Color Jumping stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Color Jumping speed slow -> fast / color 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Color Fading speed slow -> fast / color 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "Color Temperature Correction (affects RGBW & Color Macros)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Cold -> warm"
+                }
+              ]
+            },
+            {
+              "name": "Set dimmer curve",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 63,
+                  "label": "Linear dimmer curve",
+                  "effectName": "linear-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Exponential dimmer curve",
+                  "effectName": "exponential-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Exponential dimmer curve",
+                  "effectName": "exponential-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "S-Curve dimmer curve",
+                  "effectName": "s-curve-dimmer-curve"
+                }
+              ]
+            },
+            {
+              "name": "Device settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 77,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 78,
+                  "max": 79,
+                  "label": "Dimmer response LED (hold 1,5 s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 81,
+                  "label": "Dimmer response halogen (hold 1,5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 82,
+                  "max": 101,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 102,
+                  "max": 103,
+                  "label": "Silent fan (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 104,
+                  "max": 105,
+                  "label": "Auto fan (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 106,
+                  "max": 123,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 124,
+                  "max": 125,
+                  "label": "PWM 1 (800 Hz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "PWM 2 (1200 Hz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 129,
+                  "label": "PWM 3 (2000 Hz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 131,
+                  "label": "PWM 4 (3600 Hz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 132,
+                  "max": 133,
+                  "label": "PWM 5 (12 kHz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 135,
+                  "label": "PWM 6 (25 kHz) (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 143,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 145,
+                  "label": "Display on (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 146,
+                  "max": 147,
+                  "label": "Display off (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 148,
+                  "max": 195,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 197,
+                  "label": "No runtime / full LED power (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 198,
+                  "max": 199,
+                  "label": "Set runtime 8h (hold 3S)"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 201,
+                  "label": "Set runtime 12h (hold 3S)"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 203,
+                  "label": "Set runtime 16h (hold 3S)"
+                },
+                {
+                  "kind": "range",
+                  "min": 204,
+                  "max": 205,
+                  "label": "Set runtime 20h (hold 3S)"
+                },
+                {
+                  "kind": "range",
+                  "min": 206,
+                  "max": 207,
+                  "label": "Raw mode (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 209,
+                  "label": "Factory calibrated mode (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 211,
+                  "label": "User calibrated mode (hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 212,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 Channel User-Calibrated 16 Bit",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red fine",
+              "typeId": "red-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green fine",
+              "typeId": "green-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue fine",
+              "typeId": "blue-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White fine",
+              "typeId": "white-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 Channel Factory-Calibrated 16 Bit",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red fine",
+              "typeId": "red-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green fine",
+              "typeId": "green-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue fine",
+              "typeId": "blue-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel User-Calibrated 8 Bit",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel Factory-Calibrated 8 Bit",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch-2",
+          "name": "3 Channel Color Macros",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down random slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random strobe effect slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe break effect, 5s.....1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe break effect, 5s.....1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Color Macros (override RGBW)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Color off"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#ffde35"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#874c62"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#ffffc0"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#dcf5ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Color Jumping stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Color Jumping speed slow -> fast / color 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Color Fading speed slow -> fast / color 1 -> 12"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 Channel CCT Factory-Calibrated",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Temperature Correction (affects RGBW & Color Macros)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Cold -> warm"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

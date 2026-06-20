@@ -1,0 +1,237 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/LED PAR56",
+      "manufacturer": "Varytec",
+      "model": "LED PAR56",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Habefaro",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-LED-PAR56.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 210,
+          "height": 210,
+          "depth": 300,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 30,
+          "degreesMax": 30
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 20,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6 DMX channels",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 15,
+                  "label": "Dimmer/off (channel 6>31 and <128)"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Dimmer/on (channel 6>31 and <128)"
+                }
+              ]
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 15,
+                  "label": "Dimmer/off (channel 6>31 and <128)"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Dimmer/on (channel 6>31 and <128)"
+                }
+              ]
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 15,
+                  "label": "Dimmer/off (channel 6>31 and <128)"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Dimmer/on (channel 6>31 and <128)"
+                }
+              ]
+            },
+            {
+              "name": "Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Macro Off",
+                  "effectName": "macro-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Macro On",
+                  "effectName": "macro-on"
+                }
+              ]
+            },
+            {
+              "name": "Speed/Strobe",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Strobe off/Speed slow - fast (channel 6>31 and <224)"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Strobe with 16 adjustable speeds/Speed slow - fast (channel 6>31 and <224)"
+                }
+              ]
+            },
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Color Setting",
+                  "effectName": "color-setting"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Lightness decreasing (Fade Out)",
+                  "effectName": "lightness-decreasing-fade-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Lightness increasing (Fade In)",
+                  "effectName": "lightness-increasing-fade-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Fade Out and In mode",
+                  "effectName": "fade-out-and-in-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Mix color automatically",
+                  "effectName": "mix-color-automatically"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 191,
+                  "label": "3-Color flash in turn (Chasing)",
+                  "effectName": "3-color-flash-in-turn-chasing"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 223,
+                  "label": "7-Color flash in turn (Chasing)",
+                  "effectName": "7-color-flash-in-turn-chasing"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Sound Action",
+                  "effectName": "sound-action"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

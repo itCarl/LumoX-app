@@ -1,0 +1,761 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Shark Wash One",
+      "manufacturer": "Showtec",
+      "model": "Shark Wash One",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Georg Müller",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Shark-Wash-One.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 145,
+          "height": 300,
+          "depth": 215,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.8,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 25,
+          "degreesMax": 25
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 100,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter / Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 250,
+                  "label": "Linear strobe intensity, from slow to fast (0-20Hz)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Pan / Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 15,
+                  "label": "Red + 50% White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 21,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 27,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 28,
+                  "max": 33,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "range",
+                  "min": 34,
+                  "max": 39,
+                  "label": "Red + 75% Green + Amber"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 45,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 51,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Green + White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 58,
+                  "max": 63,
+                  "label": "Green + UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 69,
+                  "label": "Green + Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 75,
+                  "label": "Blue + UV",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 81,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 82,
+                  "max": 89,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 95,
+                  "label": "UV + 50% Red",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 101,
+                  "label": "UV + Amber",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 102,
+                  "max": 107,
+                  "label": "UV + Amber + Red"
+                },
+                {
+                  "kind": "color",
+                  "min": 108,
+                  "max": 113,
+                  "label": "UV + Red",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 114,
+                  "max": 119,
+                  "label": "Red + White + Amber"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 125,
+                  "label": "White + Amber",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 131,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 132,
+                  "max": 137,
+                  "label": "White + Blue",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 138,
+                  "max": 143,
+                  "label": "Red + Green + Blue + White + Amber + UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 199,
+                  "label": "Color step program increasing from slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 255,
+                  "label": "Color fade program increasing from slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Built-in programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "Program 1",
+                  "effectName": "program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Program 2",
+                  "effectName": "program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "Program 3",
+                  "effectName": "program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Program 4",
+                  "effectName": "program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Program 5",
+                  "effectName": "program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Program 6",
+                  "effectName": "program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Program 7",
+                  "effectName": "program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Program 8",
+                  "effectName": "program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 230,
+                  "label": "Sound-controlled mode, from OFF to high sound sensitivity",
+                  "effectName": "sound-controlled-mode-from-off-to-high-sound-sensitivity"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 240,
+                  "label": "Reset after 3 seconds",
+                  "effectName": "reset-after-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "16ch",
+          "name": "16 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine 16 bit",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine 16 bit",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan / Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter / Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 250,
+                  "label": "Linear strobe intensity, from slow to fast (0-20Hz)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red Dimmer intensity",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Dimmer intensity",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Dimmer intensity",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Dimmer intensity",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Dimmer intensity",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV Dimmer intensity",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Temperature",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 15,
+                  "label": "Red + 50% White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 21,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 27,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 28,
+                  "max": 33,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "range",
+                  "min": 34,
+                  "max": 39,
+                  "label": "Red + 75% Green + Amber"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 45,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 51,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Green + White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 58,
+                  "max": 63,
+                  "label": "Green + UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 69,
+                  "label": "Green + Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 75,
+                  "label": "Blue + UV",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 81,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 82,
+                  "max": 89,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 95,
+                  "label": "UV + 50% Red",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 101,
+                  "label": "UV + Amber",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 102,
+                  "max": 107,
+                  "label": "UV + Amber + Red"
+                },
+                {
+                  "kind": "color",
+                  "min": 108,
+                  "max": 113,
+                  "label": "UV + Red",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 114,
+                  "max": 119,
+                  "label": "Red + White + Amber"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 125,
+                  "label": "White + Amber",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 131,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 132,
+                  "max": 137,
+                  "label": "White + Blue",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 138,
+                  "max": 143,
+                  "label": "Red + Green + Blue + White + Amber + UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 199,
+                  "label": "Color step program increasing from slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 255,
+                  "label": "Color fade program increasing from slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Built-in programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "Program 1",
+                  "effectName": "program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "Program 2",
+                  "effectName": "program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "Program 3",
+                  "effectName": "program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "Program 4",
+                  "effectName": "program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "Program 5",
+                  "effectName": "program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "Program 6",
+                  "effectName": "program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "Program 7",
+                  "effectName": "program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "Program 8",
+                  "effectName": "program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 230,
+                  "label": "Sound-controlled mode, from OFF to high sound sensitivity",
+                  "effectName": "sound-controlled-mode-from-off-to-high-sound-sensitivity"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 240,
+                  "label": "Reset after 3 seconds",
+                  "effectName": "reset-after-3-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/PS 1500 DMX",
+      "manufacturer": "Stairville",
+      "model": "PS 1500 DMX",
+      "type": "Strobe",
+      "meta": {
+        "author": "Kevin Deldycke",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-PS1500DMX.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 453,
+          "height": 132,
+          "depth": 214,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "XOP 1500W",
+          "lumens": 645,
+          "colourTemperature": 5600
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 1600,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "Normal",
+          "channels": [
+            {
+              "name": "Flash rate",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

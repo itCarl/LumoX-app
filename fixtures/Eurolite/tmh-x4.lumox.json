@@ -1,0 +1,469 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/TMH-X4",
+      "manufacturer": "Eurolite",
+      "model": "TMH-X4",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Piotr Nowik",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-TMH-X4.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 305,
+          "height": 400,
+          "depth": 200,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 7.8,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 1,
+          "degreesMax": 25
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 630,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 225,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "16ch",
+          "name": "16 channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 3,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 4,
+                  "max": 95,
+                  "label": "Strobe effect with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 176,
+                  "label": "Random strobe effect",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 177,
+                  "max": 255,
+                  "label": "Pulse-effect in sequences (Thunder strobe)",
+                  "mode": "pulse",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preset colors and color macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color macros speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Function control",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 49,
+                  "label": "Channels 1 to 12",
+                  "effectName": "channels-1-to-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 99,
+                  "label": "Preset colors and color macros",
+                  "effectName": "preset-colors-and-color-macros"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 149,
+                  "label": "Internal program 1",
+                  "effectName": "internal-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 199,
+                  "label": "Internal program 2",
+                  "effectName": "internal-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 255,
+                  "label": "Music control",
+                  "effectName": "music-control"
+                }
+              ]
+            },
+            {
+              "name": "Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 250,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Reset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "24ch",
+          "name": "24 channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 3,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 4,
+                  "max": 95,
+                  "label": "Strobe effect with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 176,
+                  "label": "Random strobe effect",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 177,
+                  "max": 255,
+                  "label": "Pulse-effect in sequences (Thunder strobe)",
+                  "mode": "pulse",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preset colors and color macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color macros speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Function control",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 49,
+                  "label": "Channels 1 to 12",
+                  "effectName": "channels-1-to-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 99,
+                  "label": "Preset colors and color macros",
+                  "effectName": "preset-colors-and-color-macros"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 149,
+                  "label": "Internal program 1",
+                  "effectName": "internal-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 199,
+                  "label": "Internal program 2",
+                  "effectName": "internal-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 255,
+                  "label": "Music control",
+                  "effectName": "music-control"
+                }
+              ]
+            },
+            {
+              "name": "Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 250,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Reset"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

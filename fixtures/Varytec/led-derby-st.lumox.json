@@ -1,0 +1,450 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/LED Derby ST",
+      "manufacturer": "Varytec",
+      "model": "LED Derby ST",
+      "type": "Effect",
+      "meta": {
+        "author": "Valentin Simson",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-LED-Derby-ST.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 258,
+          "height": 190,
+          "depth": 182,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 1800,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 28,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 Channel",
+          "channels": [
+            {
+              "name": "Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 50,
+                  "label": "Automatic Show",
+                  "effectName": "automatic-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 90,
+                  "label": "Automatic Program",
+                  "effectName": "automatic-program"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 130,
+                  "label": "Strobe Program",
+                  "effectName": "strobe-program"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 170,
+                  "label": "Music-Controlled Automatic Show",
+                  "effectName": "music-controlled-automatic-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 210,
+                  "label": "Music-Controlled Automatic Program",
+                  "effectName": "music-controlled-automatic-program"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 255,
+                  "label": "Music-Controlled Strobe Program",
+                  "effectName": "music-controlled-strobe-program"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Color macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 20,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 21,
+                  "max": 35,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 50,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 65,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 80,
+                  "label": "Red + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 81,
+                  "max": 95,
+                  "label": "Red + Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 110,
+                  "label": "Red + White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 125,
+                  "label": "Green + Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 140,
+                  "label": "Green + White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 141,
+                  "max": 155,
+                  "label": "Blue + White",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 170,
+                  "label": "Red + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 185,
+                  "label": "Red + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 186,
+                  "max": 200,
+                  "label": "Green + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 215,
+                  "label": "Red + Green + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 230,
+                  "label": "Colour Changing Mode 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Colour Changing Mode 2"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Motor",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 127,
+                  "label": "Fixed Position (Indexation)",
+                  "effectName": "fixed-position-indexation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Rotation",
+                  "effectName": "rotation"
+                }
+              ]
+            },
+            {
+              "name": "Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Strobe Pattern 1 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Strobe Pattern 2 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Strobe Pattern 3 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Strobe Pattern 4 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Strobe Pattern 5 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Strobe Pattern 6 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Strobe Pattern 7 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Strobe Pattern 8 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Strobe Pattern 9 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Strobe Pattern 10 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Strobe Pattern 11 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Strobe Pattern 12 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Strobe Pattern 13 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Strobe Pattern 14 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Strobe Pattern 15 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Strobe Pattern 16 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Strobe Pattern 17 (Slow to Fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 180,
+                  "max": 255,
+                  "label": "Full Brightness, no Strobe Pattern",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

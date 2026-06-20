@@ -1,0 +1,535 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/LED Par56 MKII RGBA",
+      "manufacturer": "Stairville",
+      "model": "LED Par56 MKII RGBA",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Oliver Ruempelein",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-LED-PAR56-MKII-RGBA.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 220,
+          "height": 205,
+          "depth": 210,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 45,
+          "degreesMax": 45
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 21,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "RGBA",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "RGBA/Chase",
+          "channels": [
+            {
+              "name": "Mode",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 31,
+                  "label": "RGBA"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Fade out"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Fade in"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Fade in-out"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Auto-mix"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Chase 4 colors"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Chase 12 colors"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Music"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Chase",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "None"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 100,
+                  "label": "Fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 150,
+                  "label": "None"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 255,
+                  "label": "Random"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "Full",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Macros",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "None",
+                  "effectName": "none"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Macro 1",
+                  "effectName": "macro-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Macro 2",
+                  "effectName": "macro-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Macro 3",
+                  "effectName": "macro-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Macro 4",
+                  "effectName": "macro-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Macro 5",
+                  "effectName": "macro-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Macro 6",
+                  "effectName": "macro-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 71,
+                  "label": "Macro 7",
+                  "effectName": "macro-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Macro 8",
+                  "effectName": "macro-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Macro 9",
+                  "effectName": "macro-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Macro 10",
+                  "effectName": "macro-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Macro 11",
+                  "effectName": "macro-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Macro 12",
+                  "effectName": "macro-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Macro 13",
+                  "effectName": "macro-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Macro 14",
+                  "effectName": "macro-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Macro 15",
+                  "effectName": "macro-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Macro 16",
+                  "effectName": "macro-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Macro 17",
+                  "effectName": "macro-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Macro 18",
+                  "effectName": "macro-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Macro 19",
+                  "effectName": "macro-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Macro 20",
+                  "effectName": "macro-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Macro 21",
+                  "effectName": "macro-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Macro 22",
+                  "effectName": "macro-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Macro 23",
+                  "effectName": "macro-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Macro 24",
+                  "effectName": "macro-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Macro 25",
+                  "effectName": "macro-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Macro 26",
+                  "effectName": "macro-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Macro 27",
+                  "effectName": "macro-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Macro 28",
+                  "effectName": "macro-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Macro 29",
+                  "effectName": "macro-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Macro 30",
+                  "effectName": "macro-30"
+                }
+              ]
+            },
+            {
+              "name": "Strobe / Fade speed",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "None",
+                  "effectName": "none"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Slow to fast",
+                  "effectName": "slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Mode",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 31,
+                  "label": "RGBA"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Fade out"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Fade in"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Fade in-out"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Auto-mix"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Chase 4 colors"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Chase 12 colors"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Music"
+                }
+              ]
+            },
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

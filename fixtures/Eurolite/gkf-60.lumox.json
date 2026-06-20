@@ -1,0 +1,270 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/GKF-60",
+      "manufacturer": "Eurolite",
+      "model": "GKF-60",
+      "type": "Effect",
+      "meta": {
+        "author": "Flox Garden",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-GKF-60.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 235,
+          "height": 210,
+          "depth": 370,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 30,
+          "degreesMax": 30
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 82,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Gobo",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Home",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 8,
+                  "max": 8,
+                  "label": "Index-Position 1",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 9,
+                  "max": 9,
+                  "label": "Index-Position 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 10,
+                  "max": 10,
+                  "label": "Index-Position 3",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 11,
+                  "max": 11,
+                  "label": "Index-Position 4",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 12,
+                  "max": 12,
+                  "label": "Index-Position 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 13,
+                  "max": 13,
+                  "label": "Index-Position 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 14,
+                  "max": 14,
+                  "label": "Index-Position 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 15,
+                  "max": 15,
+                  "label": "Index-Position 8",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Rainbow effect, increasing speed",
+                  "image": "Others/rainbow.png",
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Effect Wheel",
+              "typeId": "prism",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 127,
+                  "label": "Forward rotation with increasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 255,
+                  "label": "Backward rotation with increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Shutter/Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Shutter Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 131,
+                  "label": "Strobe-Effect with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 132,
+                  "max": 139,
+                  "label": "Shutter Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 140,
+                  "max": 180,
+                  "label": "Pulse opening with decreasing speed",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 181,
+                  "max": 189,
+                  "label": "Shutter Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 231,
+                  "label": "Pulse closing with decreasing speed",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Reset after 3-5 seconds",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Random strobe-effect",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Shutter Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED D-400 RGBAW 3W DMX",
+      "manufacturer": "Eurolite",
+      "model": "LED D-400 RGBAW 3W DMX",
+      "type": "Effect",
+      "meta": {
+        "author": "Alexander Grözinger",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-D-400-RGBAW-3W-DMX.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 245,
+          "height": 385,
+          "depth": 155,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 45,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Color",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 9,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 15,
+                  "max": 19,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 24,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 25,
+                  "max": 29,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 34,
+                  "label": "R+G",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 35,
+                  "max": 39,
+                  "label": "G+B",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 44,
+                  "label": "B+W",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 49,
+                  "label": "W+A",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 54,
+                  "label": "R+A",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 59,
+                  "label": "G+A",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 64,
+                  "label": "B+A",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 69,
+                  "label": "R+B",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 74,
+                  "label": "R+W",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 75,
+                  "max": 79,
+                  "label": "G+W",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 84,
+                  "label": "R+G+B"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 89,
+                  "label": "G+B+W"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 94,
+                  "label": "B+W+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 99,
+                  "label": "R+W+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 104,
+                  "label": "G+W+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 109,
+                  "label": "R+G+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 114,
+                  "label": "R+G+W"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 119,
+                  "label": "R+B+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 124,
+                  "label": "R+B+W"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 129,
+                  "label": "G+B+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 134,
+                  "label": "R+G+B+W"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 139,
+                  "label": "G+B+W+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 144,
+                  "label": "R+G+B+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 145,
+                  "max": 149,
+                  "label": "R+G+W+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 154,
+                  "label": "R+G+B+W+A"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 200,
+                  "label": "Colorchange (increasing speed)"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 250,
+                  "label": "Color fade (increasing speed)"
+                },
+                {
+                  "kind": "range",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Soundcontrolled (CH2: Sensivity)"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Motor speed",
+              "typeId": "tilt-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

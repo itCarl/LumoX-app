@@ -1,0 +1,237 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Led Air Cone Pro",
+      "manufacturer": "Showtec",
+      "model": "Led Air Cone Pro",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Joep Admiraal",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Led-Air-Cone-Pro.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 473,
+          "height": 187,
+          "depth": 473,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 9.95,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 115,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "7ch",
+          "name": "Mode 4",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 13,
+                  "label": "Nothing",
+                  "effectName": "nothing"
+                },
+                {
+                  "kind": "effect",
+                  "min": 14,
+                  "max": 255,
+                  "label": "Macro",
+                  "effectName": "macro"
+                }
+              ]
+            },
+            {
+              "name": "Speed/strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Strobe static state",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Strobe/Speed 16 steps",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 35,
+                  "label": "Adjust colors",
+                  "effectName": "adjust-colors"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 71,
+                  "label": "Light mode",
+                  "effectName": "light-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 107,
+                  "label": "Dim mode",
+                  "effectName": "dim-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 143,
+                  "label": "Light and dim mode",
+                  "effectName": "light-and-dim-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 179,
+                  "label": "Auto mixcolor",
+                  "effectName": "auto-mixcolor"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 251,
+                  "label": "7 colors random shows",
+                  "effectName": "7-colors-random-shows"
+                },
+                {
+                  "kind": "effect",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Change light by music signal",
+                  "effectName": "change-light-by-music-signal"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "1ch",
+          "name": "Mode 1",
+          "channels": [
+            {
+              "name": "Macro simple modes",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "Mode 2",
+          "channels": [
+            {
+              "name": "Macro simple modes",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "Mode 3",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

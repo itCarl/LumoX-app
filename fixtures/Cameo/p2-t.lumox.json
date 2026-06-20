@@ -1,0 +1,739 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/P2 T",
+      "manufacturer": "Cameo",
+      "model": "P2 T",
+      "type": "Dimmer",
+      "meta": {
+        "author": "Christoph Müllner",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-P2-T.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 245,
+          "height": 202,
+          "depth": 462,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 10.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 14000,
+          "colourTemperature": 3200
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 25,
+          "degreesMax": 50
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 220,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 Channel 16-bit",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch-2",
+          "name": "2 Channel Strobe",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random strobe effect, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe break effect, 5s...1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow to fast < 1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channel Device",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random strobe effect, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe break effect, 5s...1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow to fast < 1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random strobe effect, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe break effect, 5s...1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow to fast < 1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer Curve",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 63,
+                  "label": "Linear dimmer curve"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Exponential dimmer curve"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Logarithmic dimmer curve"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "S-Curve dimmer curve"
+                }
+              ]
+            },
+            {
+              "name": "Device Settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 127,
+                  "label": "Dimmer response LED (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Dimmer response Halogen (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 196,
+                  "label": "Fan auto (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 197,
+                  "max": 201,
+                  "label": "Fan off (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 206,
+                  "label": "Fan constant low (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 207,
+                  "max": 211,
+                  "label": "Fan constant medium (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 212,
+                  "max": 218,
+                  "label": "Fan constant high (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 219,
+                  "max": 223,
+                  "label": "PWM Frequency 800 Hz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 228,
+                  "label": "PWM Frequency 1200 Hz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 229,
+                  "max": 233,
+                  "label": "PWM Frequency 2000 Hz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 234,
+                  "max": 238,
+                  "label": "PWM Frequency 3600 Hz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 239,
+                  "max": 242,
+                  "label": "PWM Frequency 12 kHz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 243,
+                  "max": 245,
+                  "label": "PWM Frequency 18.9 kHz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 246,
+                  "max": 249,
+                  "label": "PWM Frequency 25 kHz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down random, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random strobe effect, slow to fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe break effect, 5s...1s (short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow to fast < 1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer Curve",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 63,
+                  "label": "Linear dimmer curve"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Exponential dimmer curve"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Logarithmic dimmer curve"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "S-Curve dimmer curve"
+                }
+              ]
+            },
+            {
+              "name": "Device Settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 127,
+                  "label": "Dimmer response LED (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Dimmer response Halogen (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 196,
+                  "label": "Fan auto (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 197,
+                  "max": 201,
+                  "label": "Fan off (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 206,
+                  "label": "Fan constant low (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 207,
+                  "max": 211,
+                  "label": "Fan constant medium (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 212,
+                  "max": 218,
+                  "label": "Fan constant high (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 219,
+                  "max": 223,
+                  "label": "PWM Frequency 800 Hz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 228,
+                  "label": "PWM Frequency 1200 Hz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 229,
+                  "max": 233,
+                  "label": "PWM Frequency 2000 Hz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 234,
+                  "max": 238,
+                  "label": "PWM Frequency 3600 Hz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 239,
+                  "max": 242,
+                  "label": "PWM Frequency 12 kHz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 243,
+                  "max": 245,
+                  "label": "PWM Frequency 18.9 kHz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 246,
+                  "max": 249,
+                  "label": "PWM Frequency 25 kHz (hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

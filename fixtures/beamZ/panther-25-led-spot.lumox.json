@@ -1,0 +1,643 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/Panther 25 LED Spot",
+      "manufacturer": "beamZ",
+      "model": "Panther 25 LED Spot",
+      "type": "Moving Head",
+      "meta": {
+        "author": "David Ellis",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamz-Panther-25-LED-Spot.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 160,
+          "height": 240,
+          "depth": 148,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.8,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 540,
+          "tiltMax": 230
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "White"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 21,
+                  "label": "Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 32,
+                  "label": "Orange"
+                },
+                {
+                  "kind": "range",
+                  "min": 33,
+                  "max": 43,
+                  "label": "Yellow"
+                },
+                {
+                  "kind": "range",
+                  "min": 44,
+                  "max": 54,
+                  "label": "Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 65,
+                  "label": "Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 66,
+                  "max": 76,
+                  "label": "Cyan"
+                },
+                {
+                  "kind": "range",
+                  "min": 77,
+                  "max": 87,
+                  "label": "Purple"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 175,
+                  "label": "Colour selection 6+"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 255,
+                  "label": "Colour wheel rotation"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "White"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 21,
+                  "label": "Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 32,
+                  "label": "Orange"
+                },
+                {
+                  "kind": "range",
+                  "min": 33,
+                  "max": 43,
+                  "label": "Yellow"
+                },
+                {
+                  "kind": "range",
+                  "min": 44,
+                  "max": 54,
+                  "label": "Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 65,
+                  "label": "Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 66,
+                  "max": 76,
+                  "label": "Cyan"
+                },
+                {
+                  "kind": "range",
+                  "min": 77,
+                  "max": 87,
+                  "label": "Purple"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 175,
+                  "label": "Colour selection 6+"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 255,
+                  "label": "Colour wheel rotation"
+                }
+              ]
+            },
+            {
+              "name": "Gobo",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 124,
+                  "label": "Gobo selection",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 125,
+                  "max": 249,
+                  "label": "Gobo shaking",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Gobo wheel rotation",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "11ch",
+          "name": "11 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "White"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 21,
+                  "label": "Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 32,
+                  "label": "Orange"
+                },
+                {
+                  "kind": "range",
+                  "min": 33,
+                  "max": 43,
+                  "label": "Yellow"
+                },
+                {
+                  "kind": "range",
+                  "min": 44,
+                  "max": 54,
+                  "label": "Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 65,
+                  "label": "Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 66,
+                  "max": 76,
+                  "label": "Cyan"
+                },
+                {
+                  "kind": "range",
+                  "min": 77,
+                  "max": 87,
+                  "label": "Purple"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 175,
+                  "label": "Colour selection 6+"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 255,
+                  "label": "Colour wheel rotation"
+                }
+              ]
+            },
+            {
+              "name": "Gobo",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 124,
+                  "label": "Gobo selection",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 125,
+                  "max": 249,
+                  "label": "Gobo shaking",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Gobo wheel rotation",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Scene and Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 49,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "White",
+                  "effectName": "white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Scene 2 (empty)",
+                  "effectName": "scene-2-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Scene 3 (empty)",
+                  "effectName": "scene-3-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Scene 4 (empty)",
+                  "effectName": "scene-4-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Scene 5 (empty)",
+                  "effectName": "scene-5-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Scene 6 (empty)",
+                  "effectName": "scene-6-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Scene 7 (empty)",
+                  "effectName": "scene-7-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Scene 8 (empty)",
+                  "effectName": "scene-8-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Scene 9 (empty)",
+                  "effectName": "scene-9-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Program 1",
+                  "effectName": "program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Program 2",
+                  "effectName": "program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Program 3",
+                  "effectName": "program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Program 4",
+                  "effectName": "program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Program 5",
+                  "effectName": "program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Program 6",
+                  "effectName": "program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Program 7",
+                  "effectName": "program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Program 8 (empty)",
+                  "effectName": "program-8-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Program 9 (empty)",
+                  "effectName": "program-9-empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "(Empty)",
+                  "effectName": "empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 249,
+                  "label": "(Empty)",
+                  "effectName": "empty"
+                },
+                {
+                  "kind": "effect",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Sound mode",
+                  "effectName": "sound-mode"
+                }
+              ]
+            },
+            {
+              "name": "Program Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

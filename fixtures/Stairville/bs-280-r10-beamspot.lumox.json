@@ -1,0 +1,2299 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/BS-280 R10 BeamSpot",
+      "manufacturer": "Stairville",
+      "model": "BS-280 R10 BeamSpot",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Andres Robles",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-BS-280-R10-BeamSpot.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 365,
+          "height": 574,
+          "depth": 256,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 17,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "HRI 280W",
+          "lumens": 11000,
+          "colourTemperature": 7800
+        },
+        "lens": {
+          "name": "PC",
+          "degreesMin": 3,
+          "degreesMax": 25
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 347,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "15ch",
+          "name": "15 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Special functions",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 69,
+                  "label": "Unused",
+                  "effectName": "unused"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Blackout during Pan or Tilt movement",
+                  "effectName": "blackout-during-pan-or-tilt-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Disabled blackout while pan/tilt moving",
+                  "effectName": "disabled-blackout-while-pan-tilt-moving"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Blackout during colour wheel movement",
+                  "effectName": "blackout-during-colour-wheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Disabled blackout while colour wheel moving",
+                  "effectName": "disabled-blackout-while-colour-wheel-moving"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Blackout during gobo wheel movement",
+                  "effectName": "blackout-during-gobo-wheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Disabled blackout while gobo wheel moving",
+                  "effectName": "disabled-blackout-while-gobo-wheel-moving"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Switch lamp on",
+                  "effectName": "switch-lamp-on"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Pan and Tilt reset",
+                  "effectName": "pan-and-tilt-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Colour wheel reset",
+                  "effectName": "colour-wheel-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Gobo wheel reset",
+                  "effectName": "gobo-wheel-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Shutter reset",
+                  "effectName": "shutter-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Unused",
+                  "effectName": "unused"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Prism wheel, focus, zoom and frost filter reset",
+                  "effectName": "prism-wheel-focus-zoom-and-frost-filter-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Reset all settings",
+                  "effectName": "reset-all-settings"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Blackout during pan or tilt movement or rotation of the gobo wheel or colour wheel",
+                  "effectName": "blackout-during-pan-or-tilt-movement-or-rotation-of-the-gobo-wheel-or-colour-wheel"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "No blackout during pan or tilt movement or rotation of the gobo wheel or colour wheel",
+                  "effectName": "no-blackout-during-pan-or-tilt-movement-or-rotation-of-the-gobo-wheel-or-colour-wheel"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Switch lamp off",
+                  "effectName": "switch-lamp-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Unused",
+                  "effectName": "unused"
+                }
+              ]
+            },
+            {
+              "name": "Colour wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 2,
+                  "label": "White"
+                },
+                {
+                  "kind": "color",
+                  "min": 3,
+                  "max": 4,
+                  "label": "Colour 1 (white/red)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 6,
+                  "label": "Colour 2 (red)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 7,
+                  "max": 9,
+                  "label": "Colour 3 (red/orange)",
+                  "color": "#ff0004"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 11,
+                  "label": "Colour 4 (orange)",
+                  "color": "#ff5500"
+                },
+                {
+                  "kind": "color",
+                  "min": 12,
+                  "max": 13,
+                  "label": "Colour 5 (orange/cyan)",
+                  "color": "#ff5500"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 15,
+                  "label": "Colour 6 (cyan)",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 18,
+                  "label": "Colour 7 (cyan/green)",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 19,
+                  "max": 20,
+                  "label": "Colour 8 (green)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 21,
+                  "max": 22,
+                  "label": "Colour 9 (green/mint green)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 23,
+                  "max": 24,
+                  "label": "Colour 10 (mint green)",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 25,
+                  "max": 27,
+                  "label": "Colour 11 (mint green/lavender)",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 28,
+                  "max": 31,
+                  "label": "Colour 13 (lavender/rose)",
+                  "color": "#aa55ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 33,
+                  "label": "Colour 14 (rose)",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 34,
+                  "max": 36,
+                  "label": "Colour 15 (rose/yellow)",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 38,
+                  "label": "Colour 16 (yellow)",
+                  "color": "#ffff7f"
+                },
+                {
+                  "kind": "range",
+                  "min": 39,
+                  "max": 40,
+                  "label": "Colour 17 (yellow/magenta)"
+                },
+                {
+                  "kind": "color",
+                  "min": 41,
+                  "max": 42,
+                  "label": "Colour 18 (magenta)",
+                  "color": "#f814ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 43,
+                  "max": 45,
+                  "label": "Colour 19 (magenta/blue)",
+                  "color": "#ff4ffd"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 47,
+                  "label": "Colour 20 (blue)",
+                  "color": "#4027ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 49,
+                  "label": "Colour 21 (blue/CTO 2700K)",
+                  "color": "#2a38ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Colour 23 (CTO 2700K/CTO 3000K)",
+                  "color": "#ffb650"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 56,
+                  "label": "Colour 24 (CTO 3000K)",
+                  "color": "#ffe4a5"
+                },
+                {
+                  "kind": "color",
+                  "min": 57,
+                  "max": 60,
+                  "label": "Colour 26 (UV)",
+                  "color": "#35006a"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 63,
+                  "label": "Colour 27 (UV/white)",
+                  "color": "#44027e"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Index"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 189,
+                  "label": "Rotation, decreasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 193,
+                  "label": "Rotation stopped"
+                },
+                {
+                  "kind": "range",
+                  "min": 194,
+                  "max": 255,
+                  "label": "Rotation, increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Gobo wheel 1",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Gobo 1",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 5,
+                  "max": 8,
+                  "label": "Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 9,
+                  "max": 12,
+                  "label": "Gobo 3",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 13,
+                  "max": 16,
+                  "label": "Gobo 4",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 17,
+                  "max": 20,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 21,
+                  "max": 24,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 25,
+                  "max": 28,
+                  "label": "Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 29,
+                  "max": 32,
+                  "label": "Gobo 8",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 33,
+                  "max": 36,
+                  "label": "Gobo 9",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 37,
+                  "max": 40,
+                  "label": "Gobo 10",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 41,
+                  "max": 44,
+                  "label": "Gobo 11",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 45,
+                  "max": 48,
+                  "label": "Gobo 12",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 49,
+                  "max": 52,
+                  "label": "Gobo 13",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 53,
+                  "max": 57,
+                  "label": "Gobo 14",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 58,
+                  "max": 62,
+                  "label": "Gobo 1 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 63,
+                  "max": 67,
+                  "label": "Gobo 2 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 68,
+                  "max": 72,
+                  "label": "Gobo 3 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 73,
+                  "max": 77,
+                  "label": "Gobo 4 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 78,
+                  "max": 82,
+                  "label": "Gobo 5 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 83,
+                  "max": 87,
+                  "label": "Gobo 6 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 88,
+                  "max": 92,
+                  "label": "Gobo 7 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 93,
+                  "max": 97,
+                  "label": "Gobo 8 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 98,
+                  "max": 102,
+                  "label": "Gobo 9 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 103,
+                  "max": 107,
+                  "label": "Gobo 10 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 108,
+                  "max": 112,
+                  "label": "Gobo 11 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 113,
+                  "max": 117,
+                  "label": "Gobo 12 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 118,
+                  "max": 122,
+                  "label": "Gobo 13 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 123,
+                  "max": 127,
+                  "label": "Gobo 14 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 189,
+                  "label": "Rotation, decreasing speed",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 190,
+                  "max": 193,
+                  "label": "Rotation stopped",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 194,
+                  "max": 255,
+                  "label": "Rotation, increasing speed",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Gobo wheel 2",
+              "typeId": "gobo-wheel-2",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 6,
+                  "label": "Open",
+                  "image": "Others/open.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 7,
+                  "max": 12,
+                  "label": "Gobo 1",
+                  "image": "Others/gobo00007.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 13,
+                  "max": 19,
+                  "label": "Gobo 2",
+                  "image": "Others/gobo00027.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 20,
+                  "max": 25,
+                  "label": "Gobo 3",
+                  "image": "Others/gobo00029.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 26,
+                  "max": 32,
+                  "label": "Gobo 4",
+                  "image": "ClayPaky/gobo00059.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 33,
+                  "max": 38,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 39,
+                  "max": 44,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 45,
+                  "max": 51,
+                  "label": "Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Gobo 8",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 58,
+                  "max": 64,
+                  "label": "Gobo 9",
+                  "image": "Others/gobo00090.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 65,
+                  "max": 71,
+                  "label": "Gobo 1 shake",
+                  "image": "Others/gobo00007.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 72,
+                  "max": 78,
+                  "label": "Gobo 2 shake",
+                  "image": "Others/gobo00027.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 79,
+                  "max": 85,
+                  "label": "Gobo 3 shake",
+                  "image": "Others/gobo00029.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 86,
+                  "max": 92,
+                  "label": "Gobo 4 shake",
+                  "image": "ClayPaky/gobo00059.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 93,
+                  "max": 99,
+                  "label": "Gobo 5 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 100,
+                  "max": 106,
+                  "label": "Gobo 6 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 107,
+                  "max": 113,
+                  "label": "Gobo 7 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 114,
+                  "max": 120,
+                  "label": "Gobo 8 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 121,
+                  "max": 127,
+                  "label": "Gobo 9 shake",
+                  "image": "Others/gobo00090.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 189,
+                  "label": "Rotation, decreasing speed",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 190,
+                  "max": 193,
+                  "label": "Rotation stopped",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 194,
+                  "max": 255,
+                  "label": "Rotation, increasing speed",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Rotation of the gobo in gobo wheel 2",
+              "typeId": "gobo-rotation-2",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Index position (0° to 360°)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 189,
+                  "label": "Rotation, decreasing speed",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 190,
+                  "max": 193,
+                  "label": "Rotation stopped",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 194,
+                  "max": 255,
+                  "label": "Rotation, increasing speed",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Prism",
+              "typeId": "prism",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "White, no prism"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 63,
+                  "label": "Prism effect 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 255,
+                  "label": "Prism effect 2"
+                }
+              ]
+            },
+            {
+              "name": "Prism rotation",
+              "typeId": "prism-rotation",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Index position (0° to 360°)"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 190,
+                  "label": "Rotation, decreasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 192,
+                  "label": "Rotation stopped"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 255,
+                  "label": "Rotation, increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Focus",
+              "typeId": "focus",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Frost",
+              "typeId": "frost",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Closed (blackout)",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 131,
+                  "label": "Shutter, increasing speed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 132,
+                  "max": 167,
+                  "label": "Shutter closes quickly and opens slowly",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 168,
+                  "max": 203,
+                  "label": "Shutter closes slowly and opens quickly",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 204,
+                  "max": 239,
+                  "label": "Shutter, increasing speed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Shutter, random speed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "21ch",
+          "name": "21 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fine adjustment for rotation (pan)",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fine adjustment for inclination (tilt)",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Special functions",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 69,
+                  "label": "Unused",
+                  "effectName": "unused"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Blackout during Pan or Tilt movement",
+                  "effectName": "blackout-during-pan-or-tilt-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Disabled blackout while pan/tilt moving",
+                  "effectName": "disabled-blackout-while-pan-tilt-moving"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Blackout during colour wheel movement",
+                  "effectName": "blackout-during-colour-wheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Disabled blackout while colour wheel moving",
+                  "effectName": "disabled-blackout-while-colour-wheel-moving"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Blackout during gobo wheel movement",
+                  "effectName": "blackout-during-gobo-wheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Disabled blackout while gobo wheel moving",
+                  "effectName": "disabled-blackout-while-gobo-wheel-moving"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Switch lamp on",
+                  "effectName": "switch-lamp-on"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Pan and Tilt reset",
+                  "effectName": "pan-and-tilt-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Colour wheel reset",
+                  "effectName": "colour-wheel-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Gobo wheel reset",
+                  "effectName": "gobo-wheel-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Shutter reset",
+                  "effectName": "shutter-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Unused",
+                  "effectName": "unused"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Prism wheel, focus, zoom and frost filter reset",
+                  "effectName": "prism-wheel-focus-zoom-and-frost-filter-reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Reset all settings",
+                  "effectName": "reset-all-settings"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Blackout during pan or tilt movement or rotation of the gobo wheel or colour wheel",
+                  "effectName": "blackout-during-pan-or-tilt-movement-or-rotation-of-the-gobo-wheel-or-colour-wheel"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "No blackout during pan or tilt movement or rotation of the gobo wheel or colour wheel",
+                  "effectName": "no-blackout-during-pan-or-tilt-movement-or-rotation-of-the-gobo-wheel-or-colour-wheel"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Switch lamp off",
+                  "effectName": "switch-lamp-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Unused",
+                  "effectName": "unused"
+                }
+              ]
+            },
+            {
+              "name": "Movement macros",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Switched off",
+                  "effectName": "switched-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Macro 1",
+                  "effectName": "macro-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Macro 2",
+                  "effectName": "macro-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Macro 3",
+                  "effectName": "macro-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Macro 4",
+                  "effectName": "macro-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Macro 5",
+                  "effectName": "macro-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Macro 6",
+                  "effectName": "macro-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Macro 7",
+                  "effectName": "macro-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 71,
+                  "label": "Macro 8",
+                  "effectName": "macro-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Macro 9",
+                  "effectName": "macro-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Macro 10",
+                  "effectName": "macro-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Macro 11",
+                  "effectName": "macro-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Macro 12",
+                  "effectName": "macro-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Macro 13",
+                  "effectName": "macro-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Macro 14",
+                  "effectName": "macro-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Macro 15",
+                  "effectName": "macro-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Macro 16",
+                  "effectName": "macro-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Macro 17",
+                  "effectName": "macro-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Macro 18",
+                  "effectName": "macro-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Macro 19",
+                  "effectName": "macro-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Macro 20",
+                  "effectName": "macro-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Macro 21",
+                  "effectName": "macro-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Macro 22",
+                  "effectName": "macro-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Macro 23",
+                  "effectName": "macro-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Macro 24",
+                  "effectName": "macro-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Macro 25",
+                  "effectName": "macro-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Macro 26",
+                  "effectName": "macro-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Macro 27",
+                  "effectName": "macro-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Macro 29",
+                  "effectName": "macro-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Macro 30",
+                  "effectName": "macro-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Macro 31",
+                  "effectName": "macro-31"
+                }
+              ]
+            },
+            {
+              "name": "Speed of the movement macro",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 2,
+                  "label": "White"
+                },
+                {
+                  "kind": "color",
+                  "min": 3,
+                  "max": 4,
+                  "label": "Colour 1 (white/red)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 6,
+                  "label": "Colour 2 (red)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 7,
+                  "max": 9,
+                  "label": "Colour 3 (red/orange)",
+                  "color": "#ff0004"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 11,
+                  "label": "Colour 4 (orange)",
+                  "color": "#ff5500"
+                },
+                {
+                  "kind": "color",
+                  "min": 12,
+                  "max": 13,
+                  "label": "Colour 5 (orange/cyan)",
+                  "color": "#ff5500"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 15,
+                  "label": "Colour 6 (cyan)",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 18,
+                  "label": "Colour 7 (cyan/green)",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 19,
+                  "max": 20,
+                  "label": "Colour 8 (green)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 21,
+                  "max": 22,
+                  "label": "Colour 9 (green/mint green)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 23,
+                  "max": 24,
+                  "label": "Colour 10 (mint green)",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 25,
+                  "max": 27,
+                  "label": "Colour 11 (mint green/lavender)",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 28,
+                  "max": 31,
+                  "label": "Colour 13 (lavender/rose)",
+                  "color": "#aa55ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 33,
+                  "label": "Colour 14 (rose)",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 34,
+                  "max": 36,
+                  "label": "Colour 15 (rose/yellow)",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 38,
+                  "label": "Colour 16 (yellow)",
+                  "color": "#ffff7f"
+                },
+                {
+                  "kind": "range",
+                  "min": 39,
+                  "max": 40,
+                  "label": "Colour 17 (yellow/magenta)"
+                },
+                {
+                  "kind": "color",
+                  "min": 41,
+                  "max": 42,
+                  "label": "Colour 18 (magenta)",
+                  "color": "#f814ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 43,
+                  "max": 45,
+                  "label": "Colour 19 (magenta/blue)",
+                  "color": "#ff4ffd"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 47,
+                  "label": "Colour 20 (blue)",
+                  "color": "#4027ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 49,
+                  "label": "Colour 21 (blue/CTO 2700K)",
+                  "color": "#2a38ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Colour 23 (CTO 2700K/CTO 3000K)",
+                  "color": "#ffb650"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 56,
+                  "label": "Colour 24 (CTO 3000K)",
+                  "color": "#ffe4a5"
+                },
+                {
+                  "kind": "color",
+                  "min": 57,
+                  "max": 60,
+                  "label": "Colour 26 (UV)",
+                  "color": "#35006a"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 63,
+                  "label": "Colour 27 (UV/white)",
+                  "color": "#44027e"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Index"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 189,
+                  "label": "Rotation, decreasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 193,
+                  "label": "Rotation stopped"
+                },
+                {
+                  "kind": "range",
+                  "min": 194,
+                  "max": 255,
+                  "label": "Rotation, increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Gobo wheel 1",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Gobo 1",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 5,
+                  "max": 8,
+                  "label": "Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 9,
+                  "max": 12,
+                  "label": "Gobo 3",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 13,
+                  "max": 16,
+                  "label": "Gobo 4",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 17,
+                  "max": 20,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 21,
+                  "max": 24,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 25,
+                  "max": 28,
+                  "label": "Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 29,
+                  "max": 32,
+                  "label": "Gobo 8",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 33,
+                  "max": 36,
+                  "label": "Gobo 9",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 37,
+                  "max": 40,
+                  "label": "Gobo 10",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 41,
+                  "max": 44,
+                  "label": "Gobo 11",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 45,
+                  "max": 48,
+                  "label": "Gobo 12",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 49,
+                  "max": 52,
+                  "label": "Gobo 13",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 53,
+                  "max": 57,
+                  "label": "Gobo 14",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 58,
+                  "max": 62,
+                  "label": "Gobo 1 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 63,
+                  "max": 67,
+                  "label": "Gobo 2 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 68,
+                  "max": 72,
+                  "label": "Gobo 3 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 73,
+                  "max": 77,
+                  "label": "Gobo 4 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 78,
+                  "max": 82,
+                  "label": "Gobo 5 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 83,
+                  "max": 87,
+                  "label": "Gobo 6 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 88,
+                  "max": 92,
+                  "label": "Gobo 7 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 93,
+                  "max": 97,
+                  "label": "Gobo 8 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 98,
+                  "max": 102,
+                  "label": "Gobo 9 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 103,
+                  "max": 107,
+                  "label": "Gobo 10 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 108,
+                  "max": 112,
+                  "label": "Gobo 11 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 113,
+                  "max": 117,
+                  "label": "Gobo 12 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 118,
+                  "max": 122,
+                  "label": "Gobo 13 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 123,
+                  "max": 127,
+                  "label": "Gobo 14 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 189,
+                  "label": "Rotation, decreasing speed",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 190,
+                  "max": 193,
+                  "label": "Rotation stopped",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 194,
+                  "max": 255,
+                  "label": "Rotation, increasing speed",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Gobo wheel 2",
+              "typeId": "gobo-wheel-2",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 6,
+                  "label": "Open",
+                  "image": "Others/open.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 7,
+                  "max": 12,
+                  "label": "Gobo 1",
+                  "image": "Others/gobo00007.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 13,
+                  "max": 19,
+                  "label": "Gobo 2",
+                  "image": "Others/gobo00027.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 20,
+                  "max": 25,
+                  "label": "Gobo 3",
+                  "image": "Others/gobo00029.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 26,
+                  "max": 32,
+                  "label": "Gobo 4",
+                  "image": "ClayPaky/gobo00059.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 33,
+                  "max": 38,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 39,
+                  "max": 44,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 45,
+                  "max": 51,
+                  "label": "Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Gobo 8",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 58,
+                  "max": 64,
+                  "label": "Gobo 9",
+                  "image": "Others/gobo00090.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 65,
+                  "max": 71,
+                  "label": "Gobo 1 shake",
+                  "image": "Others/gobo00007.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 72,
+                  "max": 78,
+                  "label": "Gobo 2 shake",
+                  "image": "Others/gobo00027.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 79,
+                  "max": 85,
+                  "label": "Gobo 3 shake",
+                  "image": "Others/gobo00029.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 86,
+                  "max": 92,
+                  "label": "Gobo 4 shake",
+                  "image": "ClayPaky/gobo00059.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 93,
+                  "max": 99,
+                  "label": "Gobo 5 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 100,
+                  "max": 106,
+                  "label": "Gobo 6 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 107,
+                  "max": 113,
+                  "label": "Gobo 7 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 114,
+                  "max": 120,
+                  "label": "Gobo 8 shake",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 121,
+                  "max": 127,
+                  "label": "Gobo 9 shake",
+                  "image": "Others/gobo00090.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 189,
+                  "label": "Rotation, decreasing speed",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 190,
+                  "max": 193,
+                  "label": "Rotation stopped",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 194,
+                  "max": 255,
+                  "label": "Rotation, increasing speed",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Rotation of the gobo in gobo wheel 2",
+              "typeId": "gobo-rotation-2",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Index position (0° to 360°)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 189,
+                  "label": "Rotation, decreasing speed",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 190,
+                  "max": 193,
+                  "label": "Rotation stopped",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 194,
+                  "max": 255,
+                  "label": "Rotation, increasing speed",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Prism",
+              "typeId": "prism",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "White, no prism"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 63,
+                  "label": "Prism effect 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 255,
+                  "label": "Prism effect 2"
+                }
+              ]
+            },
+            {
+              "name": "Prism rotation",
+              "typeId": "prism-rotation",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Index position (0° to 360°)"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 190,
+                  "label": "Rotation, decreasing speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 192,
+                  "label": "Rotation stopped"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 255,
+                  "label": "Rotation, increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fine adjustment of the zoom",
+              "typeId": "zoom-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Focus",
+              "typeId": "focus",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fine adjustment of the focus",
+              "typeId": "focus-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Frost",
+              "typeId": "frost",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Closed (blackout)",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 131,
+                  "label": "Shutter, increasing speed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 132,
+                  "max": 167,
+                  "label": "Shutter closes quickly and opens slowly",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 168,
+                  "max": 203,
+                  "label": "Shutter closes slowly and opens quickly",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 204,
+                  "max": 239,
+                  "label": "Shutter, increasing speed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Shutter, random speed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

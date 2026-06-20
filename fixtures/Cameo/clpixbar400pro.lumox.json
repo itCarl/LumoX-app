@@ -1,0 +1,1988 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/CLPIXBAR400PRO",
+      "manufacturer": "Cameo",
+      "model": "CLPIXBAR400PRO",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Stelian Cunitchi",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-CLPIXBAR400PRO.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 900,
+          "height": 117,
+          "depth": 70,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 6.7,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 75,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2-CH",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#ffe24f"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#7fe2dd"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#aaaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#915f6d"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm white",
+                  "color": "#fff8f0"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#ebffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 128,
+                  "label": "Colour Jumping stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 192,
+                  "label": "Colour Jumping speed slow - > Fast/colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 255,
+                  "label": "Colour Fading speed slow -> fast/Colour 1->12"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4-CH 1",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#ffe24f"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#7fe2dd"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#aaaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#915f6d"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm white",
+                  "color": "#fff8f0"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#ebffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 128,
+                  "label": "Colour Jumping stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 192,
+                  "label": "Colour Jumping speed slow - > Fast/colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 255,
+                  "label": "Colour Fading speed slow -> fast/Colour 1->12"
+                }
+              ]
+            },
+            {
+              "name": "Strobe 3CH Mode 1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 250,
+                  "label": "Strobe slow -> fast 0Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch-2",
+          "name": "4-CH 2",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6-CH",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random Strobe Effect, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe Break Effect, 5s ...1s (Very short flash)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow -> fast 0Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "10-CH",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random Strobe Effect, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe Break Effect, 5s ...1s (Very short flash)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow -> fast 0Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#ffe24f"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#7fe2dd"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#aaaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#915f6d"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm white",
+                  "color": "#fff8f0"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#ebffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 128,
+                  "label": "Colour Jumping stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 192,
+                  "label": "Colour Jumping speed slow - > Fast/colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 255,
+                  "label": "Colour Fading speed slow -> fast/Colour 1->12"
+                }
+              ]
+            },
+            {
+              "name": "Colour Temperature",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "off"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 255,
+                  "label": "cold to warm"
+                }
+              ]
+            },
+            {
+              "name": "Auto Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 23,
+                  "label": "Dream",
+                  "effectName": "dream"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 41,
+                  "label": "Meteor",
+                  "effectName": "meteor"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 59,
+                  "label": "Fade",
+                  "effectName": "fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 77,
+                  "label": "Jump",
+                  "effectName": "jump"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 95,
+                  "label": "Flow1",
+                  "effectName": "flow1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 113,
+                  "label": "Flow2",
+                  "effectName": "flow2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 114,
+                  "max": 131,
+                  "label": "Flow3",
+                  "effectName": "flow3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 149,
+                  "label": "Flow4",
+                  "effectName": "flow4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 167,
+                  "label": "Flow5",
+                  "effectName": "flow5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 185,
+                  "label": "Flow6",
+                  "effectName": "flow6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 203,
+                  "label": "Flow7",
+                  "effectName": "flow7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 221,
+                  "label": "Flow8",
+                  "effectName": "flow8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 222,
+                  "max": 239,
+                  "label": "Flow9",
+                  "effectName": "flow9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Flow10",
+                  "effectName": "flow10"
+                }
+              ]
+            },
+            {
+              "name": "Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Sound Control OFF (Mic sensitivity)",
+                  "effectName": "sound-control-off-mic-sensitivity"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Sound Control ON Low -> High (Mic sensititvity)",
+                  "effectName": "sound-control-on-low-high-mic-sensititvity"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "50ch",
+          "name": "50-CH",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random Strobe Effect, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe Break Effect, 5s ...1s (Very short flash)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow -> fast 0Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 7",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 7",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 7",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 7",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 8",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 9",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 9",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 9",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 9",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 10",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 10",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 10",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 10",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 11",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 11",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 11",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 11",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 12",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 12",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 12",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 12",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "54ch",
+          "name": "54-CH",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random Strobe Effect, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe Break Effect, 5s ...1s (Very short flash)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow -> fast 0Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 7",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 7",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 7",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 7",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 8",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 9",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 9",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 9",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 9",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 10",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 10",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 10",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 10",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 11",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 11",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 11",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 11",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 12",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 12",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 12",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 12",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#ffe24f"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#7fe2dd"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#aaaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#915f6d"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm white",
+                  "color": "#fff8f0"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#ebffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 128,
+                  "label": "Colour Jumping stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 192,
+                  "label": "Colour Jumping speed slow - > Fast/colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 255,
+                  "label": "Colour Fading speed slow -> fast/Colour 1->12"
+                }
+              ]
+            },
+            {
+              "name": "Colour Temperature",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "off"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 255,
+                  "label": "cold to warm"
+                }
+              ]
+            },
+            {
+              "name": "Auto Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 23,
+                  "label": "Dream",
+                  "effectName": "dream"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 41,
+                  "label": "Meteor",
+                  "effectName": "meteor"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 59,
+                  "label": "Fade",
+                  "effectName": "fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 77,
+                  "label": "Jump",
+                  "effectName": "jump"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 95,
+                  "label": "Flow1",
+                  "effectName": "flow1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 113,
+                  "label": "Flow2",
+                  "effectName": "flow2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 114,
+                  "max": 131,
+                  "label": "Flow3",
+                  "effectName": "flow3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 149,
+                  "label": "Flow4",
+                  "effectName": "flow4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 167,
+                  "label": "Flow5",
+                  "effectName": "flow5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 185,
+                  "label": "Flow6",
+                  "effectName": "flow6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 203,
+                  "label": "Flow7",
+                  "effectName": "flow7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 221,
+                  "label": "Flow8",
+                  "effectName": "flow8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 222,
+                  "max": 239,
+                  "label": "Flow9",
+                  "effectName": "flow9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Flow10",
+                  "effectName": "flow10"
+                }
+              ]
+            },
+            {
+              "name": "Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Sound Control OFF (Mic sensitivity)",
+                  "effectName": "sound-control-off-mic-sensitivity"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Sound Control ON Low -> High (Mic sensititvity)",
+                  "effectName": "sound-control-on-low-high-mic-sensititvity"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

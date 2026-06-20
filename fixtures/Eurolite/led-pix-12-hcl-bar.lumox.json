@@ -1,0 +1,3515 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED PIX-12 HCL Bar",
+      "manufacturer": "Eurolite",
+      "model": "LED PIX-12 HCL Bar",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Martin Winkler",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-PIX-12-HCL-Bar.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1000,
+          "height": 165,
+          "depth": 115,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 640,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 20,
+          "degreesMax": 41
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 60,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color presets",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Pixel combine",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 15,
+                  "label": "Pixel1+2+3"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 21,
+                  "label": "Pixel2+3+4"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 27,
+                  "label": "Pixel3+4+5"
+                },
+                {
+                  "kind": "range",
+                  "min": 28,
+                  "max": 33,
+                  "label": "Pixel4+5+6"
+                },
+                {
+                  "kind": "range",
+                  "min": 34,
+                  "max": 39,
+                  "label": "Pixel5+6+7"
+                },
+                {
+                  "kind": "range",
+                  "min": 40,
+                  "max": 45,
+                  "label": "Pixel6+7+8"
+                },
+                {
+                  "kind": "range",
+                  "min": 46,
+                  "max": 51,
+                  "label": "Pixel7+8+9"
+                },
+                {
+                  "kind": "range",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Pixel8+9+10"
+                },
+                {
+                  "kind": "range",
+                  "min": 58,
+                  "max": 63,
+                  "label": "Pixel9+10+11"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 69,
+                  "label": "Pixel10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 75,
+                  "label": "Pixel1+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 76,
+                  "max": 81,
+                  "label": "Pixel1+2+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 82,
+                  "max": 87,
+                  "label": "Pixel1"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 93,
+                  "label": "Pixel1+2"
+                },
+                {
+                  "kind": "range",
+                  "min": 94,
+                  "max": 99,
+                  "label": "Pixel1+2+3"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 105,
+                  "label": "Pixel1+2+3+4"
+                },
+                {
+                  "kind": "range",
+                  "min": 106,
+                  "max": 111,
+                  "label": "Pixel1+2+3+4+5"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 117,
+                  "label": "Pixel1+2+3+4+5+6"
+                },
+                {
+                  "kind": "range",
+                  "min": 118,
+                  "max": 123,
+                  "label": "Pixel1+2+3+4+5+6+7"
+                },
+                {
+                  "kind": "range",
+                  "min": 124,
+                  "max": 129,
+                  "label": "Pixel1+2+3+4+5+6+7+8"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 135,
+                  "label": "Pixel1+2+3+4+5+6+7+8+9"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 141,
+                  "label": "Pixel1+2+3+4+5+6+7+8+9+10"
+                },
+                {
+                  "kind": "range",
+                  "min": 142,
+                  "max": 147,
+                  "label": "Pixel1+2+3+4+5+6+7+8+9+10+11"
+                },
+                {
+                  "kind": "range",
+                  "min": 148,
+                  "max": 153,
+                  "label": "Pixel1+2+3+4+5+6+7+8+9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 154,
+                  "max": 159,
+                  "label": "Pixel12"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 165,
+                  "label": "Pixel11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 166,
+                  "max": 171,
+                  "label": "Pixel10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 172,
+                  "max": 177,
+                  "label": "Pixel9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 178,
+                  "max": 183,
+                  "label": "Pixel8+9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 189,
+                  "label": "Pixel7+8+9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 195,
+                  "label": "Pixel6+7+8+9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 201,
+                  "label": "Pixel5+6+7+8+9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 207,
+                  "label": "Pixel4+5+6+7+8+9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 213,
+                  "label": "Pixel3+4+5+6+7+8+9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 214,
+                  "max": 219,
+                  "label": "Pixel2+3+4+5+6+7+8+9+10+11+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 225,
+                  "label": "All Pixel ON"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 231,
+                  "label": "Pixel1+3+5+7+90+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 237,
+                  "label": "Pixel2+4+6+8+10+12"
+                },
+                {
+                  "kind": "range",
+                  "min": 238,
+                  "max": 255,
+                  "label": "All Pixel ON"
+                }
+              ]
+            },
+            {
+              "name": "Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 119,
+                  "label": "Auto Mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 255,
+                  "label": "Music control"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 1",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 1",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "16ch",
+          "name": "16 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe (Slow to fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 3",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 4",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 5",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 6",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 7",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 8",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 9",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 10",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 11",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Color presets Pixel 12",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Amber",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+UV",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Green+UV",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Blue+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "White+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Amber+UV+Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Red+Blue+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Red+Green+White+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Red+Green+White+Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Green+Blue+Amber+UV"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Red+Green+Blue+White+Amber+UV"
+                }
+              ]
+            },
+            {
+              "name": "Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 119,
+                  "label": "Auto Mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 255,
+                  "label": "Music control"
+                }
+              ]
+            },
+            {
+              "name": "Color temperature",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "2700K"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 49,
+                  "label": "3200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 69,
+                  "label": "3400K"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 89,
+                  "label": "4200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 109,
+                  "label": "4900K"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 129,
+                  "label": "5600K"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 149,
+                  "label": "6000K"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 169,
+                  "label": "6500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 189,
+                  "label": "7500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "8000K"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "36ch",
+          "name": "36 Channel",
+          "channels": [
+            {
+              "name": "Red Pixel 1+2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Pixel 1+2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Pixel 1+2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Pixel 1+2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Pixel 1+2",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV Pixel 1+2",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Pixel 3+4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Pixel 3+4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Pixel 3+4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Pixel 3+4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Pixel 3+4",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV Pixel 3+4",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Pixel 5+6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Pixel 5+6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Pixel 5+6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Pixel 5+6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Pixel 5+6",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV Pixel 5+6",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Pixel 7+8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Pixel 7+8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Pixel 7+8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Pixel 7+8",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Pixel 7+8",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV Pixel 7+8",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Pixel 9+10",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Pixel 9+10",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Pixel 9+10",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Pixel 9+10",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Pixel 9+10",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV Pixel 9+10",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Pixel 11+12",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Pixel 11+12",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Pixel 11+12",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Pixel 11+12",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Pixel 11+12",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV Pixel 11+12",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "74ch",
+          "name": "74 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe (Slow to fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 1",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 1",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 2",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 2",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 3",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 3",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 4",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 4",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 5",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 5",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 5",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 5",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 5",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 5",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 6",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 6",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 6",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 6",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 6",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 6",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 7",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 7",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 7",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 7",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 7",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 7",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 8",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 8",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 8",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 8",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 8",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 8",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 9",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 9",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 9",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 9",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 9",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 9",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 10",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 10",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 10",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 10",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 10",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 10",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 11",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 11",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 11",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 11",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 11",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 11",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 12",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 12",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 12",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White 12",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 12",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV 12",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

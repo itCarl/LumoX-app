@@ -1,0 +1,164 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED Z-200 TCL",
+      "manufacturer": "Eurolite",
+      "model": "LED Z-200 TCL",
+      "type": "Effect",
+      "meta": {
+        "author": "Heiko Fanieng",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-Z-200-TCL.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 280,
+          "height": 300,
+          "depth": 360,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6-channel",
+          "channels": [
+            {
+              "name": "Motor Rotation",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 20,
+                  "label": "No rotation"
+                },
+                {
+                  "kind": "range",
+                  "min": 21,
+                  "max": 170,
+                  "label": "Step by step counter clockwise rotation"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 255,
+                  "label": "Clockwise and counter clockwise rotation"
+                }
+              ]
+            },
+            {
+              "name": "LED effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 35,
+                  "label": "All LEDs on",
+                  "effectName": "all-leds-on"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 70,
+                  "label": "Strobe-effect",
+                  "effectName": "strobe-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 105,
+                  "label": "Fade",
+                  "effectName": "fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 140,
+                  "label": "Color-change",
+                  "effectName": "color-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 175,
+                  "label": "Color-change + strobe",
+                  "effectName": "color-change-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 210,
+                  "label": "Cross-fade",
+                  "effectName": "cross-fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 255,
+                  "label": "Cross-fade + strobe",
+                  "effectName": "cross-fade-strobe"
+                }
+              ]
+            },
+            {
+              "name": "Speed settings for control channel 2",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

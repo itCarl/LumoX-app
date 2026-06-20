@@ -1,0 +1,427 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Star Dream 144 LED White",
+      "manufacturer": "Showtec",
+      "model": "Star Dream 144 LED White",
+      "type": "Color Changer",
+      "meta": {
+        "author": "David Gouronc",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Star-Dream-144-LED-White.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 6000,
+          "height": 3000,
+          "depth": 50,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 12.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 100,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Not functional",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Slow to Fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Programs",
+              "typeId": "macro",
+              "defaultValue": 255,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 49,
+                  "label": "Manual mode ON",
+                  "effectName": "manual-mode-on"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Manual mode OFF",
+                  "effectName": "manual-mode-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 129,
+                  "label": "White",
+                  "effectName": "white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Program 1",
+                  "effectName": "program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Program 2",
+                  "effectName": "program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Program 3",
+                  "effectName": "program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Program 4",
+                  "effectName": "program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Program 5",
+                  "effectName": "program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Program 6",
+                  "effectName": "program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Program 7",
+                  "effectName": "program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Program 8",
+                  "effectName": "program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Program 9",
+                  "effectName": "program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Program 10",
+                  "effectName": "program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Auto macro",
+                  "effectName": "auto-macro"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Sound-controlled mode",
+                  "effectName": "sound-controlled-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                }
+              ]
+            },
+            {
+              "name": "Program speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 1-8",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Not functional",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Slow to Fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Programs",
+              "typeId": "macro",
+              "defaultValue": 255,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 49,
+                  "label": "Manual mode ON",
+                  "effectName": "manual-mode-on"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Manual mode OFF",
+                  "effectName": "manual-mode-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 129,
+                  "label": "White",
+                  "effectName": "white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Program 1",
+                  "effectName": "program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Program 2",
+                  "effectName": "program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Program 3",
+                  "effectName": "program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Program 4",
+                  "effectName": "program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Program 5",
+                  "effectName": "program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Program 6",
+                  "effectName": "program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Program 7",
+                  "effectName": "program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Program 8",
+                  "effectName": "program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Program 9",
+                  "effectName": "program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Program 10",
+                  "effectName": "program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Auto macro",
+                  "effectName": "auto-macro"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Sound-controlled mode",
+                  "effectName": "sound-controlled-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                }
+              ]
+            },
+            {
+              "name": "Program speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 1",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 2",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 3",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 4",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 5",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 6",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 7",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "No function 8",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

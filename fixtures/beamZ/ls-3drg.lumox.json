@@ -1,0 +1,327 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/LS-3DRG",
+      "manufacturer": "beamZ",
+      "model": "LS-3DRG",
+      "type": "Laser",
+      "meta": {
+        "author": "julbre",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-LS-3DRG.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 290,
+          "height": 200,
+          "depth": 370,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4,
+          "unit": "kg"
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 90,
+          "tiltMax": 90
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "14ch",
+          "name": "Mode 1",
+          "channels": [
+            {
+              "name": "Mode Select",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 103,
+                  "label": "Sound Active Mode",
+                  "effectName": "sound-active-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 155,
+                  "label": "Auto-Animation Mode",
+                  "effectName": "auto-animation-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 255,
+                  "label": "Static Patterns (selection with CH3)",
+                  "effectName": "static-patterns-selection-with-ch3"
+                }
+              ]
+            },
+            {
+              "name": "Color Select",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Laser OFF"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Color selection"
+                }
+              ]
+            },
+            {
+              "name": "Pattern select",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Y axis moving",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual up to down moving"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Auto down moving (under dunamic pattern)"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Auto up moving (under dynamic pattern)"
+                }
+              ]
+            },
+            {
+              "name": "X axis moving",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual left to right moving"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Auto right moving (under dynamic pattern)"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Auto left moving (under dynamic pattern)"
+                }
+              ]
+            },
+            {
+              "name": "X axis rolling",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual rolling"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Auto rolling (under dynamic pattern)"
+                }
+              ]
+            },
+            {
+              "name": "Y axis rolling",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual rolling"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Auto rolling (under dynamic pattern)"
+                }
+              ]
+            },
+            {
+              "name": "Rotation",
+              "typeId": "prism-rotation",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual rotation"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Auto clockwise rotation (under dynamic pattern)"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Auto counter-clockwise rotation (under dynamic pattern)"
+                }
+              ]
+            },
+            {
+              "name": "Zooming",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 85,
+                  "label": "Auto zooming (+)"
+                },
+                {
+                  "kind": "range",
+                  "min": 86,
+                  "max": 170,
+                  "label": "Auto zooming (-)"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 255,
+                  "label": "Manual zooming (+/-)"
+                }
+              ]
+            },
+            {
+              "name": "Pattern Size",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Normal size",
+                  "effectName": "normal-size"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 255,
+                  "label": "1 is smallest, 255 is biggest",
+                  "effectName": "1-is-smallest-255-is-biggest"
+                }
+              ]
+            },
+            {
+              "name": "Display dot",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Normal display",
+                  "effectName": "normal-display"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 255,
+                  "label": "display dot, 255 is best brightness",
+                  "effectName": "display-dot-255-is-best-brightness"
+                }
+              ]
+            },
+            {
+              "name": "Drawing",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No drawing",
+                  "effectName": "no-drawing"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 127,
+                  "label": "Auto drawing mode 1 (under dynamic pattern)",
+                  "effectName": "auto-drawing-mode-1-under-dynamic-pattern"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Auto drawing mode 2 (under dynamic pattern)",
+                  "effectName": "auto-drawing-mode-2-under-dynamic-pattern"
+                }
+              ]
+            },
+            {
+              "name": "Stretch",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shake Effect",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

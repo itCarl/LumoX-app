@@ -1,0 +1,753 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Infinity XPLO-15 LED Strobe",
+      "manufacturer": "Showtec",
+      "model": "Infinity XPLO-15 LED Strobe",
+      "type": "Strobe",
+      "meta": {
+        "author": "Daniele Fogale",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Infinity-XPLO-15-LED-Strobe.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 319,
+          "height": 130,
+          "depth": 255,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 28000,
+          "colourTemperature": 6500
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 115,
+          "degreesMax": 115
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 132,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 channel",
+          "channels": [
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 channel",
+          "channels": [
+            {
+              "name": "Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 channel",
+          "channels": [
+            {
+              "name": "Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 42,
+                  "label": "Ramp up (fade in)",
+                  "effectName": "ramp-up-fade-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 43,
+                  "max": 85,
+                  "label": "Ramp down (fade out)",
+                  "effectName": "ramp-down-fade-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 128,
+                  "label": "Ramp up/down (fade in/out)",
+                  "effectName": "ramp-up-down-fade-in-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 129,
+                  "max": 171,
+                  "label": "Random effects",
+                  "effectName": "random-effects"
+                },
+                {
+                  "kind": "effect",
+                  "min": 172,
+                  "max": 173,
+                  "label": "Left zone",
+                  "effectName": "left-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 175,
+                  "label": "Center zone",
+                  "effectName": "center-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 178,
+                  "label": "Right zone",
+                  "effectName": "right-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 179,
+                  "max": 180,
+                  "label": "Pattern A",
+                  "effectName": "pattern-a"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 182,
+                  "label": "Pattern B",
+                  "effectName": "pattern-b"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 184,
+                  "label": "Pattern C",
+                  "effectName": "pattern-c"
+                },
+                {
+                  "kind": "effect",
+                  "min": 185,
+                  "max": 186,
+                  "label": "Pattern D",
+                  "effectName": "pattern-d"
+                },
+                {
+                  "kind": "effect",
+                  "min": 187,
+                  "max": 214,
+                  "label": "Random patterns",
+                  "effectName": "random-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 215,
+                  "max": 235,
+                  "label": "Chase 1 - from left to right, from slow to fast",
+                  "effectName": "chase-1-from-left-to-right-from-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 255,
+                  "label": "Chase 2 - from right to left, from slow to fast",
+                  "effectName": "chase-2-from-right-to-left-from-slow-to-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 channel",
+          "channels": [
+            {
+              "name": "Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "16-bit dimmer intensity",
+              "typeId": "intensity-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 42,
+                  "label": "Ramp up (fade in)",
+                  "effectName": "ramp-up-fade-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 43,
+                  "max": 85,
+                  "label": "Ramp down (fade out)",
+                  "effectName": "ramp-down-fade-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 128,
+                  "label": "Ramp up/down (fade in/out)",
+                  "effectName": "ramp-up-down-fade-in-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 129,
+                  "max": 171,
+                  "label": "Random effects",
+                  "effectName": "random-effects"
+                },
+                {
+                  "kind": "effect",
+                  "min": 172,
+                  "max": 173,
+                  "label": "Left zone",
+                  "effectName": "left-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 175,
+                  "label": "Center zone",
+                  "effectName": "center-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 178,
+                  "label": "Right zone",
+                  "effectName": "right-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 179,
+                  "max": 180,
+                  "label": "Pattern A",
+                  "effectName": "pattern-a"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 182,
+                  "label": "Pattern B",
+                  "effectName": "pattern-b"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 184,
+                  "label": "Pattern C",
+                  "effectName": "pattern-c"
+                },
+                {
+                  "kind": "effect",
+                  "min": 185,
+                  "max": 186,
+                  "label": "Pattern D",
+                  "effectName": "pattern-d"
+                },
+                {
+                  "kind": "effect",
+                  "min": 187,
+                  "max": 214,
+                  "label": "Random patterns",
+                  "effectName": "random-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 215,
+                  "max": 235,
+                  "label": "Chase 1 - from left to right, from slow to fast",
+                  "effectName": "chase-1-from-left-to-right-from-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 255,
+                  "label": "Chase 2 - from right to left, from slow to fast",
+                  "effectName": "chase-2-from-right-to-left-from-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Dimming curves",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Default",
+                  "effectName": "default"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 29,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 34,
+                  "label": "Linear dimming curve",
+                  "effectName": "linear-dimming-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 35,
+                  "max": 39,
+                  "label": "Square dimming curve",
+                  "effectName": "square-dimming-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 44,
+                  "label": "S-Curve dimming curve",
+                  "effectName": "s-curve-dimming-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 45,
+                  "max": 49,
+                  "label": "PL-Curve dimming curve",
+                  "effectName": "pl-curve-dimming-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 255,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                }
+              ]
+            },
+            {
+              "name": "Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "28ch",
+          "name": "28 channel",
+          "channels": [
+            {
+              "name": "Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "16-bit dimmer intensity",
+              "typeId": "intensity-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 42,
+                  "label": "Ramp up (fade in)",
+                  "effectName": "ramp-up-fade-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 43,
+                  "max": 85,
+                  "label": "Ramp down (fade out)",
+                  "effectName": "ramp-down-fade-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 128,
+                  "label": "Ramp up/down (fade in/out)",
+                  "effectName": "ramp-up-down-fade-in-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 129,
+                  "max": 171,
+                  "label": "Random effects",
+                  "effectName": "random-effects"
+                },
+                {
+                  "kind": "effect",
+                  "min": 172,
+                  "max": 173,
+                  "label": "Left zone",
+                  "effectName": "left-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 175,
+                  "label": "Center zone",
+                  "effectName": "center-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 178,
+                  "label": "Right zone",
+                  "effectName": "right-zone"
+                },
+                {
+                  "kind": "effect",
+                  "min": 179,
+                  "max": 180,
+                  "label": "Pattern A",
+                  "effectName": "pattern-a"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 182,
+                  "label": "Pattern B",
+                  "effectName": "pattern-b"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 184,
+                  "label": "Pattern C",
+                  "effectName": "pattern-c"
+                },
+                {
+                  "kind": "effect",
+                  "min": 185,
+                  "max": 186,
+                  "label": "Pattern D",
+                  "effectName": "pattern-d"
+                },
+                {
+                  "kind": "effect",
+                  "min": 187,
+                  "max": 214,
+                  "label": "Random patterns",
+                  "effectName": "random-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 215,
+                  "max": 235,
+                  "label": "Chase 1 - from left to right, from slow to fast",
+                  "effectName": "chase-1-from-left-to-right-from-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 255,
+                  "label": "Chase 2 - from right to left, from slow to fast",
+                  "effectName": "chase-2-from-right-to-left-from-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Dimming curves",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Default",
+                  "effectName": "default"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 29,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 34,
+                  "label": "Linear dimming curve",
+                  "effectName": "linear-dimming-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 35,
+                  "max": 39,
+                  "label": "Square dimming curve",
+                  "effectName": "square-dimming-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 44,
+                  "label": "S-Curve dimming curve",
+                  "effectName": "s-curve-dimming-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 45,
+                  "max": 49,
+                  "label": "PL-Curve dimming curve",
+                  "effectName": "pl-curve-dimming-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 255,
+                  "label": "Not functional",
+                  "effectName": "not-functional"
+                }
+              ]
+            },
+            {
+              "name": "Zone 1 - Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 1 - Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 1 - Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 2 - Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 2 - Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 2 - Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 3 - Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 3 - Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 3 - Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 4 - Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 4 - Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 4 - Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 5 - Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 5 - Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 5 - Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 6 - Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 6 - Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 6 - Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 7 - Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 7 - Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 7 - Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 8 - Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 8 - Strobe duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zone 8 - Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

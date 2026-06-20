@@ -1,0 +1,373 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/Compact LED-Bar CLB8",
+      "manufacturer": "Stairville",
+      "model": "Compact LED-Bar CLB8",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Detlef Fossan",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-Compact-LED-Bar-CLB8.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 682,
+          "height": 270,
+          "depth": 60,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 1364,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 40,
+          "degreesMax": 40
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 192,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "18ch",
+          "name": "18 Channel",
+          "channels": [
+            {
+              "name": "Intensity Red Spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green Spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue Spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White Spot 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Red Spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green Spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue Spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White Spot 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Red Spot 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green Spot 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue Spot 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White Spot 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Red Spot 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green Spot 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue Spot 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White Spot 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "1ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Intensity White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 Channel",
+          "channels": [
+            {
+              "name": "Colour Selection/Shows/Sound Mode",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "LEDs off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Amber",
+                  "color": "#ffb53e"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Green",
+                  "color": "#55ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Ice-blue",
+                  "color": "#aaffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Blue",
+                  "color": "#0055ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff5163"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cold white",
+                  "color": "#f3ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Warm white",
+                  "color": "#fff5eb"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Cyan",
+                  "color": "#55ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Light blue",
+                  "color": "#00aaff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Preprogrammed automatic show no. 1",
+                  "effectName": "preprogrammed-automatic-show-no-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Preprogrammed automatic show no. 2",
+                  "effectName": "preprogrammed-automatic-show-no-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Preprogrammed automatic show no. 3",
+                  "effectName": "preprogrammed-automatic-show-no-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Preprogrammed automatic show no. 4",
+                  "effectName": "preprogrammed-automatic-show-no-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Preprogrammed automatic show no. 5",
+                  "effectName": "preprogrammed-automatic-show-no-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Preprogrammed automatic show no. 6",
+                  "effectName": "preprogrammed-automatic-show-no-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Preprogrammed automatic show no. 7",
+                  "effectName": "preprogrammed-automatic-show-no-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Preprogrammed automatic show no. 8",
+                  "effectName": "preprogrammed-automatic-show-no-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Preprogrammed automatic show no. 9",
+                  "effectName": "preprogrammed-automatic-show-no-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Preprogrammed automatic show no. 10",
+                  "effectName": "preprogrammed-automatic-show-no-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Preprogrammed automatic show no. 11",
+                  "effectName": "preprogrammed-automatic-show-no-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Preprogrammed automatic show no. 12",
+                  "effectName": "preprogrammed-automatic-show-no-12"
+                },
+                {
+                  "kind": "color",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound Mode",
+                  "color": "#ff5500"
+                }
+              ]
+            },
+            {
+              "name": "Speed/Sensitivity",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

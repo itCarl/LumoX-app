@@ -1,0 +1,804 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/LED Light Bar RGB V3",
+      "manufacturer": "Showtec",
+      "model": "LED Light Bar RGB V3",
+      "type": "Other",
+      "meta": {
+        "author": "Jannis Achstetter",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-LED-Light-Bar-RGB-V3.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1070,
+          "height": 88,
+          "depth": 65,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.68,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 75,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "P1",
+          "channels": [
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "P2",
+          "channels": [
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "P3",
+          "channels": [
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "14ch",
+          "name": "P4",
+          "channels": [
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "P5",
+          "channels": [
+            {
+              "name": "Colors/Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Funtion",
+                  "effectName": "no-funtion"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "effectName": "red"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Yellow",
+                  "effectName": "yellow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Green",
+                  "effectName": "green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Cyan",
+                  "effectName": "cyan"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Blue",
+                  "effectName": "blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Purple",
+                  "effectName": "purple"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "White",
+                  "effectName": "white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Program 01",
+                  "effectName": "program-01"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Program 02",
+                  "effectName": "program-02"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Program 03",
+                  "effectName": "program-03"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Program 04",
+                  "effectName": "program-04"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Program 05",
+                  "effectName": "program-05"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Program 06",
+                  "effectName": "program-06"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Program 07",
+                  "effectName": "program-07"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Program 08",
+                  "effectName": "program-08"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Program 09",
+                  "effectName": "program-09"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Program 10",
+                  "effectName": "program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Program 11",
+                  "effectName": "program-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Program 12",
+                  "effectName": "program-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Program 13",
+                  "effectName": "program-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Program 14",
+                  "effectName": "program-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Program 15",
+                  "effectName": "program-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Program 16",
+                  "effectName": "program-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound-controlled",
+                  "effectName": "sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Speed/Audio Sensitivity",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "15ch",
+          "name": "P6",
+          "channels": [
+            {
+              "name": "Control/Operating Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "RGB Mode",
+                  "effectName": "rgb-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 249,
+                  "label": "Auto Program",
+                  "effectName": "auto-program"
+                },
+                {
+                  "kind": "effect",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Sound-controlled",
+                  "effectName": "sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe2",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe from slow to fast (0-20 flashes/s)",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "P7",
+          "channels": [
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colors/Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Funtion",
+                  "effectName": "no-funtion"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "effectName": "red"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Yellow",
+                  "effectName": "yellow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Green",
+                  "effectName": "green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Cyan",
+                  "effectName": "cyan"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Blue",
+                  "effectName": "blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Purple",
+                  "effectName": "purple"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "White",
+                  "effectName": "white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Program 01",
+                  "effectName": "program-01"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Program 02",
+                  "effectName": "program-02"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Program 03",
+                  "effectName": "program-03"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Program 04",
+                  "effectName": "program-04"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Program 05",
+                  "effectName": "program-05"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Program 06",
+                  "effectName": "program-06"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Program 07",
+                  "effectName": "program-07"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Program 08",
+                  "effectName": "program-08"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Program 09",
+                  "effectName": "program-09"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Program 10",
+                  "effectName": "program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Program 11",
+                  "effectName": "program-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Program 12",
+                  "effectName": "program-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Program 13",
+                  "effectName": "program-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Program 14",
+                  "effectName": "program-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Program 15",
+                  "effectName": "program-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Program 16",
+                  "effectName": "program-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound-controlled",
+                  "effectName": "sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Speed/Audio Sensitivity",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe1",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

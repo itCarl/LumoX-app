@@ -1,0 +1,457 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED Bar 2 RGBA 252/10 40° Indoor",
+      "manufacturer": "Eurolite",
+      "model": "LED Bar 2 RGBA 252/10 40° Indoor",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Edgar Aichinger",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-Bar-2-RGBA-252_10_40__Indoor.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1070,
+          "height": 90,
+          "depth": 65,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 4500
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 40,
+          "degreesMax": 40
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 50,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "19ch",
+          "name": "19 channel",
+          "channels": [
+            {
+              "name": "Mode",
+              "typeId": "function",
+              "defaultValue": 11,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Black out"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Dimmer 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 15,
+                  "label": "Dimmer 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 20,
+                  "label": "R"
+                },
+                {
+                  "kind": "range",
+                  "min": 21,
+                  "max": 25,
+                  "label": "G"
+                },
+                {
+                  "kind": "range",
+                  "min": 26,
+                  "max": 30,
+                  "label": "B"
+                },
+                {
+                  "kind": "range",
+                  "min": 31,
+                  "max": 35,
+                  "label": "A"
+                },
+                {
+                  "kind": "range",
+                  "min": 36,
+                  "max": 40,
+                  "label": "RA"
+                },
+                {
+                  "kind": "range",
+                  "min": 41,
+                  "max": 45,
+                  "label": "RG"
+                },
+                {
+                  "kind": "range",
+                  "min": 46,
+                  "max": 50,
+                  "label": "RB"
+                },
+                {
+                  "kind": "range",
+                  "min": 51,
+                  "max": 55,
+                  "label": "GB"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 60,
+                  "label": "AB"
+                },
+                {
+                  "kind": "range",
+                  "min": 61,
+                  "max": 65,
+                  "label": "AG"
+                },
+                {
+                  "kind": "range",
+                  "min": 66,
+                  "max": 70,
+                  "label": "RGB"
+                },
+                {
+                  "kind": "range",
+                  "min": 71,
+                  "max": 75,
+                  "label": "RGA"
+                },
+                {
+                  "kind": "range",
+                  "min": 76,
+                  "max": 80,
+                  "label": "RBA"
+                },
+                {
+                  "kind": "range",
+                  "min": 81,
+                  "max": 85,
+                  "label": "GBA"
+                },
+                {
+                  "kind": "range",
+                  "min": 86,
+                  "max": 90,
+                  "label": "RGBA"
+                },
+                {
+                  "kind": "range",
+                  "min": 91,
+                  "max": 100,
+                  "label": "Color jump"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 110,
+                  "label": "Color fade (in/out)"
+                },
+                {
+                  "kind": "range",
+                  "min": 111,
+                  "max": 120,
+                  "label": "Color dream"
+                },
+                {
+                  "kind": "range",
+                  "min": 121,
+                  "max": 130,
+                  "label": "Color flow"
+                },
+                {
+                  "kind": "range",
+                  "min": 131,
+                  "max": 140,
+                  "label": "Overlap flow"
+                },
+                {
+                  "kind": "range",
+                  "min": 141,
+                  "max": 150,
+                  "label": "Color chase"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 160,
+                  "label": "Multi color"
+                },
+                {
+                  "kind": "range",
+                  "min": 161,
+                  "max": 170,
+                  "label": "Fade flow"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 180,
+                  "label": "2 flow"
+                },
+                {
+                  "kind": "range",
+                  "min": 181,
+                  "max": 190,
+                  "label": "1 direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 200,
+                  "label": "2 directions"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 210,
+                  "label": "Two color flow"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 255,
+                  "label": "Sound activity"
+                }
+              ]
+            },
+            {
+              "name": "All dimm",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Flash",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 1",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 2",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 3",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber 4",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 channel",
+          "channels": [
+            {
+              "name": "All Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "All Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "All Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "All Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "All dimm",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Mode 2",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "On"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 5,
+                  "label": "Sound activated"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 10,
+                  "label": "On"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Flash"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 channel",
+          "channels": [
+            {
+              "name": "All Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "All Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "All Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "All Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

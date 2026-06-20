@@ -1,0 +1,118 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED THA-250F",
+      "manufacturer": "Eurolite",
+      "model": "LED THA-250F",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Andrea Ugolini",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-THA-250F.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 3356,
+          "height": 3985,
+          "depth": 4573,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED COB 250 W, white",
+          "lumens": 7000,
+          "colourTemperature": 2800
+        },
+        "lens": {
+          "name": "PC",
+          "degreesMin": 13,
+          "degreesMax": 45
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 265,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Focus",
+              "typeId": "focus",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 31,
+                  "label": "LED OFF",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 32,
+                  "max": 95,
+                  "label": "Linear strobe effect with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 159,
+                  "label": "Pulse strobe effect with increasing speed",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 160,
+                  "max": 223,
+                  "label": "Random strobe effect with increasing speed",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 224,
+                  "max": 255,
+                  "label": "LED ON",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

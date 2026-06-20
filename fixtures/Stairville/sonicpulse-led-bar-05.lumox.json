@@ -1,0 +1,2058 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/SonicPulse LED Bar 05",
+      "manufacturer": "Stairville",
+      "model": "SonicPulse LED Bar 05",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Simeon08 & ReComplexed",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-SonicPulse-LED-Bar-05.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 572,
+          "height": 165,
+          "depth": 65,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 1125,
+          "colourTemperature": 3000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 29,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Functions",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Sound Control"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Pre-Programmed Automatic Show"
+                }
+              ]
+            },
+            {
+              "name": "Colour Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Colour Change 1",
+                  "effectName": "colour-change-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Colour Change 2",
+                  "effectName": "colour-change-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Colour Change 3",
+                  "effectName": "colour-change-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Colour Change 4",
+                  "effectName": "colour-change-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Colour Change 5",
+                  "effectName": "colour-change-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 75,
+                  "label": "Colour Transition 1",
+                  "effectName": "colour-transition-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 85,
+                  "label": "Colour Transition 2",
+                  "effectName": "colour-transition-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 95,
+                  "label": "Colour Transition 3",
+                  "effectName": "colour-transition-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 105,
+                  "label": "Colour Transition 6",
+                  "effectName": "colour-transition-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 115,
+                  "label": "Colour Transition 7",
+                  "effectName": "colour-transition-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 116,
+                  "max": 125,
+                  "label": "Colour Transition 8",
+                  "effectName": "colour-transition-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Colour Transition 9",
+                  "effectName": "colour-transition-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 145,
+                  "label": "Colour Transition 10",
+                  "effectName": "colour-transition-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 146,
+                  "max": 155,
+                  "label": "Colour Transition 11",
+                  "effectName": "colour-transition-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 165,
+                  "label": "Colour Transition 12",
+                  "effectName": "colour-transition-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 175,
+                  "label": "Colour Transition 4",
+                  "effectName": "colour-transition-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 185,
+                  "label": "Colour Transition 5",
+                  "effectName": "colour-transition-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 195,
+                  "label": "Colour Transition 6",
+                  "effectName": "colour-transition-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 205,
+                  "label": "Colour Transition 7",
+                  "effectName": "colour-transition-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 215,
+                  "label": "Colour Transition 8",
+                  "effectName": "colour-transition-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 225,
+                  "label": "Colour Transition 9",
+                  "effectName": "colour-transition-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 235,
+                  "label": "Colour Transition 10",
+                  "effectName": "colour-transition-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 245,
+                  "label": "Colour Transition 11",
+                  "effectName": "colour-transition-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 246,
+                  "max": 255,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                }
+              ]
+            },
+            {
+              "name": "Sound Modes",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 15,
+                  "label": "Sound Mode 1",
+                  "effectName": "sound-mode-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Sound Mode 2",
+                  "effectName": "sound-mode-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Sound Mode 3",
+                  "effectName": "sound-mode-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Sound Mode 4",
+                  "effectName": "sound-mode-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Sound Mode 5",
+                  "effectName": "sound-mode-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Sound Mode 6",
+                  "effectName": "sound-mode-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 75,
+                  "label": "Sound Mode 7",
+                  "effectName": "sound-mode-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 85,
+                  "label": "Sound Mode 8",
+                  "effectName": "sound-mode-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 95,
+                  "label": "Sound Mode 9",
+                  "effectName": "sound-mode-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 105,
+                  "label": "Sound Mode 10",
+                  "effectName": "sound-mode-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 115,
+                  "label": "Sound Mode 11",
+                  "effectName": "sound-mode-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 116,
+                  "max": 125,
+                  "label": "Sound Mode 12",
+                  "effectName": "sound-mode-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Sound Mode 13",
+                  "effectName": "sound-mode-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 145,
+                  "label": "Sound Mode 14",
+                  "effectName": "sound-mode-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 146,
+                  "max": 155,
+                  "label": "Sound Mode 15",
+                  "effectName": "sound-mode-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 165,
+                  "label": "Sound Mode 16",
+                  "effectName": "sound-mode-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 175,
+                  "label": "Sound Mode 17",
+                  "effectName": "sound-mode-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 185,
+                  "label": "Sound Mode 18",
+                  "effectName": "sound-mode-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 195,
+                  "label": "Sound Mode 19",
+                  "effectName": "sound-mode-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 205,
+                  "label": "Sound Mode 20",
+                  "effectName": "sound-mode-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 215,
+                  "label": "Sound Mode 21",
+                  "effectName": "sound-mode-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 225,
+                  "label": "Sound Mode 22",
+                  "effectName": "sound-mode-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 235,
+                  "label": "Sound Mode 23",
+                  "effectName": "sound-mode-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 245,
+                  "label": "Sound Mode 24",
+                  "effectName": "sound-mode-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 246,
+                  "max": 255,
+                  "label": "Sound Mode 25",
+                  "effectName": "sound-mode-25"
+                }
+              ]
+            },
+            {
+              "name": "Sensitivity",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Strobe Off",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "11ch",
+          "name": "11 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Strobe Off",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Function",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 63,
+                  "label": "RGBW Colour Change",
+                  "effectName": "rgbw-colour-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Colour Presets",
+                  "effectName": "colour-presets"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Pre-Programmed Automatic Show",
+                  "effectName": "pre-programmed-automatic-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Sound Control",
+                  "effectName": "sound-control"
+                }
+              ]
+            },
+            {
+              "name": "Colour Presets",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 21,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 27,
+                  "label": "Colour 1 (R255, G000, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 28,
+                  "max": 33,
+                  "label": "Colour 2 (R255, G015, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 34,
+                  "max": 39,
+                  "label": "Colour 3 (R255, G050, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 40,
+                  "max": 45,
+                  "label": "Colour 4 (R255, G125, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 46,
+                  "max": 51,
+                  "label": "Colour 5 (R255, G170, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Colour 6 (R255, G210, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 58,
+                  "max": 63,
+                  "label": "Colour 7 (R255, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 69,
+                  "label": "Colour 8 (R200, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 75,
+                  "label": "Colour 9 (R160, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 76,
+                  "max": 81,
+                  "label": "Colour 10 (R110, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 82,
+                  "max": 87,
+                  "label": "Colour 11 (R070, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 93,
+                  "label": "Colour 12 (R000, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 94,
+                  "max": 99,
+                  "label": "Colour 13 (R000, G255, B010, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 105,
+                  "label": "Colour 14 (R000, G255, B025, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 106,
+                  "max": 111,
+                  "label": "Colour 15 (R000, G255, B040, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 117,
+                  "label": "Colour 16 (R000, G255, B070, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 118,
+                  "max": 123,
+                  "label": "Colour 17 (R000, G255, B120, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 124,
+                  "max": 129,
+                  "label": "Colour 18 (R000, G255, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 135,
+                  "label": "Colour 19 (R000, G100, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 141,
+                  "label": "Colour 20 (R000, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 142,
+                  "max": 147,
+                  "label": "Colour 21 (R020, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 148,
+                  "max": 153,
+                  "label": "Colour 22 (R050, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 154,
+                  "max": 159,
+                  "label": "Colour 23 (R080, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 165,
+                  "label": "Colour 24 (R130, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 166,
+                  "max": 171,
+                  "label": "Colour 25 (R180, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 172,
+                  "max": 177,
+                  "label": "Colour 26 (R225, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 178,
+                  "max": 183,
+                  "label": "Colour 27 (R255, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 189,
+                  "label": "Colour 28 (R255, G000, B220, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 195,
+                  "label": "Colour 29 (R255, G000, B070, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 201,
+                  "label": "Colour 30 (R255, G000, B020, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 207,
+                  "label": "Colour 31 (R255, G000, B007, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 213,
+                  "label": "Colour 32 (R000, G000, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 214,
+                  "max": 219,
+                  "label": "Colour 33 (R255, G000, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 225,
+                  "label": "Colour 34 (R125, G000, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 231,
+                  "label": "Colour 35 (R000, G255, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 237,
+                  "label": "Colour 36 (R000, G120, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 238,
+                  "max": 243,
+                  "label": "Colour 37 (R000, G000, B255, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 244,
+                  "max": 249,
+                  "label": "Colour 38 (R000, G000, B100, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Colour 39 (R000, G000, B050, W255)"
+                }
+              ]
+            },
+            {
+              "name": "Colour Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Colour Change 1",
+                  "effectName": "colour-change-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Colour Change 2",
+                  "effectName": "colour-change-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Colour Change 3",
+                  "effectName": "colour-change-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Colour Change 4",
+                  "effectName": "colour-change-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Colour Change 5",
+                  "effectName": "colour-change-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 75,
+                  "label": "Colour Transition 1",
+                  "effectName": "colour-transition-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 85,
+                  "label": "Colour Transition 2",
+                  "effectName": "colour-transition-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 95,
+                  "label": "Colour Transition 3",
+                  "effectName": "colour-transition-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 105,
+                  "label": "Colour Transition 6",
+                  "effectName": "colour-transition-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 115,
+                  "label": "Colour Transition 7",
+                  "effectName": "colour-transition-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 116,
+                  "max": 125,
+                  "label": "Colour Transition 8",
+                  "effectName": "colour-transition-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Colour Transition 9",
+                  "effectName": "colour-transition-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 145,
+                  "label": "Colour Transition 10",
+                  "effectName": "colour-transition-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 146,
+                  "max": 155,
+                  "label": "Colour Transition 11",
+                  "effectName": "colour-transition-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 165,
+                  "label": "Colour Transition 12",
+                  "effectName": "colour-transition-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 175,
+                  "label": "Colour Transition 4",
+                  "effectName": "colour-transition-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 185,
+                  "label": "Colour Transition 5",
+                  "effectName": "colour-transition-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 195,
+                  "label": "Colour Transition 6",
+                  "effectName": "colour-transition-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 205,
+                  "label": "Colour Transition 7",
+                  "effectName": "colour-transition-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 215,
+                  "label": "Colour Transition 8",
+                  "effectName": "colour-transition-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 225,
+                  "label": "Colour Transition 9",
+                  "effectName": "colour-transition-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 235,
+                  "label": "Colour Transition 10",
+                  "effectName": "colour-transition-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 245,
+                  "label": "Colour Transition 11",
+                  "effectName": "colour-transition-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 246,
+                  "max": 255,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                }
+              ]
+            },
+            {
+              "name": "Sound Modes",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 15,
+                  "label": "Sound Mode 1",
+                  "effectName": "sound-mode-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Sound Mode 2",
+                  "effectName": "sound-mode-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Sound Mode 3",
+                  "effectName": "sound-mode-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Sound Mode 4",
+                  "effectName": "sound-mode-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Sound Mode 5",
+                  "effectName": "sound-mode-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Sound Mode 6",
+                  "effectName": "sound-mode-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 75,
+                  "label": "Sound Mode 7",
+                  "effectName": "sound-mode-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 85,
+                  "label": "Sound Mode 8",
+                  "effectName": "sound-mode-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 95,
+                  "label": "Sound Mode 9",
+                  "effectName": "sound-mode-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 105,
+                  "label": "Sound Mode 10",
+                  "effectName": "sound-mode-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 115,
+                  "label": "Sound Mode 11",
+                  "effectName": "sound-mode-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 116,
+                  "max": 125,
+                  "label": "Sound Mode 12",
+                  "effectName": "sound-mode-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Sound Mode 13",
+                  "effectName": "sound-mode-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 145,
+                  "label": "Sound Mode 14",
+                  "effectName": "sound-mode-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 146,
+                  "max": 155,
+                  "label": "Sound Mode 15",
+                  "effectName": "sound-mode-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 165,
+                  "label": "Sound Mode 16",
+                  "effectName": "sound-mode-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 175,
+                  "label": "Sound Mode 17",
+                  "effectName": "sound-mode-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 185,
+                  "label": "Sound Mode 18",
+                  "effectName": "sound-mode-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 195,
+                  "label": "Sound Mode 19",
+                  "effectName": "sound-mode-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 205,
+                  "label": "Sound Mode 20",
+                  "effectName": "sound-mode-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 215,
+                  "label": "Sound Mode 21",
+                  "effectName": "sound-mode-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 225,
+                  "label": "Sound Mode 22",
+                  "effectName": "sound-mode-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 235,
+                  "label": "Sound Mode 23",
+                  "effectName": "sound-mode-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 245,
+                  "label": "Sound Mode 24",
+                  "effectName": "sound-mode-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 246,
+                  "max": 255,
+                  "label": "Sound Mode 25",
+                  "effectName": "sound-mode-25"
+                }
+              ]
+            },
+            {
+              "name": "Playback Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "23ch",
+          "name": "23 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Strobe Off",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Function",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 63,
+                  "label": "RGBW Colour Change",
+                  "effectName": "rgbw-colour-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Colour Presets",
+                  "effectName": "colour-presets"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Pre-Programmed Automatic Show",
+                  "effectName": "pre-programmed-automatic-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Sound Control",
+                  "effectName": "sound-control"
+                }
+              ]
+            },
+            {
+              "name": "Colour Presets",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 21,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 27,
+                  "label": "Colour 1 (R255, G000, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 28,
+                  "max": 33,
+                  "label": "Colour 2 (R255, G015, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 34,
+                  "max": 39,
+                  "label": "Colour 3 (R255, G050, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 40,
+                  "max": 45,
+                  "label": "Colour 4 (R255, G125, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 46,
+                  "max": 51,
+                  "label": "Colour 5 (R255, G170, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Colour 6 (R255, G210, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 58,
+                  "max": 63,
+                  "label": "Colour 7 (R255, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 69,
+                  "label": "Colour 8 (R200, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 75,
+                  "label": "Colour 9 (R160, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 76,
+                  "max": 81,
+                  "label": "Colour 10 (R110, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 82,
+                  "max": 87,
+                  "label": "Colour 11 (R070, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 93,
+                  "label": "Colour 12 (R000, G255, B000, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 94,
+                  "max": 99,
+                  "label": "Colour 13 (R000, G255, B010, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 105,
+                  "label": "Colour 14 (R000, G255, B025, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 106,
+                  "max": 111,
+                  "label": "Colour 15 (R000, G255, B040, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 117,
+                  "label": "Colour 16 (R000, G255, B070, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 118,
+                  "max": 123,
+                  "label": "Colour 17 (R000, G255, B120, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 124,
+                  "max": 129,
+                  "label": "Colour 18 (R000, G255, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 135,
+                  "label": "Colour 19 (R000, G100, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 141,
+                  "label": "Colour 20 (R000, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 142,
+                  "max": 147,
+                  "label": "Colour 21 (R020, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 148,
+                  "max": 153,
+                  "label": "Colour 22 (R050, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 154,
+                  "max": 159,
+                  "label": "Colour 23 (R080, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 165,
+                  "label": "Colour 24 (R130, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 166,
+                  "max": 171,
+                  "label": "Colour 25 (R180, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 172,
+                  "max": 177,
+                  "label": "Colour 26 (R225, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 178,
+                  "max": 183,
+                  "label": "Colour 27 (R255, G000, B255, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 189,
+                  "label": "Colour 28 (R255, G000, B220, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 195,
+                  "label": "Colour 29 (R255, G000, B070, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 201,
+                  "label": "Colour 30 (R255, G000, B020, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 207,
+                  "label": "Colour 31 (R255, G000, B007, W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 213,
+                  "label": "Colour 32 (R000, G000, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 214,
+                  "max": 219,
+                  "label": "Colour 33 (R255, G000, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 225,
+                  "label": "Colour 34 (R125, G000, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 231,
+                  "label": "Colour 35 (R000, G255, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 237,
+                  "label": "Colour 36 (R000, G120, B000, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 238,
+                  "max": 243,
+                  "label": "Colour 37 (R000, G000, B255, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 244,
+                  "max": 249,
+                  "label": "Colour 38 (R000, G000, B100, W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Colour 39 (R000, G000, B050, W255)"
+                }
+              ]
+            },
+            {
+              "name": "Colour Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Colour Change 1",
+                  "effectName": "colour-change-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Colour Change 2",
+                  "effectName": "colour-change-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Colour Change 3",
+                  "effectName": "colour-change-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Colour Change 4",
+                  "effectName": "colour-change-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Colour Change 5",
+                  "effectName": "colour-change-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 75,
+                  "label": "Colour Transition 1",
+                  "effectName": "colour-transition-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 85,
+                  "label": "Colour Transition 2",
+                  "effectName": "colour-transition-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 95,
+                  "label": "Colour Transition 3",
+                  "effectName": "colour-transition-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 105,
+                  "label": "Colour Transition 6",
+                  "effectName": "colour-transition-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 115,
+                  "label": "Colour Transition 7",
+                  "effectName": "colour-transition-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 116,
+                  "max": 125,
+                  "label": "Colour Transition 8",
+                  "effectName": "colour-transition-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Colour Transition 9",
+                  "effectName": "colour-transition-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 145,
+                  "label": "Colour Transition 10",
+                  "effectName": "colour-transition-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 146,
+                  "max": 155,
+                  "label": "Colour Transition 11",
+                  "effectName": "colour-transition-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 165,
+                  "label": "Colour Transition 12",
+                  "effectName": "colour-transition-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 175,
+                  "label": "Colour Transition 4",
+                  "effectName": "colour-transition-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 185,
+                  "label": "Colour Transition 5",
+                  "effectName": "colour-transition-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 195,
+                  "label": "Colour Transition 6",
+                  "effectName": "colour-transition-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 205,
+                  "label": "Colour Transition 7",
+                  "effectName": "colour-transition-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 215,
+                  "label": "Colour Transition 8",
+                  "effectName": "colour-transition-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 225,
+                  "label": "Colour Transition 9",
+                  "effectName": "colour-transition-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 235,
+                  "label": "Colour Transition 10",
+                  "effectName": "colour-transition-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 245,
+                  "label": "Colour Transition 11",
+                  "effectName": "colour-transition-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 246,
+                  "max": 255,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                }
+              ]
+            },
+            {
+              "name": "Sound Modes",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 15,
+                  "label": "Sound Mode 1",
+                  "effectName": "sound-mode-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Sound Mode 2",
+                  "effectName": "sound-mode-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Sound Mode 3",
+                  "effectName": "sound-mode-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Sound Mode 4",
+                  "effectName": "sound-mode-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Sound Mode 5",
+                  "effectName": "sound-mode-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Sound Mode 6",
+                  "effectName": "sound-mode-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 66,
+                  "max": 75,
+                  "label": "Sound Mode 7",
+                  "effectName": "sound-mode-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 85,
+                  "label": "Sound Mode 8",
+                  "effectName": "sound-mode-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 86,
+                  "max": 95,
+                  "label": "Sound Mode 9",
+                  "effectName": "sound-mode-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 105,
+                  "label": "Sound Mode 10",
+                  "effectName": "sound-mode-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 115,
+                  "label": "Sound Mode 11",
+                  "effectName": "sound-mode-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 116,
+                  "max": 125,
+                  "label": "Sound Mode 12",
+                  "effectName": "sound-mode-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Sound Mode 13",
+                  "effectName": "sound-mode-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 145,
+                  "label": "Sound Mode 14",
+                  "effectName": "sound-mode-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 146,
+                  "max": 155,
+                  "label": "Sound Mode 15",
+                  "effectName": "sound-mode-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 165,
+                  "label": "Sound Mode 16",
+                  "effectName": "sound-mode-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 175,
+                  "label": "Sound Mode 17",
+                  "effectName": "sound-mode-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 185,
+                  "label": "Sound Mode 18",
+                  "effectName": "sound-mode-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 186,
+                  "max": 195,
+                  "label": "Sound Mode 19",
+                  "effectName": "sound-mode-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 205,
+                  "label": "Sound Mode 20",
+                  "effectName": "sound-mode-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 215,
+                  "label": "Sound Mode 21",
+                  "effectName": "sound-mode-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 225,
+                  "label": "Sound Mode 22",
+                  "effectName": "sound-mode-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 235,
+                  "label": "Sound Mode 23",
+                  "effectName": "sound-mode-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 245,
+                  "label": "Sound Mode 24",
+                  "effectName": "sound-mode-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 246,
+                  "max": 255,
+                  "label": "Sound Mode 25",
+                  "effectName": "sound-mode-25"
+                }
+              ]
+            },
+            {
+              "name": "Playback Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 1 Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 1 Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 1 Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 1 White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 2 Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 2 Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 2 Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 2 White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 3 Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 3 Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 3 Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 3 White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 4 Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 4 Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 4 Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Segment 4 White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

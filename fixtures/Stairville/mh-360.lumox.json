@@ -1,0 +1,709 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/MH-360",
+      "manufacturer": "Stairville",
+      "model": "MH-360",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Jannis Achstetter",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-MH-360.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 260,
+          "height": 285,
+          "depth": 317,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 9,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 800,
+          "colourTemperature": 3200
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 15,
+          "degreesMax": 45
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 540,
+          "tiltMax": 220
+        },
+        "power": {
+          "consumption": 300,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "13ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Special",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 69,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Enable BlackOut while Pan or Tilt move"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Disable BlackOut while Pan or Tilt move"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 199,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 239,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Stand-Alone"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 131,
+                  "label": "Fast strobe -> Slow strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 132,
+                  "max": 139,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 140,
+                  "max": 181,
+                  "label": "Fast close -> Slow open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 182,
+                  "max": 189,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 231,
+                  "label": "Slow close -> Fast open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 232,
+                  "max": 239,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 248,
+                  "max": 255,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color/Chase/Fade",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 11,
+                  "label": "Color 1",
+                  "effectName": "color-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 12,
+                  "max": 15,
+                  "label": "Color 2",
+                  "effectName": "color-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 18,
+                  "label": "Color 3",
+                  "effectName": "color-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 19,
+                  "max": 22,
+                  "label": "Color 4",
+                  "effectName": "color-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 26,
+                  "label": "Color 5",
+                  "effectName": "color-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 27,
+                  "max": 30,
+                  "label": "Color 6",
+                  "effectName": "color-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 33,
+                  "label": "Color 7",
+                  "effectName": "color-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 34,
+                  "max": 37,
+                  "label": "Color 8",
+                  "effectName": "color-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 41,
+                  "label": "Color 9",
+                  "effectName": "color-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 45,
+                  "label": "Color 10",
+                  "effectName": "color-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 48,
+                  "label": "Color 11",
+                  "effectName": "color-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 49,
+                  "max": 52,
+                  "label": "Color 12",
+                  "effectName": "color-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 56,
+                  "label": "Color 13",
+                  "effectName": "color-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 57,
+                  "max": 60,
+                  "label": "Color 14",
+                  "effectName": "color-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 63,
+                  "label": "Color 15",
+                  "effectName": "color-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 67,
+                  "label": "Color 16",
+                  "effectName": "color-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 71,
+                  "label": "Color 17",
+                  "effectName": "color-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 75,
+                  "label": "Color 18",
+                  "effectName": "color-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 78,
+                  "label": "Color 19",
+                  "effectName": "color-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 79,
+                  "max": 82,
+                  "label": "Color 20",
+                  "effectName": "color-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 86,
+                  "label": "Color 21",
+                  "effectName": "color-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 87,
+                  "max": 90,
+                  "label": "Color 22",
+                  "effectName": "color-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 93,
+                  "label": "Color 23",
+                  "effectName": "color-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 94,
+                  "max": 97,
+                  "label": "Color 24",
+                  "effectName": "color-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 101,
+                  "label": "Color 25",
+                  "effectName": "color-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 102,
+                  "max": 105,
+                  "label": "Color 26",
+                  "effectName": "color-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 108,
+                  "label": "Color 27",
+                  "effectName": "color-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 109,
+                  "max": 112,
+                  "label": "Color 28",
+                  "effectName": "color-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 116,
+                  "label": "Color 29",
+                  "effectName": "color-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 117,
+                  "max": 120,
+                  "label": "Color 30",
+                  "effectName": "color-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 123,
+                  "label": "Color 31",
+                  "effectName": "color-31"
+                },
+                {
+                  "kind": "effect",
+                  "min": 124,
+                  "max": 127,
+                  "label": "Color 32",
+                  "effectName": "color-32"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 131,
+                  "label": "Color Chase 1",
+                  "effectName": "color-chase-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 132,
+                  "max": 135,
+                  "label": "Color Chase 2",
+                  "effectName": "color-chase-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 139,
+                  "label": "Color Chase 3",
+                  "effectName": "color-chase-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 143,
+                  "label": "Color Chase 4",
+                  "effectName": "color-chase-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 147,
+                  "label": "Color Chase 5",
+                  "effectName": "color-chase-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 148,
+                  "max": 151,
+                  "label": "Color Chase 6",
+                  "effectName": "color-chase-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 155,
+                  "label": "Color Chase 7",
+                  "effectName": "color-chase-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 159,
+                  "label": "Color Chase 8",
+                  "effectName": "color-chase-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 163,
+                  "label": "Color Chase 9",
+                  "effectName": "color-chase-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 164,
+                  "max": 167,
+                  "label": "Color Chase 10",
+                  "effectName": "color-chase-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 171,
+                  "label": "Color Chase 11",
+                  "effectName": "color-chase-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 172,
+                  "max": 175,
+                  "label": "Color Chase 12",
+                  "effectName": "color-chase-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 179,
+                  "label": "Color Chase 13",
+                  "effectName": "color-chase-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 183,
+                  "label": "Color Chase 14",
+                  "effectName": "color-chase-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 187,
+                  "label": "Color Chase 15",
+                  "effectName": "color-chase-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 191,
+                  "label": "Color Chase 16",
+                  "effectName": "color-chase-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 195,
+                  "label": "Color Fade 1",
+                  "effectName": "color-fade-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 199,
+                  "label": "Color Fade 2",
+                  "effectName": "color-fade-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 203,
+                  "label": "Color Fade 3",
+                  "effectName": "color-fade-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 207,
+                  "label": "Color Fade 4",
+                  "effectName": "color-fade-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 211,
+                  "label": "Color Fade 5",
+                  "effectName": "color-fade-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 212,
+                  "max": 215,
+                  "label": "Color Fade 6",
+                  "effectName": "color-fade-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 219,
+                  "label": "Color Fade 7",
+                  "effectName": "color-fade-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 223,
+                  "label": "Color Fade 8",
+                  "effectName": "color-fade-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 227,
+                  "label": "Color Fade 9",
+                  "effectName": "color-fade-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 228,
+                  "max": 231,
+                  "label": "Color Fade 10",
+                  "effectName": "color-fade-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 235,
+                  "label": "Color Fade 11",
+                  "effectName": "color-fade-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 239,
+                  "label": "Color Fade 12",
+                  "effectName": "color-fade-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 243,
+                  "label": "Color Fade 13",
+                  "effectName": "color-fade-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 244,
+                  "max": 247,
+                  "label": "Color Fade 14",
+                  "effectName": "color-fade-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 251,
+                  "label": "Color Fade 15",
+                  "effectName": "color-fade-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Color Fade 16",
+                  "effectName": "color-fade-16"
+                }
+              ]
+            },
+            {
+              "name": "Chase/Fade Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

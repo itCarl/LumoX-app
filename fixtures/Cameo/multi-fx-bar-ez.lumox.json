@@ -1,0 +1,2926 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Multi FX Bar EZ",
+      "manufacturer": "Cameo",
+      "model": "Multi FX Bar EZ",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Jan Peter Dohle",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Multi-FX-Bar-EZ.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1149,
+          "height": 414,
+          "depth": 80,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 7.1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 110,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5 Channel 1",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto Program LED PAR",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto PAR 1",
+                  "effectName": "auto-par-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto PAR 2",
+                  "effectName": "auto-par-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto PAR 3",
+                  "effectName": "auto-par-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto PAR 4",
+                  "effectName": "auto-par-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto PAR 5",
+                  "effectName": "auto-par-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto PAR 6",
+                  "effectName": "auto-par-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto PAR 7",
+                  "effectName": "auto-par-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto PAR 8",
+                  "effectName": "auto-par-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto PAR 9",
+                  "effectName": "auto-par-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto PAR 10",
+                  "effectName": "auto-par-10"
+                }
+              ]
+            },
+            {
+              "name": "Auto Program Derby",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto Derby 1",
+                  "effectName": "auto-derby-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto Derby 2",
+                  "effectName": "auto-derby-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto Derby 3",
+                  "effectName": "auto-derby-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto Derby 4",
+                  "effectName": "auto-derby-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto Derby 5",
+                  "effectName": "auto-derby-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto Derby 6",
+                  "effectName": "auto-derby-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto Derby 7",
+                  "effectName": "auto-derby-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto Derby 8",
+                  "effectName": "auto-derby-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto Derby 9",
+                  "effectName": "auto-derby-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto Derby 10",
+                  "effectName": "auto-derby-10"
+                }
+              ]
+            },
+            {
+              "name": "Auto Program Flash Lights",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto Flash Lights 1",
+                  "effectName": "auto-flash-lights-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto Flash Lights 2",
+                  "effectName": "auto-flash-lights-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto Flash Lights 3",
+                  "effectName": "auto-flash-lights-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto Flash Lights 4",
+                  "effectName": "auto-flash-lights-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto Flash Lights 5",
+                  "effectName": "auto-flash-lights-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto Flash Lights 6",
+                  "effectName": "auto-flash-lights-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto Flash Lights 7",
+                  "effectName": "auto-flash-lights-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto Flash Lights 8",
+                  "effectName": "auto-flash-lights-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto Flash Lights 9",
+                  "effectName": "auto-flash-lights-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto Flash Lights 10",
+                  "effectName": "auto-flash-lights-10"
+                }
+              ]
+            },
+            {
+              "name": "Program Speed/Sound",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Program Speed slow -> fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Sound Control"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5ch-2",
+          "name": "5 Channel 2",
+          "channels": [
+            {
+              "name": "PAR Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast <1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "PAR 1+4 Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#fcf281"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#e0b0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#efebd8"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#f9faff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Colour Jumping Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Colour Jumping Speed slow -> fast / Colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Colour Fading Speed slow -> fast / Colour 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "PAR 2+3 Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#fcf281"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#e0b0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#efebd8"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#f9faff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Colour Jumping Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Colour Jumping Speed slow -> fast / Colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Colour Fading Speed slow -> fast / Colour 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "Flash 1-4",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "PAR+Derby Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Chase",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 13,
+                  "label": "Off (Colour 1= PAR; Colour2 = Derby)",
+                  "effectName": "off-colour-1-par-colour2-derby"
+                },
+                {
+                  "kind": "effect",
+                  "min": 14,
+                  "max": 35,
+                  "label": "PAR only 1",
+                  "effectName": "par-only-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 57,
+                  "label": "PAR only 2",
+                  "effectName": "par-only-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 58,
+                  "max": 79,
+                  "label": "PAR only 3",
+                  "effectName": "par-only-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 101,
+                  "label": "PAR only 4",
+                  "effectName": "par-only-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 102,
+                  "max": 123,
+                  "label": "Derby only 1",
+                  "effectName": "derby-only-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 124,
+                  "max": 145,
+                  "label": "Derby only 2",
+                  "effectName": "derby-only-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 146,
+                  "max": 167,
+                  "label": "PAR + Derby 1",
+                  "effectName": "par-derby-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 189,
+                  "label": "PAR + Derby 2",
+                  "effectName": "par-derby-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 211,
+                  "label": "PAR + Derby 3",
+                  "effectName": "par-derby-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 212,
+                  "max": 233,
+                  "label": "PAR + Derby 4",
+                  "effectName": "par-derby-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 234,
+                  "max": 255,
+                  "label": "PAR + Derby 5",
+                  "effectName": "par-derby-5"
+                }
+              ]
+            },
+            {
+              "name": "Chase Speed/Sound",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Chase Speed slow -> fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Sound Control"
+                }
+              ]
+            },
+            {
+              "name": "Colour 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#fcf281"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#e0b0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#efebd8"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#f9faff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Colour Jumping Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Colour Jumping Speed slow -> fast / Colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Colour Fading Speed slow -> fast / Colour 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "Colour 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#fcf281"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#e0b0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#efebd8"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#f9faff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Colour Jumping Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Colour Jumping Speed slow -> fast / Colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Colour Fading Speed slow -> fast / Colour 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "Derby 1-2",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise rotation (slow to fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise rotation (fast to slow)"
+                }
+              ]
+            },
+            {
+              "name": "Flash 1-4",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "10 Channel",
+          "channels": [
+            {
+              "name": "PAR+Derby Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR+Derby Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast <1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "PAR 1-4 Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#fcf281"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#e0b0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#efebd8"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#f9faff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Colour Jumping Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Colour Jumping Speed slow -> fast / Colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Colour Fading Speed slow -> fast / Colour 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "Derby 1-2 Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#fcf281"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#e0b0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#efebd8"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#f9faff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Colour Jumping Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Colour Jumping Speed slow -> fast / Colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Colour Fading Speed slow -> fast / Colour 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "Derby 1-2",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise rotation (slow to fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise rotation (fast to slow)"
+                }
+              ]
+            },
+            {
+              "name": "Flash 1-4",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Auto Program LED PAR",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto PAR 1",
+                  "effectName": "auto-par-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto PAR 2",
+                  "effectName": "auto-par-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto PAR 3",
+                  "effectName": "auto-par-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto PAR 4",
+                  "effectName": "auto-par-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto PAR 5",
+                  "effectName": "auto-par-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto PAR 6",
+                  "effectName": "auto-par-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto PAR 7",
+                  "effectName": "auto-par-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto PAR 8",
+                  "effectName": "auto-par-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto PAR 9",
+                  "effectName": "auto-par-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto PAR 10",
+                  "effectName": "auto-par-10"
+                }
+              ]
+            },
+            {
+              "name": "Auto Program Derby",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto Derby 1",
+                  "effectName": "auto-derby-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto Derby 2",
+                  "effectName": "auto-derby-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto Derby 3",
+                  "effectName": "auto-derby-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto Derby 4",
+                  "effectName": "auto-derby-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto Derby 5",
+                  "effectName": "auto-derby-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto Derby 6",
+                  "effectName": "auto-derby-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto Derby 7",
+                  "effectName": "auto-derby-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto Derby 8",
+                  "effectName": "auto-derby-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto Derby 9",
+                  "effectName": "auto-derby-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto Derby 10",
+                  "effectName": "auto-derby-10"
+                }
+              ]
+            },
+            {
+              "name": "Auto Program Flash Lights",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto Flash Lights 1",
+                  "effectName": "auto-flash-lights-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto Flash Lights 2",
+                  "effectName": "auto-flash-lights-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto Flash Lights 3",
+                  "effectName": "auto-flash-lights-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto Flash Lights 4",
+                  "effectName": "auto-flash-lights-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto Flash Lights 5",
+                  "effectName": "auto-flash-lights-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto Flash Lights 6",
+                  "effectName": "auto-flash-lights-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto Flash Lights 7",
+                  "effectName": "auto-flash-lights-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto Flash Lights 8",
+                  "effectName": "auto-flash-lights-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto Flash Lights 9",
+                  "effectName": "auto-flash-lights-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto Flash Lights 10",
+                  "effectName": "auto-flash-lights-10"
+                }
+              ]
+            },
+            {
+              "name": "Program Speed/Sound",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Program Speed slow -> fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Sound Control"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "25ch",
+          "name": "25 Channel",
+          "channels": [
+            {
+              "name": "PAR+Derby Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1+4 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1+4 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1+4 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1+4 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1+4 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1+4 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1+4 Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast <1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "PAR 2+3 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2+3 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2+3 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2+3 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2+3 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2+3 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2+3 Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast <1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Derby 1-2 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 1-2 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 1-2 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 1-2 Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast <1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Derby 1-2",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise rotation (slow to fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise rotation (fast to slow)"
+                }
+              ]
+            },
+            {
+              "name": "Flash 1-4",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Auto Program LED PAR",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto PAR 1",
+                  "effectName": "auto-par-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto PAR 2",
+                  "effectName": "auto-par-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto PAR 3",
+                  "effectName": "auto-par-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto PAR 4",
+                  "effectName": "auto-par-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto PAR 5",
+                  "effectName": "auto-par-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto PAR 6",
+                  "effectName": "auto-par-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto PAR 7",
+                  "effectName": "auto-par-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto PAR 8",
+                  "effectName": "auto-par-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto PAR 9",
+                  "effectName": "auto-par-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto PAR 10",
+                  "effectName": "auto-par-10"
+                }
+              ]
+            },
+            {
+              "name": "Auto Program Derby",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto Derby 1",
+                  "effectName": "auto-derby-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto Derby 2",
+                  "effectName": "auto-derby-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto Derby 3",
+                  "effectName": "auto-derby-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto Derby 4",
+                  "effectName": "auto-derby-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto Derby 5",
+                  "effectName": "auto-derby-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto Derby 6",
+                  "effectName": "auto-derby-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto Derby 7",
+                  "effectName": "auto-derby-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto Derby 8",
+                  "effectName": "auto-derby-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto Derby 9",
+                  "effectName": "auto-derby-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto Derby 10",
+                  "effectName": "auto-derby-10"
+                }
+              ]
+            },
+            {
+              "name": "Auto Program Flash Lights",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 30,
+                  "label": "Auto Flash Lights 1",
+                  "effectName": "auto-flash-lights-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 55,
+                  "label": "Auto Flash Lights 2",
+                  "effectName": "auto-flash-lights-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 80,
+                  "label": "Auto Flash Lights 3",
+                  "effectName": "auto-flash-lights-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 105,
+                  "label": "Auto Flash Lights 4",
+                  "effectName": "auto-flash-lights-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 130,
+                  "label": "Auto Flash Lights 5",
+                  "effectName": "auto-flash-lights-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 155,
+                  "label": "Auto Flash Lights 6",
+                  "effectName": "auto-flash-lights-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 180,
+                  "label": "Auto Flash Lights 7",
+                  "effectName": "auto-flash-lights-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 205,
+                  "label": "Auto Flash Lights 8",
+                  "effectName": "auto-flash-lights-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 206,
+                  "max": 230,
+                  "label": "Auto Flash Lights 9",
+                  "effectName": "auto-flash-lights-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto Flash Lights 10",
+                  "effectName": "auto-flash-lights-10"
+                }
+              ]
+            },
+            {
+              "name": "Program Speed/Sound",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Program Speed slow -> fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Sound Control"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "28ch",
+          "name": "28 Channel",
+          "channels": [
+            {
+              "name": "PAR 1 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Flash 1",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Flash 2",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Flash 3",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Flash 4",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "36ch",
+          "name": "36 Channel",
+          "channels": [
+            {
+              "name": "PAR 1 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 1 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 2 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 3 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "PAR 4 - UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 1 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 1 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 1 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 1 - Rotate",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise rotation (slow to fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise rotation (fast to slow)"
+                }
+              ]
+            },
+            {
+              "name": "Derby 2 - Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 2 - Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 2 - Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby 2 - Rotate",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise rotation (slow to fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise rotation (fast to slow)"
+                }
+              ]
+            },
+            {
+              "name": "Flash 1",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Flash 2",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Flash 3",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Flash 4",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 250,
+                  "label": "Strobe speed slow-> fast <1Hz-20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

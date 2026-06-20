@@ -1,0 +1,191 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/AF-180 LED Fogger Co2 FX",
+      "manufacturer": "Stairville",
+      "model": "AF-180 LED Fogger Co2 FX",
+      "type": "Smoke",
+      "meta": {
+        "author": "Johannes Uhl",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-AF-180-LED-Fogger-Co2-FX.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 190,
+          "height": 300,
+          "depth": 340,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 8.9,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 850,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Amount of Fog",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No fog output (0%)"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Fog output (100%)"
+                }
+              ]
+            },
+            {
+              "name": "Brightness of All LEDs",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour effect",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 20,
+                  "label": "All LEDs off"
+                },
+                {
+                  "kind": "color",
+                  "min": 21,
+                  "max": 35,
+                  "label": "Red steady light",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 50,
+                  "label": "Green steady light",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 65,
+                  "label": "Blue steady light",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 80,
+                  "label": "Red / green steady light",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 81,
+                  "max": 95,
+                  "label": "Red / blue steady light",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 110,
+                  "label": "Blue / green steady light",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 127,
+                  "label": "Red / green / blue steady light",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Automatic colour change, all LEDs, increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Stroboscope Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Stroboscope effect off",
+                  "effectName": "stroboscope-effect-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Stroboscope effect from slow to fast",
+                  "effectName": "stroboscope-effect-from-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Intensity Colour Effect Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Colour Effect Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Colour Effect Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

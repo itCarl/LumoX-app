@@ -1,0 +1,340 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/PAR64 CX-6 RGBWAUV",
+      "manufacturer": "Stairville",
+      "model": "PAR64 CX-6 RGBWAUV",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Luke Bonett",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-PAR64-CX-6-RGBWAUV.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 275,
+          "height": 410,
+          "depth": 270,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 170,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Operating Mode Selection",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Constant Colour set by Channels 2-5"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Automatic colour change with 14 colours, channels 2 to 7 without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Automatic colour change with 24 colours, channels 2 to 7 without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Automatic colour change with 6 colours, channels 2 to 7 without function"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Effects Speed and Sound Control Sensitivity",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No Automatic Colour Change"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Automatic colour change as set by channel 1, decreasing speed from fast to slow if channel 1 = 64…127. Automatic colour change as set by channel 1, increasing speed from slow to fast if channel 1 = 128…191. d control sensitivity (from low to high sensitivity) if channel 1 = 192…255"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "10 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fixed Colour Pattern",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No fixed colour pattern"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "One of 31 preprogrammed colours, channels 8 and 9 without function"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Full brightness, no strobe effect",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Strobe effect, increasing speed, if channel 7 = 0…15",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Operating Mode Selection 2",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Constant colour, the hue is set by channels 1 to 6",
+                  "effectName": "constant-colour-the-hue-is-set-by-channels-1-to-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Fade-out effect, speed controlled by channel 8",
+                  "effectName": "fade-out-effect-speed-controlled-by-channel-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Fade-in effect, speed controlled by channel 8",
+                  "effectName": "fade-in-effect-speed-controlled-by-channel-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Fade-in-out effect, speed controlled by channel 8",
+                  "effectName": "fade-in-out-effect-speed-controlled-by-channel-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Auto-mix effect, speed controlled by channel 8, channels 1 to 7 without function",
+                  "effectName": "auto-mix-effect-speed-controlled-by-channel-8-channels-1-to-7-without-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Chase (4 colours), speed controlled by channel 8, channels 1 to 7 without function",
+                  "effectName": "chase-4-colours-speed-controlled-by-channel-8-channels-1-to-7-without-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Chase (12 colours), speed controlled by channel 8, channels 1 to 7 without function",
+                  "effectName": "chase-12-colours-speed-controlled-by-channel-8-channels-1-to-7-without-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Sound Control",
+                  "effectName": "sound-control"
+                }
+              ]
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

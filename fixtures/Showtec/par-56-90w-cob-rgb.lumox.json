@@ -1,0 +1,280 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Par 56 90W COB RGB",
+      "manufacturer": "Showtec",
+      "model": "Par 56 90W COB RGB",
+      "type": "Color Changer",
+      "meta": {
+        "author": "David Gouronc",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Par-56-90W-COB-RGB.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 260,
+          "height": 345,
+          "depth": 250,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 70,
+          "degreesMax": 90
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 98,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Sound Active",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Sound-controlled",
+                  "effectName": "sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Strobe, Audio Sensitivity",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 19,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 255,
+                  "label": "Strobe, from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Sound Active with Built-in Program",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 24,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 25,
+                  "max": 49,
+                  "label": "Pr1",
+                  "effectName": "pr1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 74,
+                  "label": "Pr2",
+                  "effectName": "pr2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 99,
+                  "label": "Pr3",
+                  "effectName": "pr3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 124,
+                  "label": "Pr4",
+                  "effectName": "pr4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 125,
+                  "max": 149,
+                  "label": "Pr5",
+                  "effectName": "pr5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 174,
+                  "label": "Pr6",
+                  "effectName": "pr6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 175,
+                  "max": 199,
+                  "label": "Pr7",
+                  "effectName": "pr7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 255,
+                  "label": "Sound-controlled",
+                  "effectName": "sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Program Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe, Audio Sensitivity",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 19,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 255,
+                  "label": "Strobe, from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

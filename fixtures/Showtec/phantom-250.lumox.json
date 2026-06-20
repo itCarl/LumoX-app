@@ -1,0 +1,718 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Phantom 250",
+      "manufacturer": "Showtec",
+      "model": "Phantom 250",
+      "type": "Moving Head",
+      "meta": {
+        "author": "laserandi",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Phantom-250.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 400,
+          "height": 476,
+          "depth": 400,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 25,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "MSD 250W",
+          "lumens": 8000,
+          "colourTemperature": 5500
+        },
+        "lens": {
+          "name": "PC",
+          "degreesMin": 8,
+          "degreesMax": 22
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 530,
+          "tiltMax": 280
+        },
+        "power": {
+          "consumption": 500,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "14ch",
+          "name": "Mode 1",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan 16bit",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt 16bit",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "open"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 31,
+                  "label": "blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 47,
+                  "label": "red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 63,
+                  "label": "pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 79,
+                  "label": "green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 95,
+                  "label": "yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 111,
+                  "label": "magenta",
+                  "color": "#aa55ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 112,
+                  "max": 127,
+                  "label": "UV",
+                  "color": "#5500ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Forward Rainbow fast - slow"
+                }
+              ]
+            },
+            {
+              "name": "Gobo1",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 9,
+                  "label": "open",
+                  "image": "Others/open.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Gobo 1",
+                  "image": "SGM/gobo00030.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Gobo 3",
+                  "image": "ClayPaky/gobo00022.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Gobo 4",
+                  "image": "Others/gobo00027.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Gobo 5",
+                  "image": "Others/gobo00038.svg",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Gobo 6",
+                  "image": "Robe/gobo00047.png",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 80,
+                  "max": 99,
+                  "label": "shaking Gobo 1",
+                  "image": "SGM/gobo00030.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 100,
+                  "max": 119,
+                  "label": "shaking Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 120,
+                  "max": 139,
+                  "label": "shaking Gobo 3",
+                  "image": "ClayPaky/gobo00022.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 140,
+                  "max": 159,
+                  "label": "shaking Gobo 4",
+                  "image": "Others/gobo00027.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 160,
+                  "max": 179,
+                  "label": "shaking Gobo 5",
+                  "image": "Others/gobo00038.svg",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 180,
+                  "max": 199,
+                  "label": "shaking Gobo 6",
+                  "image": "Robe/gobo00047.png",
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 200,
+                  "max": 219,
+                  "label": "shaking Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 220,
+                  "max": 255,
+                  "label": "Clockwise Rotation slow - fast",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Gobo Rotation",
+              "typeId": "gobo-rotation-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Gobo indexing",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Forwards Rotation fast - slow",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Backwards Rotation slow - fast",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 22,
+                  "label": "open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 23,
+                  "max": 85,
+                  "label": "strobe effect slow - fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 86,
+                  "max": 100,
+                  "label": "open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 101,
+                  "max": 165,
+                  "label": "pulse effect slow - fast",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 166,
+                  "max": 180,
+                  "label": "open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 181,
+                  "max": 245,
+                  "label": "random effect slow - fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 246,
+                  "max": 255,
+                  "label": "open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Function",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 19,
+                  "label": "moving blackout",
+                  "effectName": "moving-blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 99,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "reset",
+                  "effectName": "reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 129,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 145,
+                  "label": "auto1",
+                  "effectName": "auto1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 146,
+                  "max": 161,
+                  "label": "auto2",
+                  "effectName": "auto2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 177,
+                  "label": "auto3",
+                  "effectName": "auto3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 178,
+                  "max": 193,
+                  "label": "auto4",
+                  "effectName": "auto4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 194,
+                  "max": 209,
+                  "label": "sound control 1",
+                  "effectName": "sound-control-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 225,
+                  "label": "sound control 2",
+                  "effectName": "sound-control-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 241,
+                  "label": "sound control 3",
+                  "effectName": "sound-control-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 242,
+                  "max": 255,
+                  "label": "sound contorl 4",
+                  "effectName": "sound-contorl-4"
+                }
+              ]
+            },
+            {
+              "name": "Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 19,
+                  "label": "effect1",
+                  "effectName": "effect1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 29,
+                  "label": "effect2",
+                  "effectName": "effect2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 39,
+                  "label": "effect3",
+                  "effectName": "effect3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 49,
+                  "label": "effect4",
+                  "effectName": "effect4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "effect5",
+                  "effectName": "effect5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "effect6",
+                  "effectName": "effect6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "effect7",
+                  "effectName": "effect7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "effect8",
+                  "effectName": "effect8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "effect9",
+                  "effectName": "effect9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "effect10",
+                  "effectName": "effect10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 119,
+                  "label": "effect11",
+                  "effectName": "effect11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "effect12",
+                  "effectName": "effect12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "effect13",
+                  "effectName": "effect13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "effect14",
+                  "effectName": "effect14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "effect15",
+                  "effectName": "effect15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "effect16",
+                  "effectName": "effect16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "effect17",
+                  "effectName": "effect17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "effect18",
+                  "effectName": "effect18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "effect19",
+                  "effectName": "effect19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "effect20",
+                  "effectName": "effect20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "effect21",
+                  "effectName": "effect21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "effect22",
+                  "effectName": "effect22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "effect23",
+                  "effectName": "effect23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 249,
+                  "label": "effect24",
+                  "effectName": "effect24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 250,
+                  "max": 255,
+                  "label": "effect25",
+                  "effectName": "effect25"
+                }
+              ]
+            },
+            {
+              "name": "Prism Rotation",
+              "typeId": "prism-rotation",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "no rotation"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 239,
+                  "label": "backwards rotation fast - slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "prism"
+                }
+              ]
+            },
+            {
+              "name": "Focus",
+              "typeId": "focus",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

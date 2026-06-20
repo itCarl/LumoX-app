@@ -1,0 +1,464 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Power Spot 9 Q5",
+      "manufacturer": "Showtec",
+      "model": "Power Spot 9 Q5",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Lukas Jähn",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Power-Spot-Q5.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 270,
+          "height": 300,
+          "depth": 90,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.9,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 25,
+          "degreesMax": 25
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 62,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5-Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7-Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Frequency, from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9-Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Program Modes",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Manual mode",
+                  "effectName": "manual-mode"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 22,
+                  "label": "Static color mode/Program 1",
+                  "effectName": "static-color-mode-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 45,
+                  "label": "Program 2",
+                  "effectName": "program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 68,
+                  "label": "Program 3",
+                  "effectName": "program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 69,
+                  "max": 91,
+                  "label": "Program 4",
+                  "effectName": "program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 92,
+                  "max": 114,
+                  "label": "Program 5",
+                  "effectName": "program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 115,
+                  "max": 137,
+                  "label": "Program 6",
+                  "effectName": "program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 138,
+                  "max": 160,
+                  "label": "Program 7",
+                  "effectName": "program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 183,
+                  "label": "Program 8",
+                  "effectName": "program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 206,
+                  "label": "Program 9",
+                  "effectName": "program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 207,
+                  "max": 229,
+                  "label": "Program 10",
+                  "effectName": "program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 252,
+                  "label": "Program 11",
+                  "effectName": "program-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 253,
+                  "max": 255,
+                  "label": "Sound-controlled mode",
+                  "effectName": "sound-controlled-mode"
+                }
+              ]
+            },
+            {
+              "name": "Static Colors/Program Speed/Sound Sensitivity",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 12,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "color",
+                  "min": 13,
+                  "max": 25,
+                  "label": "R+G+B/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 26,
+                  "max": 38,
+                  "label": "R/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 39,
+                  "max": 51,
+                  "label": "G/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 52,
+                  "max": 64,
+                  "label": "B/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 77,
+                  "label": "W/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 90,
+                  "label": "A/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "a-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 103,
+                  "label": "R+G/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 116,
+                  "label": "R+A/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "r-a-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "color",
+                  "min": 117,
+                  "max": 129,
+                  "label": "R+B/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 142,
+                  "label": "Purple/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "purple-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "color",
+                  "min": 143,
+                  "max": 155,
+                  "label": "G+B/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 168,
+                  "label": "R+W/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "r-w-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "effect",
+                  "min": 169,
+                  "max": 181,
+                  "label": "G+W/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "g-w-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "effect",
+                  "min": 182,
+                  "max": 194,
+                  "label": "B+W/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "b-w-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "effect",
+                  "min": 195,
+                  "max": 207,
+                  "label": "R+A/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "r-a-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 220,
+                  "label": "G+A/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "g-a-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 233,
+                  "label": "B+A/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "b-a-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "effect",
+                  "min": 234,
+                  "max": 246,
+                  "label": "W+A/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "w-a-slow-to-fast-less-sensitive-to-highly-sensitive"
+                },
+                {
+                  "kind": "effect",
+                  "min": 247,
+                  "max": 255,
+                  "label": "R+G+B+W+A/Slow to fast/Less sensitive to highly sensitive",
+                  "effectName": "r-g-b-w-a-slow-to-fast-less-sensitive-to-highly-sensitive"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Frequency, from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/XB-Wave",
+      "manufacturer": "Showtec",
+      "model": "XB-Wave",
+      "type": "Effect",
+      "meta": {
+        "author": "webdb22",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-XB-Wave.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 325,
+          "height": 143,
+          "depth": 305,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 30,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "4 Channels",
+          "channels": [
+            {
+              "name": "Colors 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 19,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 39,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 59,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 79,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 99,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 119,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 139,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 159,
+                  "label": "Red+Green+Blue",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 179,
+                  "label": "3 Color Chase + Rotation",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 255,
+                  "label": "7 Color Chase + Rotation",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Colors 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 28,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 29,
+                  "max": 56,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 57,
+                  "max": 84,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 85,
+                  "max": 112,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 113,
+                  "max": 140,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 141,
+                  "max": 168,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 169,
+                  "max": 197,
+                  "label": "Red+Green+Blue",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 198,
+                  "max": 224,
+                  "label": "3 Color Chase + Rotation",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 225,
+                  "max": 255,
+                  "label": "7 Color Chase + Rotation",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Static",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 5,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Indexing (Position)",
+                  "effectName": "indexing-position"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Rotation slow to fast",
+                  "effectName": "rotation-slow-to-fast"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,955 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED KLS-120 FX",
+      "manufacturer": "Eurolite",
+      "model": "LED KLS-120 FX",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Ralf Martin",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-KLS-120-FX.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 625,
+          "height": 224,
+          "depth": 155,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4.7,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 18,
+          "degreesMax": 18
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 45,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto/Music Program",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 49,
+                  "label": "Automatic Program 1 (accelerating speed)",
+                  "effectName": "automatic-program-1-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 89,
+                  "label": "Automatic Program 2 (accelerating speed)",
+                  "effectName": "automatic-program-2-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 129,
+                  "label": "Automatic Program 3 (accelerating speed)",
+                  "effectName": "automatic-program-3-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 169,
+                  "label": "Music Controlled Program 1 (accelerating speed)",
+                  "effectName": "music-controlled-program-1-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Music Controlled Program 2 (accelerating speed)",
+                  "effectName": "music-controlled-program-2-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Music Controlled Program 3 (accelerating speed)",
+                  "effectName": "music-controlled-program-3-accelerating-speed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Effect PAR-Spot",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Spot 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark Orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green Yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#aaffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Bright Green",
+                  "color": "#aaff7f"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Bright Yellow",
+                  "color": "#ffff7f"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#aaaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Bright Blue",
+                  "color": "#00aaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark Blue",
+                  "color": "#00007f"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All lights on"
+                }
+              ]
+            },
+            {
+              "name": "Color Spot 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Dark Orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green Yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Turquoise",
+                  "color": "#aaffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Bright Green",
+                  "color": "#aaff7f"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Orange",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Bright Yellow",
+                  "color": "#ffff7f"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Lavender",
+                  "color": "#aaaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Bright Blue",
+                  "color": "#00aaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Dark Blue",
+                  "color": "#00007f"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "All lights on"
+                }
+              ]
+            },
+            {
+              "name": "Strobe Effect Derby",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby Color 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Blue+White",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Red+Green+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Red+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 255,
+                  "label": "All Lights On"
+                }
+              ]
+            },
+            {
+              "name": "Derby Color 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Red+Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Green+Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Blue+White",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red+White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Green+White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Red+Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Red+Green+Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Red+Green+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Red+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Green+Blue+White"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 255,
+                  "label": "All Lights On"
+                }
+              ]
+            },
+            {
+              "name": "Derby Wheel Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Slow Speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 49,
+                  "label": "Medium Speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 255,
+                  "label": "Fast Speed"
+                }
+              ]
+            },
+            {
+              "name": "Auto/Music Program",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 49,
+                  "label": "Automatic Program 1 (accelerating speed)",
+                  "effectName": "automatic-program-1-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 89,
+                  "label": "Automatic Program 2 (accelerating speed)",
+                  "effectName": "automatic-program-2-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 129,
+                  "label": "Automatic Program 3 (accelerating speed)",
+                  "effectName": "automatic-program-3-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 169,
+                  "label": "Music Controlled Program 1 (accelerating speed)",
+                  "effectName": "music-controlled-program-1-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Music Controlled Program 2 (accelerating speed)",
+                  "effectName": "music-controlled-program-2-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Music Controlled Program 3 (accelerating speed)",
+                  "effectName": "music-controlled-program-3-accelerating-speed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "21ch",
+          "name": "21 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Effect PAR-Spot",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Spot 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Spot 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Spot 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Spot 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Effect Derby",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Derby 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Derby 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Derby 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Derby 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Derby 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Derby 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Derby 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White Derby 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Derby Wheel Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Slow Speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 49,
+                  "label": "Medium Speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 255,
+                  "label": "Fast Speed"
+                }
+              ]
+            },
+            {
+              "name": "Auto/Music Program",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 49,
+                  "label": "Automatic Program 1 (accelerating speed)",
+                  "effectName": "automatic-program-1-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 89,
+                  "label": "Automatic Program 2 (accelerating speed)",
+                  "effectName": "automatic-program-2-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 129,
+                  "label": "Automatic Program 3 (accelerating speed)",
+                  "effectName": "automatic-program-3-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 169,
+                  "label": "Music Controlled Program 1 (accelerating speed)",
+                  "effectName": "music-controlled-program-1-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Music Controlled Program 2 (accelerating speed)",
+                  "effectName": "music-controlled-program-2-accelerating-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Music Controlled Program 3 (accelerating speed)",
+                  "effectName": "music-controlled-program-3-accelerating-speed"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

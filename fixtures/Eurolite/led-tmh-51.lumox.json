@@ -1,0 +1,1014 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED TMH-51",
+      "manufacturer": "Eurolite",
+      "model": "LED TMH-51",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Sebastian Moeckel",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-TMH-51.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 170,
+          "height": 250,
+          "depth": 160,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.92,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 8,
+          "degreesMax": 8
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 210
+        },
+        "power": {
+          "consumption": 70,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "16ch",
+          "name": "16 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 8,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 9,
+                  "max": 255,
+                  "label": "LED Strobe with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red LED",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green LED",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue LED",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White LED",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 8,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 9,
+                  "max": 255,
+                  "label": "SMD Strobe with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "SMD Section 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 44,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 114,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 149,
+                  "label": "Red and Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 184,
+                  "label": "Red and Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 219,
+                  "label": "Green and Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 255,
+                  "label": "RGB"
+                }
+              ]
+            },
+            {
+              "name": "SMD Section 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 44,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 114,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 149,
+                  "label": "Red and Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 184,
+                  "label": "Red and Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 219,
+                  "label": "Green and Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 255,
+                  "label": "RGB"
+                }
+              ]
+            },
+            {
+              "name": "SMD Section 3",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 44,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 114,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 149,
+                  "label": "Red and Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 184,
+                  "label": "Red and Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 219,
+                  "label": "Green and Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 255,
+                  "label": "RGB"
+                }
+              ]
+            },
+            {
+              "name": "SMD Section 4",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 44,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 114,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 149,
+                  "label": "Red and Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 184,
+                  "label": "Red and Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 219,
+                  "label": "Green and Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 255,
+                  "label": "RGB"
+                }
+              ]
+            },
+            {
+              "name": "Functions",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 199,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Reset",
+                  "effectName": "reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 239,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound Active",
+                  "effectName": "sound-active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "21ch",
+          "name": "21 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 8,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 9,
+                  "max": 255,
+                  "label": "LED Strobe with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red LED",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green LED",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue LED",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White LED",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 8,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 9,
+                  "max": 255,
+                  "label": "SMD Strobe with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "SMD Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD Section 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 44,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 114,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 149,
+                  "label": "Red and Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 184,
+                  "label": "Red and Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 219,
+                  "label": "Green and Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 255,
+                  "label": "RGB"
+                }
+              ]
+            },
+            {
+              "name": "SMD Section 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 44,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 114,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 149,
+                  "label": "Red and Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 184,
+                  "label": "Red and Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 219,
+                  "label": "Green and Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 255,
+                  "label": "RGB"
+                }
+              ]
+            },
+            {
+              "name": "SMD Section 3",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 44,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 114,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 149,
+                  "label": "Red and Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 184,
+                  "label": "Red and Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 219,
+                  "label": "Green and Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 255,
+                  "label": "RGB"
+                }
+              ]
+            },
+            {
+              "name": "SMD Section 4",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 44,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 114,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 149,
+                  "label": "Red and Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 184,
+                  "label": "Red and Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 219,
+                  "label": "Green and Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 255,
+                  "label": "RGB"
+                }
+              ]
+            },
+            {
+              "name": "Functions",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 199,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Reset",
+                  "effectName": "reset"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 239,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Sound Active",
+                  "effectName": "sound-active"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "23ch",
+          "name": "23 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 8,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 9,
+                  "max": 255,
+                  "label": "LED Strobe with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red LED",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green LED",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue LED",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White LED",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 1 Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 1 Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 1 Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 2 Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 2 Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 2 Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 3 Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 3 Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 3 Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 4 Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 4 Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "SMD section 4 Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

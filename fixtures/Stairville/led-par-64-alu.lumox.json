@@ -1,0 +1,143 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/LED PAR 64 Alu",
+      "manufacturer": "Stairville",
+      "model": "LED PAR 64 Alu",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Allan Rhynas",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-LED-PAR-64-Alu.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 260,
+          "height": 260,
+          "depth": 290,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.12,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 16,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 63,
+                  "label": "RGB Control",
+                  "effectName": "rgb-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "7 Colour Fades",
+                  "effectName": "7-colour-fades"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "7 Colour Changes",
+                  "effectName": "7-colour-changes"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "3 Colour Changes",
+                  "effectName": "3-colour-changes"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 100,
+                  "label": "high to low"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 150,
+                  "label": "Speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 255,
+                  "label": "Speed control by the device, via music or controller"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

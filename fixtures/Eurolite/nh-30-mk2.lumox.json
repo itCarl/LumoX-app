@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/NH-30 MK2",
+      "manufacturer": "Eurolite",
+      "model": "NH-30 MK2",
+      "type": "Smoke",
+      "meta": {
+        "author": "Peter Goderie",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-NH-30-MK2.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 200,
+          "height": 230,
+          "depth": 370,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.8,
+          "unit": "kg"
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 720,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 Channel",
+          "channels": [
+            {
+              "name": "Fog Output",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No fog output"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Fog output volume (0 - 100%)"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

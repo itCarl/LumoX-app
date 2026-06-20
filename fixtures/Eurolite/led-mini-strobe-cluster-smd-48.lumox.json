@@ -1,0 +1,127 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED Mini Strobe Cluster SMD 48",
+      "manufacturer": "Eurolite",
+      "model": "LED Mini Strobe Cluster SMD 48",
+      "type": "Strobe",
+      "meta": {
+        "author": "Oliver",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-Mini-Strobe-Cluster-SMD48.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 230,
+          "height": 155,
+          "depth": 95,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.06,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 5000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 20,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Flash Rate",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 36,
+                  "label": "Strobe",
+                  "effectName": "strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 37,
+                  "max": 72,
+                  "label": "Pulsing",
+                  "effectName": "pulsing"
+                },
+                {
+                  "kind": "effect",
+                  "min": 73,
+                  "max": 107,
+                  "label": "Fast open, slow close",
+                  "effectName": "fast-open-slow-close"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 144,
+                  "label": "Slow open, fast close",
+                  "effectName": "slow-open-fast-close"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 180,
+                  "label": "Random strobe",
+                  "effectName": "random-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 253,
+                  "label": "Slow pulsing from 6 to 14 seconds",
+                  "effectName": "slow-pulsing-from-6-to-14-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 254,
+                  "max": 255,
+                  "label": "Sound control",
+                  "effectName": "sound-control"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

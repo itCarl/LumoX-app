@@ -1,0 +1,460 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Power Spot 9 Q6 Tour V1",
+      "manufacturer": "Showtec",
+      "model": "Power Spot 9 Q6 Tour V1",
+      "type": "Color Changer",
+      "meta": {
+        "author": "samuelb",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Power-Spot-9-Q6-Tour-V1.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 264,
+          "height": 294,
+          "depth": 113,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.84,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "9x6-in-1 12W LED RGBWA-UV",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 18,
+          "degreesMax": 18
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 64,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6-Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8-Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Frequency, from slow to fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "10-Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Program Modes",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 20,
+                  "label": "Static color mode/Program 1",
+                  "effectName": "static-color-mode-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 41,
+                  "label": "Program 2",
+                  "effectName": "program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 42,
+                  "max": 62,
+                  "label": "Program 3",
+                  "effectName": "program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 63,
+                  "max": 83,
+                  "label": "Program 4",
+                  "effectName": "program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 84,
+                  "max": 104,
+                  "label": "Program 5",
+                  "effectName": "program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 105,
+                  "max": 125,
+                  "label": "Program 6",
+                  "effectName": "program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 146,
+                  "label": "Program 7",
+                  "effectName": "program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 147,
+                  "max": 167,
+                  "label": "Program 8",
+                  "effectName": "program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 188,
+                  "label": "Program 9",
+                  "effectName": "program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 189,
+                  "max": 209,
+                  "label": "Program 10",
+                  "effectName": "program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 230,
+                  "label": "Program 11",
+                  "effectName": "program-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 231,
+                  "max": 251,
+                  "label": "Program 12",
+                  "effectName": "program-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Sound-controlled mode",
+                  "effectName": "sound-controlled-mode"
+                }
+              ]
+            },
+            {
+              "name": "Static Colors/Program Speed/Sound Sensitivity",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Black/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 1,
+                  "max": 16,
+                  "label": "Red/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 17,
+                  "max": 33,
+                  "label": "Green/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 34,
+                  "max": 50,
+                  "label": "Blue/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 67,
+                  "label": "White/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 68,
+                  "max": 84,
+                  "label": "Amber/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ffc000"
+                },
+                {
+                  "kind": "color",
+                  "min": 85,
+                  "max": 101,
+                  "label": "UV/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#55007f"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 118,
+                  "label": "Orange/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ff7f00"
+                },
+                {
+                  "kind": "color",
+                  "min": 119,
+                  "max": 135,
+                  "label": "Yellow/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 152,
+                  "label": "Violet/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 153,
+                  "max": 169,
+                  "label": "Pink/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 186,
+                  "label": "Cyan/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 187,
+                  "max": 203,
+                  "label": "Light Red/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#ff7f7f"
+                },
+                {
+                  "kind": "color",
+                  "min": 204,
+                  "max": 220,
+                  "label": "Light green/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#7fff7f"
+                },
+                {
+                  "kind": "color",
+                  "min": 221,
+                  "max": 237,
+                  "label": "Light blue/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#7f7fff"
+                },
+                {
+                  "kind": "color",
+                  "min": 238,
+                  "max": 254,
+                  "label": "Warm white/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#fff5f5"
+                },
+                {
+                  "kind": "color",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Cold White/Slow to fast/Less sensitive to highly sensitive",
+                  "color": "#f5f5ff"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Frequency, from slow to fast"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

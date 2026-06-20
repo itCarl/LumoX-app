@@ -1,0 +1,328 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/Radical II",
+      "manufacturer": "beamZ",
+      "model": "Radical II",
+      "type": "Scanner",
+      "meta": {
+        "author": "Matt Muller",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-Radical-II.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 260,
+          "height": 235,
+          "depth": 180,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.18,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Mirror",
+          "panMax": 180,
+          "tiltMax": 180
+        },
+        "power": {
+          "consumption": 20,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "4ch",
+          "name": "Default",
+          "channels": [
+            {
+              "name": "Laser",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 59,
+                  "label": "Laser motor clockwise rotation（From slow to fast）",
+                  "effectName": "laser-motor-clockwise-rotation-from-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Stop",
+                  "effectName": "stop"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 119,
+                  "label": "Laser motor counter clockwise rotation（From slow to fast）",
+                  "effectName": "laser-motor-counter-clockwise-rotation-from-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Stop",
+                  "effectName": "stop"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 255,
+                  "label": "back and forward movement with increasing speed",
+                  "effectName": "back-and-forward-movement-with-increasing-speed"
+                }
+              ]
+            },
+            {
+              "name": "Motor rotation",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Motor location"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "back and forward movement with increasing speed"
+                }
+              ]
+            },
+            {
+              "name": "Colours macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No Fuction"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Red + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Green + Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Blue + White",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Red + White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Red + Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Green + White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Blue + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Red + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Red + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Red + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 159,
+                  "label": "All LED on"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Rainbow Group effect 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Rainbow Group effect 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Rainbow Group effect 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Rainbow Group effect 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Rainbow Group effect 5"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 219,
+                  "label": "Rainbow Group effect with strobe 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 229,
+                  "label": "Rainbow Group effect with strobe 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 239,
+                  "label": "Rainbow Group effect with strobe 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 249,
+                  "label": "Rainbow Group effect with strobe 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Rainbow Group effect with strobe 5"
+                }
+              ]
+            },
+            {
+              "name": "Auto/Sound",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 119,
+                  "label": "Auto DMX ( From slow to fast )",
+                  "effectName": "auto-dmx-from-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 255,
+                  "label": "Sound DMX ( From slow to fast )",
+                  "effectName": "sound-dmx-from-slow-to-fast"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

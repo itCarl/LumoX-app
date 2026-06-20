@@ -1,0 +1,974 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Briteq/Spectra 3D Laser",
+      "manufacturer": "Briteq",
+      "model": "Spectra 3D Laser",
+      "type": "Laser",
+      "meta": {
+        "author": "Robert - extension by Freasy",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Briteq-Spectra-3D-Laser.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 290,
+          "height": 110,
+          "depth": 240,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "RGB Laser",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 90,
+          "tiltMax": 90
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1CH without ILDA",
+          "channels": [
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 18,
+                  "label": "Laser off",
+                  "effectName": "laser-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 19,
+                  "max": 36,
+                  "label": "AUT - auto show with mixed 5 effect",
+                  "effectName": "aut-auto-show-with-mixed-5-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 37,
+                  "max": 54,
+                  "label": "A3D - laser 3D effect auto show",
+                  "effectName": "a3d-laser-3d-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 55,
+                  "max": 72,
+                  "label": "AUB - scanned beam effect auto show",
+                  "effectName": "aub-scanned-beam-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 73,
+                  "max": 90,
+                  "label": "AUL - laser lumina effect auto show",
+                  "effectName": "aul-laser-lumina-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 108,
+                  "label": "AUN - burst grating effect auto show",
+                  "effectName": "aun-burst-grating-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 109,
+                  "max": 126,
+                  "label": "AUO - laser universal effect auto show",
+                  "effectName": "auo-laser-universal-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 127,
+                  "max": 144,
+                  "label": "SOU - sound show with mixed 5 effect",
+                  "effectName": "sou-sound-show-with-mixed-5-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 162,
+                  "label": "S3D - sound show with laser 3D",
+                  "effectName": "s3d-sound-show-with-laser-3d"
+                },
+                {
+                  "kind": "effect",
+                  "min": 163,
+                  "max": 180,
+                  "label": "SOB - sound show with scanned beam",
+                  "effectName": "sob-sound-show-with-scanned-beam"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 198,
+                  "label": "SOL - sound show with laser lumia",
+                  "effectName": "sol-sound-show-with-laser-lumia"
+                },
+                {
+                  "kind": "effect",
+                  "min": 199,
+                  "max": 216,
+                  "label": "SON - sound show with burst grating",
+                  "effectName": "son-sound-show-with-burst-grating"
+                },
+                {
+                  "kind": "effect",
+                  "min": 217,
+                  "max": 234,
+                  "label": "SOO - sound show with laser universal",
+                  "effectName": "soo-sound-show-with-laser-universal"
+                },
+                {
+                  "kind": "effect",
+                  "min": 235,
+                  "max": 255,
+                  "label": "SOU - sound show with mixed 5 effect",
+                  "effectName": "sou-sound-show-with-mixed-5-effect"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2CH without ILDA",
+          "channels": [
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 18,
+                  "label": "Laser off",
+                  "effectName": "laser-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 19,
+                  "max": 36,
+                  "label": "AUT - auto show with mixed 5 effect",
+                  "effectName": "aut-auto-show-with-mixed-5-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 37,
+                  "max": 54,
+                  "label": "A3D - laser 3D effect auto show",
+                  "effectName": "a3d-laser-3d-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 55,
+                  "max": 72,
+                  "label": "AUB - scanned beam effect auto show",
+                  "effectName": "aub-scanned-beam-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 73,
+                  "max": 90,
+                  "label": "AUL - laser lumina effect auto show",
+                  "effectName": "aul-laser-lumina-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 108,
+                  "label": "AUN - burst grating effect auto show",
+                  "effectName": "aun-burst-grating-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 109,
+                  "max": 126,
+                  "label": "AUO - laser universal effect auto show",
+                  "effectName": "auo-laser-universal-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 127,
+                  "max": 144,
+                  "label": "SOU - sound show with mixed 5 effect",
+                  "effectName": "sou-sound-show-with-mixed-5-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 162,
+                  "label": "S3D - sound show with laser 3D",
+                  "effectName": "s3d-sound-show-with-laser-3d"
+                },
+                {
+                  "kind": "effect",
+                  "min": 163,
+                  "max": 180,
+                  "label": "SOB - sound show with scanned beam",
+                  "effectName": "sob-sound-show-with-scanned-beam"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 198,
+                  "label": "SOL - sound show with laser lumia",
+                  "effectName": "sol-sound-show-with-laser-lumia"
+                },
+                {
+                  "kind": "effect",
+                  "min": 199,
+                  "max": 216,
+                  "label": "SON - sound show with burst grating",
+                  "effectName": "son-sound-show-with-burst-grating"
+                },
+                {
+                  "kind": "effect",
+                  "min": 217,
+                  "max": 234,
+                  "label": "SOO - sound show with laser universal",
+                  "effectName": "soo-sound-show-with-laser-universal"
+                },
+                {
+                  "kind": "effect",
+                  "min": 235,
+                  "max": 255,
+                  "label": "SOU - sound show with mixed 5 effect",
+                  "effectName": "sou-sound-show-with-mixed-5-effect"
+                }
+              ]
+            },
+            {
+              "name": "Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 234,
+                  "label": "Slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 235,
+                  "max": 255,
+                  "label": "Original speed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "19ch",
+          "name": "19CH without ILDA",
+          "channels": [
+            {
+              "name": "Mode 19",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 18,
+                  "label": "Laser off",
+                  "effectName": "laser-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 19,
+                  "max": 36,
+                  "label": "AUT - auto show with mixed 5 effect",
+                  "effectName": "aut-auto-show-with-mixed-5-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 37,
+                  "max": 54,
+                  "label": "A3D - laser 3D effect auto show",
+                  "effectName": "a3d-laser-3d-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 55,
+                  "max": 72,
+                  "label": "AUB - scanned beam effect auto show",
+                  "effectName": "aub-scanned-beam-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 73,
+                  "max": 90,
+                  "label": "AUL - laser lumina effect auto show",
+                  "effectName": "aul-laser-lumina-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 108,
+                  "label": "AUN - burst grating effect auto show",
+                  "effectName": "aun-burst-grating-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 109,
+                  "max": 126,
+                  "label": "AUO - laser universal effect auto show",
+                  "effectName": "auo-laser-universal-effect-auto-show"
+                },
+                {
+                  "kind": "effect",
+                  "min": 127,
+                  "max": 144,
+                  "label": "SOU - sound show with mixed 5 effect",
+                  "effectName": "sou-sound-show-with-mixed-5-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 162,
+                  "label": "S3D - sound show with laser 3D",
+                  "effectName": "s3d-sound-show-with-laser-3d"
+                },
+                {
+                  "kind": "effect",
+                  "min": 163,
+                  "max": 180,
+                  "label": "SOB - sound show with scanned beam",
+                  "effectName": "sob-sound-show-with-scanned-beam"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 198,
+                  "label": "SOL - sound show with laser lumia",
+                  "effectName": "sol-sound-show-with-laser-lumia"
+                },
+                {
+                  "kind": "effect",
+                  "min": 199,
+                  "max": 216,
+                  "label": "SON - sound show with burst grating",
+                  "effectName": "son-sound-show-with-burst-grating"
+                },
+                {
+                  "kind": "effect",
+                  "min": 217,
+                  "max": 234,
+                  "label": "SOO - sound show with laser universal",
+                  "effectName": "soo-sound-show-with-laser-universal"
+                },
+                {
+                  "kind": "effect",
+                  "min": 235,
+                  "max": 255,
+                  "label": "DMX mode",
+                  "effectName": "dmx-mode"
+                }
+              ]
+            },
+            {
+              "name": "Group",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 51,
+                  "label": "Group 1 patterns",
+                  "effectName": "group-1-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 52,
+                  "max": 103,
+                  "label": "Group 2 patterns",
+                  "effectName": "group-2-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 155,
+                  "label": "Group 3 patterns",
+                  "effectName": "group-3-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 207,
+                  "label": "Group 4 patterns",
+                  "effectName": "group-4-patterns"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 255,
+                  "label": "Group 5 patterns",
+                  "effectName": "group-5-patterns"
+                }
+              ]
+            },
+            {
+              "name": "Pattern Group",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Original"
+                },
+                {
+                  "kind": "color",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Purple",
+                  "color": "#a020f0"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 56,
+                  "max": 63,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 111,
+                  "label": "Colour rolling"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 159,
+                  "label": "Colour jumping"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 207,
+                  "label": "Colour moving"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 255,
+                  "label": "Strobing"
+                }
+              ]
+            },
+            {
+              "name": "Clipping",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Full pattern without clipping",
+                  "effectName": "full-pattern-without-clipping"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 127,
+                  "label": "0-99% fixed pattern clipped",
+                  "effectName": "0-99-fixed-pattern-clipped"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Clipping speed",
+                  "effectName": "clipping-speed"
+                }
+              ]
+            },
+            {
+              "name": "Zooming",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "100-5% fixed pattern zoomed",
+                  "effectName": "100-5-fixed-pattern-zoomed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Zooming in",
+                  "effectName": "zooming-in"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Zooming out",
+                  "effectName": "zooming-out"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Alternate zooming",
+                  "effectName": "alternate-zooming"
+                }
+              ]
+            },
+            {
+              "name": "Zoom Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Y-Axis Rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "0-359 degree fixed Y-axis rolling",
+                  "effectName": "0-359-degree-fixed-y-axis-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise rolling",
+                  "effectName": "clockwise-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Anticlockwise rolling",
+                  "effectName": "anticlockwise-rolling"
+                }
+              ]
+            },
+            {
+              "name": "Y-Axis Roll Speed",
+              "typeId": "tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "X-Axis Rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "0-359 degree fixed X-axis rolled",
+                  "effectName": "0-359-degree-fixed-x-axis-rolled"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise rolling",
+                  "effectName": "clockwise-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Anticlockwise rolling",
+                  "effectName": "anticlockwise-rolling"
+                }
+              ]
+            },
+            {
+              "name": "X-Axis Roll Speed",
+              "typeId": "pan-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Z-Axis Rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "0-359 degree fixed Z-axis rolled",
+                  "effectName": "0-359-degree-fixed-z-axis-rolled"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise rolling",
+                  "effectName": "clockwise-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Anticlockwise rolling",
+                  "effectName": "anticlockwise-rolling"
+                }
+              ]
+            },
+            {
+              "name": "Z Axis Roll Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Y-Axis Moving",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "128 different fixed positions on Y-axis"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise moving"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Anticlockwise moving"
+                }
+              ]
+            },
+            {
+              "name": "Y-Axis Move Speed",
+              "typeId": "tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "X Axis Moving",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "128 different fixed positions on X-axis"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise moving"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Anticlockwise moving"
+                }
+              ]
+            },
+            {
+              "name": "X-Axis Move Speed",
+              "typeId": "pan-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Grating Rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No grating rotation",
+                  "effectName": "no-grating-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Clockwise grating rotation",
+                  "effectName": "clockwise-grating-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 133,
+                  "label": "No grating rotation",
+                  "effectName": "no-grating-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Anticlockwise grating rotation",
+                  "effectName": "anticlockwise-grating-rotation"
+                }
+              ]
+            },
+            {
+              "name": "Grating Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Laser 3D effect",
+                  "effectName": "laser-3d-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Scanned beam effect (pattern effect)",
+                  "effectName": "scanned-beam-effect-pattern-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Laser lumina effect",
+                  "effectName": "laser-lumina-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Scanned beam effect (pattern effect)",
+                  "effectName": "scanned-beam-effect-pattern-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Burst grating effect",
+                  "effectName": "burst-grating-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Scanned beam effect (pattern effect)",
+                  "effectName": "scanned-beam-effect-pattern-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Laser universal effect",
+                  "effectName": "laser-universal-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Scanned beam effect (pattern effect)",
+                  "effectName": "scanned-beam-effect-pattern-effect"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2ch-2",
+          "name": "2CH with ILDA",
+          "channels": [
+            {
+              "name": "Grating Rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No grating rotation",
+                  "effectName": "no-grating-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Clockwise grating rotation",
+                  "effectName": "clockwise-grating-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 133,
+                  "label": "No grating rotation",
+                  "effectName": "no-grating-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Anticlockwise grating rotation",
+                  "effectName": "anticlockwise-grating-rotation"
+                }
+              ]
+            },
+            {
+              "name": "Grating Effect",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Laser 3D effect",
+                  "effectName": "laser-3d-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Scanned beam effect (pattern effect)",
+                  "effectName": "scanned-beam-effect-pattern-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Laser lumina effect",
+                  "effectName": "laser-lumina-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Scanned beam effect (pattern effect)",
+                  "effectName": "scanned-beam-effect-pattern-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Burst grating effect",
+                  "effectName": "burst-grating-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Scanned beam effect (pattern effect)",
+                  "effectName": "scanned-beam-effect-pattern-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Laser universal effect",
+                  "effectName": "laser-universal-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Scanned beam effect (pattern effect)",
+                  "effectName": "scanned-beam-effect-pattern-effect"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

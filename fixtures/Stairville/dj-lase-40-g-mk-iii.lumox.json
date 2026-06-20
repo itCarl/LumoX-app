@@ -1,0 +1,513 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/DJ Lase 40-G MK-III",
+      "manufacturer": "Stairville",
+      "model": "DJ Lase 40-G MK-III",
+      "type": "Laser",
+      "meta": {
+        "author": "Jan Fries",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-DJ-Lase-40-G-MK-III.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 155,
+          "height": 85,
+          "depth": 145,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.26,
+          "unit": "kg"
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Barrel",
+          "panMax": 360,
+          "tiltMax": 360
+        },
+        "power": {
+          "consumption": 12,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Operating Mode",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Automatic show in random order"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Sound controlled automatic show in random order"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "DMX mode"
+                }
+              ]
+            },
+            {
+              "name": "Pattern Selection",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Circle",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Dotted Circle",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Triangle",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Square",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Broken Square",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Square in Square",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Hollow Cross",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Star",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 64,
+                  "max": 71,
+                  "label": "Inverse L",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Bowtie",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Spiral",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Mirrored C",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Fishing Rod",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 104,
+                  "max": 111,
+                  "label": "1/8 Circle",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Sunglasses",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Waves",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 135,
+                  "label": "V",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 136,
+                  "max": 143,
+                  "label": "M",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Radiator",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Line",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Broken Line",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Broad Line",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Parallel Lines",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Cross",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Offset Lines",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Broken Rhomb",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 208,
+                  "max": 215,
+                  "label": "2 Edge Boxes",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 216,
+                  "max": 223,
+                  "label": "4 Edge Boxes",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Small Circle",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Dotted Line",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Dotted Half Circle",
+                  "image": "",
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Fog",
+                  "image": "",
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed zoom (100% - 5%)"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Zooming in Effect (Slow to Fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Zooming out Effect (Slow to Fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Alternating Zoom Effect (Slow to Fast)"
+                }
+              ]
+            },
+            {
+              "name": "Y Axis Rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed position of Y-axis (0 - 359°)",
+                  "effectName": "fixed-position-of-y-axis-0-359"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "CW rotating effect (Slow to Fast)",
+                  "effectName": "cw-rotating-effect-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "CCW rotating effect (Slow to Fast)",
+                  "effectName": "ccw-rotating-effect-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "X Axis Rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed position of X-axis (0 - 359°)",
+                  "effectName": "fixed-position-of-x-axis-0-359"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "CW rotating effect (Slow to Fast)",
+                  "effectName": "cw-rotating-effect-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "CCW rotating effect (Slow to Fast)",
+                  "effectName": "ccw-rotating-effect-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "Z Axis Rotation",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed position of Z-axis (0 - 359°)",
+                  "effectName": "fixed-position-of-z-axis-0-359"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "CW rotating effect (Slow to Fast)",
+                  "effectName": "cw-rotating-effect-slow-to-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "CCW rotating effect (Slow to Fast)",
+                  "effectName": "ccw-rotating-effect-slow-to-fast"
+                }
+              ]
+            },
+            {
+              "name": "X-Axis Moving",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed positions on X-axis"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "CW moving effect (Slow to Fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "CCW moving effect (Slow to Fast)"
+                }
+              ]
+            },
+            {
+              "name": "Y-Axis Moving",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Fixed positions on Y-axis"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "CW moving effect (Slow to Fast)"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "CCW moving effect (Slow to Fast)"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

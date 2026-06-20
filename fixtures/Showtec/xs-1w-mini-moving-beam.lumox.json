@@ -1,0 +1,495 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/XS-1W Mini Moving Beam",
+      "manufacturer": "Showtec",
+      "model": "XS-1W Mini Moving Beam",
+      "type": "Moving Head",
+      "meta": {
+        "author": "AxelOtl",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-XS-1W-Mini-Moving-Beam.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 125,
+          "height": 236,
+          "depth": 125,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 7000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 3
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 25,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter/Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 131,
+                  "label": "Strobe effect, from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 132,
+                  "max": 139,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 140,
+                  "max": 181,
+                  "label": "Fast Close to slow Open, from slow to fast",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 182,
+                  "max": 189,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 231,
+                  "label": "Slow Close to Fast Open, slow Open, from slow to fast",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Random shutters are on or off, from long to short intervals",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Channel Functions",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 69,
+                  "label": "Not used"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Enable Pan/tilt blackout (after 5 seconds)"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Disable Pan/tilt blackout (after 5 seconds)"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 199,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Reset All (after 5 seconds)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 249,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Sound-controlled"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "10 channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine 16 bit",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine 16 bit",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Not used",
+                  "effectName": "not-used"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 35,
+                  "label": "Pan/Tilt Macro 1",
+                  "effectName": "pan-tilt-macro-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 55,
+                  "label": "Pan/Tilt Macro 2",
+                  "effectName": "pan-tilt-macro-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 75,
+                  "label": "Pan/Tilt Macro 3",
+                  "effectName": "pan-tilt-macro-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 95,
+                  "label": "Pan/Tilt Macro 4",
+                  "effectName": "pan-tilt-macro-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 115,
+                  "label": "Pan/Tilt Macro 5",
+                  "effectName": "pan-tilt-macro-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 116,
+                  "max": 135,
+                  "label": "Pan/Tilt Macro 6",
+                  "effectName": "pan-tilt-macro-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 155,
+                  "label": "Pan/Tilt Macro 7",
+                  "effectName": "pan-tilt-macro-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 156,
+                  "max": 175,
+                  "label": "Pan/Tilt Macro 8",
+                  "effectName": "pan-tilt-macro-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 195,
+                  "label": "Pan/Tilt Macro 9",
+                  "effectName": "pan-tilt-macro-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 215,
+                  "label": "Pan/Tilt Macro 10",
+                  "effectName": "pan-tilt-macro-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 235,
+                  "label": "Pan/Tilt Macro 11",
+                  "effectName": "pan-tilt-macro-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 255,
+                  "label": "Pan/Tilt Macro 12",
+                  "effectName": "pan-tilt-macro-12"
+                }
+              ]
+            },
+            {
+              "name": "Pan/Tilt Macro Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Channel Functions",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 69,
+                  "label": "Not used"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Enable Pan/tilt blackout (after 5 seconds)"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Disable Pan/tilt blackout (after 5 seconds)"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 199,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Reset All (after 5 seconds)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 249,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter/Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 131,
+                  "label": "Strobe effect, from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 132,
+                  "max": 139,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 140,
+                  "max": 181,
+                  "label": "Fast Close to slow Open, from slow to fast",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 182,
+                  "max": 189,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 231,
+                  "label": "Slow Close to Fast Open, slow Open, from slow to fast",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Random shutters are on or off, from long to short intervals",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

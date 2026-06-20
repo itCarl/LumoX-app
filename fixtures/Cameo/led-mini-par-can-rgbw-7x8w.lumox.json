@@ -1,0 +1,571 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/LED Mini PAR CAN RGBW 7x8W",
+      "manufacturer": "Cameo",
+      "model": "LED Mini PAR CAN RGBW 7x8W",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Joachim Wiedorn",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-LED-Mini-PAR-CAN-RGBW-7x8W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 168,
+          "height": 183,
+          "depth": 186,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 25,
+          "degreesMax": 25
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 60,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "2-Channel",
+          "channels": [
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Mode",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 16,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 17,
+                  "max": 33,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 34,
+                  "max": 50,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 67,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 68,
+                  "max": 84,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 85,
+                  "max": 101,
+                  "label": "Cyan",
+                  "color": "#00ffbd"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 118,
+                  "label": "Lavender",
+                  "color": "#a8518a"
+                },
+                {
+                  "kind": "color",
+                  "min": 119,
+                  "max": 135,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 152,
+                  "label": "Bright Green",
+                  "color": "#55ff55"
+                },
+                {
+                  "kind": "color",
+                  "min": 153,
+                  "max": 169,
+                  "label": "Magenta",
+                  "color": "#ff0055"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 186,
+                  "label": "Pale Pink",
+                  "color": "#fe55fe"
+                },
+                {
+                  "kind": "color",
+                  "min": 187,
+                  "max": 203,
+                  "label": "Amber",
+                  "color": "#ffcc00"
+                },
+                {
+                  "kind": "color",
+                  "min": 204,
+                  "max": 220,
+                  "label": "Bright Magenta",
+                  "color": "#ff55aa"
+                },
+                {
+                  "kind": "color",
+                  "min": 221,
+                  "max": 237,
+                  "label": "Pale Cyan",
+                  "color": "#aaffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 238,
+                  "max": 255,
+                  "label": "Warm White",
+                  "color": "#fdfdbd"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3-Channel Mode 1",
+          "channels": [
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Stroboscope",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 10,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 15,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 20,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 21,
+                  "max": 25,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 26,
+                  "max": 30,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 35,
+                  "label": "Cyan",
+                  "color": "#00ffbd"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 40,
+                  "label": "Magenta",
+                  "color": "#ff0055"
+                },
+                {
+                  "kind": "color",
+                  "min": 41,
+                  "max": 45,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 50,
+                  "label": "Bright Green",
+                  "color": "#55ff55"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 55,
+                  "label": "Lavender",
+                  "color": "#a8518a"
+                },
+                {
+                  "kind": "color",
+                  "min": 56,
+                  "max": 60,
+                  "label": "Pale Pink",
+                  "color": "#fe55fe"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 65,
+                  "label": "Amber",
+                  "color": "#ffcc00"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 70,
+                  "label": "Bright Magenta",
+                  "color": "#ff55aa"
+                },
+                {
+                  "kind": "color",
+                  "min": 71,
+                  "max": 75,
+                  "label": "Pale Cyan",
+                  "color": "#aaffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 80,
+                  "label": "Warm White",
+                  "color": "#fdfdbd"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 150,
+                  "label": "Color Jumping Speed",
+                  "effectName": "color-jumping-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 220,
+                  "label": "Color Fading Speed",
+                  "effectName": "color-fading-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 255,
+                  "label": "Sound Control",
+                  "effectName": "sound-control"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch-2",
+          "name": "3-Channel Mode 2",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4-Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7-Channel",
+          "channels": [
+            {
+              "name": "Master",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Stroboscope",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 10,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 15,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 20,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 21,
+                  "max": 25,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 26,
+                  "max": 30,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 35,
+                  "label": "Cyan",
+                  "color": "#00ffbd"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 40,
+                  "label": "Magenta",
+                  "color": "#ff0055"
+                },
+                {
+                  "kind": "color",
+                  "min": 41,
+                  "max": 45,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 50,
+                  "label": "Bright Green",
+                  "color": "#55ff55"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 55,
+                  "label": "Lavender",
+                  "color": "#a8518a"
+                },
+                {
+                  "kind": "color",
+                  "min": 56,
+                  "max": 60,
+                  "label": "Pale Pink",
+                  "color": "#fe55fe"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 65,
+                  "label": "Amber",
+                  "color": "#ffcc00"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 70,
+                  "label": "Bright Magenta",
+                  "color": "#ff55aa"
+                },
+                {
+                  "kind": "color",
+                  "min": 71,
+                  "max": 75,
+                  "label": "Pale Cyan",
+                  "color": "#aaffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 80,
+                  "label": "Warm White",
+                  "color": "#fdfdbd"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 150,
+                  "label": "Color Jumping Speed",
+                  "effectName": "color-jumping-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 220,
+                  "label": "Color Fading Speed",
+                  "effectName": "color-fading-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 255,
+                  "label": "Sound Control",
+                  "effectName": "sound-control"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,260 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/ACT Fresnel 150 WW",
+      "manufacturer": "Showtec",
+      "model": "ACT Fresnel 150 WW",
+      "type": "Dimmer",
+      "meta": {
+        "author": "Laurent Georget",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-ACT-Fresnel-150-WW.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 225,
+          "height": 345,
+          "depth": 366,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4.1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 8780,
+          "colourTemperature": 3000
+        },
+        "lens": {
+          "name": "Fresnel",
+          "degreesMin": 14,
+          "degreesMax": 44
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 170,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 channel",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 channels",
+          "channels": [
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 19,
+                  "label": "Closed/Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 24,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 25,
+                  "max": 64,
+                  "label": "Strobe, from high to low frequency",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 65,
+                  "max": 69,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 70,
+                  "max": 84,
+                  "label": "Strobe, fast close/slow open, from high to low frequency",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 85,
+                  "max": 89,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 90,
+                  "max": 104,
+                  "label": "Strobe, slow close/fast open, from high to low frequency",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 105,
+                  "max": 109,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 124,
+                  "label": "Random strobe, from high to low frequency",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 125,
+                  "max": 129,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 130,
+                  "max": 144,
+                  "label": "Random strobe, fast close/slow open from high to low frequency",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 145,
+                  "max": 149,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 150,
+                  "max": 164,
+                  "label": "Random strobe, slow close/fast open, from high to low frequency",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 165,
+                  "max": 169,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 170,
+                  "max": 184,
+                  "label": "Pulse strobe, from high to low frequency",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 185,
+                  "max": 189,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 204,
+                  "label": "Random pulsestrobe, from high to low frequency",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 205,
+                  "max": 209,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 210,
+                  "max": 224,
+                  "label": "Strobe, slow close,/slow open, from high to low frequency",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 225,
+                  "max": 229,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 230,
+                  "max": 244,
+                  "label": "Burst strobe, from high to low frequency",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 245,
+                  "max": 255,
+                  "label": "No strobe",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

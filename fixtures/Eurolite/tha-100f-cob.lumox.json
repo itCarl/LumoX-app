@@ -1,0 +1,170 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/THA-100F COB",
+      "manufacturer": "Eurolite",
+      "model": "THA-100F COB",
+      "type": "Color Changer",
+      "meta": {
+        "author": "David Morgenschweis",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-THA-100F-COB.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 305,
+          "height": 370,
+          "depth": 387,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 3200
+        },
+        "lens": {
+          "name": "Fresnel",
+          "degreesMin": 10,
+          "degreesMax": 50
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 120,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1-Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3-Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Strobe-effect with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer Curve",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Inverse square dimmer curve, response characteristics of LED",
+                  "effectName": "inverse-square-dimmer-curve-response-characteristics-of-led"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 45,
+                  "label": "Linear dimmer curve, response characteristics of halogen lamp",
+                  "effectName": "linear-dimmer-curve-response-characteristics-of-halogen-lamp"
+                },
+                {
+                  "kind": "effect",
+                  "min": 46,
+                  "max": 75,
+                  "label": "Square dimmer curve, response characteristics of halogen lamp",
+                  "effectName": "square-dimmer-curve-response-characteristics-of-halogen-lamp"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 105,
+                  "label": "Inverse square dimmer curve, response characteristics of halogen lamp",
+                  "effectName": "inverse-square-dimmer-curve-response-characteristics-of-halogen-lamp"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 135,
+                  "label": "S-shaped dimmer curve, response characteristics of halogen lamp",
+                  "effectName": "s-shaped-dimmer-curve-response-characteristics-of-halogen-lamp"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 165,
+                  "label": "Linear dimmer curve, response characteristics of LED",
+                  "effectName": "linear-dimmer-curve-response-characteristics-of-led"
+                },
+                {
+                  "kind": "effect",
+                  "min": 166,
+                  "max": 195,
+                  "label": "Square dimmer curve, response characteristics of LED",
+                  "effectName": "square-dimmer-curve-response-characteristics-of-led"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 225,
+                  "label": "Inverse square dimmer curve, response characteristics of LED",
+                  "effectName": "inverse-square-dimmer-curve-response-characteristics-of-led"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 255,
+                  "label": "S-shaped dimmer curve, response characteristics of LED",
+                  "effectName": "s-shaped-dimmer-curve-response-characteristics-of-led"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

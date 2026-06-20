@@ -1,0 +1,174 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/TC-5",
+      "manufacturer": "Eurolite",
+      "model": "TC-5",
+      "type": "Color Changer",
+      "meta": {
+        "author": null,
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-TC-5.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 280,
+          "height": 280,
+          "depth": 320,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 9,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "ELC 250W",
+          "lumens": 5000,
+          "colourTemperature": 3200
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 300,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "2ch",
+          "name": "Normal",
+          "channels": [
+            {
+              "name": "Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Closed"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 20,
+                  "label": "White"
+                },
+                {
+                  "kind": "range",
+                  "min": 21,
+                  "max": 31,
+                  "label": "Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 41,
+                  "label": "Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 42,
+                  "max": 52,
+                  "label": "Cyan"
+                },
+                {
+                  "kind": "range",
+                  "min": 53,
+                  "max": 63,
+                  "label": "Bright green"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 73,
+                  "label": "Magenta"
+                },
+                {
+                  "kind": "range",
+                  "min": 74,
+                  "max": 84,
+                  "label": "Bright blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 95,
+                  "label": "Yellow"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 105,
+                  "label": "Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 106,
+                  "max": 116,
+                  "label": "Deep rose"
+                },
+                {
+                  "kind": "range",
+                  "min": 117,
+                  "max": 128,
+                  "label": "Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 190,
+                  "label": "Scroll"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 193,
+                  "label": "Sound-controlled"
+                },
+                {
+                  "kind": "range",
+                  "min": 194,
+                  "max": 223,
+                  "label": "CW rotation fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 225,
+                  "label": "Rotation STOP"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 255,
+                  "label": "CCW rotation slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

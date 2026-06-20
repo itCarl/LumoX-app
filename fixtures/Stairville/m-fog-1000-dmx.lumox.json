@@ -1,0 +1,3045 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/M-Fog 1000 DMX",
+      "manufacturer": "Stairville",
+      "model": "M-Fog 1000 DMX",
+      "type": "Smoke",
+      "meta": {
+        "author": "Konni",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-M-Fog-1000-DMX.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 234,
+          "height": 227,
+          "depth": 415,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 6,
+          "unit": "kg"
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 1000,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "Standard",
+          "channels": [
+            {
+              "name": "Volume",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No Fog"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 11,
+                  "label": "Min. Fog"
+                },
+                {
+                  "kind": "range",
+                  "min": 12,
+                  "max": 255,
+                  "label": "Min-Max"
+                }
+              ]
+            },
+            {
+              "name": "Delay",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 11,
+                  "label": "10s"
+                },
+                {
+                  "kind": "range",
+                  "min": 12,
+                  "max": 12,
+                  "label": "20 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 13,
+                  "max": 13,
+                  "label": "30 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 14,
+                  "max": 14,
+                  "label": "40 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 15,
+                  "max": 15,
+                  "label": "50 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 16,
+                  "label": "60 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 17,
+                  "max": 17,
+                  "label": "70 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 18,
+                  "max": 18,
+                  "label": "80 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 19,
+                  "max": 19,
+                  "label": "90 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 20,
+                  "max": 20,
+                  "label": "100 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 21,
+                  "max": 21,
+                  "label": "110 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 22,
+                  "label": "120 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 23,
+                  "max": 23,
+                  "label": "130 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 24,
+                  "max": 24,
+                  "label": "140 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 25,
+                  "max": 25,
+                  "label": "150 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 26,
+                  "max": 26,
+                  "label": "160 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 27,
+                  "max": 27,
+                  "label": "170 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 28,
+                  "max": 28,
+                  "label": "180 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 29,
+                  "max": 29,
+                  "label": "190 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 30,
+                  "label": "200 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 31,
+                  "max": 31,
+                  "label": "210 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 32,
+                  "label": "220 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 33,
+                  "max": 33,
+                  "label": "230 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 34,
+                  "max": 34,
+                  "label": "240 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 35,
+                  "max": 35,
+                  "label": "250 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 36,
+                  "max": 36,
+                  "label": "260 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 37,
+                  "max": 37,
+                  "label": "270 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 38,
+                  "max": 38,
+                  "label": "280 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 39,
+                  "max": 39,
+                  "label": "290 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 40,
+                  "max": 40,
+                  "label": "300 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 41,
+                  "max": 41,
+                  "label": "310 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 42,
+                  "max": 42,
+                  "label": "320 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 43,
+                  "max": 43,
+                  "label": "330 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 44,
+                  "max": 44,
+                  "label": "340 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 45,
+                  "max": 45,
+                  "label": "350 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 46,
+                  "max": 46,
+                  "label": "360 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 47,
+                  "max": 47,
+                  "label": "370 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 48,
+                  "max": 48,
+                  "label": "380 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 49,
+                  "max": 49,
+                  "label": "390 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 50,
+                  "label": "400 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 51,
+                  "max": 51,
+                  "label": "410 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 52,
+                  "max": 52,
+                  "label": "420 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 53,
+                  "max": 53,
+                  "label": "430 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 54,
+                  "max": 54,
+                  "label": "440 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 55,
+                  "label": "450 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 56,
+                  "label": "460 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 57,
+                  "max": 57,
+                  "label": "470 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 58,
+                  "max": 58,
+                  "label": "480 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 59,
+                  "max": 59,
+                  "label": "490 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 60,
+                  "max": 60,
+                  "label": "500 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 61,
+                  "max": 61,
+                  "label": "510 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 62,
+                  "max": 62,
+                  "label": "520 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 63,
+                  "max": 63,
+                  "label": "530 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 64,
+                  "label": "540 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 65,
+                  "max": 65,
+                  "label": "550 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 66,
+                  "max": 66,
+                  "label": "560 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 67,
+                  "max": 67,
+                  "label": "570 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 68,
+                  "max": 68,
+                  "label": "580 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 69,
+                  "max": 69,
+                  "label": "590 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 70,
+                  "label": "600 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 71,
+                  "max": 71,
+                  "label": "610 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 72,
+                  "max": 72,
+                  "label": "620 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 73,
+                  "max": 73,
+                  "label": "630 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 74,
+                  "max": 74,
+                  "label": "640 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 75,
+                  "max": 75,
+                  "label": "650 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 76,
+                  "max": 76,
+                  "label": "660 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 77,
+                  "max": 77,
+                  "label": "670 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 78,
+                  "max": 78,
+                  "label": "680 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 79,
+                  "max": 79,
+                  "label": "690 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 80,
+                  "label": "700 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 81,
+                  "max": 81,
+                  "label": "710 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 82,
+                  "max": 82,
+                  "label": "720 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 83,
+                  "max": 83,
+                  "label": "730 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 84,
+                  "max": 84,
+                  "label": "740 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 85,
+                  "label": "750 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 86,
+                  "max": 86,
+                  "label": "760 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 87,
+                  "max": 87,
+                  "label": "770 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 88,
+                  "label": "780 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 89,
+                  "max": 89,
+                  "label": "790 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 90,
+                  "label": "800 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 91,
+                  "max": 91,
+                  "label": "810 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 92,
+                  "max": 92,
+                  "label": "820 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 93,
+                  "max": 93,
+                  "label": "830 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 94,
+                  "max": 94,
+                  "label": "840 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 95,
+                  "label": "850 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 96,
+                  "label": "860 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 97,
+                  "max": 97,
+                  "label": "870 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 98,
+                  "max": 98,
+                  "label": "880 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 99,
+                  "max": 99,
+                  "label": "890 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 100,
+                  "label": "900 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 101,
+                  "label": "910 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 102,
+                  "max": 102,
+                  "label": "920 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 103,
+                  "max": 103,
+                  "label": "930 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 104,
+                  "max": 104,
+                  "label": "940 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 105,
+                  "label": "950 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 106,
+                  "max": 106,
+                  "label": "960 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 107,
+                  "max": 107,
+                  "label": "970 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 108,
+                  "max": 108,
+                  "label": "980 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 109,
+                  "max": 109,
+                  "label": "990 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 110,
+                  "label": "1000 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 111,
+                  "max": 111,
+                  "label": "1010 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 112,
+                  "label": "1020 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 113,
+                  "max": 113,
+                  "label": "1030 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 114,
+                  "max": 114,
+                  "label": "1040 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 115,
+                  "label": "1050 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 116,
+                  "max": 116,
+                  "label": "1060 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 117,
+                  "max": 117,
+                  "label": "1070 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 118,
+                  "max": 118,
+                  "label": "1080 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 119,
+                  "max": 119,
+                  "label": "1090 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 120,
+                  "label": "1100 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 121,
+                  "max": 121,
+                  "label": "1110 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 122,
+                  "max": 122,
+                  "label": "1120 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 123,
+                  "max": 123,
+                  "label": "1130 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 124,
+                  "max": 124,
+                  "label": "1140 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 125,
+                  "label": "1150 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 126,
+                  "label": "1160 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 127,
+                  "label": "1170 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 128,
+                  "label": "1180 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 129,
+                  "label": "1190 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 130,
+                  "label": "1200 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 131,
+                  "max": 131,
+                  "label": "1210 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 132,
+                  "max": 132,
+                  "label": "1220 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 133,
+                  "max": 133,
+                  "label": "1230 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 134,
+                  "label": "1270 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 135,
+                  "label": "1250 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 136,
+                  "label": "1260 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 137,
+                  "max": 137,
+                  "label": "1270 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 138,
+                  "max": 138,
+                  "label": "1280 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 139,
+                  "max": 139,
+                  "label": "1290 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 140,
+                  "label": "1300 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 141,
+                  "max": 141,
+                  "label": "1310 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 142,
+                  "max": 142,
+                  "label": "1320 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 143,
+                  "max": 143,
+                  "label": "1330 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 144,
+                  "label": "1340 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 145,
+                  "max": 145,
+                  "label": "1350 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 146,
+                  "max": 146,
+                  "label": "1360 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 147,
+                  "max": 147,
+                  "label": "1370 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 148,
+                  "max": 148,
+                  "label": "1380 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 149,
+                  "max": 149,
+                  "label": "1390 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 150,
+                  "label": "1400 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 151,
+                  "label": "1410 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 152,
+                  "max": 152,
+                  "label": "1420 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 153,
+                  "max": 153,
+                  "label": "1430 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 154,
+                  "max": 154,
+                  "label": "1440 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 155,
+                  "label": "1450 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 156,
+                  "label": "1460 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 157,
+                  "max": 157,
+                  "label": "1470 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 158,
+                  "max": 158,
+                  "label": "1480 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 159,
+                  "max": 159,
+                  "label": "1490 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 160,
+                  "label": "1500 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 161,
+                  "max": 161,
+                  "label": "1510 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 162,
+                  "max": 162,
+                  "label": "1520 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 163,
+                  "max": 163,
+                  "label": "1530 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 164,
+                  "max": 164,
+                  "label": "1540 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 165,
+                  "max": 165,
+                  "label": "1550 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 166,
+                  "max": 166,
+                  "label": "1560 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 167,
+                  "max": 167,
+                  "label": "1570 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 168,
+                  "label": "1580 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 169,
+                  "max": 169,
+                  "label": "1590 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 170,
+                  "label": "1600 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 171,
+                  "label": "1610 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 172,
+                  "max": 172,
+                  "label": "1620 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 173,
+                  "max": 173,
+                  "label": "1630 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 174,
+                  "max": 174,
+                  "label": "1640 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 175,
+                  "max": 175,
+                  "label": "1650 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 176,
+                  "label": "1660 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 177,
+                  "max": 177,
+                  "label": "1670 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 178,
+                  "max": 178,
+                  "label": "1680 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 179,
+                  "max": 179,
+                  "label": "1690 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 180,
+                  "label": "1700 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 181,
+                  "max": 181,
+                  "label": "1710 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 182,
+                  "max": 182,
+                  "label": "1720 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 183,
+                  "max": 183,
+                  "label": "1730 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 184,
+                  "label": "1740 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 185,
+                  "max": 185,
+                  "label": "1750 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 186,
+                  "max": 186,
+                  "label": "1760 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 187,
+                  "max": 187,
+                  "label": "1770 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 188,
+                  "max": 188,
+                  "label": "1780 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 189,
+                  "max": 189,
+                  "label": "1790 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 190,
+                  "label": "1800 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 191,
+                  "label": "1810 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 192,
+                  "label": "1820 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 193,
+                  "label": "1830 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 194,
+                  "max": 194,
+                  "label": "1840 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 195,
+                  "label": "1850 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 196,
+                  "label": "1860 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 197,
+                  "max": 197,
+                  "label": "1870 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 198,
+                  "max": 198,
+                  "label": "1880 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 199,
+                  "max": 199,
+                  "label": "1890 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 200,
+                  "label": "1900 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 201,
+                  "label": "1910 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 202,
+                  "label": "1920 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 203,
+                  "max": 203,
+                  "label": "1930 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 204,
+                  "max": 204,
+                  "label": "1940 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 205,
+                  "max": 205,
+                  "label": "1950 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 206,
+                  "max": 206,
+                  "label": "1960 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 207,
+                  "max": 207,
+                  "label": "1970 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 208,
+                  "label": "1980 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 209,
+                  "max": 209,
+                  "label": "1990 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 210,
+                  "label": "2000 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 211,
+                  "label": "2010 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 212,
+                  "max": 212,
+                  "label": "2020 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 213,
+                  "max": 213,
+                  "label": "2030 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 214,
+                  "max": 214,
+                  "label": "2040 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 215,
+                  "max": 215,
+                  "label": "2050 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 216,
+                  "label": "2060 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 217,
+                  "max": 217,
+                  "label": "2070 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 218,
+                  "max": 218,
+                  "label": "2080 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 219,
+                  "max": 219,
+                  "label": "2090 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 220,
+                  "label": "2100 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 221,
+                  "max": 221,
+                  "label": "2110 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 222,
+                  "max": 222,
+                  "label": "2120 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 223,
+                  "max": 223,
+                  "label": "2130 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 224,
+                  "label": "2140 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 225,
+                  "max": 225,
+                  "label": "2150 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 226,
+                  "label": "2160 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 227,
+                  "max": 227,
+                  "label": "2170 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 228,
+                  "max": 228,
+                  "label": "2180 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 229,
+                  "max": 229,
+                  "label": "2190 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 230,
+                  "label": "2200 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 231,
+                  "max": 231,
+                  "label": "2210 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 232,
+                  "label": "2220 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 233,
+                  "max": 233,
+                  "label": "2230 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 234,
+                  "max": 234,
+                  "label": "2240 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 235,
+                  "max": 235,
+                  "label": "2250 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 236,
+                  "max": 236,
+                  "label": "2260 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 237,
+                  "max": 237,
+                  "label": "2270 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 238,
+                  "max": 238,
+                  "label": "2280 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 239,
+                  "max": 239,
+                  "label": "2290 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 240,
+                  "label": "2300 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 241,
+                  "max": 241,
+                  "label": "2310 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 242,
+                  "max": 242,
+                  "label": "2320 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 243,
+                  "max": 243,
+                  "label": "2330 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 244,
+                  "max": 244,
+                  "label": "2340 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 245,
+                  "max": 245,
+                  "label": "2350 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 246,
+                  "max": 246,
+                  "label": "2360 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 247,
+                  "max": 247,
+                  "label": "2370 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 248,
+                  "max": 248,
+                  "label": "2380 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 249,
+                  "max": 249,
+                  "label": "2390 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 250,
+                  "label": "2400 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 251,
+                  "max": 251,
+                  "label": "2410 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 252,
+                  "max": 252,
+                  "label": "2420 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 253,
+                  "max": 253,
+                  "label": "2430 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 254,
+                  "max": 254,
+                  "label": "2440 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 255,
+                  "max": 255,
+                  "label": "2450 s"
+                }
+              ]
+            },
+            {
+              "name": "Duration",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 11,
+                  "label": "10 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 12,
+                  "max": 12,
+                  "label": "20 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 13,
+                  "max": 13,
+                  "label": "30 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 14,
+                  "max": 14,
+                  "label": "40 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 15,
+                  "max": 15,
+                  "label": "50 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 16,
+                  "label": "60 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 17,
+                  "max": 17,
+                  "label": "70 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 18,
+                  "max": 18,
+                  "label": "80 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 19,
+                  "max": 19,
+                  "label": "90 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 20,
+                  "max": 20,
+                  "label": "100 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 21,
+                  "max": 21,
+                  "label": "110 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 22,
+                  "label": "120 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 23,
+                  "max": 23,
+                  "label": "130 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 24,
+                  "max": 24,
+                  "label": "140 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 25,
+                  "max": 25,
+                  "label": "150 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 26,
+                  "max": 26,
+                  "label": "160 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 27,
+                  "max": 27,
+                  "label": "170 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 28,
+                  "max": 28,
+                  "label": "180 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 29,
+                  "max": 29,
+                  "label": "190 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 30,
+                  "label": "200 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 31,
+                  "max": 31,
+                  "label": "210 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 32,
+                  "label": "220 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 33,
+                  "max": 33,
+                  "label": "230 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 34,
+                  "max": 34,
+                  "label": "240 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 35,
+                  "max": 35,
+                  "label": "250 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 36,
+                  "max": 36,
+                  "label": "260 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 37,
+                  "max": 37,
+                  "label": "270 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 38,
+                  "max": 38,
+                  "label": "280 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 39,
+                  "max": 39,
+                  "label": "290 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 40,
+                  "max": 40,
+                  "label": "300 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 41,
+                  "max": 41,
+                  "label": "310 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 42,
+                  "max": 42,
+                  "label": "320 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 43,
+                  "max": 43,
+                  "label": "330 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 44,
+                  "max": 44,
+                  "label": "340 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 45,
+                  "max": 45,
+                  "label": "350 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 46,
+                  "max": 46,
+                  "label": "360 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 47,
+                  "max": 47,
+                  "label": "370 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 48,
+                  "max": 48,
+                  "label": "380 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 49,
+                  "max": 49,
+                  "label": "390 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 50,
+                  "label": "400 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 51,
+                  "max": 51,
+                  "label": "410 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 52,
+                  "max": 52,
+                  "label": "420 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 53,
+                  "max": 53,
+                  "label": "430 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 54,
+                  "max": 54,
+                  "label": "440 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 55,
+                  "label": "450 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 56,
+                  "label": "460 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 57,
+                  "max": 57,
+                  "label": "470 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 58,
+                  "max": 58,
+                  "label": "480 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 59,
+                  "max": 59,
+                  "label": "490 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 60,
+                  "max": 60,
+                  "label": "500 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 61,
+                  "max": 61,
+                  "label": "510 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 62,
+                  "max": 62,
+                  "label": "520 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 63,
+                  "max": 63,
+                  "label": "530 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 64,
+                  "label": "540 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 65,
+                  "max": 65,
+                  "label": "550 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 66,
+                  "max": 66,
+                  "label": "560 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 67,
+                  "max": 67,
+                  "label": "570 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 68,
+                  "max": 68,
+                  "label": "580 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 69,
+                  "max": 69,
+                  "label": "590 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 70,
+                  "label": "600 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 71,
+                  "max": 71,
+                  "label": "610 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 72,
+                  "max": 72,
+                  "label": "620 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 73,
+                  "max": 73,
+                  "label": "630 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 74,
+                  "max": 74,
+                  "label": "640 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 75,
+                  "max": 75,
+                  "label": "650 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 76,
+                  "max": 76,
+                  "label": "660 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 77,
+                  "max": 77,
+                  "label": "670 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 78,
+                  "max": 78,
+                  "label": "680 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 79,
+                  "max": 79,
+                  "label": "690 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 80,
+                  "label": "700 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 81,
+                  "max": 81,
+                  "label": "710 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 82,
+                  "max": 82,
+                  "label": "720 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 83,
+                  "max": 83,
+                  "label": "730 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 84,
+                  "max": 84,
+                  "label": "740 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 85,
+                  "label": "750 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 86,
+                  "max": 86,
+                  "label": "760 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 87,
+                  "max": 87,
+                  "label": "770 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 88,
+                  "label": "780 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 89,
+                  "max": 89,
+                  "label": "790 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 90,
+                  "label": "800 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 91,
+                  "max": 91,
+                  "label": "810 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 92,
+                  "max": 92,
+                  "label": "820 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 93,
+                  "max": 93,
+                  "label": "830 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 94,
+                  "max": 94,
+                  "label": "840 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 95,
+                  "label": "850 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 96,
+                  "label": "860 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 97,
+                  "max": 97,
+                  "label": "870 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 98,
+                  "max": 98,
+                  "label": "880 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 99,
+                  "max": 99,
+                  "label": "890 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 100,
+                  "label": "900 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 101,
+                  "label": "910 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 102,
+                  "max": 102,
+                  "label": "920 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 103,
+                  "max": 103,
+                  "label": "930 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 104,
+                  "max": 104,
+                  "label": "940 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 105,
+                  "label": "950 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 106,
+                  "max": 106,
+                  "label": "960 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 107,
+                  "max": 107,
+                  "label": "970 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 108,
+                  "max": 108,
+                  "label": "980 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 109,
+                  "max": 109,
+                  "label": "990 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 110,
+                  "label": "1000 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 111,
+                  "max": 111,
+                  "label": "1010 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 112,
+                  "label": "1020 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 113,
+                  "max": 113,
+                  "label": "1030 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 114,
+                  "max": 114,
+                  "label": "1040 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 115,
+                  "label": "1050 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 116,
+                  "max": 116,
+                  "label": "1060 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 117,
+                  "max": 117,
+                  "label": "1070 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 118,
+                  "max": 118,
+                  "label": "1080 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 119,
+                  "max": 119,
+                  "label": "1090 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 120,
+                  "label": "1100 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 121,
+                  "max": 121,
+                  "label": "1110 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 122,
+                  "max": 122,
+                  "label": "1120 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 123,
+                  "max": 123,
+                  "label": "1130 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 124,
+                  "max": 124,
+                  "label": "1140 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 125,
+                  "label": "1150 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 126,
+                  "label": "1160 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 127,
+                  "label": "1170 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 128,
+                  "label": "1180 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 129,
+                  "label": "1190 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 130,
+                  "label": "1200 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 131,
+                  "max": 131,
+                  "label": "1210 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 132,
+                  "max": 132,
+                  "label": "1220 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 133,
+                  "max": 133,
+                  "label": "1230 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 134,
+                  "label": "1270 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 135,
+                  "label": "1250 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 136,
+                  "label": "1260 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 137,
+                  "max": 137,
+                  "label": "1270 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 138,
+                  "max": 138,
+                  "label": "1280 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 139,
+                  "max": 139,
+                  "label": "1290 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 140,
+                  "label": "1300 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 141,
+                  "max": 141,
+                  "label": "1310 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 142,
+                  "max": 142,
+                  "label": "1320 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 143,
+                  "max": 143,
+                  "label": "1330 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 144,
+                  "label": "1340 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 145,
+                  "max": 145,
+                  "label": "1350 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 146,
+                  "max": 146,
+                  "label": "1360 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 147,
+                  "max": 147,
+                  "label": "1370 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 148,
+                  "max": 148,
+                  "label": "1380 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 149,
+                  "max": 149,
+                  "label": "1390 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 150,
+                  "label": "1400 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 151,
+                  "label": "1410 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 152,
+                  "max": 152,
+                  "label": "1420 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 153,
+                  "max": 153,
+                  "label": "1430 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 154,
+                  "max": 154,
+                  "label": "1440 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 155,
+                  "label": "1450 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 156,
+                  "label": "1460 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 157,
+                  "max": 157,
+                  "label": "1470 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 158,
+                  "max": 158,
+                  "label": "1480 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 159,
+                  "max": 159,
+                  "label": "1490 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 160,
+                  "label": "1500 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 161,
+                  "max": 161,
+                  "label": "1510 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 162,
+                  "max": 162,
+                  "label": "1520 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 163,
+                  "max": 163,
+                  "label": "1530 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 164,
+                  "max": 164,
+                  "label": "1540 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 165,
+                  "max": 165,
+                  "label": "1550 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 166,
+                  "max": 166,
+                  "label": "1560 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 167,
+                  "max": 167,
+                  "label": "1570 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 168,
+                  "label": "1580 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 169,
+                  "max": 169,
+                  "label": "1590 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 170,
+                  "label": "1600 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 171,
+                  "label": "1610 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 172,
+                  "max": 172,
+                  "label": "1620 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 173,
+                  "max": 173,
+                  "label": "1630 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 174,
+                  "max": 174,
+                  "label": "1640 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 175,
+                  "max": 175,
+                  "label": "1650 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 176,
+                  "label": "1660 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 177,
+                  "max": 177,
+                  "label": "1670 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 178,
+                  "max": 178,
+                  "label": "1680 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 179,
+                  "max": 179,
+                  "label": "1690 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 180,
+                  "label": "1700 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 181,
+                  "max": 181,
+                  "label": "1710 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 182,
+                  "max": 182,
+                  "label": "1720 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 183,
+                  "max": 183,
+                  "label": "1730 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 184,
+                  "label": "1740 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 185,
+                  "max": 185,
+                  "label": "1750 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 186,
+                  "max": 186,
+                  "label": "1760 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 187,
+                  "max": 187,
+                  "label": "1770 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 188,
+                  "max": 188,
+                  "label": "1780 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 189,
+                  "max": 189,
+                  "label": "1790 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 190,
+                  "label": "1800 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 191,
+                  "label": "1810 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 192,
+                  "label": "1820 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 193,
+                  "label": "1830 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 194,
+                  "max": 194,
+                  "label": "1840 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 195,
+                  "label": "1850 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 196,
+                  "label": "1860 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 197,
+                  "max": 197,
+                  "label": "1870 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 198,
+                  "max": 198,
+                  "label": "1880 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 199,
+                  "max": 199,
+                  "label": "1890 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 200,
+                  "label": "1900 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 201,
+                  "label": "1910 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 202,
+                  "label": "1920 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 203,
+                  "max": 203,
+                  "label": "1930 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 204,
+                  "max": 204,
+                  "label": "1940 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 205,
+                  "max": 205,
+                  "label": "1950 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 206,
+                  "max": 206,
+                  "label": "1960 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 207,
+                  "max": 207,
+                  "label": "1970 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 208,
+                  "label": "1980 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 209,
+                  "max": 209,
+                  "label": "1990 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 210,
+                  "label": "2000 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 211,
+                  "label": "2010 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 212,
+                  "max": 212,
+                  "label": "2020 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 213,
+                  "max": 213,
+                  "label": "2030 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 214,
+                  "max": 214,
+                  "label": "2040 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 215,
+                  "max": 215,
+                  "label": "2050 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 216,
+                  "label": "2060 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 217,
+                  "max": 217,
+                  "label": "2070 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 218,
+                  "max": 218,
+                  "label": "2080 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 219,
+                  "max": 219,
+                  "label": "2090 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 220,
+                  "max": 220,
+                  "label": "2100 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 221,
+                  "max": 221,
+                  "label": "2110 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 222,
+                  "max": 222,
+                  "label": "2120 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 223,
+                  "max": 223,
+                  "label": "2130 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 224,
+                  "label": "2140 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 225,
+                  "max": 225,
+                  "label": "2150 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 226,
+                  "label": "2160 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 227,
+                  "max": 227,
+                  "label": "2170 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 228,
+                  "max": 228,
+                  "label": "2180 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 229,
+                  "max": 229,
+                  "label": "2190 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 230,
+                  "label": "2200 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 231,
+                  "max": 231,
+                  "label": "2210 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 232,
+                  "label": "2220 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 233,
+                  "max": 233,
+                  "label": "2230 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 234,
+                  "max": 234,
+                  "label": "2240 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 235,
+                  "max": 235,
+                  "label": "2250 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 236,
+                  "max": 236,
+                  "label": "2260 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 237,
+                  "max": 237,
+                  "label": "2270 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 238,
+                  "max": 238,
+                  "label": "2280 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 239,
+                  "max": 239,
+                  "label": "2290 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 240,
+                  "label": "2300 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 241,
+                  "max": 241,
+                  "label": "2310 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 242,
+                  "max": 242,
+                  "label": "2320 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 243,
+                  "max": 243,
+                  "label": "2330 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 244,
+                  "max": 244,
+                  "label": "2340 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 245,
+                  "max": 245,
+                  "label": "2350 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 246,
+                  "max": 246,
+                  "label": "2360 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 247,
+                  "max": 247,
+                  "label": "2370 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 248,
+                  "max": 248,
+                  "label": "2380 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 249,
+                  "max": 249,
+                  "label": "2390 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 250,
+                  "label": "2400 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 251,
+                  "max": 251,
+                  "label": "2410 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 252,
+                  "max": 252,
+                  "label": "2420 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 253,
+                  "max": 253,
+                  "label": "2430 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 254,
+                  "max": 254,
+                  "label": "2440 s"
+                },
+                {
+                  "kind": "range",
+                  "min": 255,
+                  "max": 255,
+                  "label": "2450 s"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

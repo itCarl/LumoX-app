@@ -1,0 +1,1135 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/ARC One",
+      "manufacturer": "Varytec",
+      "model": "ARC One",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Jan Fries",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-ARC-One.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 600,
+          "height": 105,
+          "depth": 200,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 7.2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 0,
+          "tiltMax": 180
+        },
+        "power": {
+          "consumption": 120,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "17ch",
+          "name": "17 Channel",
+          "channels": [
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Stand Alone Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 7,
+                  "label": "Tilt Stand Alone Program 1",
+                  "effectName": "tilt-stand-alone-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 14,
+                  "label": "Tilt Stand Alone Program 2",
+                  "effectName": "tilt-stand-alone-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 15,
+                  "max": 21,
+                  "label": "Tilt Stand Alone Program 3",
+                  "effectName": "tilt-stand-alone-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 22,
+                  "max": 28,
+                  "label": "Tilt Stand Alone Program 4",
+                  "effectName": "tilt-stand-alone-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 29,
+                  "max": 35,
+                  "label": "Tilt Stand Alone Program 5",
+                  "effectName": "tilt-stand-alone-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 42,
+                  "label": "Tilt Stand Alone Program 6",
+                  "effectName": "tilt-stand-alone-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 43,
+                  "max": 49,
+                  "label": "Tilt Stand Alone Program 7",
+                  "effectName": "tilt-stand-alone-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 56,
+                  "label": "Tilt Stand Alone Program 8",
+                  "effectName": "tilt-stand-alone-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 57,
+                  "max": 63,
+                  "label": "Tilt Stand Alone Program 9",
+                  "effectName": "tilt-stand-alone-program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 70,
+                  "label": "LED Only Stand Alone Program 1",
+                  "effectName": "led-only-stand-alone-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 77,
+                  "label": "LED Only Stand Alone Program 2",
+                  "effectName": "led-only-stand-alone-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 84,
+                  "label": "LED Only Stand Alone Program 3",
+                  "effectName": "led-only-stand-alone-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 91,
+                  "label": "LED Only Stand Alone Program 4",
+                  "effectName": "led-only-stand-alone-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 92,
+                  "max": 98,
+                  "label": "LED Only Stand Alone Program 5",
+                  "effectName": "led-only-stand-alone-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 105,
+                  "label": "LED Only Stand Alone Program 6",
+                  "effectName": "led-only-stand-alone-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 112,
+                  "label": "LED Only Stand Alone Program 7",
+                  "effectName": "led-only-stand-alone-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 119,
+                  "label": "LED Only Stand Alone Program 8",
+                  "effectName": "led-only-stand-alone-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 126,
+                  "label": "LED Only Stand Alone Program 9",
+                  "effectName": "led-only-stand-alone-program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 127,
+                  "max": 133,
+                  "label": "Tilt Stand Alone Sound Program 1",
+                  "effectName": "tilt-stand-alone-sound-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 134,
+                  "max": 140,
+                  "label": "Tilt Stand Alone Sound Program 2",
+                  "effectName": "tilt-stand-alone-sound-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 147,
+                  "label": "Tilt Stand Alone Sound Program 3",
+                  "effectName": "tilt-stand-alone-sound-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 148,
+                  "max": 154,
+                  "label": "Tilt Stand Alone Sound Program 4",
+                  "effectName": "tilt-stand-alone-sound-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 155,
+                  "max": 161,
+                  "label": "Tilt Stand Alone Sound Program 5",
+                  "effectName": "tilt-stand-alone-sound-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 168,
+                  "label": "Tilt Stand Alone Sound Program 6",
+                  "effectName": "tilt-stand-alone-sound-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 169,
+                  "max": 175,
+                  "label": "Tilt Stand Alone Sound Program 7",
+                  "effectName": "tilt-stand-alone-sound-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 182,
+                  "label": "Tilt Stand Alone Sound Program 8",
+                  "effectName": "tilt-stand-alone-sound-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 189,
+                  "label": "Tilt Stand Alone Sound Program 9",
+                  "effectName": "tilt-stand-alone-sound-program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 196,
+                  "label": "LED Only Stand Alone Sound Program 1",
+                  "effectName": "led-only-stand-alone-sound-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 197,
+                  "max": 203,
+                  "label": "LED Only Stand Alone Sound Program 2",
+                  "effectName": "led-only-stand-alone-sound-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 210,
+                  "label": "LED Only Stand Alone Sound Program 3",
+                  "effectName": "led-only-stand-alone-sound-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 217,
+                  "label": "LED Only Stand Alone Sound Program 4",
+                  "effectName": "led-only-stand-alone-sound-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 224,
+                  "label": "LED Only Stand Alone Sound Program 5",
+                  "effectName": "led-only-stand-alone-sound-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 225,
+                  "max": 231,
+                  "label": "LED Only Stand Alone Sound Program 6",
+                  "effectName": "led-only-stand-alone-sound-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 238,
+                  "label": "LED Only Stand Alone Sound Program 7",
+                  "effectName": "led-only-stand-alone-sound-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 239,
+                  "max": 245,
+                  "label": "LED Only Stand Alone Sound Program 8",
+                  "effectName": "led-only-stand-alone-sound-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 246,
+                  "max": 255,
+                  "label": "LED Only Stand Alone Sound Program 9",
+                  "effectName": "led-only-stand-alone-sound-program-9"
+                }
+              ]
+            },
+            {
+              "name": "Stand Alone Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt speed",
+              "typeId": "tilt-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 1,
+                  "max": 31,
+                  "label": "Red (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 60,
+                  "label": "Green (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 90,
+                  "label": "Blue (0 - 100%)",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 120,
+                  "label": "White (0 - 100%)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 150,
+                  "label": "Red + Green (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 180,
+                  "label": "Red + Blue (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 181,
+                  "max": 210,
+                  "label": "Green + Blue (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 211,
+                  "max": 240,
+                  "label": "Red + Green + Blue (0 - 100%)",
+                  "color": "#eaeaea"
+                },
+                {
+                  "kind": "color",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Red + Green + Blue + White (0 - 100%)",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "LED 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 1,
+                  "max": 31,
+                  "label": "Red (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 60,
+                  "label": "Green (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 90,
+                  "label": "Blue (0 - 100%)",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 120,
+                  "label": "White (0 - 100%)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 150,
+                  "label": "Red + Green (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 180,
+                  "label": "Red + Blue (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 181,
+                  "max": 210,
+                  "label": "Green + Blue (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 211,
+                  "max": 240,
+                  "label": "Red + Green + Blue (0 - 100%)",
+                  "color": "#eaeaea"
+                },
+                {
+                  "kind": "color",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Red + Green + Blue + White (0 - 100%)",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "LED 3",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 1,
+                  "max": 31,
+                  "label": "Red (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 60,
+                  "label": "Green (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 90,
+                  "label": "Blue (0 - 100%)",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 120,
+                  "label": "White (0 - 100%)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 150,
+                  "label": "Red + Green (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 180,
+                  "label": "Red + Blue (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 181,
+                  "max": 210,
+                  "label": "Green + Blue (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 211,
+                  "max": 240,
+                  "label": "Red + Green + Blue (0 - 100%)",
+                  "color": "#eaeaea"
+                },
+                {
+                  "kind": "color",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Red + Green + Blue + White (0 - 100%)",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "LED 4",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 1,
+                  "max": 31,
+                  "label": "Red (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 60,
+                  "label": "Green (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 90,
+                  "label": "Blue (0 - 100%)",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 120,
+                  "label": "White (0 - 100%)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 150,
+                  "label": "Red + Green (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 180,
+                  "label": "Red + Blue (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 181,
+                  "max": 210,
+                  "label": "Green + Blue (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 211,
+                  "max": 240,
+                  "label": "Red + Green + Blue (0 - 100%)",
+                  "color": "#eaeaea"
+                },
+                {
+                  "kind": "color",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Red + Green + Blue + White (0 - 100%)",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "LED 5",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 1,
+                  "max": 31,
+                  "label": "Red (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 60,
+                  "label": "Green (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 90,
+                  "label": "Blue (0 - 100%)",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 120,
+                  "label": "White (0 - 100%)",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 150,
+                  "label": "Red + Green (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 180,
+                  "label": "Red + Blue (0 - 100%)",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 181,
+                  "max": 210,
+                  "label": "Green + Blue (0 - 100%)",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 211,
+                  "max": 240,
+                  "label": "Red + Green + Blue (0 - 100%)",
+                  "color": "#eaeaea"
+                },
+                {
+                  "kind": "color",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Red + Green + Blue + White (0 - 100%)",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 254,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Reset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12 Channel",
+          "channels": [
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Stand Alone Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 7,
+                  "label": "Tilt Stand Alone Program 1",
+                  "effectName": "tilt-stand-alone-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 14,
+                  "label": "Tilt Stand Alone Program 2",
+                  "effectName": "tilt-stand-alone-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 15,
+                  "max": 21,
+                  "label": "Tilt Stand Alone Program 3",
+                  "effectName": "tilt-stand-alone-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 22,
+                  "max": 28,
+                  "label": "Tilt Stand Alone Program 4",
+                  "effectName": "tilt-stand-alone-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 29,
+                  "max": 35,
+                  "label": "Tilt Stand Alone Program 5",
+                  "effectName": "tilt-stand-alone-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 42,
+                  "label": "Tilt Stand Alone Program 6",
+                  "effectName": "tilt-stand-alone-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 43,
+                  "max": 49,
+                  "label": "Tilt Stand Alone Program 7",
+                  "effectName": "tilt-stand-alone-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 56,
+                  "label": "Tilt Stand Alone Program 8",
+                  "effectName": "tilt-stand-alone-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 57,
+                  "max": 63,
+                  "label": "Tilt Stand Alone Program 9",
+                  "effectName": "tilt-stand-alone-program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 70,
+                  "label": "LED Only Stand Alone Program 1",
+                  "effectName": "led-only-stand-alone-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 77,
+                  "label": "LED Only Stand Alone Program 2",
+                  "effectName": "led-only-stand-alone-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 78,
+                  "max": 84,
+                  "label": "LED Only Stand Alone Program 3",
+                  "effectName": "led-only-stand-alone-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 91,
+                  "label": "LED Only Stand Alone Program 4",
+                  "effectName": "led-only-stand-alone-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 92,
+                  "max": 98,
+                  "label": "LED Only Stand Alone Program 5",
+                  "effectName": "led-only-stand-alone-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 105,
+                  "label": "LED Only Stand Alone Program 6",
+                  "effectName": "led-only-stand-alone-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 106,
+                  "max": 112,
+                  "label": "LED Only Stand Alone Program 7",
+                  "effectName": "led-only-stand-alone-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 119,
+                  "label": "LED Only Stand Alone Program 8",
+                  "effectName": "led-only-stand-alone-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 126,
+                  "label": "LED Only Stand Alone Program 9",
+                  "effectName": "led-only-stand-alone-program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 127,
+                  "max": 133,
+                  "label": "Tilt Stand Alone Sound Program 1",
+                  "effectName": "tilt-stand-alone-sound-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 134,
+                  "max": 140,
+                  "label": "Tilt Stand Alone Sound Program 2",
+                  "effectName": "tilt-stand-alone-sound-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 147,
+                  "label": "Tilt Stand Alone Sound Program 3",
+                  "effectName": "tilt-stand-alone-sound-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 148,
+                  "max": 154,
+                  "label": "Tilt Stand Alone Sound Program 4",
+                  "effectName": "tilt-stand-alone-sound-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 155,
+                  "max": 161,
+                  "label": "Tilt Stand Alone Sound Program 5",
+                  "effectName": "tilt-stand-alone-sound-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 162,
+                  "max": 168,
+                  "label": "Tilt Stand Alone Sound Program 6",
+                  "effectName": "tilt-stand-alone-sound-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 169,
+                  "max": 175,
+                  "label": "Tilt Stand Alone Sound Program 7",
+                  "effectName": "tilt-stand-alone-sound-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 182,
+                  "label": "Tilt Stand Alone Sound Program 8",
+                  "effectName": "tilt-stand-alone-sound-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 183,
+                  "max": 189,
+                  "label": "Tilt Stand Alone Sound Program 9",
+                  "effectName": "tilt-stand-alone-sound-program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 196,
+                  "label": "LED Only Stand Alone Sound Program 1",
+                  "effectName": "led-only-stand-alone-sound-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 197,
+                  "max": 203,
+                  "label": "LED Only Stand Alone Sound Program 2",
+                  "effectName": "led-only-stand-alone-sound-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 210,
+                  "label": "LED Only Stand Alone Sound Program 3",
+                  "effectName": "led-only-stand-alone-sound-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 211,
+                  "max": 217,
+                  "label": "LED Only Stand Alone Sound Program 4",
+                  "effectName": "led-only-stand-alone-sound-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 224,
+                  "label": "LED Only Stand Alone Sound Program 5",
+                  "effectName": "led-only-stand-alone-sound-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 225,
+                  "max": 231,
+                  "label": "LED Only Stand Alone Sound Program 6",
+                  "effectName": "led-only-stand-alone-sound-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 238,
+                  "label": "LED Only Stand Alone Sound Program 7",
+                  "effectName": "led-only-stand-alone-sound-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 239,
+                  "max": 245,
+                  "label": "LED Only Stand Alone Sound Program 8",
+                  "effectName": "led-only-stand-alone-sound-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 246,
+                  "max": 255,
+                  "label": "LED Only Stand Alone Sound Program 9",
+                  "effectName": "led-only-stand-alone-sound-program-9"
+                }
+              ]
+            },
+            {
+              "name": "Stand Alone Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt speed",
+              "typeId": "tilt-speed-slow-fast",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 254,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Reset"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

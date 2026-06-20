@@ -1,0 +1,1275 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/LED MultiPAR CLM-PAR-COB1",
+      "manufacturer": "Cameo",
+      "model": "LED MultiPAR CLM-PAR-COB1",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Freasy",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-LED-MultiPAR-CLM-PAR-COB1.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1005,
+          "height": 285,
+          "depth": 80,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 8.8,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 50,
+          "degreesMax": 50
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 55,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Colour Macro 1",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 36,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 73,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 74,
+                  "max": 110,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 147,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 148,
+                  "max": 184,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 221,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 222,
+                  "max": 255,
+                  "label": "White",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Colour Macro 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 36,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 73,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 74,
+                  "max": 110,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 147,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 148,
+                  "max": 184,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 221,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 222,
+                  "max": 255,
+                  "label": "White",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Colour Macro 3",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 36,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 73,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 74,
+                  "max": 110,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 147,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 148,
+                  "max": 184,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 221,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 222,
+                  "max": 255,
+                  "label": "White",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Colour Macro 4",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 36,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 73,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 74,
+                  "max": 110,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 147,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 148,
+                  "max": 184,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 221,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 222,
+                  "max": 255,
+                  "label": "White",
+                  "color": "#ffffff"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Power Out 1",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Power out 1 off"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Power out 1 on"
+                }
+              ]
+            },
+            {
+              "name": "Power Out 2",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Power out 2 off"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Power out 2 on"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Red 1 + 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1 + 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1 + 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3 + 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3 + 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3 + 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Music Control/Strobe",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Colour setting channel 1 - 3",
+                  "effectName": "colour-setting-channel-1-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 128,
+                  "label": "Music control (sensitivity weak - strong)",
+                  "effectName": "music-control-sensitivity-weak-strong"
+                },
+                {
+                  "kind": "effect",
+                  "min": 129,
+                  "max": 255,
+                  "label": "Strobe (slow - fast)",
+                  "effectName": "strobe-slow-fast"
+                }
+              ]
+            },
+            {
+              "name": "Power Out 1",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Power out 1 off"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Power out 1 on"
+                }
+              ]
+            },
+            {
+              "name": "Power Out 2",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Power out 2 off"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Power out 2 on"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Ch4 - ch6 RGB",
+                  "effectName": "ch4-ch6-rgb"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 71,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Colour 1",
+                  "effectName": "colour-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Colour 2",
+                  "effectName": "colour-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Colour 3",
+                  "effectName": "colour-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Colour 4",
+                  "effectName": "colour-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Colour 5",
+                  "effectName": "colour-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Colour 6",
+                  "effectName": "colour-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Colour 7",
+                  "effectName": "colour-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Colour 8",
+                  "effectName": "colour-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Dream",
+                  "effectName": "dream"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Meteor",
+                  "effectName": "meteor"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Fade",
+                  "effectName": "fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Change",
+                  "effectName": "change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Flow 1",
+                  "effectName": "flow-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Flow 2",
+                  "effectName": "flow-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Flow 3",
+                  "effectName": "flow-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Flow 4",
+                  "effectName": "flow-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Flow 5",
+                  "effectName": "flow-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Flow 6",
+                  "effectName": "flow-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Flow 7",
+                  "effectName": "flow-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Flow 8",
+                  "effectName": "flow-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Flow 9",
+                  "effectName": "flow-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Music control",
+                  "effectName": "music-control"
+                }
+              ]
+            },
+            {
+              "name": "Master Dimmer/Speed/Sensitivity",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Strobe (slow - fast)"
+                }
+              ]
+            },
+            {
+              "name": "Red/Colour Variations",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green/Colour Variations",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Power Out 1",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Power out 1 off"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Power out 1 on"
+                }
+              ]
+            },
+            {
+              "name": "Power Out 2",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Power out 2 off"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Power out 2 on"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12 Channel",
+          "channels": [
+            {
+              "name": "Red 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "17ch",
+          "name": "17 Channel",
+          "channels": [
+            {
+              "name": "Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Ch4 - ch6 RGB",
+                  "effectName": "ch4-ch6-rgb"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 71,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Colour 1",
+                  "effectName": "colour-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Colour 2",
+                  "effectName": "colour-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Colour 3",
+                  "effectName": "colour-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Colour 4",
+                  "effectName": "colour-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Colour 5",
+                  "effectName": "colour-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Colour 6",
+                  "effectName": "colour-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Colour 7",
+                  "effectName": "colour-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Colour 8",
+                  "effectName": "colour-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Dream",
+                  "effectName": "dream"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Meteor",
+                  "effectName": "meteor"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Fade",
+                  "effectName": "fade"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Change",
+                  "effectName": "change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Flow 1",
+                  "effectName": "flow-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Flow 2",
+                  "effectName": "flow-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Flow 3",
+                  "effectName": "flow-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Flow 4",
+                  "effectName": "flow-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Flow 5",
+                  "effectName": "flow-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Flow 6",
+                  "effectName": "flow-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Flow 7",
+                  "effectName": "flow-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Flow 8",
+                  "effectName": "flow-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Flow 9",
+                  "effectName": "flow-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Music control",
+                  "effectName": "music-control"
+                }
+              ]
+            },
+            {
+              "name": "Master Dimmer/Speed/Sensitivity",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Strobe (slow - fast)"
+                }
+              ]
+            },
+            {
+              "name": "Red/Colour Variations",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green/Colour Variations",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Power Out 1",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Power out 1 off"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Power out 1 on"
+                }
+              ]
+            },
+            {
+              "name": "Power Out 2",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Power out 2 off"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Power out 2 on"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

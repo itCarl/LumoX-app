@@ -1,0 +1,1345 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Phantom 20 LED Beam",
+      "manufacturer": "Showtec",
+      "model": "Phantom 20 LED Beam",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Nicolò Zanon",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Phantom-20-LED-Beam.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 205,
+          "height": 273,
+          "depth": 214,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 47,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": null,
+          "degreesMin": 5,
+          "degreesMax": 5
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 65,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "12ch",
+          "name": "12 Channel (Advanced)",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan Fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt Fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Open / White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Light Blue",
+                  "color": "#00aaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Orange",
+                  "color": "#ff5500"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise rotation (CW) rainbow effect from slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Counter-clockwise rotation (CCW) rainbow effect from slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Static Gobo-wheel + Gobo Shake",
+              "typeId": "gobo-shake",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Open",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 10,
+                  "max": 15,
+                  "label": "Gobo 1",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 16,
+                  "max": 21,
+                  "label": "Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 22,
+                  "max": 27,
+                  "label": "Gobo 3",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 28,
+                  "max": 33,
+                  "label": "Gobo 4",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 34,
+                  "max": 39,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 40,
+                  "max": 45,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 46,
+                  "max": 51,
+                  "label": "Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Gobo 8",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 58,
+                  "max": 63,
+                  "label": "Gobo 9",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 64,
+                  "max": 69,
+                  "label": "Gobo Shake 9 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 70,
+                  "max": 75,
+                  "label": "Gobo Shake 8 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 76,
+                  "max": 81,
+                  "label": "Gobo Shake 7 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 82,
+                  "max": 87,
+                  "label": "Gobo Shake 6 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 88,
+                  "max": 93,
+                  "label": "Gobo Shake 5 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 94,
+                  "max": 99,
+                  "label": "Gobo Shake 4 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 100,
+                  "max": 105,
+                  "label": "Gobo Shake 3 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 106,
+                  "max": 111,
+                  "label": "Gobo Shake 2 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 112,
+                  "max": 117,
+                  "label": "Gobo Shake 1 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 118,
+                  "max": 127,
+                  "label": "Open / White",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise rotation (CW) rainbow effect from slow to fast",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Counter-clockwise rotation (CCW) rainbow effect from slow to fast",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter/Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 3,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 4,
+                  "max": 7,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 76,
+                  "label": "Strobe effect, from slow to fast (0-10 flashes/sec.)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 77,
+                  "max": 145,
+                  "label": "Pulse strobe effect from slow to fast",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 146,
+                  "max": 215,
+                  "label": "Random strobe effect, from slow to fast (0-10 flashes/sec.)",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 216,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Channel Functions",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Blackout during Pan/Tilt movement",
+                  "effectName": "blackout-during-pan-tilt-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 15,
+                  "max": 19,
+                  "label": "Blackout during Colorwheel movement",
+                  "effectName": "blackout-during-colorwheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Blackout during Gobowheel movement",
+                  "effectName": "blackout-during-gobowheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 25,
+                  "max": 29,
+                  "label": "Blackout during Pan/Tilt/Colorwheel movement",
+                  "effectName": "blackout-during-pan-tilt-colorwheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 34,
+                  "label": "Blackout during Pan/Tilt/Gobowheel movement",
+                  "effectName": "blackout-during-pan-tilt-gobowheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 35,
+                  "max": 39,
+                  "label": "Blackout during Gobowheel /Colorwheel movement",
+                  "effectName": "blackout-during-gobowheel-colorwheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 44,
+                  "label": "Blackout during Pan/Tilt/Gobowheel /Colorwheel movement",
+                  "effectName": "blackout-during-pan-tilt-gobowheel-colorwheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 45,
+                  "max": 69,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Reset after 5 seconds",
+                  "effectName": "reset-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 79,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 84,
+                  "label": "X, Y negative direction after 5 seconds",
+                  "effectName": "x-y-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 89,
+                  "label": "X negative direction after 5 seconds",
+                  "effectName": "x-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 94,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Y negative direction after 5 seconds",
+                  "effectName": "y-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 104,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Cancel X negative direction after 5 seconds",
+                  "effectName": "cancel-x-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 114,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Cancel Y negative direction after 5 seconds",
+                  "effectName": "cancel-y-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 124,
+                  "label": "No functions",
+                  "effectName": "no-functions"
+                },
+                {
+                  "kind": "effect",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Cancel X, Y direction after 5 seconds",
+                  "effectName": "cancel-x-y-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            },
+            {
+              "name": "Built-In Programs + Sound-controlled Program",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 22,
+                  "label": "Built-in Program 1",
+                  "effectName": "built-in-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 37,
+                  "label": "Built-in Program 2",
+                  "effectName": "built-in-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 52,
+                  "label": "Built-in Program 3",
+                  "effectName": "built-in-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 67,
+                  "label": "Built-in Program 4",
+                  "effectName": "built-in-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 82,
+                  "label": "Built-in Program 5",
+                  "effectName": "built-in-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 97,
+                  "label": "Built-in Program 6",
+                  "effectName": "built-in-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 112,
+                  "label": "Built-in Program 7",
+                  "effectName": "built-in-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 127,
+                  "label": "Built-in Program 8",
+                  "effectName": "built-in-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 142,
+                  "label": "Built-in Program 9",
+                  "effectName": "built-in-program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 157,
+                  "label": "Built-in Program 10",
+                  "effectName": "built-in-program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 158,
+                  "max": 172,
+                  "label": "Built-in Program 11",
+                  "effectName": "built-in-program-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 173,
+                  "max": 187,
+                  "label": "Built-in Program 12",
+                  "effectName": "built-in-program-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 202,
+                  "label": "Built-in Program 13",
+                  "effectName": "built-in-program-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 203,
+                  "max": 217,
+                  "label": "Built-in Program 14",
+                  "effectName": "built-in-program-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 232,
+                  "label": "Built-in Program 15",
+                  "effectName": "built-in-program-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 233,
+                  "max": 247,
+                  "label": "Built-in Program 16",
+                  "effectName": "built-in-program-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound-controlled Program",
+                  "effectName": "sound-controlled-program"
+                }
+              ]
+            },
+            {
+              "name": "Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "8 Channel (Basic)",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Open / White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Light Blue",
+                  "color": "#00aaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Orange",
+                  "color": "#ff5500"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise rotation (CW) rainbow effect from slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Counter-clockwise rotation (CCW) rainbow effect from slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Shutter/Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 3,
+                  "label": "Shutter closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 4,
+                  "max": 7,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 76,
+                  "label": "Strobe effect, from slow to fast (0-10 flashes/sec.)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 77,
+                  "max": 145,
+                  "label": "Pulse strobe effect from slow to fast",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 146,
+                  "max": 215,
+                  "label": "Random strobe effect, from slow to fast (0-10 flashes/sec.)",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 216,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Static Gobo-wheel + Gobo Shake",
+              "typeId": "gobo-shake",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Open",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 10,
+                  "max": 15,
+                  "label": "Gobo 1",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 16,
+                  "max": 21,
+                  "label": "Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 22,
+                  "max": 27,
+                  "label": "Gobo 3",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 28,
+                  "max": 33,
+                  "label": "Gobo 4",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 34,
+                  "max": 39,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 40,
+                  "max": 45,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 46,
+                  "max": 51,
+                  "label": "Gobo 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 52,
+                  "max": 57,
+                  "label": "Gobo 8",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 58,
+                  "max": 63,
+                  "label": "Gobo 9",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 64,
+                  "max": 69,
+                  "label": "Gobo Shake 9 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 70,
+                  "max": 75,
+                  "label": "Gobo Shake 8 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 76,
+                  "max": 81,
+                  "label": "Gobo Shake 7 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 82,
+                  "max": 87,
+                  "label": "Gobo Shake 6 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 88,
+                  "max": 93,
+                  "label": "Gobo Shake 5 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 94,
+                  "max": 99,
+                  "label": "Gobo Shake 4 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 100,
+                  "max": 105,
+                  "label": "Gobo Shake 3 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 106,
+                  "max": 111,
+                  "label": "Gobo Shake 2 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 112,
+                  "max": 117,
+                  "label": "Gobo Shake 1 from slow to fast",
+                  "image": null,
+                  "shake": true
+                },
+                {
+                  "kind": "gobo",
+                  "min": 118,
+                  "max": 127,
+                  "label": "Open / White",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Clockwise rotation (CW) rainbow effect from slow to fast",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Counter-clockwise rotation (CCW) rainbow effect from slow to fast",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Channel Functions",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Blackout during Pan/Tilt movement",
+                  "effectName": "blackout-during-pan-tilt-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 15,
+                  "max": 19,
+                  "label": "Blackout during Colorwheel movement",
+                  "effectName": "blackout-during-colorwheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Blackout during Gobowheel movement",
+                  "effectName": "blackout-during-gobowheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 25,
+                  "max": 29,
+                  "label": "Blackout during Pan/Tilt/Colorwheel movement",
+                  "effectName": "blackout-during-pan-tilt-colorwheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 34,
+                  "label": "Blackout during Pan/Tilt/Gobowheel movement",
+                  "effectName": "blackout-during-pan-tilt-gobowheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 35,
+                  "max": 39,
+                  "label": "Blackout during Gobowheel /Colorwheel movement",
+                  "effectName": "blackout-during-gobowheel-colorwheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 44,
+                  "label": "Blackout during Pan/Tilt/Gobowheel /Colorwheel movement",
+                  "effectName": "blackout-during-pan-tilt-gobowheel-colorwheel-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 45,
+                  "max": 69,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Reset after 5 seconds",
+                  "effectName": "reset-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 79,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 84,
+                  "label": "X, Y negative direction after 5 seconds",
+                  "effectName": "x-y-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 89,
+                  "label": "X negative direction after 5 seconds",
+                  "effectName": "x-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 94,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Y negative direction after 5 seconds",
+                  "effectName": "y-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 104,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Cancel X negative direction after 5 seconds",
+                  "effectName": "cancel-x-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 114,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Cancel Y negative direction after 5 seconds",
+                  "effectName": "cancel-y-negative-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 124,
+                  "label": "No functions",
+                  "effectName": "no-functions"
+                },
+                {
+                  "kind": "effect",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Cancel X, Y direction after 5 seconds",
+                  "effectName": "cancel-x-y-direction-after-5-seconds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            },
+            {
+              "name": "Built-In Programs + Sound-controlled Program",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 22,
+                  "label": "Built-in Program 1",
+                  "effectName": "built-in-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 23,
+                  "max": 37,
+                  "label": "Built-in Program 2",
+                  "effectName": "built-in-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 38,
+                  "max": 52,
+                  "label": "Built-in Program 3",
+                  "effectName": "built-in-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 53,
+                  "max": 67,
+                  "label": "Built-in Program 4",
+                  "effectName": "built-in-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 82,
+                  "label": "Built-in Program 5",
+                  "effectName": "built-in-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 83,
+                  "max": 97,
+                  "label": "Built-in Program 6",
+                  "effectName": "built-in-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 98,
+                  "max": 112,
+                  "label": "Built-in Program 7",
+                  "effectName": "built-in-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 113,
+                  "max": 127,
+                  "label": "Built-in Program 8",
+                  "effectName": "built-in-program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 142,
+                  "label": "Built-in Program 9",
+                  "effectName": "built-in-program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 143,
+                  "max": 157,
+                  "label": "Built-in Program 10",
+                  "effectName": "built-in-program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 158,
+                  "max": 172,
+                  "label": "Built-in Program 11",
+                  "effectName": "built-in-program-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 173,
+                  "max": 187,
+                  "label": "Built-in Program 12",
+                  "effectName": "built-in-program-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 188,
+                  "max": 202,
+                  "label": "Built-in Program 13",
+                  "effectName": "built-in-program-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 203,
+                  "max": 217,
+                  "label": "Built-in Program 14",
+                  "effectName": "built-in-program-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 218,
+                  "max": 232,
+                  "label": "Built-in Program 15",
+                  "effectName": "built-in-program-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 233,
+                  "max": 247,
+                  "label": "Built-in Program 16",
+                  "effectName": "built-in-program-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Sound-controlled Program",
+                  "effectName": "sound-controlled-program"
+                }
+              ]
+            },
+            {
+              "name": "Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1311 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Dominator",
+      "manufacturer": "Showtec",
+      "model": "Dominator",
+      "type": "Laser",
+      "meta": {
+        "author": "Felix Edelmann",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Dominator.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 298,
+          "height": 310,
+          "depth": 225,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4.06,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "5x3W LEDs",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 66,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "9ch",
+          "name": "9-channel Version 1",
+          "channels": [
+            {
+              "name": "Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 24,
+                  "label": "Auto 1 (Strobe, Derby, Laser)",
+                  "effectName": "auto-1-strobe-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 25,
+                  "max": 39,
+                  "label": "Auto 2 (Derby, Laser)",
+                  "effectName": "auto-2-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 54,
+                  "label": "Auto 3 (Strobe, Laser)",
+                  "effectName": "auto-3-strobe-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 55,
+                  "max": 69,
+                  "label": "Auto 4 (Derby, Laser)",
+                  "effectName": "auto-4-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 84,
+                  "label": "Auto 5 (Derby)",
+                  "effectName": "auto-5-derby"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 99,
+                  "label": "Auto 6 (Laser)",
+                  "effectName": "auto-6-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 114,
+                  "label": "Auto 7 (Strobe)",
+                  "effectName": "auto-7-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 115,
+                  "max": 129,
+                  "label": "Sound 1 (Strobe, Derby, Laser)",
+                  "effectName": "sound-1-strobe-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 144,
+                  "label": "Sound 2 (Derby, Laser)",
+                  "effectName": "sound-2-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 159,
+                  "label": "Sound 3 (Strobe, Laser)",
+                  "effectName": "sound-3-strobe-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 174,
+                  "label": "Sound 4 (Derby, Laser)",
+                  "effectName": "sound-4-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 175,
+                  "max": 189,
+                  "label": "Sound 5 (Derby)",
+                  "effectName": "sound-5-derby"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 204,
+                  "label": "Sound 6 (Laser)",
+                  "effectName": "sound-6-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 205,
+                  "max": 219,
+                  "label": "Sound 7 (Strobe)",
+                  "effectName": "sound-7-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "DMX mode",
+                  "effectName": "dmx-mode"
+                }
+              ]
+            },
+            {
+              "name": "Derby Colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 15,
+                  "max": 19,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 25,
+                  "max": 29,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 34,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 35,
+                  "max": 39,
+                  "label": "White + Red",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 44,
+                  "label": "Red + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 49,
+                  "label": "Green + Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Blue + Amber",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Amber + White",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 64,
+                  "label": "White + Green",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Green + Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Amber + Red",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 75,
+                  "max": 79,
+                  "label": "Red + Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 84,
+                  "label": "Blue + White",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Red + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 94,
+                  "label": "Red + Green + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Red + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 104,
+                  "label": "Red + Amber + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Red + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 114,
+                  "label": "Red + Amber + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Amber + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Green + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Amber + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Amber + White + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Red + Green + Blue + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Red + Green + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Green + Blue + White + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 154,
+                  "label": "Red + Green + White + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 159,
+                  "label": "Red + Blue + White + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 164,
+                  "label": "Red + Green + Blue + White + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 165,
+                  "max": 209,
+                  "label": "Automatic (single color)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Automatic (two colors)"
+                }
+              ]
+            },
+            {
+              "name": "Derby Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 6,
+                  "label": "Close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 7,
+                  "max": 254,
+                  "label": "Strobe 30-0Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound activated strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "LED Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Program 1 fast-slow",
+                  "effectName": "program-1-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Program 2 fast-slow",
+                  "effectName": "program-2-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Program 3 fast-slow",
+                  "effectName": "program-3-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Program 4 fast-slow",
+                  "effectName": "program-4-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Program 5 fast-slow",
+                  "effectName": "program-5-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Program 6 fast-slow",
+                  "effectName": "program-6-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Program 7 fast-slow",
+                  "effectName": "program-7-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Program 8 fast-slow",
+                  "effectName": "program-8-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Program 9 fast-slow",
+                  "effectName": "program-9-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Program 10 fast-slow",
+                  "effectName": "program-10-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 255,
+                  "label": "Full on",
+                  "effectName": "full-on"
+                }
+              ]
+            },
+            {
+              "name": "Laser",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 49,
+                  "label": "Red laser",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 89,
+                  "label": "Green laser",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 129,
+                  "label": "Red + Green alternating",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 169,
+                  "label": "Red + Green Strobe",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Red Strobe + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Red Strobe + Green Strobe",
+                  "color": "#ff0000"
+                }
+              ]
+            },
+            {
+              "name": "Laser Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 5,
+                  "max": 254,
+                  "label": "Strobe 0-30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound activated strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Rotating Derby",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Rotate CW slow-fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 133,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Rotate CCW slow-fast"
+                }
+              ]
+            },
+            {
+              "name": "Rotating Laser",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Rotate CW slow-fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 133,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Rotate CCW slow-fast"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch-2",
+          "name": "9-channel Version 2",
+          "channels": [
+            {
+              "name": "Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 24,
+                  "label": "Auto 1 (Strobe, Derby, Laser)",
+                  "effectName": "auto-1-strobe-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 25,
+                  "max": 39,
+                  "label": "Auto 2 (Derby, Laser)",
+                  "effectName": "auto-2-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 54,
+                  "label": "Auto 3 (Strobe, Laser)",
+                  "effectName": "auto-3-strobe-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 55,
+                  "max": 69,
+                  "label": "Auto 4 (Derby, Laser)",
+                  "effectName": "auto-4-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 84,
+                  "label": "Auto 5 (Derby)",
+                  "effectName": "auto-5-derby"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 99,
+                  "label": "Auto 6 (Laser)",
+                  "effectName": "auto-6-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 114,
+                  "label": "Auto 7 (Strobe)",
+                  "effectName": "auto-7-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 115,
+                  "max": 129,
+                  "label": "Sound 1 (Strobe, Derby, Laser)",
+                  "effectName": "sound-1-strobe-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 144,
+                  "label": "Sound 2 (Derby, Laser)",
+                  "effectName": "sound-2-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 159,
+                  "label": "Sound 3 (Strobe, Laser)",
+                  "effectName": "sound-3-strobe-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 174,
+                  "label": "Sound 4 (Derby, Laser)",
+                  "effectName": "sound-4-derby-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 175,
+                  "max": 189,
+                  "label": "Sound 5 (Derby)",
+                  "effectName": "sound-5-derby"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 204,
+                  "label": "Sound 6 (Laser)",
+                  "effectName": "sound-6-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 205,
+                  "max": 219,
+                  "label": "Sound 7 (Strobe)",
+                  "effectName": "sound-7-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "DMX mode",
+                  "effectName": "dmx-mode"
+                }
+              ]
+            },
+            {
+              "name": "Derby Colors",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 15,
+                  "max": 19,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 25,
+                  "max": 29,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 34,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 35,
+                  "max": 39,
+                  "label": "White + Red",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 44,
+                  "label": "Red + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 49,
+                  "label": "Green + Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Blue + Amber",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Amber + White",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 64,
+                  "label": "White + Green",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Green + Amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Amber + Red",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 75,
+                  "max": 79,
+                  "label": "Red + Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 84,
+                  "label": "Blue + White",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Red + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 94,
+                  "label": "Red + Green + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Red + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 104,
+                  "label": "Red + Amber + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Red + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 114,
+                  "label": "Red + Amber + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Amber + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Green + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Amber + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Amber + White + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Red + Green + Blue + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Red + Green + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Green + Blue + White + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 154,
+                  "label": "Red + Green + White + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 159,
+                  "label": "Red + Blue + White + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 164,
+                  "label": "Red + Green + Blue + White + Amber"
+                },
+                {
+                  "kind": "range",
+                  "min": 165,
+                  "max": 209,
+                  "label": "Automatic (single color)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Automatic (two colors)"
+                }
+              ]
+            },
+            {
+              "name": "Derby Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 6,
+                  "label": "Close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 7,
+                  "max": 254,
+                  "label": "Strobe 30-0Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound activated strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "LED Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Program 1 fast-slow",
+                  "effectName": "program-1-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Program 2 fast-slow",
+                  "effectName": "program-2-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Program 3 fast-slow",
+                  "effectName": "program-3-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Program 4 fast-slow",
+                  "effectName": "program-4-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Program 5 fast-slow",
+                  "effectName": "program-5-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Program 6 fast-slow",
+                  "effectName": "program-6-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Program 7 fast-slow",
+                  "effectName": "program-7-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Program 8 fast-slow",
+                  "effectName": "program-8-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Program 9 fast-slow",
+                  "effectName": "program-9-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Program 10 fast-slow",
+                  "effectName": "program-10-fast-slow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 255,
+                  "label": "Full on",
+                  "effectName": "full-on"
+                }
+              ]
+            },
+            {
+              "name": "Laser",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 49,
+                  "label": "Red laser",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 89,
+                  "label": "Green laser",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 129,
+                  "label": "Red + Green alternating",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 169,
+                  "label": "Red + Green Strobe",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Red Strobe + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Red Strobe + Green Strobe",
+                  "color": "#ff0000"
+                }
+              ]
+            },
+            {
+              "name": "Laser Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Blackout",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 5,
+                  "max": 254,
+                  "label": "Strobe 0-30Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound activated strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Rotating Derby",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Rotate CW slow-fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 133,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Rotate CCW slow-fast"
+                }
+              ]
+            },
+            {
+              "name": "Rotating Laser",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Rotate CW slow-fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 133,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Rotate CCW slow-fast"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

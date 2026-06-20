@@ -1,0 +1,320 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/LED PAR 64 COB RGBW 60W",
+      "manufacturer": "Stairville",
+      "model": "LED PAR 64 COB RGBW 60W",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Jose Coelho",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-LED-PAR-64-COB-RGBW-60W.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 280,
+          "height": 200,
+          "depth": 500,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.93,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 60,
+          "degreesMax": 60
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 60,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "8ch",
+          "name": "8 Channel",
+          "channels": [
+            {
+              "name": "Intensity Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Fixed colour pattern",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No fixed colour and movement pattern"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 255,
+                  "label": "One of 31 fixed colour patterns, channels 1, 2, 3, 4, 6 and 7 without function"
+                }
+              ]
+            },
+            {
+              "name": "Strobe effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Full brightness, no strobe effect",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 255,
+                  "label": "Strobe effect, increasing speed, when channel 5 = 0...15, channels 1 to 4 define the colour",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Operating mode selection",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Constant colour, the hue is set by channels 1 to 4",
+                  "effectName": "constant-colour-the-hue-is-set-by-channels-1-to-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Fade-out effect, speed controlled by channel 6, channels 1 to 4 define the colour if channel 5 = 0...15",
+                  "effectName": "fade-out-effect-speed-controlled-by-channel-6-channels-1-to-4-define-the-colour-if-channel-5-0-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Fade-in effect, speed controlled by channel 6, channels 1 to 4 define the colour if channel 5 = 0...15",
+                  "effectName": "fade-in-effect-speed-controlled-by-channel-6-channels-1-to-4-define-the-colour-if-channel-5-0-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Fade-in-out effect, speed controlled by channel 6, channels 1 to 4 define the colour if channel 5 = 0...15",
+                  "effectName": "fade-in-out-effect-speed-controlled-by-channel-6-channels-1-to-4-define-the-colour-if-channel-5-0-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Auto-mix effect, speed controlled by channel 6, channels 1 to 4 without function if channel 5 = 0...15",
+                  "effectName": "auto-mix-effect-speed-controlled-by-channel-6-channels-1-to-4-without-function-if-channel-5-0-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Chase (4 colours), speed controlled by channel 6, channels 1 to 4 without function if channel 5 = 0...15",
+                  "effectName": "chase-4-colours-speed-controlled-by-channel-6-channels-1-to-4-without-function-if-channel-5-0-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Chase (12 colours), speed controlled by channel 6, channels 1 to 4 without function if channel 5 = 0...15",
+                  "effectName": "chase-12-colours-speed-controlled-by-channel-6-channels-1-to-4-without-function-if-channel-5-0-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Sound-controlled colour change (12 colours), channels 1 to 6 without function",
+                  "effectName": "sound-controlled-colour-change-12-colours-channels-1-to-6-without-function"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "6Ch Operating mode selection",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Constant colour, colour hue is set via channels 2 to 5",
+                  "effectName": "constant-colour-colour-hue-is-set-via-channels-2-to-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Automatic colour change with 7 colours, channels 2 to 5 without function",
+                  "effectName": "automatic-colour-change-with-7-colours-channels-2-to-5-without-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Automatic colour change with 12 colours, channels 2 to 5 without function",
+                  "effectName": "automatic-colour-change-with-12-colours-channels-2-to-5-without-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Automatic colour change with 4 colours, channels 2 to 5 without function",
+                  "effectName": "automatic-colour-change-with-4-colours-channels-2-to-5-without-function"
+                }
+              ]
+            },
+            {
+              "name": "Intensity Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "6Ch Effects speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No automatic colour change"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 100,
+                  "label": "Automatic colour change as set via channel 1, decreasing speed from fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 150,
+                  "label": "No automatic colour change"
+                },
+                {
+                  "kind": "range",
+                  "min": 151,
+                  "max": 255,
+                  "label": "Automatic colour change as set via channel 1, speed randomly changing"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Intensity Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

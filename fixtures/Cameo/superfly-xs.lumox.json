@@ -1,0 +1,435 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Superfly XS",
+      "manufacturer": "Cameo",
+      "model": "Superfly XS",
+      "type": "Effect",
+      "meta": {
+        "author": "Konni",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Superfly-XS.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 203,
+          "height": 158,
+          "depth": 168,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 35,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1-Channel",
+          "channels": [
+            {
+              "name": "Auto Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Backout",
+                  "effectName": "backout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 50,
+                  "label": "Auto Mix",
+                  "effectName": "auto-mix"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 91,
+                  "label": "Auto Derby",
+                  "effectName": "auto-derby"
+                },
+                {
+                  "kind": "effect",
+                  "min": 92,
+                  "max": 132,
+                  "label": "Auto Strobe",
+                  "effectName": "auto-strobe"
+                },
+                {
+                  "kind": "effect",
+                  "min": 133,
+                  "max": 173,
+                  "label": "Sound Mix",
+                  "effectName": "sound-mix"
+                },
+                {
+                  "kind": "effect",
+                  "min": 174,
+                  "max": 214,
+                  "label": "Sound Derby",
+                  "effectName": "sound-derby"
+                },
+                {
+                  "kind": "effect",
+                  "min": 215,
+                  "max": 255,
+                  "label": "Sound Strobe",
+                  "effectName": "sound-strobe"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5-Channel",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "LED Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Blackout",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 20,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 21,
+                  "max": 35,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 50,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 65,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 80,
+                  "label": "Red Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 81,
+                  "max": 95,
+                  "label": "Red Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 110,
+                  "label": "Red White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 125,
+                  "label": "Green Blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 140,
+                  "label": "Green White",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 141,
+                  "max": 155,
+                  "label": "Blue White",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 170,
+                  "label": "Red Green Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 171,
+                  "max": 185,
+                  "label": "Red Green White"
+                },
+                {
+                  "kind": "range",
+                  "min": 186,
+                  "max": 200,
+                  "label": "Green Blue White"
+                },
+                {
+                  "kind": "range",
+                  "min": 201,
+                  "max": 215,
+                  "label": "Red Green Blue White"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 230,
+                  "label": "Auto (single colour) Speed slow - fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Auto (all colour) Speed slow - fast"
+                }
+              ]
+            },
+            {
+              "name": "LED Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe 1 Hz - 20 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "LED Rotation",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 127,
+                  "label": "Motor indexing"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "Motor rotation (slow - fast)"
+                }
+              ]
+            },
+            {
+              "name": "Strobe Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout",
+                  "effectName": "blackout"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Program 1 (slow - fast)",
+                  "effectName": "program-1-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Program 2 (slow - fast)",
+                  "effectName": "program-2-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Program 3 (slow - fast)",
+                  "effectName": "program-3-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Program 4 (slow - fast)",
+                  "effectName": "program-4-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Program 5 (slow - fast)",
+                  "effectName": "program-5-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Program 6 (slow - fast)",
+                  "effectName": "program-6-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Program 7 (slow - fast)",
+                  "effectName": "program-7-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Program 8 (slow - fast)",
+                  "effectName": "program-8-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Program 9 (slow - fast)",
+                  "effectName": "program-9-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Program 10 (slow - fast)",
+                  "effectName": "program-10-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Program 11 (slow - fast)",
+                  "effectName": "program-11-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Program 12 (slow - fast)",
+                  "effectName": "program-12-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Program 13 (slow - fast)",
+                  "effectName": "program-13-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Program 14 (slow - fast)",
+                  "effectName": "program-14-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Program 15 (slow - fast)",
+                  "effectName": "program-15-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Program 16 (slow - fast)",
+                  "effectName": "program-16-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Program 17 (slow - fast)",
+                  "effectName": "program-17-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 255,
+                  "label": "ON",
+                  "effectName": "on"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

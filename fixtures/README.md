@@ -30,8 +30,14 @@ fixtures/
 │   ├── led-bar-240-8-rgb.lumox.json
 │   └── led-pixel-bar-100-mk2-rgb.lumox.json
 └── Chauvet DJ/ · American DJ/ · Martin/ · Robe/ · Eurolite/ · Cameo/
-    Showtec/ · Elation/ · GLP/ · ETC/ · UKing/ · WLED/ · NoName/   ← brand vendor folders
+    Showtec/ · Elation/ · GLP/ · ETC/ · UKing/ · WLED/ · NoName/ ·
+    Varytec/ · beamZ/ · Briteq/   ← brand vendor folders
 ```
+
+Most brand profiles are **bulk-ported from an open-source `.qxf` fixture library**
+via `tools/qxf-to-lumox.ts` — see [Bulk-ported profiles](#bulk-ported-profiles)
+below and the converter section in
+[knowledge-base/fixtures.md](../docs/knowledge-base/fixtures.md#import-importers).
 
 ## Validating
 
@@ -428,6 +434,30 @@ const json = new LumoxImporter().serialize([def]);
 ---
 
 # Built-in profiles reference
+
+## Bulk-ported profiles
+
+Most brand profiles are **auto-converted from an open-source `.qxf` DMX fixture
+library** (Apache-2.0) by `tools/qxf-to-lumox.ts` (`npm run port-qxf`). Each is too
+numerous to list individually here — they carry their provenance in
+`meta.source` / `meta.author`, and only fixtures that pass `FixtureValidator` are
+written. See the converter section in
+[knowledge-base/fixtures.md](../docs/knowledge-base/fixtures.md#import-importers).
+Current batch (whole vendors; hand-authored profiles in the same folders are kept):
+
+| Vendor | Ported | Folder total |
+|--------|--------|--------------|
+| Eurolite | 120 | 126 |
+| Stairville | 97 | 105 |
+| Showtec | 82 | 84 |
+| Cameo | 68 | 73 |
+| Varytec | 45 | 45 |
+| beamZ | 34 | 34 |
+| Briteq | 31 | 31 |
+| **Total** | **477** | |
+
+The hand-authored single/multi-mode profiles below predate the bulk port and are
+maintained by hand.
 
 ## Generic (single mode)
 

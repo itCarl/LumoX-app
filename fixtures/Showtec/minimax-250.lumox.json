@@ -1,0 +1,582 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/MiniMax 250",
+      "manufacturer": "Showtec",
+      "model": "MiniMax 250",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Klaus Weidenbach",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-MiniMax-250.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 220,
+          "height": 350,
+          "depth": 220,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "ELC 250W",
+          "lumens": null,
+          "colourTemperature": 3400
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 17,
+          "degreesMax": 17
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 510,
+          "tiltMax": 260
+        },
+        "power": {
+          "consumption": 250,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "Standard",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Open/White"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 43,
+                  "label": "Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 44,
+                  "max": 55,
+                  "label": "Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 67,
+                  "label": "Yellow"
+                },
+                {
+                  "kind": "range",
+                  "min": 68,
+                  "max": 79,
+                  "label": "Magenta"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 91,
+                  "label": "Cyan"
+                },
+                {
+                  "kind": "range",
+                  "min": 92,
+                  "max": 107,
+                  "label": "Orange"
+                },
+                {
+                  "kind": "range",
+                  "min": 108,
+                  "max": 119,
+                  "label": "Pink"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 135,
+                  "label": "Mix Red-Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 151,
+                  "label": "Mix Green-Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 152,
+                  "max": 167,
+                  "label": "Mix Blue-Yellow"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 183,
+                  "label": "Mix Yellow-Magenta"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 199,
+                  "label": "Mix Magenta-Cyan"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 215,
+                  "label": "Mix Cyan-Orange"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 227,
+                  "label": "Mix Orange-Pink"
+                },
+                {
+                  "kind": "range",
+                  "min": 228,
+                  "max": 239,
+                  "label": "Mix Pink-White"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Rainbow"
+                }
+              ]
+            },
+            {
+              "name": "Gobo Wheel",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 23,
+                  "label": "Open",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 24,
+                  "max": 47,
+                  "label": "Gobo 1 (Stars)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 48,
+                  "max": 71,
+                  "label": "Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 72,
+                  "max": 95,
+                  "label": "Gobo 3 (Flowers)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 96,
+                  "max": 119,
+                  "label": "Gobo 4 (Stars & Spirals)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 120,
+                  "max": 143,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 144,
+                  "max": 167,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 168,
+                  "max": 191,
+                  "label": "Gobot 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Wheel rotation",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Strobe / Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Closed"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 127,
+                  "label": "Intensity"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 239,
+                  "label": "Strobe effect"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Open"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "Extended",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Wheel",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Open/White"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Red"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 43,
+                  "label": "Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 44,
+                  "max": 55,
+                  "label": "Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 67,
+                  "label": "Yellow"
+                },
+                {
+                  "kind": "range",
+                  "min": 68,
+                  "max": 79,
+                  "label": "Magenta"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 91,
+                  "label": "Cyan"
+                },
+                {
+                  "kind": "range",
+                  "min": 92,
+                  "max": 107,
+                  "label": "Orange"
+                },
+                {
+                  "kind": "range",
+                  "min": 108,
+                  "max": 119,
+                  "label": "Pink"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 135,
+                  "label": "Mix Red-Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 151,
+                  "label": "Mix Green-Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 152,
+                  "max": 167,
+                  "label": "Mix Blue-Yellow"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 183,
+                  "label": "Mix Yellow-Magenta"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 199,
+                  "label": "Mix Magenta-Cyan"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 215,
+                  "label": "Mix Cyan-Orange"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 227,
+                  "label": "Mix Orange-Pink"
+                },
+                {
+                  "kind": "range",
+                  "min": 228,
+                  "max": 239,
+                  "label": "Mix Pink-White"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Rainbow"
+                }
+              ]
+            },
+            {
+              "name": "Gobo Wheel",
+              "typeId": "gobo-wheel-1",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "gobo",
+                  "min": 0,
+                  "max": 23,
+                  "label": "Open",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 24,
+                  "max": 47,
+                  "label": "Gobo 1 (Stars)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 48,
+                  "max": 71,
+                  "label": "Gobo 2",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 72,
+                  "max": 95,
+                  "label": "Gobo 3 (Flowers)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 96,
+                  "max": 119,
+                  "label": "Gobo 4 (Stars & Spirals)",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 120,
+                  "max": 143,
+                  "label": "Gobo 5",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 144,
+                  "max": 167,
+                  "label": "Gobo 6",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 168,
+                  "max": 191,
+                  "label": "Gobot 7",
+                  "image": null,
+                  "shake": false
+                },
+                {
+                  "kind": "gobo",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Wheel rotation",
+                  "image": null,
+                  "shake": false
+                }
+              ]
+            },
+            {
+              "name": "Strobe / Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "Closed"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 127,
+                  "label": "Intensity"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 239,
+                  "label": "Strobe effect"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Open"
+                }
+              ]
+            },
+            {
+              "name": "Lamp Control",
+              "typeId": "lamp",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Lamp ON"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Reset after 5 seconds"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 250,
+                  "label": "Lamp OFF"
+                },
+                {
+                  "kind": "range",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Lamp OFF after 10 seconds"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

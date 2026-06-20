@@ -1,0 +1,479 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/LED Par 64 Floor 5in1 7x10W RGBWA",
+      "manufacturer": "Varytec",
+      "model": "LED Par 64 Floor 5in1 7x10W RGBWA",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Facek",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-LED-PAR-64-Floor-5in1.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 290,
+          "height": 285,
+          "depth": 410,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 160,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "1ch",
+          "name": "1 Channel",
+          "channels": [
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Off",
+                  "effectName": "off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 255,
+                  "label": "36 different colour macros",
+                  "effectName": "36-different-colour-macros"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2ch",
+          "name": "2 Channel",
+          "channels": [
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Off",
+                  "effectName": "off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 255,
+                  "label": "36 different colour macros",
+                  "effectName": "36-different-colour-macros"
+                }
+              ]
+            },
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Master dimmer"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Master dimmer"
+                }
+              ]
+            },
+            {
+              "name": "Speed of Shutter/Slow-Fast/Sound sensitivy",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 8,
+                  "label": "LED flash off",
+                  "effectName": "led-flash-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 9,
+                  "max": 255,
+                  "label": "speed of shutter/special functions slow-fast, sound\nsensitivity",
+                  "effectName": "speed-of-shutter-special-functions-slow-fast-sound-sensitivity"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 1,
+                  "max": 255,
+                  "label": "Master dimmer"
+                }
+              ]
+            },
+            {
+              "name": "Speed of Shutter/Slow-Fast/Sound sensitivy",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 8,
+                  "label": "LED flash off",
+                  "effectName": "led-flash-off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 9,
+                  "max": 255,
+                  "label": "speed of shutter/special functions slow-fast, sound\nsensitivity",
+                  "effectName": "speed-of-shutter-special-functions-slow-fast-sound-sensitivity"
+                }
+              ]
+            },
+            {
+              "name": "Function",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "LED flash",
+                  "effectName": "led-flash"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 19,
+                  "label": "automatic dimming (upwards)",
+                  "effectName": "automatic-dimming-upwards"
+                },
+                {
+                  "kind": "effect",
+                  "min": 20,
+                  "max": 29,
+                  "label": "automatic dimming (downwards)",
+                  "effectName": "automatic-dimming-downwards"
+                },
+                {
+                  "kind": "effect",
+                  "min": 30,
+                  "max": 39,
+                  "label": "automatic dimming (upwards/downwards)",
+                  "effectName": "automatic-dimming-upwards-downwards"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 49,
+                  "label": "colour change (5 colours)",
+                  "effectName": "colour-change-5-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 59,
+                  "label": "colour change (30 colours)",
+                  "effectName": "colour-change-30-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 60,
+                  "max": 69,
+                  "label": "colour shift",
+                  "effectName": "colour-shift"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 79,
+                  "label": "colour shift (8 colours)",
+                  "effectName": "colour-shift-8-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 89,
+                  "label": "colour flash change (5 colours)",
+                  "effectName": "colour-flash-change-5-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 99,
+                  "label": "colour change (30 colours)",
+                  "effectName": "colour-change-30-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 109,
+                  "label": "colour change (40 colours)",
+                  "effectName": "colour-change-40-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 110,
+                  "max": 119,
+                  "label": "colour change (10 colours)",
+                  "effectName": "colour-change-10-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 129,
+                  "label": "colour change (48 colours)",
+                  "effectName": "colour-change-48-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 139,
+                  "label": "LED flash (32 colours)",
+                  "effectName": "led-flash-32-colours"
+                },
+                {
+                  "kind": "effect",
+                  "min": 140,
+                  "max": 149,
+                  "label": "colour shift red/green",
+                  "effectName": "colour-shift-red-green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 159,
+                  "label": "colour shift red/blue",
+                  "effectName": "colour-shift-red-blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 169,
+                  "label": "colour shift red/white",
+                  "effectName": "colour-shift-red-white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 179,
+                  "label": "colour shift white/green",
+                  "effectName": "colour-shift-white-green"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 189,
+                  "label": "colour shift white/blue",
+                  "effectName": "colour-shift-white-blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 199,
+                  "label": "colour shift green/blue",
+                  "effectName": "colour-shift-green-blue"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 209,
+                  "label": "colour shift red/green/blue/white",
+                  "effectName": "colour-shift-red-green-blue-white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 219,
+                  "label": "colour shift red/green/amber/white",
+                  "effectName": "colour-shift-red-green-amber-white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 229,
+                  "label": "colour shift red/blue/amber/white",
+                  "effectName": "colour-shift-red-blue-amber-white"
+                },
+                {
+                  "kind": "effect",
+                  "min": 230,
+                  "max": 239,
+                  "label": "All program mode run",
+                  "effectName": "all-program-mode-run"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "colour change sound controlled",
+                  "effectName": "colour-change-sound-controlled"
+                }
+              ]
+            },
+            {
+              "name": "Stand Alone",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "static colour change sound controlled"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 255,
+                  "label": "flash colour change sound controlled"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

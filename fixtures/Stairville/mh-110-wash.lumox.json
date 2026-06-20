@@ -1,0 +1,352 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/MH-110 Wash",
+      "manufacturer": "Stairville",
+      "model": "MH-110 Wash",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Thierry Rodolfo",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-MH-110-Wash.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 260,
+          "height": 310,
+          "depth": 148,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 15,
+          "degreesMax": 15
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 630,
+          "tiltMax": 220
+        },
+        "power": {
+          "consumption": 100,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "14ch",
+          "name": "Standard",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan Fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt Fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan / Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "CTO",
+              "typeId": "cto",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 35,
+                  "label": "Blackout, all LEDs off"
+                },
+                {
+                  "kind": "range",
+                  "min": 36,
+                  "max": 55,
+                  "label": "3200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 75,
+                  "label": "3400K"
+                },
+                {
+                  "kind": "range",
+                  "min": 76,
+                  "max": 95,
+                  "label": "4200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 115,
+                  "label": "4900K"
+                },
+                {
+                  "kind": "range",
+                  "min": 116,
+                  "max": 135,
+                  "label": "5600K"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 175,
+                  "label": "6500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 195,
+                  "label": "7200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 215,
+                  "label": "8000K"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 235,
+                  "label": "8500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 236,
+                  "max": 255,
+                  "label": "10000K"
+                }
+              ]
+            },
+            {
+              "name": "Colour Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 14,
+                  "label": "Blackout, all LEDs off"
+                },
+                {
+                  "kind": "range",
+                  "min": 15,
+                  "max": 255,
+                  "label": "One of 28 preprogrammed colours"
+                }
+              ]
+            },
+            {
+              "name": "Strobe effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 140,
+                  "label": "Strobe, Increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 141,
+                  "max": 255,
+                  "label": "Strobe, Random speed",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Special functions",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 99,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 199,
+                  "label": "Automatic sound"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 255,
+                  "label": "Reset"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 Channels",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan / Tilt Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 140,
+                  "label": "Strobe, Increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 141,
+                  "max": 255,
+                  "label": "Strobe, Random speed",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

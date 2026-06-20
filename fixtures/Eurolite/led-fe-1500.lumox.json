@@ -1,0 +1,718 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED FE-1500",
+      "manufacturer": "Eurolite",
+      "model": "LED FE-1500",
+      "type": "Effect",
+      "meta": {
+        "author": "Robert Box",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-FE-1500.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 246,
+          "height": 315,
+          "depth": 313,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4.2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED/laser",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "9ch",
+          "name": "9-channel",
+          "channels": [
+            {
+              "name": "Operating mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout (all light beams off)",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 24,
+                  "label": "Aut0: Laser + RGBWA LEDs + white LEDs",
+                  "effectName": "aut0-laser-rgbwa-leds-white-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 25,
+                  "max": 39,
+                  "label": "Aut1: Laser + RGBWA LEDs",
+                  "effectName": "aut1-laser-rgbwa-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 54,
+                  "label": "Aut2: Laser + white LEDs",
+                  "effectName": "aut2-laser-white-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 55,
+                  "max": 69,
+                  "label": "Aut3: RGBWA LEDs + white LEDs",
+                  "effectName": "aut3-rgbwa-leds-white-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 84,
+                  "label": "Aut4: RGBWA LEDs",
+                  "effectName": "aut4-rgbwa-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 99,
+                  "label": "Aut5: Laser",
+                  "effectName": "aut5-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 114,
+                  "label": "Aut6: white LEDs",
+                  "effectName": "aut6-white-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 115,
+                  "max": 129,
+                  "label": "Sou0: Laser + RGBWA LEDs + white LEDs",
+                  "effectName": "sou0-laser-rgbwa-leds-white-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 144,
+                  "label": "Sou1: Laser + RGBWA LEDs",
+                  "effectName": "sou1-laser-rgbwa-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 145,
+                  "max": 159,
+                  "label": "Sou2: Laser + white LEDs",
+                  "effectName": "sou2-laser-white-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 174,
+                  "label": "Sou3: RGBWA LEDs + white LEDs",
+                  "effectName": "sou3-rgbwa-leds-white-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 175,
+                  "max": 189,
+                  "label": "Sou4: RGBWA LEDs",
+                  "effectName": "sou4-rgbwa-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 204,
+                  "label": "Sou5: Laser",
+                  "effectName": "sou5-laser"
+                },
+                {
+                  "kind": "effect",
+                  "min": 205,
+                  "max": 219,
+                  "label": "Sou6: white LEDs",
+                  "effectName": "sou6-white-leds"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 255,
+                  "label": "DMX mode: This setting enables the functions of the other DMX channels.",
+                  "effectName": "dmx-mode-this-setting-enables-the-functions-of-the-other-dmx-channels"
+                }
+              ]
+            },
+            {
+              "name": "RGBWA LEDs",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout (all light beams off)",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 15,
+                  "max": 19,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 25,
+                  "max": 29,
+                  "label": "Amber",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 34,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 35,
+                  "max": 39,
+                  "label": "White + red",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 44,
+                  "label": "Red + green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 49,
+                  "label": "Green + blue",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Blue + amber",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Amber + white",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 64,
+                  "label": "White + green",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Green + amber",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Amber + red",
+                  "color": "#ffbf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 75,
+                  "max": 79,
+                  "label": "Red + blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 84,
+                  "label": "Blue + white",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Red + green + blue",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 94,
+                  "label": "Red + green + amber",
+                  "color": "#ffdf00"
+                },
+                {
+                  "kind": "color",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Red + green + white",
+                  "color": "#ffff80"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 104,
+                  "label": "Red + amber + blue",
+                  "color": "#ff6080"
+                },
+                {
+                  "kind": "color",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Red + white + blue",
+                  "color": "#ff80ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 114,
+                  "label": "Red + amber + white",
+                  "color": "#ff9555"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Amber + green + blue",
+                  "color": "#92ff92"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Blue + green + white",
+                  "color": "#80ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Amber + green + white",
+                  "color": "#b9ff5d"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Amber + white + blue",
+                  "color": "#ffdfff"
+                },
+                {
+                  "kind": "color",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Red + green + blue + amber",
+                  "color": "#ffdf80"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Red + green + blue + white",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Blue + green + white + amber",
+                  "color": "#b9ffb9"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 154,
+                  "label": "Red + green + amber + white",
+                  "color": "#ffea55"
+                },
+                {
+                  "kind": "color",
+                  "min": 155,
+                  "max": 159,
+                  "label": "White + red + blue + amber",
+                  "color": "#ff95aa"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 164,
+                  "label": "Red + green + blue + amber + white",
+                  "color": "#ffeaaa"
+                },
+                {
+                  "kind": "range",
+                  "min": 165,
+                  "max": 209,
+                  "label": "Automatic color change (one color)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Automatic color change (two colors)"
+                }
+              ]
+            },
+            {
+              "name": "Color change speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe effect of the RGBWA LEDs",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No strobe effect",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 5,
+                  "max": 254,
+                  "label": "Strobe effect fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound-controlled strobe effect",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "White strobe LEDs",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout (all strobe LEDs off)",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Running light pattern 1 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Running light pattern 2 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Running light pattern 3 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 40,
+                  "max": 49,
+                  "label": "Running light pattern 4 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Running light pattern 5 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Running light pattern 6 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 70,
+                  "max": 79,
+                  "label": "Running light pattern 7 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Running light pattern 8 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Running light pattern 9 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Running light pattern 10 fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 255,
+                  "label": "All strobe LEDs constantly on",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Laser",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Blackout (laser off)",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 49,
+                  "label": "Red on",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 89,
+                  "label": "Green on",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 129,
+                  "label": "Change green and red",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 169,
+                  "label": "Red on + green strobe",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Green on + red strobe",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Red strobe + green strobe",
+                  "color": "#ff0000"
+                }
+              ]
+            },
+            {
+              "name": "Strobe effect lasers",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No strobe effect",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 5,
+                  "max": 254,
+                  "label": "Strobe effect fast -> slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Sound-controlled strobe effect",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Rotation of the RGBWA LEDs",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Clockwise rotation slow -> fast",
+                  "effectName": "clockwise-rotation-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 133,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Anticlockwise rotation slow -> fast",
+                  "effectName": "anticlockwise-rotation-slow-fast"
+                }
+              ]
+            },
+            {
+              "name": "Rotation of the lasers",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 5,
+                  "max": 127,
+                  "label": "Clockwise rotation slow -> fast",
+                  "effectName": "clockwise-rotation-slow-fast"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 133,
+                  "label": "No rotation",
+                  "effectName": "no-rotation"
+                },
+                {
+                  "kind": "effect",
+                  "min": 134,
+                  "max": 255,
+                  "label": "Anticlockwise rotation slow -> fast",
+                  "effectName": "anticlockwise-rotation-slow-fast"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

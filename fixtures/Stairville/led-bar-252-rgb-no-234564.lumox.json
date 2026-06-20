@@ -1,0 +1,299 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/LED BAR 252 RGB (no. 234564)",
+      "manufacturer": "Stairville",
+      "model": "LED BAR 252 RGB (no. 234564)",
+      "type": "LED Bar",
+      "meta": {
+        "author": "Ralf Herold",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-LED-BAR-RGB-252.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 1100,
+          "height": 161,
+          "depth": 114,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 4.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 4500
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 20,
+          "degreesMax": 20
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 30,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "11ch",
+          "name": "Mode 1",
+          "channels": [
+            {
+              "name": "Mode 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 40,
+                  "label": "Black out",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 80,
+                  "label": "3-Segment Dimmer",
+                  "effectName": "3-segment-dimmer"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 120,
+                  "label": "1-Segment Dimmer",
+                  "effectName": "1-segment-dimmer"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 160,
+                  "label": "Color Shutter",
+                  "effectName": "color-shutter"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 200,
+                  "label": "Color Change",
+                  "effectName": "color-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 240,
+                  "label": "Color Flow",
+                  "effectName": "color-flow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Dream Flow",
+                  "effectName": "dream-flow"
+                }
+              ]
+            },
+            {
+              "name": "Shutter / Speed",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 40,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 41,
+                  "max": 160,
+                  "label": "Shutter"
+                },
+                {
+                  "kind": "range",
+                  "min": 161,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "Red1 / All Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1 / All Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1 / All Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "Mode 2",
+          "channels": [
+            {
+              "name": "Mode 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 40,
+                  "label": "Black out",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 80,
+                  "label": "<11-Channel>",
+                  "effectName": "11-channel"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 120,
+                  "label": "1-Segment Dimmer",
+                  "effectName": "1-segment-dimmer"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 160,
+                  "label": "Color Shutter",
+                  "effectName": "color-shutter"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 200,
+                  "label": "Color Change",
+                  "effectName": "color-change"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 240,
+                  "label": "Color Flow",
+                  "effectName": "color-flow"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Dream Flow",
+                  "effectName": "dream-flow"
+                }
+              ]
+            },
+            {
+              "name": "Shutter / Speed",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 40,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 41,
+                  "max": 160,
+                  "label": "Shutter"
+                },
+                {
+                  "kind": "range",
+                  "min": 161,
+                  "max": 255,
+                  "label": "Speed"
+                }
+              ]
+            },
+            {
+              "name": "Red1 / All Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1 / All Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue 1 / All Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

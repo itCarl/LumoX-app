@@ -1,0 +1,318 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/ZIPP LED DMX",
+      "manufacturer": "Showtec",
+      "model": "ZIPP LED DMX",
+      "type": "Effect",
+      "meta": {
+        "author": "Marek",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-ZIPP-LED-DMX.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 300,
+          "height": 300,
+          "depth": 300,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.06,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 110
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 40,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "Mode1",
+          "channels": [
+            {
+              "name": "Colour",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 12,
+                  "label": "None",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 13,
+                  "max": 25,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 26,
+                  "max": 38,
+                  "label": "Green",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 39,
+                  "max": 51,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 52,
+                  "max": 64,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 77,
+                  "label": "Red + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 90,
+                  "label": "Red + Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 103,
+                  "label": "Red + White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 104,
+                  "max": 116,
+                  "label": "Green + Blue",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 117,
+                  "max": 129,
+                  "label": "Green + White",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 142,
+                  "label": "Blue + White",
+                  "color": "#00007f"
+                },
+                {
+                  "kind": "range",
+                  "min": 143,
+                  "max": 155,
+                  "label": "Green + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 168,
+                  "label": "Red + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 169,
+                  "max": 181,
+                  "label": "Red + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 182,
+                  "max": 194,
+                  "label": "Red + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 207,
+                  "label": "Red + Greeen + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 255,
+                  "label": "Colour chase"
+                }
+              ]
+            },
+            {
+              "name": "Colour 2",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 12,
+                  "label": "None",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "color",
+                  "min": 13,
+                  "max": 25,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 26,
+                  "max": 38,
+                  "label": "Green",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 39,
+                  "max": 51,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 52,
+                  "max": 64,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 77,
+                  "label": "Red + Green",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 90,
+                  "label": "Red + Blue",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 103,
+                  "label": "Red + White",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 104,
+                  "max": 116,
+                  "label": "Green + Blue",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 117,
+                  "max": 129,
+                  "label": "Green + White",
+                  "color": "#00aa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 142,
+                  "label": "Blue + White",
+                  "color": "#00007f"
+                },
+                {
+                  "kind": "range",
+                  "min": 143,
+                  "max": 155,
+                  "label": "Green + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 168,
+                  "label": "Red + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 169,
+                  "max": 181,
+                  "label": "Red + Green + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 182,
+                  "max": 194,
+                  "label": "Red + Green + Blue"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 207,
+                  "label": "Red + Greeen + Blue + White"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 255,
+                  "label": "Colour chase"
+                }
+              ]
+            },
+            {
+              "name": "Strobo",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 5,
+                  "max": 255,
+                  "label": "Strobe function from slow to fast"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

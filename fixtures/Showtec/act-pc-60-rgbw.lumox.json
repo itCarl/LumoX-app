@@ -1,0 +1,885 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/ACT PC 60 RGBW",
+      "manufacturer": "Showtec",
+      "model": "ACT PC 60 RGBW",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Michel Sliepenbeek",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-ACT-PC-60-RGBW.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 165,
+          "height": 265,
+          "depth": 313,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.24,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "PC",
+          "degreesMin": 3.7,
+          "degreesMax": 31.5
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 70,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "11ch",
+          "name": "11 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Color Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "color",
+                  "min": 1,
+                  "max": 4,
+                  "label": "Color 1 - Red",
+                  "color": "#ff1000"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 8,
+                  "label": "Color 2",
+                  "color": "#ff2000"
+                },
+                {
+                  "kind": "color",
+                  "min": 9,
+                  "max": 12,
+                  "label": "Color 3",
+                  "color": "#ff3000"
+                },
+                {
+                  "kind": "color",
+                  "min": 13,
+                  "max": 16,
+                  "label": "Color 4",
+                  "color": "#ff4000"
+                },
+                {
+                  "kind": "color",
+                  "min": 17,
+                  "max": 20,
+                  "label": "Color 5",
+                  "color": "#ff5000"
+                },
+                {
+                  "kind": "color",
+                  "min": 21,
+                  "max": 24,
+                  "label": "Color 6",
+                  "color": "#ff6000"
+                },
+                {
+                  "kind": "color",
+                  "min": 25,
+                  "max": 28,
+                  "label": "Color 7",
+                  "color": "#ff7000"
+                },
+                {
+                  "kind": "color",
+                  "min": 29,
+                  "max": 32,
+                  "label": "Color 8 - Orange",
+                  "color": "#ff8000"
+                },
+                {
+                  "kind": "color",
+                  "min": 33,
+                  "max": 36,
+                  "label": "Color 9",
+                  "color": "#ff9000"
+                },
+                {
+                  "kind": "color",
+                  "min": 37,
+                  "max": 40,
+                  "label": "Color 10",
+                  "color": "#ffa000"
+                },
+                {
+                  "kind": "color",
+                  "min": 41,
+                  "max": 44,
+                  "label": "Color 11",
+                  "color": "#ffb000"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 48,
+                  "label": "Color 12",
+                  "color": "#ffc000"
+                },
+                {
+                  "kind": "color",
+                  "min": 49,
+                  "max": 52,
+                  "label": "Color 13",
+                  "color": "#ffd000"
+                },
+                {
+                  "kind": "color",
+                  "min": 53,
+                  "max": 56,
+                  "label": "Color 14",
+                  "color": "#ffe000"
+                },
+                {
+                  "kind": "color",
+                  "min": 57,
+                  "max": 60,
+                  "label": "Color 15",
+                  "color": "#fff000"
+                },
+                {
+                  "kind": "color",
+                  "min": 61,
+                  "max": 64,
+                  "label": "Color 16 - Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 68,
+                  "label": "Color 17",
+                  "color": "#ffff10"
+                },
+                {
+                  "kind": "color",
+                  "min": 69,
+                  "max": 72,
+                  "label": "Color 18",
+                  "color": "#ffff20"
+                },
+                {
+                  "kind": "color",
+                  "min": 73,
+                  "max": 76,
+                  "label": "Color 19",
+                  "color": "#f0ff30"
+                },
+                {
+                  "kind": "color",
+                  "min": 77,
+                  "max": 80,
+                  "label": "Color 20",
+                  "color": "#e0ff40"
+                },
+                {
+                  "kind": "color",
+                  "min": 81,
+                  "max": 84,
+                  "label": "Color 21",
+                  "color": "#d0ff50"
+                },
+                {
+                  "kind": "color",
+                  "min": 85,
+                  "max": 88,
+                  "label": "Color 22",
+                  "color": "#c0ff60"
+                },
+                {
+                  "kind": "color",
+                  "min": 89,
+                  "max": 92,
+                  "label": "Color 23",
+                  "color": "#b0ff70"
+                },
+                {
+                  "kind": "color",
+                  "min": 93,
+                  "max": 96,
+                  "label": "Color 24",
+                  "color": "#a0ff80"
+                },
+                {
+                  "kind": "color",
+                  "min": 97,
+                  "max": 100,
+                  "label": "Color 25",
+                  "color": "#90ff90"
+                },
+                {
+                  "kind": "color",
+                  "min": 101,
+                  "max": 104,
+                  "label": "Color 26",
+                  "color": "#80ffa0"
+                },
+                {
+                  "kind": "color",
+                  "min": 105,
+                  "max": 108,
+                  "label": "Color 27",
+                  "color": "#70ffb0"
+                },
+                {
+                  "kind": "color",
+                  "min": 109,
+                  "max": 112,
+                  "label": "Color 28",
+                  "color": "#60ffc0"
+                },
+                {
+                  "kind": "color",
+                  "min": 113,
+                  "max": 116,
+                  "label": "Color 29",
+                  "color": "#50ffd0"
+                },
+                {
+                  "kind": "color",
+                  "min": 117,
+                  "max": 120,
+                  "label": "Color 30",
+                  "color": "#40ffe0"
+                },
+                {
+                  "kind": "color",
+                  "min": 121,
+                  "max": 124,
+                  "label": "Color 31",
+                  "color": "#30fff0"
+                },
+                {
+                  "kind": "color",
+                  "min": 125,
+                  "max": 128,
+                  "label": "Color 32",
+                  "color": "#20ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 129,
+                  "max": 132,
+                  "label": "Color 33",
+                  "color": "#10ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 133,
+                  "max": 136,
+                  "label": "Color 34",
+                  "color": "#00f0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 137,
+                  "max": 140,
+                  "label": "Color 35",
+                  "color": "#00e0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 141,
+                  "max": 144,
+                  "label": "Color 36",
+                  "color": "#00d0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 145,
+                  "max": 148,
+                  "label": "Color 37",
+                  "color": "#00c0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 149,
+                  "max": 152,
+                  "label": "Color 38",
+                  "color": "#00b0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 153,
+                  "max": 156,
+                  "label": "Color 39",
+                  "color": "#00a0ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 157,
+                  "max": 160,
+                  "label": "Color 40",
+                  "color": "#0090ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 161,
+                  "max": 164,
+                  "label": "Color 41",
+                  "color": "#0080ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 165,
+                  "max": 168,
+                  "label": "Color 42",
+                  "color": "#0070ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 169,
+                  "max": 172,
+                  "label": "Color 43",
+                  "color": "#0060ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 173,
+                  "max": 176,
+                  "label": "Color 44",
+                  "color": "#0050ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 177,
+                  "max": 180,
+                  "label": "Color 45",
+                  "color": "#0040ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 181,
+                  "max": 184,
+                  "label": "Color 46",
+                  "color": "#0030ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 185,
+                  "max": 188,
+                  "label": "Color 47",
+                  "color": "#0020ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 189,
+                  "max": 192,
+                  "label": "Color 48",
+                  "color": "#0010ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 193,
+                  "max": 196,
+                  "label": "Color 49 - Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 197,
+                  "max": 200,
+                  "label": "Color 50",
+                  "color": "#1a00f0"
+                },
+                {
+                  "kind": "color",
+                  "min": 201,
+                  "max": 204,
+                  "label": "Color 51",
+                  "color": "#2000e0"
+                },
+                {
+                  "kind": "color",
+                  "min": 205,
+                  "max": 208,
+                  "label": "Color 52",
+                  "color": "#3000d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 209,
+                  "max": 212,
+                  "label": "Color 53",
+                  "color": "#4000c0"
+                },
+                {
+                  "kind": "color",
+                  "min": 213,
+                  "max": 216,
+                  "label": "Color 54",
+                  "color": "#5000b0"
+                },
+                {
+                  "kind": "color",
+                  "min": 217,
+                  "max": 220,
+                  "label": "Color 55",
+                  "color": "#6000a0"
+                },
+                {
+                  "kind": "color",
+                  "min": 221,
+                  "max": 224,
+                  "label": "Color 56",
+                  "color": "#700090"
+                },
+                {
+                  "kind": "color",
+                  "min": 225,
+                  "max": 228,
+                  "label": "Color 57",
+                  "color": "#800080"
+                },
+                {
+                  "kind": "color",
+                  "min": 229,
+                  "max": 232,
+                  "label": "Color 58",
+                  "color": "#900070"
+                },
+                {
+                  "kind": "color",
+                  "min": 233,
+                  "max": 236,
+                  "label": "Color 59",
+                  "color": "#a00060"
+                },
+                {
+                  "kind": "color",
+                  "min": 237,
+                  "max": 240,
+                  "label": "Color 60",
+                  "color": "#b00050"
+                },
+                {
+                  "kind": "color",
+                  "min": 241,
+                  "max": 244,
+                  "label": "Color 61",
+                  "color": "#c00040"
+                },
+                {
+                  "kind": "color",
+                  "min": 245,
+                  "max": 248,
+                  "label": "Color 62",
+                  "color": "#d00030"
+                },
+                {
+                  "kind": "color",
+                  "min": 249,
+                  "max": 252,
+                  "label": "Color 63",
+                  "color": "#e00020"
+                },
+                {
+                  "kind": "color",
+                  "min": 253,
+                  "max": 255,
+                  "label": "Color 64",
+                  "color": "#f00010"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 40,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Closed (No Light Output)",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Strobe, from Low to High Frequency",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Strobe, from Low to High Rate",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Random Strobe, from Low to High Rate",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 255,
+              "capabilities": []
+            },
+            {
+              "name": "Color Temperature",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No Function"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 255,
+                  "label": "Color Temperature from Warm (3000 K) to Cold (7200K)"
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Chases",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No Function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 25,
+                  "label": "Chase 1",
+                  "effectName": "chase-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 26,
+                  "max": 50,
+                  "label": "Chase 2",
+                  "effectName": "chase-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 75,
+                  "label": "Chase 3",
+                  "effectName": "chase-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 76,
+                  "max": 100,
+                  "label": "Chase 4",
+                  "effectName": "chase-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 125,
+                  "label": "Chase 5",
+                  "effectName": "chase-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 126,
+                  "max": 150,
+                  "label": "Chase 6",
+                  "effectName": "chase-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 175,
+                  "label": "Chase 7",
+                  "effectName": "chase-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 200,
+                  "label": "Chase 8",
+                  "effectName": "chase-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 225,
+                  "label": "Chase 9",
+                  "effectName": "chase-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 226,
+                  "max": 255,
+                  "label": "Chase 10",
+                  "effectName": "chase-10"
+                }
+              ]
+            },
+            {
+              "name": "Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 40,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Closed (No Light Output)",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Strobe, from Low to High Frequency",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Strobe, from Low to High Rate",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Random Strobe, from Low to High Rate",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 255,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

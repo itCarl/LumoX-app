@@ -1,0 +1,682 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Compact Par 18 Tri MKII",
+      "manufacturer": "Showtec",
+      "model": "Compact Par 18 Tri MKII",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Thierry Rodolfo",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Compact-Par-18-Tri-MKII.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 250,
+          "height": 290,
+          "depth": 96,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.84,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 9600,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 28,
+          "degreesMax": 28
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 60,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "9ch",
+          "name": "6 Channels",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "RGB Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 8,
+                  "label": "Macro 1",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 9,
+                  "max": 17,
+                  "label": "Macro 2",
+                  "color": "#ff3200"
+                },
+                {
+                  "kind": "color",
+                  "min": 18,
+                  "max": 26,
+                  "label": "Macro 3",
+                  "color": "#ff9600"
+                },
+                {
+                  "kind": "color",
+                  "min": 27,
+                  "max": 35,
+                  "label": "Macro 4",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 44,
+                  "label": "Macro 5",
+                  "color": "#c8ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 53,
+                  "label": "Macro 6",
+                  "color": "#64ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 62,
+                  "label": "Macro 7",
+                  "color": "#28ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 63,
+                  "max": 71,
+                  "label": "Macro 8",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 72,
+                  "max": 80,
+                  "label": "Macro 9",
+                  "color": "#00ff32"
+                },
+                {
+                  "kind": "color",
+                  "min": 81,
+                  "max": 89,
+                  "label": "Macro 10",
+                  "color": "#00ff96"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 98,
+                  "label": "Macro 11",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 99,
+                  "max": 107,
+                  "label": "Macro 12",
+                  "color": "#0096ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 108,
+                  "max": 116,
+                  "label": "Macro 13",
+                  "color": "#0032ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 117,
+                  "max": 125,
+                  "label": "Macro 14",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 134,
+                  "label": "Macro 15",
+                  "color": "#3200ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 135,
+                  "max": 143,
+                  "label": "Macro 16",
+                  "color": "#9600ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 144,
+                  "max": 152,
+                  "label": "Macro 17",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 153,
+                  "max": 161,
+                  "label": "Macro 18",
+                  "color": "#dc0032"
+                },
+                {
+                  "kind": "color",
+                  "min": 162,
+                  "max": 170,
+                  "label": "Macro 19",
+                  "color": "#963264"
+                },
+                {
+                  "kind": "color",
+                  "min": 171,
+                  "max": 179,
+                  "label": "Macro 20",
+                  "color": "#32b4dc"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 188,
+                  "label": "Macro 21",
+                  "color": "#32dc64"
+                },
+                {
+                  "kind": "color",
+                  "min": 189,
+                  "max": 197,
+                  "label": "Macro 22",
+                  "color": "#96dc00"
+                },
+                {
+                  "kind": "color",
+                  "min": 198,
+                  "max": 206,
+                  "label": "Macro 23",
+                  "color": "#9600dc"
+                },
+                {
+                  "kind": "color",
+                  "min": 207,
+                  "max": 215,
+                  "label": "Macro 24",
+                  "color": "#00b4dc"
+                },
+                {
+                  "kind": "color",
+                  "min": 216,
+                  "max": 224,
+                  "label": "Macro 25",
+                  "color": "#00dc32"
+                },
+                {
+                  "kind": "color",
+                  "min": 225,
+                  "max": 233,
+                  "label": "Macro 26",
+                  "color": "#dc6432"
+                },
+                {
+                  "kind": "color",
+                  "min": 234,
+                  "max": 242,
+                  "label": "Macro 27",
+                  "color": "#dcc864"
+                },
+                {
+                  "kind": "color",
+                  "min": 243,
+                  "max": 251,
+                  "label": "Macro 28",
+                  "color": "#e1c896"
+                },
+                {
+                  "kind": "color",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Macro 29",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Programs Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Audio Sensitivity",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Color Programs",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 24,
+                  "label": "29 static color program Mode via Channel 2",
+                  "effectName": "29-static-color-program-mode-via-channel-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 25,
+                  "max": 49,
+                  "label": "Program 2",
+                  "effectName": "program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 74,
+                  "label": "Program 3",
+                  "effectName": "program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 75,
+                  "max": 99,
+                  "label": "Program 4",
+                  "effectName": "program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 100,
+                  "max": 124,
+                  "label": "Program 5",
+                  "effectName": "program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 125,
+                  "max": 149,
+                  "label": "Program 6",
+                  "effectName": "program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 150,
+                  "max": 174,
+                  "label": "Program 7",
+                  "effectName": "program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 175,
+                  "max": 199,
+                  "label": "Program 8",
+                  "effectName": "program-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 224,
+                  "label": "Program 9",
+                  "effectName": "program-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 225,
+                  "max": 249,
+                  "label": "Program 10",
+                  "effectName": "program-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Sound-controlled",
+                  "effectName": "sound-controlled"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channels",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "3 Channels",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "1ch",
+          "name": "1 Channel",
+          "channels": [
+            {
+              "name": "RGB Macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "color",
+                  "min": 0,
+                  "max": 8,
+                  "label": "Macro 1",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 9,
+                  "max": 17,
+                  "label": "Macro 2",
+                  "color": "#ff3200"
+                },
+                {
+                  "kind": "color",
+                  "min": 18,
+                  "max": 26,
+                  "label": "Macro 3",
+                  "color": "#ff9600"
+                },
+                {
+                  "kind": "color",
+                  "min": 27,
+                  "max": 35,
+                  "label": "Macro 4",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 44,
+                  "label": "Macro 5",
+                  "color": "#c8ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 53,
+                  "label": "Macro 6",
+                  "color": "#64ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 62,
+                  "label": "Macro 7",
+                  "color": "#28ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 63,
+                  "max": 71,
+                  "label": "Macro 8",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 72,
+                  "max": 80,
+                  "label": "Macro 9",
+                  "color": "#00ff32"
+                },
+                {
+                  "kind": "color",
+                  "min": 81,
+                  "max": 89,
+                  "label": "Macro 10",
+                  "color": "#00ff96"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 98,
+                  "label": "Macro 11",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 99,
+                  "max": 107,
+                  "label": "Macro 12",
+                  "color": "#0096ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 108,
+                  "max": 116,
+                  "label": "Macro 13",
+                  "color": "#0032ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 117,
+                  "max": 125,
+                  "label": "Macro 14",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 134,
+                  "label": "Macro 15",
+                  "color": "#3200ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 135,
+                  "max": 143,
+                  "label": "Macro 16",
+                  "color": "#9600ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 144,
+                  "max": 152,
+                  "label": "Macro 17",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 153,
+                  "max": 161,
+                  "label": "Macro 18",
+                  "color": "#dc0032"
+                },
+                {
+                  "kind": "color",
+                  "min": 162,
+                  "max": 170,
+                  "label": "Macro 19",
+                  "color": "#963264"
+                },
+                {
+                  "kind": "color",
+                  "min": 171,
+                  "max": 179,
+                  "label": "Macro 20",
+                  "color": "#32b4dc"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 188,
+                  "label": "Macro 21",
+                  "color": "#32dc64"
+                },
+                {
+                  "kind": "color",
+                  "min": 189,
+                  "max": 197,
+                  "label": "Macro 22",
+                  "color": "#96dc00"
+                },
+                {
+                  "kind": "color",
+                  "min": 198,
+                  "max": 206,
+                  "label": "Macro 23",
+                  "color": "#9600dc"
+                },
+                {
+                  "kind": "color",
+                  "min": 207,
+                  "max": 215,
+                  "label": "Macro 24",
+                  "color": "#00b4dc"
+                },
+                {
+                  "kind": "color",
+                  "min": 216,
+                  "max": 224,
+                  "label": "Macro 25",
+                  "color": "#00dc32"
+                },
+                {
+                  "kind": "color",
+                  "min": 225,
+                  "max": 233,
+                  "label": "Macro 26",
+                  "color": "#dc6432"
+                },
+                {
+                  "kind": "color",
+                  "min": 234,
+                  "max": 242,
+                  "label": "Macro 27",
+                  "color": "#dcc864"
+                },
+                {
+                  "kind": "color",
+                  "min": 243,
+                  "max": 251,
+                  "label": "Macro 28",
+                  "color": "#e1c896"
+                },
+                {
+                  "kind": "color",
+                  "min": 252,
+                  "max": 255,
+                  "label": "Macro 29",
+                  "color": "#ffffff"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

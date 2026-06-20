@@ -1,0 +1,588 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED Silent PAR 6",
+      "manufacturer": "Eurolite",
+      "model": "LED Silent PAR 6",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Pascal Fleury",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-Silent-PAR6.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 177,
+          "height": 211,
+          "depth": 143,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 16,
+          "degreesMax": 16
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 45,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Warm white",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe (simple)",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 1,
+                  "max": 5,
+                  "label": "Sound control, 15 colors",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "On",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe effect, with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "11ch",
+          "name": "11 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Warm white",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe (full)",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 55,
+                  "label": "Random strobe effect with increasing speed",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 56,
+                  "max": 105,
+                  "label": "Pulse effects in sequences with increasing speed",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 106,
+                  "max": 155,
+                  "label": "On and off (equal ratio) with increasing speed",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 156,
+                  "max": 205,
+                  "label": "Lightning effect with increasing speed",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 206,
+                  "max": 255,
+                  "label": "Strobe effect with increasing speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Color mixing presets",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 1,
+                  "label": "no function"
+                },
+                {
+                  "kind": "color",
+                  "min": 2,
+                  "max": 43,
+                  "label": "Red increasing",
+                  "color": "#ff0c0b"
+                },
+                {
+                  "kind": "color",
+                  "min": 44,
+                  "max": 85,
+                  "label": "Red decreasing / Green increasing",
+                  "color": "#ff0600"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 127,
+                  "label": "Green decreasing / Blue increasing",
+                  "color": "#06ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Red increasing / Blue 100%",
+                  "color": "#0015ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 211,
+                  "label": "Red 100% / Green increasing / Blue 100%",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 212,
+                  "max": 254,
+                  "label": "Red 100% / Green 100% / Blue 100% / White increasing",
+                  "color": "#bababa"
+                },
+                {
+                  "kind": "color",
+                  "min": 255,
+                  "max": 255,
+                  "label": "Red 100% / Green 100% / Blue 100% / White 100%",
+                  "color": "#ffffff"
+                }
+              ]
+            },
+            {
+              "name": "Color presets",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 15,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 16,
+                  "max": 25,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 26,
+                  "max": 35,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 36,
+                  "max": 45,
+                  "label": "Color mix 1",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 55,
+                  "label": "Color mix 2",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 56,
+                  "max": 65,
+                  "label": "Color mix 3",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 66,
+                  "max": 75,
+                  "label": "Color mix 4",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 76,
+                  "max": 85,
+                  "label": "Color mix 5",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 95,
+                  "label": "Color mix 6",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 105,
+                  "label": "Color mix 7",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 106,
+                  "max": 115,
+                  "label": "Color mix 8",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 116,
+                  "max": 125,
+                  "label": "Color mix 9",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 126,
+                  "max": 135,
+                  "label": "Color mix 10",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 136,
+                  "max": 145,
+                  "label": "Color mix 11",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 146,
+                  "max": 155,
+                  "label": "Color mix 12",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 156,
+                  "max": 165,
+                  "label": "Color mix 13",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 166,
+                  "max": 175,
+                  "label": "Color mix 14",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 176,
+                  "max": 185,
+                  "label": "Color mix 15",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 186,
+                  "max": 195,
+                  "label": "Color mix 16",
+                  "color": "#d46dff"
+                },
+                {
+                  "kind": "color",
+                  "min": 196,
+                  "max": 205,
+                  "label": "White 1",
+                  "color": "#ffaf25"
+                },
+                {
+                  "kind": "color",
+                  "min": 206,
+                  "max": 215,
+                  "label": "White 2",
+                  "color": "#ffcd59"
+                },
+                {
+                  "kind": "color",
+                  "min": 216,
+                  "max": 225,
+                  "label": "Warm White",
+                  "color": "#ffe778"
+                },
+                {
+                  "kind": "color",
+                  "min": 226,
+                  "max": 235,
+                  "label": "White 4",
+                  "color": "#fff6c8"
+                },
+                {
+                  "kind": "color",
+                  "min": 236,
+                  "max": 245,
+                  "label": "White 5",
+                  "color": "#f0fff8"
+                },
+                {
+                  "kind": "color",
+                  "min": 246,
+                  "max": 255,
+                  "label": "White 6",
+                  "color": "#a0fff3"
+                }
+              ]
+            },
+            {
+              "name": "Color change / sound control",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 40,
+                  "label": "Fading colors, 7 colors",
+                  "effectName": "fading-colors-7-colors"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 70,
+                  "label": "Fading colors, R, G, B",
+                  "effectName": "fading-colors-r-g-b"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 100,
+                  "label": "Fading colors, R, G, B with lower color temperature",
+                  "effectName": "fading-colors-r-g-b-with-lower-color-temperature"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 130,
+                  "label": "Switching colors, 7 colors",
+                  "effectName": "switching-colors-7-colors"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 160,
+                  "label": "Switching colors, R, G, B",
+                  "effectName": "switching-colors-r-g-b"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 190,
+                  "label": "Switching colors, C, M, Y",
+                  "effectName": "switching-colors-c-m-y"
+                },
+                {
+                  "kind": "effect",
+                  "min": 191,
+                  "max": 220,
+                  "label": "Sound controlled strobe effect",
+                  "effectName": "sound-controlled-strobe-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 255,
+                  "label": "Sound controlled color change",
+                  "effectName": "sound-controlled-color-change"
+                }
+              ]
+            },
+            {
+              "name": "Speed internal programs",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer speed (step response)",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 20,
+                  "label": "Response characteristics of LEDs"
+                },
+                {
+                  "kind": "range",
+                  "min": 21,
+                  "max": 40,
+                  "label": "Response characteristics of halogen lamps, very fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 41,
+                  "max": 60,
+                  "label": "Response characteristics of halogen lamps, fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 61,
+                  "max": 80,
+                  "label": "Response characteristics of halogen lamps, middle"
+                },
+                {
+                  "kind": "range",
+                  "min": 81,
+                  "max": 100,
+                  "label": "Response characteristics of halogen lamps, slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 255,
+                  "label": "no function"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

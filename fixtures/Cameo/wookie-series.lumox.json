@@ -1,0 +1,1728 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Wookie series",
+      "manufacturer": "Cameo",
+      "model": "Wookie series",
+      "type": "Laser",
+      "meta": {
+        "author": "Andres Robles, Massimo Callegari",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Wookie-series.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 192,
+          "height": 154,
+          "depth": 83,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 1.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 60,
+          "tiltMax": 60
+        },
+        "power": {
+          "consumption": 50,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3 Channel (150G/200R/600B)",
+          "channels": [
+            {
+              "name": "Zooming",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual zooming"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Loop zooming IN speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Loop zooming OUT speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Loop zooming IN-OUT speed"
+                }
+              ]
+            },
+            {
+              "name": "No function",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Mode",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 100,
+                  "label": "Laser Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 155,
+                  "label": "Sound Mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 255,
+                  "label": "Auto Mode with rising speed (0-100%)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch-2",
+          "name": "3 Channel (200RGY)",
+          "channels": [
+            {
+              "name": "Zooming",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual zooming"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Loop zooming IN speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Loop zooming OUT speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Loop zooming IN-OUT speed"
+                }
+              ]
+            },
+            {
+              "name": "Colours RGY",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Original colour"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                }
+              ]
+            },
+            {
+              "name": "Mode",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 100,
+                  "label": "Laser Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 155,
+                  "label": "Sound Mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 255,
+                  "label": "Auto Mode with rising speed (0-100%)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch-3",
+          "name": "3 Channel (400RGB)",
+          "channels": [
+            {
+              "name": "Zooming",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual zooming"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Loop zooming IN speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Loop zooming OUT speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Loop zooming IN-OUT speed"
+                }
+              ]
+            },
+            {
+              "name": "Colours RGB",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Original colour"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                }
+              ]
+            },
+            {
+              "name": "Mode",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 100,
+                  "label": "Laser Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 155,
+                  "label": "Sound Mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 156,
+                  "max": 255,
+                  "label": "Auto Mode with rising speed (0-100%)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch",
+          "name": "9 Channel (150G/200R/600B)",
+          "channels": [
+            {
+              "name": "Mode select",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Auto Mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Sound mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "DMX mode (CH2-CH8)"
+                }
+              ]
+            },
+            {
+              "name": "No function",
+              "typeId": "nothing",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pattern select",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Pattern 1",
+                  "effectName": "pattern-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Pattern 2",
+                  "effectName": "pattern-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Pattern 3",
+                  "effectName": "pattern-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Pattern 4",
+                  "effectName": "pattern-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Pattern 5",
+                  "effectName": "pattern-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Pattern 6",
+                  "effectName": "pattern-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Pattern 7",
+                  "effectName": "pattern-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Pattern 8",
+                  "effectName": "pattern-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 71,
+                  "label": "Pattern 9",
+                  "effectName": "pattern-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Pattern 10",
+                  "effectName": "pattern-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Pattern 11",
+                  "effectName": "pattern-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Pattern 12",
+                  "effectName": "pattern-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Pattern 13",
+                  "effectName": "pattern-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Pattern 14",
+                  "effectName": "pattern-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Pattern 15",
+                  "effectName": "pattern-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Pattern 16",
+                  "effectName": "pattern-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Pattern 17",
+                  "effectName": "pattern-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Pattern 18",
+                  "effectName": "pattern-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Pattern 19",
+                  "effectName": "pattern-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Pattern 20",
+                  "effectName": "pattern-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Pattern 21",
+                  "effectName": "pattern-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Pattern 22",
+                  "effectName": "pattern-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Pattern 23",
+                  "effectName": "pattern-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Pattern 24",
+                  "effectName": "pattern-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Pattern 25",
+                  "effectName": "pattern-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Pattern 26",
+                  "effectName": "pattern-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Pattern 27",
+                  "effectName": "pattern-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Pattern 28",
+                  "effectName": "pattern-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Pattern 29",
+                  "effectName": "pattern-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Pattern 30",
+                  "effectName": "pattern-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Pattern 31",
+                  "effectName": "pattern-31"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Pattern 32",
+                  "effectName": "pattern-32"
+                }
+              ]
+            },
+            {
+              "name": "Zooming",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual zooming"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Loop zooming IN speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Loop zooming OUT speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Loop zooming IN-OUT speed"
+                }
+              ]
+            },
+            {
+              "name": "X axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual X rolling",
+                  "effectName": "manual-x-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "X CCW rolling speed",
+                  "effectName": "x-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "X CW rolling speed",
+                  "effectName": "x-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "Y axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual Y rolling",
+                  "effectName": "manual-y-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Y CCW rolling speed",
+                  "effectName": "y-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Y CW rolling speed",
+                  "effectName": "y-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "Z axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual Z rolling",
+                  "effectName": "manual-z-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Z CCW rolling speed",
+                  "effectName": "z-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Z CW rolling speed",
+                  "effectName": "z-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "X axis moving",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual position"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Horizontal right moving speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Horizontal left moving speed"
+                }
+              ]
+            },
+            {
+              "name": "Y axis moving",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual position"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Vertical UP moving speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Vertical DOWN moving speed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch-2",
+          "name": "9 Channel (200RGY)",
+          "channels": [
+            {
+              "name": "Mode select",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Auto Mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Sound mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "DMX mode (CH2-CH8)"
+                }
+              ]
+            },
+            {
+              "name": "Colours RGY",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Original colour"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                }
+              ]
+            },
+            {
+              "name": "Pattern select",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Pattern 1",
+                  "effectName": "pattern-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Pattern 2",
+                  "effectName": "pattern-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Pattern 3",
+                  "effectName": "pattern-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Pattern 4",
+                  "effectName": "pattern-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Pattern 5",
+                  "effectName": "pattern-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Pattern 6",
+                  "effectName": "pattern-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Pattern 7",
+                  "effectName": "pattern-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Pattern 8",
+                  "effectName": "pattern-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 71,
+                  "label": "Pattern 9",
+                  "effectName": "pattern-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Pattern 10",
+                  "effectName": "pattern-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Pattern 11",
+                  "effectName": "pattern-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Pattern 12",
+                  "effectName": "pattern-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Pattern 13",
+                  "effectName": "pattern-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Pattern 14",
+                  "effectName": "pattern-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Pattern 15",
+                  "effectName": "pattern-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Pattern 16",
+                  "effectName": "pattern-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Pattern 17",
+                  "effectName": "pattern-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Pattern 18",
+                  "effectName": "pattern-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Pattern 19",
+                  "effectName": "pattern-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Pattern 20",
+                  "effectName": "pattern-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Pattern 21",
+                  "effectName": "pattern-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Pattern 22",
+                  "effectName": "pattern-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Pattern 23",
+                  "effectName": "pattern-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Pattern 24",
+                  "effectName": "pattern-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Pattern 25",
+                  "effectName": "pattern-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Pattern 26",
+                  "effectName": "pattern-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Pattern 27",
+                  "effectName": "pattern-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Pattern 28",
+                  "effectName": "pattern-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Pattern 29",
+                  "effectName": "pattern-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Pattern 30",
+                  "effectName": "pattern-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Pattern 31",
+                  "effectName": "pattern-31"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Pattern 32",
+                  "effectName": "pattern-32"
+                }
+              ]
+            },
+            {
+              "name": "Zooming",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual zooming"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Loop zooming IN speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Loop zooming OUT speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Loop zooming IN-OUT speed"
+                }
+              ]
+            },
+            {
+              "name": "X axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual X rolling",
+                  "effectName": "manual-x-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "X CCW rolling speed",
+                  "effectName": "x-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "X CW rolling speed",
+                  "effectName": "x-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "Y axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual Y rolling",
+                  "effectName": "manual-y-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Y CCW rolling speed",
+                  "effectName": "y-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Y CW rolling speed",
+                  "effectName": "y-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "Z axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual Z rolling",
+                  "effectName": "manual-z-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Z CCW rolling speed",
+                  "effectName": "z-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Z CW rolling speed",
+                  "effectName": "z-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "X axis moving",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual position"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Horizontal right moving speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Horizontal left moving speed"
+                }
+              ]
+            },
+            {
+              "name": "Y axis moving",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual position"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Vertical UP moving speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Vertical DOWN moving speed"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "9ch-3",
+          "name": "9 Channel (400RGB)",
+          "channels": [
+            {
+              "name": "Mode select",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Laser off"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Auto Mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Sound mode"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "DMX mode (CH2-CH8)"
+                }
+              ]
+            },
+            {
+              "name": "Colours RGB",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 63,
+                  "label": "Original colour"
+                },
+                {
+                  "kind": "color",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 191,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 192,
+                  "max": 223,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                }
+              ]
+            },
+            {
+              "name": "Pattern select",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Pattern 1",
+                  "effectName": "pattern-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Pattern 2",
+                  "effectName": "pattern-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Pattern 3",
+                  "effectName": "pattern-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Pattern 4",
+                  "effectName": "pattern-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Pattern 5",
+                  "effectName": "pattern-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Pattern 6",
+                  "effectName": "pattern-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Pattern 7",
+                  "effectName": "pattern-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Pattern 8",
+                  "effectName": "pattern-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 71,
+                  "label": "Pattern 9",
+                  "effectName": "pattern-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Pattern 10",
+                  "effectName": "pattern-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Pattern 11",
+                  "effectName": "pattern-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Pattern 12",
+                  "effectName": "pattern-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Pattern 13",
+                  "effectName": "pattern-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Pattern 14",
+                  "effectName": "pattern-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Pattern 15",
+                  "effectName": "pattern-15"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Pattern 16",
+                  "effectName": "pattern-16"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Pattern 17",
+                  "effectName": "pattern-17"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Pattern 18",
+                  "effectName": "pattern-18"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Pattern 19",
+                  "effectName": "pattern-19"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 159,
+                  "label": "Pattern 20",
+                  "effectName": "pattern-20"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 167,
+                  "label": "Pattern 21",
+                  "effectName": "pattern-21"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 175,
+                  "label": "Pattern 22",
+                  "effectName": "pattern-22"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Pattern 23",
+                  "effectName": "pattern-23"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Pattern 24",
+                  "effectName": "pattern-24"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Pattern 25",
+                  "effectName": "pattern-25"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Pattern 26",
+                  "effectName": "pattern-26"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Pattern 27",
+                  "effectName": "pattern-27"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Pattern 28",
+                  "effectName": "pattern-28"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Pattern 29",
+                  "effectName": "pattern-29"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Pattern 30",
+                  "effectName": "pattern-30"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Pattern 31",
+                  "effectName": "pattern-31"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Pattern 32",
+                  "effectName": "pattern-32"
+                }
+              ]
+            },
+            {
+              "name": "Zooming",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual zooming"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 169,
+                  "label": "Loop zooming IN speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 170,
+                  "max": 209,
+                  "label": "Loop zooming OUT speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Loop zooming IN-OUT speed"
+                }
+              ]
+            },
+            {
+              "name": "X axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual X rolling",
+                  "effectName": "manual-x-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "X CCW rolling speed",
+                  "effectName": "x-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "X CW rolling speed",
+                  "effectName": "x-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "Y axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual Y rolling",
+                  "effectName": "manual-y-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Y CCW rolling speed",
+                  "effectName": "y-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Y CW rolling speed",
+                  "effectName": "y-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "Z axis rolling",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual Z rolling",
+                  "effectName": "manual-z-rolling"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Z CCW rolling speed",
+                  "effectName": "z-ccw-rolling-speed"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Z CW rolling speed",
+                  "effectName": "z-cw-rolling-speed"
+                }
+              ]
+            },
+            {
+              "name": "X axis moving",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual position"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Horizontal right moving speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Horizontal left moving speed"
+                }
+              ]
+            },
+            {
+              "name": "Y axis moving",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "Manual position"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Vertical UP moving speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Vertical DOWN moving speed"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

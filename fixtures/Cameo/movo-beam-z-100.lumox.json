@@ -1,0 +1,1376 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Cameo/Movo Beam Z 100",
+      "manufacturer": "Cameo",
+      "model": "Movo Beam Z 100",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Felix Hartnagel",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Cameo-Movo-Beam-Z-100.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 210,
+          "height": 299,
+          "depth": 210,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 6.5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 1220,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 4,
+          "degreesMax": 30
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 270
+        },
+        "power": {
+          "consumption": 140,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast <1Hz - 20Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "off",
+                  "effectName": "off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 36,
+                  "label": "Auto Program 1",
+                  "effectName": "auto-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 37,
+                  "max": 67,
+                  "label": "Auto Program 2",
+                  "effectName": "auto-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 98,
+                  "label": "Auto Program 3",
+                  "effectName": "auto-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 129,
+                  "label": "Auto Program 4",
+                  "effectName": "auto-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 160,
+                  "label": "Auto Program 5",
+                  "effectName": "auto-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 191,
+                  "label": "Auto Program 6",
+                  "effectName": "auto-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 222,
+                  "label": "Auto Program 7",
+                  "effectName": "auto-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 223,
+                  "max": 255,
+                  "label": "Auto Program 8",
+                  "effectName": "auto-program-8"
+                }
+              ]
+            },
+            {
+              "name": "Pan/Tilt Speed (Set Speed Auto Programs)",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "16ch",
+          "name": "16 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Endless Pan rotation",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise pan rotation (fast to slow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise pan rotation (slow to fast)"
+                }
+              ]
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Endless Tilt rotation",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise tilt rotation (fast to slow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise tilt rotation (slow to fast)"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random Strobe Effect, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe Break Effect, 5s.....1s (Short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow -> fast <1Hz -20 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Device settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 32,
+                  "label": "Blackout while Moving on (Hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 33,
+                  "max": 59,
+                  "label": "Blackout while Moving off (Hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 60,
+                  "max": 86,
+                  "label": "Invert Pan on (Hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 87,
+                  "max": 113,
+                  "label": "Invert Pan off(Hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 114,
+                  "max": 140,
+                  "label": "Invert Tilt on (Hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 141,
+                  "max": 167,
+                  "label": "Invert Tilt off (Hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 194,
+                  "label": "Silent Fan on (Hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 221,
+                  "label": "Silent Fan off (Hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 222,
+                  "max": 255,
+                  "label": "Reset All Functions (Hold 3s)"
+                }
+              ]
+            },
+            {
+              "name": "Colour Ring Macro (override RGB)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Colour Macro 1 (Colour Jump)"
+                },
+                {
+                  "kind": "range",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Colour Macro 2 (Red 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Colour Macro 3 (Green 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Colour Macro 4 (Blue 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Colour Macro 5 (Yellow 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Colour Macro 6 (Cyan 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Colour Macro 7 (Magenta 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Colour Macro 8 (2step Magenta Yellow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Colour Macro 9 (2step Red Green)"
+                },
+                {
+                  "kind": "range",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Colour Macro 10 (2step Red Blue)"
+                },
+                {
+                  "kind": "range",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Colour Macro 11 (2step Blue Yellow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Colour Macro 12 (2step Green Blue)"
+                },
+                {
+                  "kind": "range",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Colour Macro 13 (2step Magenta Blue)"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 117,
+                  "label": "Colour Macro 14 (2step Green Yellow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Colour Macro 15 (2step Cyan Magenta)"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 133,
+                  "label": "Colour Macro 16 (2step Cyan Red)"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            },
+            {
+              "name": "Colour Ring Macro Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "36ch",
+          "name": "36 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Endless Pan rotation",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise pan rotation (fast to slow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise pan rotation (slow to fast)"
+                }
+              ]
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Endless Tilt rotation",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 126,
+                  "label": "clockwise tilt rotation (fast to slow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 127,
+                  "max": 128,
+                  "label": "no movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 129,
+                  "max": 255,
+                  "label": "counter clockwise tilt rotation (slow to fast)"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe functions",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Strobe closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 33,
+                  "label": "Pulse Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 34,
+                  "max": 56,
+                  "label": "Ramp up Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 57,
+                  "max": 79,
+                  "label": "Ramp down Random, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 80,
+                  "max": 102,
+                  "label": "Random Strobe Effect, slow -> fast",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 103,
+                  "max": 127,
+                  "label": "Strobe Break Effect, 5s.....1s (Short burst with break)",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 128,
+                  "max": 250,
+                  "label": "Strobe slow -> fast <1Hz -20 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Macro (override RGBW)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Yellow warm",
+                  "color": "#ffd75c"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Turquoise",
+                  "color": "#7effd9"
+                },
+                {
+                  "kind": "color",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Lavender",
+                  "color": "#aaaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Mauve",
+                  "color": "#c28dab"
+                },
+                {
+                  "kind": "color",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Pink",
+                  "color": "#ffaaff"
+                },
+                {
+                  "kind": "color",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Warm White",
+                  "color": "#ffffee"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 117,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Cold White",
+                  "color": "#edffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 127,
+                  "label": "Colour Jumping Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Colour Jumping Speed slow -> fast / Colour 1 -> 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 255,
+                  "label": "Colour Fading Speed slow -> fast / Colour 1 -> 12"
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto Program",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "off",
+                  "effectName": "off"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 36,
+                  "label": "Auto Program 1",
+                  "effectName": "auto-program-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 37,
+                  "max": 67,
+                  "label": "Auto Program 2",
+                  "effectName": "auto-program-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 68,
+                  "max": 98,
+                  "label": "Auto Program 3",
+                  "effectName": "auto-program-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 99,
+                  "max": 129,
+                  "label": "Auto Program 4",
+                  "effectName": "auto-program-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 160,
+                  "label": "Auto Program 5",
+                  "effectName": "auto-program-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 191,
+                  "label": "Auto Program 6",
+                  "effectName": "auto-program-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 222,
+                  "label": "Auto Program 7",
+                  "effectName": "auto-program-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 223,
+                  "max": 255,
+                  "label": "Auto Program 8",
+                  "effectName": "auto-program-8"
+                }
+              ]
+            },
+            {
+              "name": "Pan/Tilt Macro",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "off"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 40,
+                  "label": "PAN \"small > big\""
+                },
+                {
+                  "kind": "range",
+                  "min": 41,
+                  "max": 75,
+                  "label": "TILT \"small > big\""
+                },
+                {
+                  "kind": "range",
+                  "min": 76,
+                  "max": 110,
+                  "label": "PAN / TILT \"small > big\""
+                },
+                {
+                  "kind": "range",
+                  "min": 111,
+                  "max": 145,
+                  "label": "PAN / TILT (invers) \"small > big\""
+                },
+                {
+                  "kind": "range",
+                  "min": 146,
+                  "max": 180,
+                  "label": "Circle \"small > big\""
+                },
+                {
+                  "kind": "range",
+                  "min": 181,
+                  "max": 215,
+                  "label": "Circle (invers) \"small > big\""
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 255,
+                  "label": "Random \"small > big\""
+                }
+              ]
+            },
+            {
+              "name": "Set dimmer curve",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 6,
+                  "max": 63,
+                  "label": "Linear Dimmer Curve",
+                  "effectName": "linear-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 127,
+                  "label": "Exponential Dimmer Curve",
+                  "effectName": "exponential-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 191,
+                  "label": "Logarithmic Dimmer Curve",
+                  "effectName": "logarithmic-dimmer-curve"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 255,
+                  "label": "S-Curve Dimmer Curve",
+                  "effectName": "s-curve-dimmer-curve"
+                }
+              ]
+            },
+            {
+              "name": "Pan/Tilt Speed (Set Speed of Pan&Tilt / Auto Programs / Pan&Tilt Macros)",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Device settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "no function"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 32,
+                  "label": "Blackout while Moving on (Hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 33,
+                  "max": 59,
+                  "label": "Blackout while Moving off (Hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 60,
+                  "max": 86,
+                  "label": "Invert Pan on (Hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 87,
+                  "max": 113,
+                  "label": "Invert Pan off(Hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 114,
+                  "max": 140,
+                  "label": "Invert Tilt on (Hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 141,
+                  "max": 167,
+                  "label": "Invert Tilt off (Hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 194,
+                  "label": "Silent Fan on (Hold 3s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 221,
+                  "label": "Silent Fan off (Hold 5s)"
+                },
+                {
+                  "kind": "range",
+                  "min": 222,
+                  "max": 255,
+                  "label": "Reset All Functions (Hold 3s)"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer Colour Ring",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe Colour Ring",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Strobe open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 255,
+                  "label": "Strobe slow -> fast <1Hz - 20 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Ring Macro (override RGB)",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "Colour off"
+                },
+                {
+                  "kind": "range",
+                  "min": 6,
+                  "max": 13,
+                  "label": "Colour Macro 1 (Colour Jump)"
+                },
+                {
+                  "kind": "range",
+                  "min": 14,
+                  "max": 21,
+                  "label": "Colour Macro 2 (Red 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 22,
+                  "max": 29,
+                  "label": "Colour Macro 3 (Green 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 37,
+                  "label": "Colour Macro 4 (Blue 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 38,
+                  "max": 45,
+                  "label": "Colour Macro 5 (Yellow 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 46,
+                  "max": 53,
+                  "label": "Colour Macro 6 (Cyan 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 54,
+                  "max": 61,
+                  "label": "Colour Macro 7 (Magenta 1 Step)"
+                },
+                {
+                  "kind": "range",
+                  "min": 62,
+                  "max": 69,
+                  "label": "Colour Macro 8 (2step Magenta Yellow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 77,
+                  "label": "Colour Macro 9 (2step Red Green)"
+                },
+                {
+                  "kind": "range",
+                  "min": 78,
+                  "max": 85,
+                  "label": "Colour Macro 10 (2step Red Blue)"
+                },
+                {
+                  "kind": "range",
+                  "min": 86,
+                  "max": 93,
+                  "label": "Colour Macro 11 (2step Blue Yellow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 94,
+                  "max": 101,
+                  "label": "Colour Macro 12 (2step Green Blue)"
+                },
+                {
+                  "kind": "range",
+                  "min": 102,
+                  "max": 109,
+                  "label": "Colour Macro 13 (2step Magenta Blue)"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 117,
+                  "label": "Colour Macro 14 (2step Green Yellow)"
+                },
+                {
+                  "kind": "range",
+                  "min": 118,
+                  "max": 125,
+                  "label": "Colour Macro 15 (2step Cyan Magenta)"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 133,
+                  "label": "Colour Macro 16 (2step Cyan Red)"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            },
+            {
+              "name": "Colour Ring Macro Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

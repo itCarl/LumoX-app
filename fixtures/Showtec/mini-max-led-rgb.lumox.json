@@ -1,0 +1,203 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Mini Max LED RGB",
+      "manufacturer": "Showtec",
+      "model": "Mini Max LED RGB",
+      "type": "Moving Head",
+      "meta": {
+        "author": "laserandi",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Mini-Max-LED-RGB.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 260,
+          "height": 350,
+          "depth": 220,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5.68,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 9,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 540,
+          "tiltMax": 230
+        },
+        "power": {
+          "consumption": 160,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "11ch",
+          "name": "Mode 1",
+          "channels": [
+            {
+              "name": "Pan coarse",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt coarse",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "RGB Control Mode",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 24,
+                  "label": "RGB"
+                },
+                {
+                  "kind": "range",
+                  "min": 25,
+                  "max": 49,
+                  "label": "Auto Pro 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 74,
+                  "label": "Auto Pro 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 75,
+                  "max": 99,
+                  "label": "Auto Pro 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 124,
+                  "label": "Auto Pro 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 149,
+                  "label": "Auto Pro 5 No Pan/Tilt"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 174,
+                  "label": "Auto Pro 6 No Pan/Tilt"
+                },
+                {
+                  "kind": "range",
+                  "min": 175,
+                  "max": 199,
+                  "label": "Auto Pro 7 No Pan/Tilt"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 224,
+                  "label": "Auto Pro 8 No Pan/Tilt"
+                },
+                {
+                  "kind": "range",
+                  "min": 225,
+                  "max": 255,
+                  "label": "Sound-active"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe / Auto speed",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Full on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 8,
+                  "max": 255,
+                  "label": "Strobe, from slow to fast",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Pan Fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt Fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

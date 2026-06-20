@@ -1,0 +1,337 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED PAR56",
+      "manufacturer": "Eurolite",
+      "model": "LED PAR56",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Heikki Junnila",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-PAR56.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 40,
+          "height": 40,
+          "depth": 30,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 4500
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 15,
+          "degreesMax": 15
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 100,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "Mode 1",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour macro",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "Manual Mix"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 15,
+                  "label": "Orange 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 23,
+                  "label": "Orange 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 24,
+                  "max": 31,
+                  "label": "Orange 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 39,
+                  "label": "Yellow 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 40,
+                  "max": 47,
+                  "label": "Yellow 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 48,
+                  "max": 55,
+                  "label": "Green"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 63,
+                  "label": "Cyan 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 71,
+                  "label": "Cyan 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 72,
+                  "max": 79,
+                  "label": "Cyan 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 87,
+                  "label": "Blue 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 95,
+                  "label": "Blue 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 103,
+                  "label": "Blue 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 104,
+                  "max": 111,
+                  "label": "Magenta 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 119,
+                  "label": "Magenta 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 127,
+                  "label": "Magenta 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 135,
+                  "label": "Pink 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 143,
+                  "label": "Pink 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 151,
+                  "label": "Pink 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 152,
+                  "max": 159,
+                  "label": "White 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 167,
+                  "label": "White 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 175,
+                  "label": "White 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 183,
+                  "label": "Macro 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 191,
+                  "label": "Macro 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 199,
+                  "label": "Macro 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 207,
+                  "label": "Macro 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 215,
+                  "label": "Macro 5"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 223,
+                  "label": "Macro 6"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 231,
+                  "label": "Macro 7"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 239,
+                  "label": "Macro 8"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 247,
+                  "label": "Macro 9"
+                },
+                {
+                  "kind": "range",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Macro 10"
+                }
+              ]
+            },
+            {
+              "name": "Speed/strobe",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Mode",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 31,
+                  "label": "Dimmer"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 63,
+                  "label": "Decreasing brightness"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 95,
+                  "label": "Increasing brightness"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 127,
+                  "label": "Pulse fade"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 159,
+                  "label": "Auto color mix"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 191,
+                  "label": "3-color flash"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 223,
+                  "label": "7-color flash"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 255,
+                  "label": "Sound control"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

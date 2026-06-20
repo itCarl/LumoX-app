@@ -1,0 +1,381 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/Octagon Theater",
+      "manufacturer": "Stairville",
+      "model": "Octagon Theater",
+      "type": "Color Changer",
+      "meta": {
+        "author": "arnardo",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-Octagon-Theater.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 301,
+          "height": 215,
+          "depth": 248,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.3,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 42,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "5 channels",
+          "channels": [
+            {
+              "name": "Cold White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Warm White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 16,
+                  "max": 35,
+                  "label": "strobe 1",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 36,
+                  "max": 55,
+                  "label": "strobe 2",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 56,
+                  "max": 75,
+                  "label": "strobe 3",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 76,
+                  "max": 95,
+                  "label": "strobe 4",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 96,
+                  "max": 115,
+                  "label": "strobe 5",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 116,
+                  "max": 135,
+                  "label": "strobe 6",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 136,
+                  "max": 155,
+                  "label": "strobe 7",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 156,
+                  "max": 175,
+                  "label": "strobe 8",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 176,
+                  "max": 195,
+                  "label": "strobe 9",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 196,
+                  "max": 215,
+                  "label": "strobe 10",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 216,
+                  "max": 235,
+                  "label": "strobe 11",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 236,
+                  "max": 255,
+                  "label": "strobe 12",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Colour Macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 16,
+                  "max": 23,
+                  "label": "macro 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 24,
+                  "max": 31,
+                  "label": "macro 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 32,
+                  "max": 39,
+                  "label": "macro 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 40,
+                  "max": 47,
+                  "label": "macro 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 48,
+                  "max": 55,
+                  "label": "macro 5"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 63,
+                  "label": "macro 6"
+                },
+                {
+                  "kind": "range",
+                  "min": 64,
+                  "max": 71,
+                  "label": "macro 7"
+                },
+                {
+                  "kind": "range",
+                  "min": 72,
+                  "max": 79,
+                  "label": "macro 8"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 87,
+                  "label": "macro 9"
+                },
+                {
+                  "kind": "range",
+                  "min": 88,
+                  "max": 95,
+                  "label": "macro 10"
+                },
+                {
+                  "kind": "range",
+                  "min": 96,
+                  "max": 103,
+                  "label": "macro 11"
+                },
+                {
+                  "kind": "range",
+                  "min": 104,
+                  "max": 111,
+                  "label": "macro 12"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 119,
+                  "label": "macro 13"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 127,
+                  "label": "macro 14"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 135,
+                  "label": "macro 15"
+                },
+                {
+                  "kind": "range",
+                  "min": 136,
+                  "max": 143,
+                  "label": "macro 16"
+                },
+                {
+                  "kind": "range",
+                  "min": 144,
+                  "max": 151,
+                  "label": "macro 17"
+                },
+                {
+                  "kind": "range",
+                  "min": 152,
+                  "max": 159,
+                  "label": "macro 18"
+                },
+                {
+                  "kind": "range",
+                  "min": 160,
+                  "max": 167,
+                  "label": "macro 19"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 175,
+                  "label": "macro 20"
+                },
+                {
+                  "kind": "range",
+                  "min": 176,
+                  "max": 183,
+                  "label": "macro 21"
+                },
+                {
+                  "kind": "range",
+                  "min": 184,
+                  "max": 191,
+                  "label": "macro 22"
+                },
+                {
+                  "kind": "range",
+                  "min": 192,
+                  "max": 199,
+                  "label": "macro 23"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 207,
+                  "label": "macro 24"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 215,
+                  "label": "macro 25"
+                },
+                {
+                  "kind": "range",
+                  "min": 216,
+                  "max": 223,
+                  "label": "macro 26"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 231,
+                  "label": "macro 27"
+                },
+                {
+                  "kind": "range",
+                  "min": 232,
+                  "max": 239,
+                  "label": "macro 28"
+                },
+                {
+                  "kind": "range",
+                  "min": 240,
+                  "max": 247,
+                  "label": "macro 29"
+                },
+                {
+                  "kind": "range",
+                  "min": 248,
+                  "max": 255,
+                  "label": "macro 30"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

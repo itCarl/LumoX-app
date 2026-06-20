@@ -1,0 +1,719 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "beamZ/BAC500",
+      "manufacturer": "beamZ",
+      "model": "BAC500",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Olivier Michel",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file beamZ-BAC500.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 223,
+          "height": 257,
+          "depth": 112,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.4,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 20,
+          "degreesMax": 37
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 98,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "3ch",
+          "name": "3 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "5ch",
+          "name": "5 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preset colours",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Warm white",
+                  "color": "#fffdeb"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Straw",
+                  "color": "#aa0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                }
+              ]
+            },
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 69,
+                  "label": "Colour blending (rate)",
+                  "effectName": "colour-blending-rate"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Colour change (rate)",
+                  "effectName": "colour-change-rate"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Sound colour blending (rate)",
+                  "effectName": "sound-colour-blending-rate"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Sound color change (rate)",
+                  "effectName": "sound-color-change-rate"
+                }
+              ]
+            },
+            {
+              "name": "Colour temperature",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 49,
+                  "label": "White 2700K",
+                  "effectName": "white-2700k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 89,
+                  "label": "White 3200K",
+                  "effectName": "white-3200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 129,
+                  "label": "White 4300K",
+                  "effectName": "white-4300k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 169,
+                  "label": "White 5600K",
+                  "effectName": "white-5600k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 209,
+                  "label": "White 6500K",
+                  "effectName": "white-6500k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 255,
+                  "label": "White 8000K",
+                  "effectName": "white-8000k"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "7ch",
+          "name": "7 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Warm white",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "12ch",
+          "name": "12 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Warm white",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "UV",
+              "typeId": "uv",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preset colours",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 19,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 29,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 39,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 49,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 59,
+                  "label": "Warm white",
+                  "color": "#fffdeb"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 69,
+                  "label": "Amber",
+                  "color": "#ffaa00"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 79,
+                  "label": "UV",
+                  "color": "#aa00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 89,
+                  "label": "Yellow",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 99,
+                  "label": "Magenta",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 109,
+                  "label": "Cyan",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 119,
+                  "label": "Dark orange",
+                  "color": "#ff8c00"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 129,
+                  "label": "Green yellow",
+                  "color": "#adff2f"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 139,
+                  "label": "Salmon",
+                  "color": "#fa8072"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 149,
+                  "label": "Turquoise",
+                  "color": "#40e0d0"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 159,
+                  "label": "Light green",
+                  "color": "#90ee90"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 169,
+                  "label": "Orange",
+                  "color": "#ffa500"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 179,
+                  "label": "Straw",
+                  "color": "#aa0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 180,
+                  "max": 189,
+                  "label": "Lavender",
+                  "color": "#e6e6fa"
+                },
+                {
+                  "kind": "color",
+                  "min": 190,
+                  "max": 199,
+                  "label": "Light blue",
+                  "color": "#add8e6"
+                },
+                {
+                  "kind": "color",
+                  "min": 200,
+                  "max": 209,
+                  "label": "Dark blue",
+                  "color": "#00008b"
+                },
+                {
+                  "kind": "color",
+                  "min": 210,
+                  "max": 255,
+                  "label": "Pink",
+                  "color": "#ffc0cb"
+                }
+              ]
+            },
+            {
+              "name": "Mode",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 69,
+                  "label": "Colour blending (rate)",
+                  "effectName": "colour-blending-rate"
+                },
+                {
+                  "kind": "effect",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Colour change (rate)",
+                  "effectName": "colour-change-rate"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Sound colour blending (rate)",
+                  "effectName": "sound-colour-blending-rate"
+                },
+                {
+                  "kind": "effect",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Sound color change (rate)",
+                  "effectName": "sound-color-change-rate"
+                }
+              ]
+            },
+            {
+              "name": "Colour temperature",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 49,
+                  "label": "White 2700K",
+                  "effectName": "white-2700k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 50,
+                  "max": 89,
+                  "label": "White 3200K",
+                  "effectName": "white-3200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 90,
+                  "max": 129,
+                  "label": "White 4300K",
+                  "effectName": "white-4300k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 130,
+                  "max": 169,
+                  "label": "White 5600K",
+                  "effectName": "white-5600k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 170,
+                  "max": 209,
+                  "label": "White 6500K",
+                  "effectName": "white-6500k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 210,
+                  "max": 255,
+                  "label": "White 8000K",
+                  "effectName": "white-8000k"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

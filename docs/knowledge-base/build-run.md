@@ -14,6 +14,7 @@ npm run frame     # headless DMX frame dump — mixed universe buffer, raw → l
 npm run shot      # build-if-stale, then screenshot a UI scenario under Electron (node tools/shot.mjs)
 npm run cli       # standalone CLI (tsx cli/lumox-cli.ts)
 npm run validate  # validate the built-in fixture library
+npm run port-qxf -- <srcDir> <Vendor...>  # bulk-convert upstream .qxf fixtures → built-in profiles (see fixtures.md)
 npm run icons     # regenerate app icons from assets/icon.svg (see icon.md)
 npm run lint      # ESLint (flat config)
 npm run format    # Prettier

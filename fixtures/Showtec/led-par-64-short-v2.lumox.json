@@ -1,0 +1,231 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/LED Par 64 Short V2",
+      "manufacturer": "Showtec",
+      "model": "LED Par 64 Short V2",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Oystein Steimler",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-LED-Par-64-Short-V2.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 250,
+          "height": 250,
+          "depth": 270,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 3.1,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 45,
+          "degreesMax": 45
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 65,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "5ch",
+          "name": "d-P1",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe with dead zone",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No Function",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 6,
+                  "max": 10,
+                  "label": "Full on",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe (Slow to fast)",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3ch",
+          "name": "d-P2",
+          "channels": [
+            {
+              "name": "Built-in programs / Sound-controlled",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 0,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 1,
+                  "max": 35,
+                  "label": "Program 1: 7-color fading",
+                  "effectName": "program-1-7-color-fading"
+                },
+                {
+                  "kind": "effect",
+                  "min": 36,
+                  "max": 71,
+                  "label": "Program 2: 7-color jump",
+                  "effectName": "program-2-7-color-jump"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 107,
+                  "label": "Program 3: Color dreaming",
+                  "effectName": "program-3-color-dreaming"
+                },
+                {
+                  "kind": "effect",
+                  "min": 108,
+                  "max": 143,
+                  "label": "Program 4: Red fading",
+                  "effectName": "program-4-red-fading"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 179,
+                  "label": "Program 5: Green fading",
+                  "effectName": "program-5-green-fading"
+                },
+                {
+                  "kind": "effect",
+                  "min": 180,
+                  "max": 215,
+                  "label": "Program 6: Blue fading",
+                  "effectName": "program-6-blue-fading"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 255,
+                  "label": "Sound active (Ch 2 is audio sensivity)",
+                  "effectName": "sound-active-ch-2-is-audio-sensivity"
+                }
+              ]
+            },
+            {
+              "name": "Speed / Sensitivity",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "3ch-2",
+          "name": "d-P3",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "1ch",
+          "name": "d-P4",
+          "channels": [
+            {
+              "name": "Macro Colors",
+              "typeId": "color-wheel",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

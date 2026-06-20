@@ -1,0 +1,581 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Showtec/Compact Par 7 Q4",
+      "manufacturer": "Showtec",
+      "model": "Compact Par 7 Q4",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Alexander",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Showtec-Compact-Par-7-Q4.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 260,
+          "height": 92,
+          "depth": 272,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 2.14,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 681,
+          "colourTemperature": 4000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 18,
+          "degreesMax": 18
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 32,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "6ch",
+          "name": "6 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No Strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe 0-20 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "4ch",
+          "name": "4 Channel",
+          "channels": [
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        },
+        {
+          "id": "11ch",
+          "name": "11 Channel",
+          "channels": [
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No Strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Strobe 0-20 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Random Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No Strobe",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 255,
+                  "label": "Random Strobe",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Color Presets",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 8,
+                  "max": 13,
+                  "label": "Fixed Colour 1 (R255; G000; B000; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 14,
+                  "max": 20,
+                  "label": "Fixed Colour 2 (R255; G000; B000; W100)"
+                },
+                {
+                  "kind": "range",
+                  "min": 21,
+                  "max": 27,
+                  "label": "Fixed Colour 3 (R255; G000; B000; W200)"
+                },
+                {
+                  "kind": "range",
+                  "min": 28,
+                  "max": 34,
+                  "label": "Fixed Colour 4 (R255; G050; B000; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 35,
+                  "max": 41,
+                  "label": "Fixed Colour 5 (R255; G150; B000; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 42,
+                  "max": 48,
+                  "label": "Fixed Colour 6 (R255; G255; B000; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 49,
+                  "max": 55,
+                  "label": "Fixed Colour 7 (R255; G255; B000; W075)"
+                },
+                {
+                  "kind": "range",
+                  "min": 56,
+                  "max": 62,
+                  "label": "Fixed Colour 8 (R255; G255; B000; W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 63,
+                  "max": 69,
+                  "label": "Fixed Colour 9 (R000; G255; B000; W150)"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 76,
+                  "label": "Fixed Colour 10 (R000; G255; B000; W050)"
+                },
+                {
+                  "kind": "range",
+                  "min": 77,
+                  "max": 83,
+                  "label": "Fixed Colour 11 (R000; G255; B000; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 84,
+                  "max": 90,
+                  "label": "Fixed Colour 12 (R000; G255; B050; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 91,
+                  "max": 97,
+                  "label": "Fixed Colour 13 (R000; G255; B150; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 98,
+                  "max": 104,
+                  "label": "Fixed Colour 14 (R000; G255; B255; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 111,
+                  "label": "Fixed Colour 15 (R000; G255; B255; W075)"
+                },
+                {
+                  "kind": "range",
+                  "min": 112,
+                  "max": 118,
+                  "label": "Fixed Colour 16 (R000; G255; B255; W150)"
+                },
+                {
+                  "kind": "range",
+                  "min": 119,
+                  "max": 125,
+                  "label": "Fixed Colour 17 (R000; G100; B255; W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 126,
+                  "max": 132,
+                  "label": "Fixed Colour 18 (R000; G000; B255; W100)"
+                },
+                {
+                  "kind": "range",
+                  "min": 133,
+                  "max": 139,
+                  "label": "Fixed Colour 19 (R000; G000; B255; W050)"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 146,
+                  "label": "Fixed Colour 20 (R000; G000; B255; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 147,
+                  "max": 153,
+                  "label": "Fixed Colour 21 (R075; G000; B255; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 154,
+                  "max": 160,
+                  "label": "Fixed Colour 22 (R160; G000; B255; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 161,
+                  "max": 167,
+                  "label": "Fixed Colour 23 (R255; G000; B255; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 168,
+                  "max": 174,
+                  "label": "Fixed Colour 24 (R255; G000; B175; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 175,
+                  "max": 181,
+                  "label": "Fixed Colour 25 (R255; G000; B100; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 182,
+                  "max": 188,
+                  "label": "Fixed Colour 26 (R255; G000; B100; W050)"
+                },
+                {
+                  "kind": "range",
+                  "min": 189,
+                  "max": 195,
+                  "label": "Fixed Colour 27 (R255; G000; B025; W050)"
+                },
+                {
+                  "kind": "range",
+                  "min": 196,
+                  "max": 202,
+                  "label": "Fixed Colour 28 (R255; G000; B025; W025)"
+                },
+                {
+                  "kind": "range",
+                  "min": 203,
+                  "max": 209,
+                  "label": "Fixed Colour 29 (R255; G000; B025; W000)"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 216,
+                  "label": "Fixed Colour 30 (R000; G000; B000; W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 217,
+                  "max": 223,
+                  "label": "Fixed Colour 31 (R075; G075; B100; W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 224,
+                  "max": 230,
+                  "label": "Fixed Colour 32 (R000; G000; B100; W255)"
+                },
+                {
+                  "kind": "range",
+                  "min": 231,
+                  "max": 255,
+                  "label": "Fixed Colour 33 (R255; G255; B225; W255)"
+                }
+              ]
+            },
+            {
+              "name": "Color Running",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Jump 1",
+                  "effectName": "jump-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Jump 2",
+                  "effectName": "jump-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Jump 3",
+                  "effectName": "jump-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Jump 4",
+                  "effectName": "jump-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Jump 5",
+                  "effectName": "jump-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Jump 6",
+                  "effectName": "jump-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Jump 7",
+                  "effectName": "jump-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 143,
+                  "label": "Jump 8",
+                  "effectName": "jump-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 159,
+                  "label": "Fade 1",
+                  "effectName": "fade-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 175,
+                  "label": "Fade 2",
+                  "effectName": "fade-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 191,
+                  "label": "Fade 3",
+                  "effectName": "fade-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 207,
+                  "label": "Fade 4",
+                  "effectName": "fade-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 223,
+                  "label": "Fade 5",
+                  "effectName": "fade-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Fade 6",
+                  "effectName": "fade-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Fade 7",
+                  "effectName": "fade-7"
+                }
+              ]
+            },
+            {
+              "name": "Speed color running",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Sound mode",
+              "typeId": "sound",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 50,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 255,
+                  "label": "Gradual adjustment sensivity, from 1-100%",
+                  "effectName": "gradual-adjustment-sensivity-from-1-100"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

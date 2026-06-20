@@ -1,0 +1,1713 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Briteq/BT Theatre HD1",
+      "manufacturer": "Briteq",
+      "model": "BT Theatre HD1",
+      "type": "Color Changer",
+      "meta": {
+        "author": "Ray Console - cd",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Briteq-BT-Theatre-HD1.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 442,
+          "height": 260,
+          "depth": 285,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 7.6,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 8000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 14,
+          "degreesMax": 55
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 0,
+          "tiltMax": 0
+        },
+        "power": {
+          "consumption": 240,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "8ch",
+          "name": "HSIC",
+          "channels": [
+            {
+              "name": "Intensity",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Hue",
+              "typeId": "hue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Hue Fine",
+              "typeId": "hue-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Saturation",
+              "typeId": "saturation",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "CCT",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 11,
+                  "max": 28,
+                  "label": "1800K"
+                },
+                {
+                  "kind": "range",
+                  "min": 29,
+                  "max": 46,
+                  "label": "2200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 47,
+                  "max": 64,
+                  "label": "2700K"
+                },
+                {
+                  "kind": "range",
+                  "min": 65,
+                  "max": 82,
+                  "label": "3000K"
+                },
+                {
+                  "kind": "range",
+                  "min": 83,
+                  "max": 100,
+                  "label": "3200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 101,
+                  "max": 118,
+                  "label": "3500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 119,
+                  "max": 136,
+                  "label": "4000K"
+                },
+                {
+                  "kind": "range",
+                  "min": 137,
+                  "max": 154,
+                  "label": "4200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 172,
+                  "label": "4500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 173,
+                  "max": 190,
+                  "label": "5600K"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 208,
+                  "label": "6000K"
+                },
+                {
+                  "kind": "range",
+                  "min": 209,
+                  "max": 226,
+                  "label": "6500K"
+                },
+                {
+                  "kind": "range",
+                  "min": 227,
+                  "max": 244,
+                  "label": "7200K"
+                },
+                {
+                  "kind": "range",
+                  "min": 245,
+                  "max": 255,
+                  "label": "8000K"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 99,
+                  "label": "Strobe from slow to fast 0-25Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 100,
+                  "max": 109,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 179,
+                  "label": "Lighting Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 180,
+                  "max": 189,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Random Strobe",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Preset Dimmer Speed from Display Menu"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 69,
+                  "label": "Dim1"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Dim2"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Dim3"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Dim4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "10ch",
+          "name": "SSP",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Lime",
+              "typeId": "lime",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preset Color",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "L106",
+                  "effectName": "l106"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "R05",
+                  "effectName": "r05"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "L194",
+                  "effectName": "l194"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "R54",
+                  "effectName": "r54"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "L019",
+                  "effectName": "l019"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "R08",
+                  "effectName": "r08"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "R89",
+                  "effectName": "r89"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "R86",
+                  "effectName": "r86"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "L213",
+                  "effectName": "l213"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "R377",
+                  "effectName": "r377"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "R80",
+                  "effectName": "r80"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "L202",
+                  "effectName": "l202"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "L328",
+                  "effectName": "l328"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "R3314",
+                  "effectName": "r3314"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "L101",
+                  "effectName": "l101"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "L768",
+                  "effectName": "l768"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 99,
+                  "label": "Strobe from slow to fast 0-25Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 100,
+                  "max": 109,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 179,
+                  "label": "Lighting Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 180,
+                  "max": 189,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Random Strobe",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Preset Dimmer Speed from Display Menu"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 69,
+                  "label": "Dim1"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Dim2"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Dim3"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Dim4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "13ch",
+          "name": "TOUR",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Lime",
+              "typeId": "lime",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preset Color",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "L106",
+                  "effectName": "l106"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "R05",
+                  "effectName": "r05"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "L194",
+                  "effectName": "l194"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "R54",
+                  "effectName": "r54"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "L019",
+                  "effectName": "l019"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "R08",
+                  "effectName": "r08"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "R89",
+                  "effectName": "r89"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "R86",
+                  "effectName": "r86"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "L213",
+                  "effectName": "l213"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "R377",
+                  "effectName": "r377"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "R80",
+                  "effectName": "r80"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "L202",
+                  "effectName": "l202"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "L328",
+                  "effectName": "l328"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "R3314",
+                  "effectName": "r3314"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "L101",
+                  "effectName": "l101"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "L768",
+                  "effectName": "l768"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 30,
+                  "label": "Red 100% / Green Up / Blue 0%",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 50,
+                  "label": "Red Down / Green 100% / Blue 0%",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 70,
+                  "label": "Red 0% / Green 100% / Blue 100%",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 71,
+                  "max": 90,
+                  "label": "Red 0% / Green Down / Blue 100%",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 110,
+                  "label": "Red Up / Green 0% / Blue 100%",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 130,
+                  "label": "Red 100% / Green 0% / Blue Down",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 131,
+                  "max": 150,
+                  "label": "Red 100% / Green Up / Blue Up",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 170,
+                  "label": "Red Down / Green Down / Blue 100%",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 171,
+                  "max": 195,
+                  "label": "All Led At Full Output",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 199,
+                  "label": "1800K",
+                  "effectName": "1800k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 203,
+                  "label": "2200K",
+                  "effectName": "2200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 207,
+                  "label": "2700K",
+                  "effectName": "2700k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 211,
+                  "label": "3000K",
+                  "effectName": "3000k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 212,
+                  "max": 215,
+                  "label": "3200K",
+                  "effectName": "3200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 219,
+                  "label": "3500K",
+                  "effectName": "3500k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 223,
+                  "label": "4000K",
+                  "effectName": "4000k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 227,
+                  "label": "4200K",
+                  "effectName": "4200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 228,
+                  "max": 231,
+                  "label": "4500K",
+                  "effectName": "4500k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 235,
+                  "label": "5600K",
+                  "effectName": "5600k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 239,
+                  "label": "6000K",
+                  "effectName": "6000k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 243,
+                  "label": "6500K",
+                  "effectName": "6500k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 244,
+                  "max": 247,
+                  "label": "7200K",
+                  "effectName": "7200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "8000K",
+                  "effectName": "8000k"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 99,
+                  "label": "Strobe from slow to fast 0-25Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 100,
+                  "max": 109,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 179,
+                  "label": "Lighting Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 180,
+                  "max": 189,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Random Strobe",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 40,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 60,
+                  "label": "Auto 1",
+                  "effectName": "auto-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 80,
+                  "label": "Auto 2",
+                  "effectName": "auto-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 100,
+                  "label": "Auto3",
+                  "effectName": "auto3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 120,
+                  "label": "Auto4",
+                  "effectName": "auto4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 140,
+                  "label": "Auto5",
+                  "effectName": "auto5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 160,
+                  "label": "Auto6",
+                  "effectName": "auto6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 180,
+                  "label": "Auto7",
+                  "effectName": "auto7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 200,
+                  "label": "Auto8",
+                  "effectName": "auto8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 220,
+                  "label": "Auto9",
+                  "effectName": "auto9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 255,
+                  "label": "Auto10",
+                  "effectName": "auto10"
+                }
+              ]
+            },
+            {
+              "name": "Auto Speed Adjustment",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 220,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 221,
+                  "max": 255,
+                  "label": "Auto Speed Adjustement"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Preset Dimmer Speed from Display Menu"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 69,
+                  "label": "Dim1"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Dim2"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Dim3"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Dim4"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "19ch",
+          "name": "TR16",
+          "channels": [
+            {
+              "name": "Master Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Master Dimmer Fine",
+              "typeId": "intensity-master-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red Fine",
+              "typeId": "red-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green Fine",
+              "typeId": "green-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue Fine",
+              "typeId": "blue-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Lime",
+              "typeId": "lime",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Lime Fine",
+              "typeId": "lime-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber",
+              "typeId": "amber",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Amber Fine",
+              "typeId": "amber-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Preset Color",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 11,
+                  "max": 20,
+                  "label": "L106",
+                  "effectName": "l106"
+                },
+                {
+                  "kind": "effect",
+                  "min": 21,
+                  "max": 30,
+                  "label": "R05",
+                  "effectName": "r05"
+                },
+                {
+                  "kind": "effect",
+                  "min": 31,
+                  "max": 40,
+                  "label": "L194",
+                  "effectName": "l194"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 50,
+                  "label": "R54",
+                  "effectName": "r54"
+                },
+                {
+                  "kind": "effect",
+                  "min": 51,
+                  "max": 60,
+                  "label": "L019",
+                  "effectName": "l019"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 70,
+                  "label": "R08",
+                  "effectName": "r08"
+                },
+                {
+                  "kind": "effect",
+                  "min": 71,
+                  "max": 80,
+                  "label": "R89",
+                  "effectName": "r89"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 90,
+                  "label": "R86",
+                  "effectName": "r86"
+                },
+                {
+                  "kind": "effect",
+                  "min": 91,
+                  "max": 100,
+                  "label": "L213",
+                  "effectName": "l213"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 110,
+                  "label": "R377",
+                  "effectName": "r377"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 120,
+                  "label": "R80",
+                  "effectName": "r80"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 130,
+                  "label": "L202",
+                  "effectName": "l202"
+                },
+                {
+                  "kind": "effect",
+                  "min": 131,
+                  "max": 140,
+                  "label": "L328",
+                  "effectName": "l328"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 150,
+                  "label": "R3314",
+                  "effectName": "r3314"
+                },
+                {
+                  "kind": "effect",
+                  "min": 151,
+                  "max": 160,
+                  "label": "L101",
+                  "effectName": "l101"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 170,
+                  "label": "L768",
+                  "effectName": "l768"
+                },
+                {
+                  "kind": "effect",
+                  "min": 171,
+                  "max": 255,
+                  "label": "No function",
+                  "effectName": "no-function"
+                }
+              ]
+            },
+            {
+              "name": "Color Macro",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 10,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "color",
+                  "min": 11,
+                  "max": 30,
+                  "label": "Red 100% / Green Up / Blue 0%",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 31,
+                  "max": 50,
+                  "label": "Red Down / Green 100% / Blue 0%",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 51,
+                  "max": 70,
+                  "label": "Red 0% / Green 100% / Blue 100%",
+                  "color": "#ffff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 71,
+                  "max": 90,
+                  "label": "Red 0% / Green Down / Blue 100%",
+                  "color": "#00ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 91,
+                  "max": 110,
+                  "label": "Red Up / Green 0% / Blue 100%",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 111,
+                  "max": 130,
+                  "label": "Red 100% / Green 0% / Blue Down",
+                  "color": "#ff00ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 131,
+                  "max": 150,
+                  "label": "Red 100% / Green Up / Blue Up",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 151,
+                  "max": 170,
+                  "label": "Red Down / Green Down / Blue 100%",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 171,
+                  "max": 195,
+                  "label": "All Led At Full Output",
+                  "color": "#000000"
+                },
+                {
+                  "kind": "effect",
+                  "min": 196,
+                  "max": 199,
+                  "label": "1800K",
+                  "effectName": "1800k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 203,
+                  "label": "2200K",
+                  "effectName": "2200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 204,
+                  "max": 207,
+                  "label": "2700K",
+                  "effectName": "2700k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 211,
+                  "label": "3000K",
+                  "effectName": "3000k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 212,
+                  "max": 215,
+                  "label": "3200K",
+                  "effectName": "3200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 219,
+                  "label": "3500K",
+                  "effectName": "3500k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 220,
+                  "max": 223,
+                  "label": "4000K",
+                  "effectName": "4000k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 227,
+                  "label": "4200K",
+                  "effectName": "4200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 228,
+                  "max": 231,
+                  "label": "4500K",
+                  "effectName": "4500k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 235,
+                  "label": "5600K",
+                  "effectName": "5600k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 236,
+                  "max": 239,
+                  "label": "6000K",
+                  "effectName": "6000k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 243,
+                  "label": "6500K",
+                  "effectName": "6500k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 244,
+                  "max": 247,
+                  "label": "7200K",
+                  "effectName": "7200k"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "8000K",
+                  "effectName": "8000k"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 99,
+                  "label": "Strobe from slow to fast 0-25Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 100,
+                  "max": 109,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 179,
+                  "label": "Lighting Strobe",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 180,
+                  "max": 189,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Random Strobe",
+                  "mode": "random",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Auto",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 40,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 41,
+                  "max": 60,
+                  "label": "Auto 1",
+                  "effectName": "auto-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 61,
+                  "max": 80,
+                  "label": "Auto 2",
+                  "effectName": "auto-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 81,
+                  "max": 100,
+                  "label": "Auto3",
+                  "effectName": "auto3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 101,
+                  "max": 120,
+                  "label": "Auto4",
+                  "effectName": "auto4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 121,
+                  "max": 140,
+                  "label": "Auto5",
+                  "effectName": "auto5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 141,
+                  "max": 160,
+                  "label": "Auto6",
+                  "effectName": "auto6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 161,
+                  "max": 180,
+                  "label": "Auto7",
+                  "effectName": "auto7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 181,
+                  "max": 200,
+                  "label": "Auto8",
+                  "effectName": "auto8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 201,
+                  "max": 220,
+                  "label": "Auto9",
+                  "effectName": "auto9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 221,
+                  "max": 255,
+                  "label": "Auto10",
+                  "effectName": "auto10"
+                }
+              ]
+            },
+            {
+              "name": "Auto Speed Adjustment",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 220,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 221,
+                  "max": 255,
+                  "label": "Auto Speed Adjustement"
+                }
+              ]
+            },
+            {
+              "name": "Dimmer Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Preset Dimmer Speed from Display Menu"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 29,
+                  "label": "Off"
+                },
+                {
+                  "kind": "range",
+                  "min": 30,
+                  "max": 69,
+                  "label": "Dim1"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 129,
+                  "label": "Dim2"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 189,
+                  "label": "Dim3"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 255,
+                  "label": "Dim4"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

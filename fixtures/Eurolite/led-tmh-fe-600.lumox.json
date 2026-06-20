@@ -1,0 +1,355 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Eurolite/LED TMH FE-600",
+      "manufacturer": "Eurolite",
+      "model": "LED TMH FE-600",
+      "type": "Effect",
+      "meta": {
+        "author": "Klaus Muth",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Eurolite-LED-TMH-FE-600.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 190,
+          "height": 330,
+          "depth": 245,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 5,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": null,
+          "colourTemperature": 8300
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 0,
+          "degreesMax": 0
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 540,
+          "tiltMax": 190
+        },
+        "power": {
+          "consumption": 90,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "15ch",
+          "name": "15-Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt Speed",
+              "typeId": "pan-tilt-speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 225,
+                  "label": "Decreasing Speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 226,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            },
+            {
+              "name": "Strobe",
+              "typeId": "strobe",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Strobe - Increasing Speed",
+                  "mode": "strobe",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer Speed",
+              "typeId": "speed",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 49,
+                  "label": "Speed 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 99,
+                  "label": "Speed 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 149,
+                  "label": "Speed 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 150,
+                  "max": 255,
+                  "label": "Speed 4"
+                }
+              ]
+            },
+            {
+              "name": "Lens Rotation",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 127,
+                  "label": "0° to 60°"
+                },
+                {
+                  "kind": "range",
+                  "min": 128,
+                  "max": 190,
+                  "label": "Rotate Reverse decreasing Speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 191,
+                  "max": 192,
+                  "label": "Stop"
+                },
+                {
+                  "kind": "range",
+                  "min": 193,
+                  "max": 255,
+                  "label": "Rotate increasing Speed"
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour Preset",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 29,
+                  "label": "Red",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 54,
+                  "label": "Green",
+                  "color": "#00ff00"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 79,
+                  "label": "Blue",
+                  "color": "#0000ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 104,
+                  "label": "White",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 129,
+                  "label": "Preset 1"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 154,
+                  "label": "Preset 2"
+                },
+                {
+                  "kind": "range",
+                  "min": 155,
+                  "max": 174,
+                  "label": "Preset 3"
+                },
+                {
+                  "kind": "range",
+                  "min": 175,
+                  "max": 179,
+                  "label": "Preset 4"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 184,
+                  "label": "Preset 5"
+                },
+                {
+                  "kind": "range",
+                  "min": 185,
+                  "max": 189,
+                  "label": "Preset 6"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 194,
+                  "label": "Preset 7"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 199,
+                  "label": "Preset 8"
+                },
+                {
+                  "kind": "range",
+                  "min": 200,
+                  "max": 204,
+                  "label": "Preset 9"
+                },
+                {
+                  "kind": "range",
+                  "min": 205,
+                  "max": 209,
+                  "label": "Preset 10"
+                },
+                {
+                  "kind": "range",
+                  "min": 210,
+                  "max": 210,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 255,
+                  "label": "Color Fade"
+                }
+              ]
+            },
+            {
+              "name": "Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 79,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 99,
+                  "label": "Reset All"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

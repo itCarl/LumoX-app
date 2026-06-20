@@ -1,0 +1,1708 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Stairville/MH-z720",
+      "manufacturer": "Stairville",
+      "model": "MH-z720",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Tim Cullingworth",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Stairville-MH-z720.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 330,
+          "height": 230,
+          "depth": 380,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 8.7,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 2700,
+          "colourTemperature": null
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 10,
+          "degreesMax": 54
+        },
+        "focus": {
+          "type": "Fixed",
+          "panMax": 540,
+          "tiltMax": 200
+        },
+        "power": {
+          "consumption": 185,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "14ch",
+          "name": "14 Channel",
+          "channels": [
+            {
+              "name": "Rotation",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Inclination",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Movement Speed (Fast to Slow)",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intersity Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Light Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No Effect",
+                  "effectName": "no-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Light Effect 1",
+                  "effectName": "light-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Light Effect 2",
+                  "effectName": "light-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Light Effect 3",
+                  "effectName": "light-effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Light Effect 4",
+                  "effectName": "light-effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Light Effect 5",
+                  "effectName": "light-effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Light Effect 6",
+                  "effectName": "light-effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Light Effect 7",
+                  "effectName": "light-effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 143,
+                  "label": "Light Effect 8",
+                  "effectName": "light-effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 159,
+                  "label": "Light Effect 9",
+                  "effectName": "light-effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 175,
+                  "label": "Light Effect 10",
+                  "effectName": "light-effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 191,
+                  "label": "Light Effect 11",
+                  "effectName": "light-effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 207,
+                  "label": "Light Effect 12",
+                  "effectName": "light-effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 223,
+                  "label": "Light Effect 13",
+                  "effectName": "light-effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Light Effect 14",
+                  "effectName": "light-effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Light Effect 15",
+                  "effectName": "light-effect-15"
+                }
+              ]
+            },
+            {
+              "name": "Effect Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 19,
+                  "label": "Closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 25,
+                  "max": 64,
+                  "label": "Strobe effect 1 Fast to Slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 70,
+                  "max": 84,
+                  "label": "Strobe effect 2 (fast o,n slow off) Fast to Slow consecutively",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 90,
+                  "max": 104,
+                  "label": "Strobe effect 3 (slow on, fast off) Fast to Slow consecutively",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 124,
+                  "label": "Strobe effect 4 (random) Fast to Slow consecutively",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 130,
+                  "max": 144,
+                  "label": "Strobe effect 5 (random, fast on, slow off) Fast to Slow consecutively",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 150,
+                  "max": 164,
+                  "label": "Strobe effect 6 (random, slow on, fast off) Fast to Slow consecutively",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 165,
+                  "max": 169,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 170,
+                  "max": 184,
+                  "label": "Strobe effect 7 (pulse series) Pulse interval increasing",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 185,
+                  "max": 189,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 204,
+                  "label": "Strobe effect 8 (pulse series with random frequency) Fast to Slow consecutively",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 205,
+                  "max": 209,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 210,
+                  "max": 224,
+                  "label": "Strobe effect 9 (single pulses) Fast to Slow consecutively",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 225,
+                  "max": 229,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 230,
+                  "max": 244,
+                  "label": "Strobe effect 10 (inverted pulse series) Pulse interval increasing",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 245,
+                  "max": 255,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Special Settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Blackout during Pan or Tilt movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 15,
+                  "max": 49,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Rotation position reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Inclination position reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 60,
+                  "max": 64,
+                  "label": "Optical zoom reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 74,
+                  "label": "All functions reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 75,
+                  "max": 79,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 84,
+                  "label": "Inversion of rotation and inclination direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Inversion of rotation direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 94,
+                  "label": "Inversion of inclination direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Cancel inversion of rotation direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 104,
+                  "label": "Cancel inversion on inclination direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Cancel inversion of rotatin and inclination direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 114,
+                  "label": "Movement speed normal"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Movement speed fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Movement speed slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Maximum fan speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Automatic fan speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Dimmer speed fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Dimmer speed slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 145,
+                  "max": 255,
+                  "label": "Without function"
+                }
+              ]
+            },
+            {
+              "name": "Preprogrammed movement pattern",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No movement",
+                  "effectName": "no-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 23,
+                  "label": "Movement pattern 1",
+                  "effectName": "movement-pattern-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 39,
+                  "label": "Movement pattern 2",
+                  "effectName": "movement-pattern-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 55,
+                  "label": "Movement pattern 3",
+                  "effectName": "movement-pattern-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 71,
+                  "label": "Movement pattern 4",
+                  "effectName": "movement-pattern-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 87,
+                  "label": "Movement pattern 5",
+                  "effectName": "movement-pattern-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 103,
+                  "label": "Movement pattern 6",
+                  "effectName": "movement-pattern-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 119,
+                  "label": "Movement pattern 7",
+                  "effectName": "movement-pattern-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 135,
+                  "label": "Movement pattern 8",
+                  "effectName": "movement-pattern-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 151,
+                  "label": "Movement pattern 1 with sound control",
+                  "effectName": "movement-pattern-1-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 167,
+                  "label": "Movement pattern 2 with sound control",
+                  "effectName": "movement-pattern-2-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 183,
+                  "label": "Movement pattern 3 with sound control",
+                  "effectName": "movement-pattern-3-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 199,
+                  "label": "Movement pattern 4 with sound control",
+                  "effectName": "movement-pattern-4-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 215,
+                  "label": "Movement pattern 5 with sound control",
+                  "effectName": "movement-pattern-5-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 231,
+                  "label": "Movement pattern 6 with sound control",
+                  "effectName": "movement-pattern-6-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 247,
+                  "label": "Movement pattern 7 with sound control",
+                  "effectName": "movement-pattern-7-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Movement pattern 8 with sound control",
+                  "effectName": "movement-pattern-8-with-sound-control"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "29ch",
+          "name": "29 Channel",
+          "channels": [
+            {
+              "name": "Rotation",
+              "typeId": "pan",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Rotation Fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Inclination",
+              "typeId": "tilt",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Inclination Fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Movement Speed (Fast to Slow)",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Red, LED group 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green, LED group 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue, LED group 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White, LED group 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Red, LED group 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green, LED group 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue, LED group 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White, LED group 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Red, LED group 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green, LED group 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue, LED group 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White, LED group 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Red, LED group 4",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Green, LED group 4",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity Blue, LED group 4",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Intensity White, LED group 4",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Colour setting",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 4,
+                  "label": "Dark"
+                },
+                {
+                  "kind": "color",
+                  "min": 5,
+                  "max": 9,
+                  "label": "Colour 1",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Colour 2",
+                  "color": "#ffffe5"
+                },
+                {
+                  "kind": "color",
+                  "min": 15,
+                  "max": 19,
+                  "label": "Colour 3",
+                  "color": "#ffe5e5"
+                },
+                {
+                  "kind": "color",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Colour 4",
+                  "color": "#ff40ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 25,
+                  "max": 29,
+                  "label": "Colour 5",
+                  "color": "#ff99cc"
+                },
+                {
+                  "kind": "color",
+                  "min": 30,
+                  "max": 34,
+                  "label": "Colour 6",
+                  "color": "#ebebff"
+                },
+                {
+                  "kind": "color",
+                  "min": 35,
+                  "max": 39,
+                  "label": "Colour 7",
+                  "color": "#f2f2ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 40,
+                  "max": 44,
+                  "label": "Colour 8",
+                  "color": "#80ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 45,
+                  "max": 49,
+                  "label": "Colour 9",
+                  "color": "#1affff"
+                },
+                {
+                  "kind": "color",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Colour 10",
+                  "color": "#b2ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Colour 11",
+                  "color": "#33d9ff"
+                },
+                {
+                  "kind": "color",
+                  "min": 60,
+                  "max": 64,
+                  "label": "Colour 12",
+                  "color": "#b2ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Colour 13",
+                  "color": "#f2ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 70,
+                  "max": 74,
+                  "label": "Colour 14",
+                  "color": "#b2faf2"
+                },
+                {
+                  "kind": "color",
+                  "min": 75,
+                  "max": 79,
+                  "label": "Colour 15",
+                  "color": "#e5ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 80,
+                  "max": 84,
+                  "label": "Colour 16",
+                  "color": "#f0ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Colour 17",
+                  "color": "#f7ffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 90,
+                  "max": 94,
+                  "label": "Colour 18",
+                  "color": "#fcffff"
+                },
+                {
+                  "kind": "color",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Colour 19",
+                  "color": "#99ffcc"
+                },
+                {
+                  "kind": "color",
+                  "min": 100,
+                  "max": 104,
+                  "label": "Colour 20",
+                  "color": "#a3edd1"
+                },
+                {
+                  "kind": "color",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Colour 21",
+                  "color": "#b2fa21"
+                },
+                {
+                  "kind": "color",
+                  "min": 110,
+                  "max": 114,
+                  "label": "Colour 22",
+                  "color": "#bffa36"
+                },
+                {
+                  "kind": "color",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Colour 23",
+                  "color": "#d1fa6e"
+                },
+                {
+                  "kind": "color",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Colour 24",
+                  "color": "#defa9e"
+                },
+                {
+                  "kind": "color",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Colour 25",
+                  "color": "#bdfa5e"
+                },
+                {
+                  "kind": "color",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Colour 26",
+                  "color": "#ffffcc"
+                },
+                {
+                  "kind": "color",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Colour 27",
+                  "color": "#ffff66"
+                },
+                {
+                  "kind": "color",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Colour 28",
+                  "color": "#ffff99"
+                },
+                {
+                  "kind": "color",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Colour 29",
+                  "color": "#54fc17"
+                },
+                {
+                  "kind": "color",
+                  "min": 150,
+                  "max": 154,
+                  "label": "Colour 30",
+                  "color": "#f5e01f"
+                },
+                {
+                  "kind": "color",
+                  "min": 155,
+                  "max": 159,
+                  "label": "Colour 31",
+                  "color": "#f7e836"
+                },
+                {
+                  "kind": "color",
+                  "min": 160,
+                  "max": 164,
+                  "label": "Colour 32",
+                  "color": "#f5ed6b"
+                },
+                {
+                  "kind": "color",
+                  "min": 165,
+                  "max": 169,
+                  "label": "Colour 33",
+                  "color": "#f7c70d"
+                },
+                {
+                  "kind": "color",
+                  "min": 170,
+                  "max": 174,
+                  "label": "Colour 34",
+                  "color": "#ffffff"
+                },
+                {
+                  "kind": "range",
+                  "min": 175,
+                  "max": 179,
+                  "label": "Dark"
+                },
+                {
+                  "kind": "range",
+                  "min": 180,
+                  "max": 201,
+                  "label": "Gradual colour change in ascending order, fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 202,
+                  "max": 207,
+                  "label": "Stop colour change"
+                },
+                {
+                  "kind": "range",
+                  "min": 208,
+                  "max": 229,
+                  "label": "Gradual colour change in descending order, fash to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 230,
+                  "max": 234,
+                  "label": "Dark"
+                },
+                {
+                  "kind": "range",
+                  "min": 235,
+                  "max": 249,
+                  "label": "Stepped colour change in ascending order, fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 250,
+                  "max": 255,
+                  "label": "Sound controlled colour changing"
+                }
+              ]
+            },
+            {
+              "name": "Light Effects",
+              "typeId": "effect",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 15,
+                  "label": "No Effect",
+                  "effectName": "no-effect"
+                },
+                {
+                  "kind": "effect",
+                  "min": 16,
+                  "max": 31,
+                  "label": "Light Effect 1",
+                  "effectName": "light-effect-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 32,
+                  "max": 47,
+                  "label": "Light Effect 2",
+                  "effectName": "light-effect-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 48,
+                  "max": 63,
+                  "label": "Light Effect 3",
+                  "effectName": "light-effect-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 64,
+                  "max": 79,
+                  "label": "Light Effect 4",
+                  "effectName": "light-effect-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 80,
+                  "max": 95,
+                  "label": "Light Effect 5",
+                  "effectName": "light-effect-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 96,
+                  "max": 111,
+                  "label": "Light Effect 6",
+                  "effectName": "light-effect-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 112,
+                  "max": 127,
+                  "label": "Light Effect 7",
+                  "effectName": "light-effect-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 128,
+                  "max": 143,
+                  "label": "Light Effect 8",
+                  "effectName": "light-effect-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 144,
+                  "max": 159,
+                  "label": "Light Effect 9",
+                  "effectName": "light-effect-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 160,
+                  "max": 175,
+                  "label": "Light Effect 10",
+                  "effectName": "light-effect-10"
+                },
+                {
+                  "kind": "effect",
+                  "min": 176,
+                  "max": 191,
+                  "label": "Light Effect 11",
+                  "effectName": "light-effect-11"
+                },
+                {
+                  "kind": "effect",
+                  "min": 192,
+                  "max": 207,
+                  "label": "Light Effect 12",
+                  "effectName": "light-effect-12"
+                },
+                {
+                  "kind": "effect",
+                  "min": 208,
+                  "max": 223,
+                  "label": "Light Effect 13",
+                  "effectName": "light-effect-13"
+                },
+                {
+                  "kind": "effect",
+                  "min": 224,
+                  "max": 239,
+                  "label": "Light Effect 14",
+                  "effectName": "light-effect-14"
+                },
+                {
+                  "kind": "effect",
+                  "min": 240,
+                  "max": 255,
+                  "label": "Light Effect 15",
+                  "effectName": "light-effect-15"
+                }
+              ]
+            },
+            {
+              "name": "Effect Speed",
+              "typeId": "effect-speed",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 19,
+                  "label": "Closed",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 20,
+                  "max": 24,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 25,
+                  "max": 64,
+                  "label": "Strobe effect 1 Fast to Slow",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 70,
+                  "max": 84,
+                  "label": "Strobe effect 2 (fast o,n slow off) Fast to Slow consecutively",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 90,
+                  "max": 104,
+                  "label": "Strobe effect 3 (slow on, fast off) Fast to Slow consecutively",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 110,
+                  "max": 124,
+                  "label": "Strobe effect 4 (random) Fast to Slow consecutively",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 130,
+                  "max": 144,
+                  "label": "Strobe effect 5 (random, fast on, slow off) Fast to Slow consecutively",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 145,
+                  "max": 149,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 150,
+                  "max": 164,
+                  "label": "Strobe effect 6 (random, slow on, fast off) Fast to Slow consecutively",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 165,
+                  "max": 169,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 170,
+                  "max": 184,
+                  "label": "Strobe effect 7 (pulse series) Pulse interval increasing",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 185,
+                  "max": 189,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 190,
+                  "max": 204,
+                  "label": "Strobe effect 8 (pulse series with random frequency) Fast to Slow consecutively",
+                  "mode": "random",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 205,
+                  "max": 209,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 210,
+                  "max": 224,
+                  "label": "Strobe effect 9 (single pulses) Fast to Slow consecutively",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 225,
+                  "max": 229,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 230,
+                  "max": 244,
+                  "label": "Strobe effect 10 (inverted pulse series) Pulse interval increasing",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 245,
+                  "max": 255,
+                  "label": "Open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Special Settings",
+              "typeId": "function",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 9,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 10,
+                  "max": 14,
+                  "label": "Blackout during Pan or Tilt movement"
+                },
+                {
+                  "kind": "range",
+                  "min": 15,
+                  "max": 49,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 50,
+                  "max": 54,
+                  "label": "Rotation position reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 55,
+                  "max": 59,
+                  "label": "Inclination position reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 60,
+                  "max": 64,
+                  "label": "Optical zoom reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 65,
+                  "max": 69,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 70,
+                  "max": 74,
+                  "label": "All functions reset"
+                },
+                {
+                  "kind": "range",
+                  "min": 75,
+                  "max": 79,
+                  "label": "Without function"
+                },
+                {
+                  "kind": "range",
+                  "min": 80,
+                  "max": 84,
+                  "label": "Inversion of rotation and inclination direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 85,
+                  "max": 89,
+                  "label": "Inversion of rotation direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 90,
+                  "max": 94,
+                  "label": "Inversion of inclination direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 95,
+                  "max": 99,
+                  "label": "Cancel inversion of rotation direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 104,
+                  "label": "Cancel inversion on inclination direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 105,
+                  "max": 109,
+                  "label": "Cancel inversion of rotatin and inclination direction"
+                },
+                {
+                  "kind": "range",
+                  "min": 110,
+                  "max": 114,
+                  "label": "Movement speed normal"
+                },
+                {
+                  "kind": "range",
+                  "min": 115,
+                  "max": 119,
+                  "label": "Movement speed fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 120,
+                  "max": 124,
+                  "label": "Movement speed slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 125,
+                  "max": 129,
+                  "label": "Maximum fan speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 130,
+                  "max": 134,
+                  "label": "Automatic fan speed"
+                },
+                {
+                  "kind": "range",
+                  "min": 135,
+                  "max": 139,
+                  "label": "Dimmer speed fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 140,
+                  "max": 144,
+                  "label": "Dimmer speed slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 145,
+                  "max": 255,
+                  "label": "Without function"
+                }
+              ]
+            },
+            {
+              "name": "Preprogrammed movement pattern",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No movement",
+                  "effectName": "no-movement"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 23,
+                  "label": "Movement pattern 1",
+                  "effectName": "movement-pattern-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 24,
+                  "max": 39,
+                  "label": "Movement pattern 2",
+                  "effectName": "movement-pattern-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 40,
+                  "max": 55,
+                  "label": "Movement pattern 3",
+                  "effectName": "movement-pattern-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 56,
+                  "max": 71,
+                  "label": "Movement pattern 4",
+                  "effectName": "movement-pattern-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 72,
+                  "max": 87,
+                  "label": "Movement pattern 5",
+                  "effectName": "movement-pattern-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 88,
+                  "max": 103,
+                  "label": "Movement pattern 6",
+                  "effectName": "movement-pattern-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 104,
+                  "max": 119,
+                  "label": "Movement pattern 7",
+                  "effectName": "movement-pattern-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 120,
+                  "max": 135,
+                  "label": "Movement pattern 8",
+                  "effectName": "movement-pattern-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 136,
+                  "max": 151,
+                  "label": "Movement pattern 1 with sound control",
+                  "effectName": "movement-pattern-1-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 152,
+                  "max": 167,
+                  "label": "Movement pattern 2 with sound control",
+                  "effectName": "movement-pattern-2-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 168,
+                  "max": 183,
+                  "label": "Movement pattern 3 with sound control",
+                  "effectName": "movement-pattern-3-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 184,
+                  "max": 199,
+                  "label": "Movement pattern 4 with sound control",
+                  "effectName": "movement-pattern-4-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 200,
+                  "max": 215,
+                  "label": "Movement pattern 5 with sound control",
+                  "effectName": "movement-pattern-5-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 216,
+                  "max": 231,
+                  "label": "Movement pattern 6 with sound control",
+                  "effectName": "movement-pattern-6-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 232,
+                  "max": 247,
+                  "label": "Movement pattern 7 with sound control",
+                  "effectName": "movement-pattern-7-with-sound-control"
+                },
+                {
+                  "kind": "effect",
+                  "min": 248,
+                  "max": 255,
+                  "label": "Movement pattern 8 with sound control",
+                  "effectName": "movement-pattern-8-with-sound-control"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

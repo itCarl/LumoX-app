@@ -1,0 +1,698 @@
+{
+  "$schema": "../schema/lumox-fixture.schema.json",
+  "version": 1,
+  "definitions": [
+    {
+      "id": "Varytec/Hero Wash 640FX",
+      "manufacturer": "Varytec",
+      "model": "Hero Wash 640FX",
+      "type": "Moving Head",
+      "meta": {
+        "author": "Giacomo Gorini",
+        "version": "1.0.0",
+        "createdAt": "2026-06-20T00:00:00.000Z",
+        "modifiedAt": "2026-06-20T00:00:00.000Z",
+        "source": "Ported from an open-source DMX fixture library (Apache-2.0); source file Varytec-Hero-Wash-640FX.qxf",
+        "notes": "Auto-converted from an open-source DMX fixture library. Verify channel order and capability ranges against your unit's firmware."
+      },
+      "physical": {
+        "dimensions": {
+          "width": 303,
+          "height": 425,
+          "depth": 188,
+          "unit": "mm"
+        },
+        "weight": {
+          "value": 11,
+          "unit": "kg"
+        },
+        "bulb": {
+          "type": "LED",
+          "lumens": 2000,
+          "colourTemperature": 7000
+        },
+        "lens": {
+          "name": "Other",
+          "degreesMin": 4,
+          "degreesMax": 60
+        },
+        "focus": {
+          "type": "Head",
+          "panMax": 540,
+          "tiltMax": 220
+        },
+        "power": {
+          "consumption": 240,
+          "unit": "W"
+        }
+      },
+      "modes": [
+        {
+          "id": "13ch",
+          "name": "13 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 127,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 127,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 255,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Shutter close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 80,
+                  "label": "Costant ramp up - slow to fast rate",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 81,
+                  "max": 140,
+                  "label": "Costant ramp down - slow to fast rate",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 141,
+                  "max": 200,
+                  "label": "Pulse effect - slow to fast rate",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 201,
+                  "max": 250,
+                  "label": "Strobe regular - 0.5>10 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Beam deflection",
+              "typeId": "prism",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 99,
+                  "label": "Static rotating lens position - 0>60°"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 133,
+                  "label": "FX pulse deflection - small to wide"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 194,
+                  "label": "CW rotation - fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 255,
+                  "label": "Counter-CW - slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Color macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 235,
+                  "label": "Colour macros - 1 to 46",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "range",
+                  "min": 236,
+                  "max": 245,
+                  "label": "Colour change (cut) slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 246,
+                  "max": 255,
+                  "label": "Colour change (fade) slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Auto zoom",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Auto zoom program - fast to slow",
+                  "effectName": "auto-zoom-program-fast-to-slow"
+                }
+              ]
+            },
+            {
+              "name": "Auto Pan-Tilt",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 32,
+                  "label": "Pan-Tilt auto prog 1",
+                  "effectName": "pan-tilt-auto-prog-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 33,
+                  "max": 58,
+                  "label": "Pan-Tilt auto prog 2",
+                  "effectName": "pan-tilt-auto-prog-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 59,
+                  "max": 84,
+                  "label": "Pan-Tilt auto prog 3",
+                  "effectName": "pan-tilt-auto-prog-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 110,
+                  "label": "Pan-Tilt auto prog 4",
+                  "effectName": "pan-tilt-auto-prog-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 136,
+                  "label": "Pan-Tilt auto prog 5",
+                  "effectName": "pan-tilt-auto-prog-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 137,
+                  "max": 162,
+                  "label": "Pan-Tilt auto prog 6",
+                  "effectName": "pan-tilt-auto-prog-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 163,
+                  "max": 188,
+                  "label": "Pan-Tilt auto prog 7",
+                  "effectName": "pan-tilt-auto-prog-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 189,
+                  "max": 214,
+                  "label": "Pan-Tilt auto prog 8",
+                  "effectName": "pan-tilt-auto-prog-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 215,
+                  "max": 240,
+                  "label": "Pan-Tilt auto prog 9",
+                  "effectName": "pan-tilt-auto-prog-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Sound control Pan-Tilt",
+                  "effectName": "sound-control-pan-tilt"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "25ch",
+          "name": "25 Channel",
+          "channels": [
+            {
+              "name": "Pan",
+              "typeId": "pan",
+              "defaultValue": 127,
+              "capabilities": []
+            },
+            {
+              "name": "Pan Fine",
+              "typeId": "pan-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt",
+              "typeId": "tilt",
+              "defaultValue": 127,
+              "capabilities": []
+            },
+            {
+              "name": "Tilt Fine",
+              "typeId": "tilt-fine",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Pan/Tilt speed",
+              "typeId": "pan-tilt-speed-fast-slow",
+              "defaultValue": 127,
+              "capabilities": []
+            },
+            {
+              "name": "Dimmer",
+              "typeId": "intensity-master",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Shutter",
+              "typeId": "shutter",
+              "defaultValue": 255,
+              "capabilities": [
+                {
+                  "kind": "shutter",
+                  "min": 0,
+                  "max": 10,
+                  "label": "Shutter close",
+                  "mode": "closed",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 11,
+                  "max": 80,
+                  "label": "Costant ramp up - slow to fast rate",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 81,
+                  "max": 140,
+                  "label": "Costant ramp down - slow to fast rate",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 141,
+                  "max": 200,
+                  "label": "Pulse effect - slow to fast rate",
+                  "mode": "pulse",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 201,
+                  "max": 250,
+                  "label": "Strobe regular - 0.5>10 Hz",
+                  "mode": "strobe",
+                  "rateHz": null
+                },
+                {
+                  "kind": "shutter",
+                  "min": 251,
+                  "max": 255,
+                  "label": "Shutter open",
+                  "mode": "open",
+                  "rateHz": null
+                }
+              ]
+            },
+            {
+              "name": "Red segment 1",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green segment 1",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue segment 1",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White segment 1",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red segment 2",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green segment 2",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue segment 2",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White segment 2",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Red segment 3",
+              "typeId": "red",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Green segment 3",
+              "typeId": "green",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Blue segment 3",
+              "typeId": "blue",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "White segment 3",
+              "typeId": "white",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Zoom",
+              "typeId": "zoom",
+              "defaultValue": 0,
+              "capabilities": []
+            },
+            {
+              "name": "Beam deflection",
+              "typeId": "prism",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 99,
+                  "label": "Static rotating lens position - 0>60°"
+                },
+                {
+                  "kind": "range",
+                  "min": 100,
+                  "max": 133,
+                  "label": "FX pulse deflection - small to wide"
+                },
+                {
+                  "kind": "range",
+                  "min": 134,
+                  "max": 194,
+                  "label": "CW rotation - fast to slow"
+                },
+                {
+                  "kind": "range",
+                  "min": 195,
+                  "max": 255,
+                  "label": "Counter-CW - slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Color macros",
+              "typeId": "color-macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 5,
+                  "label": "No function"
+                },
+                {
+                  "kind": "color",
+                  "min": 6,
+                  "max": 235,
+                  "label": "Colour macros - 1 to 46",
+                  "color": "#ff0000"
+                },
+                {
+                  "kind": "range",
+                  "min": 236,
+                  "max": 245,
+                  "label": "Colour change (cut) slow to fast"
+                },
+                {
+                  "kind": "range",
+                  "min": 246,
+                  "max": 255,
+                  "label": "Colour change (fade) slow to fast"
+                }
+              ]
+            },
+            {
+              "name": "Auto zoom",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 9,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 10,
+                  "max": 255,
+                  "label": "Auto zoom program - fast to slow",
+                  "effectName": "auto-zoom-program-fast-to-slow"
+                }
+              ]
+            },
+            {
+              "name": "Auto Pan-Tilt",
+              "typeId": "macro",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "effect",
+                  "min": 0,
+                  "max": 7,
+                  "label": "No function",
+                  "effectName": "no-function"
+                },
+                {
+                  "kind": "effect",
+                  "min": 8,
+                  "max": 32,
+                  "label": "Pan-Tilt auto prog 1",
+                  "effectName": "pan-tilt-auto-prog-1"
+                },
+                {
+                  "kind": "effect",
+                  "min": 33,
+                  "max": 58,
+                  "label": "Pan-Tilt auto prog 2",
+                  "effectName": "pan-tilt-auto-prog-2"
+                },
+                {
+                  "kind": "effect",
+                  "min": 59,
+                  "max": 84,
+                  "label": "Pan-Tilt auto prog 3",
+                  "effectName": "pan-tilt-auto-prog-3"
+                },
+                {
+                  "kind": "effect",
+                  "min": 85,
+                  "max": 110,
+                  "label": "Pan-Tilt auto prog 4",
+                  "effectName": "pan-tilt-auto-prog-4"
+                },
+                {
+                  "kind": "effect",
+                  "min": 111,
+                  "max": 136,
+                  "label": "Pan-Tilt auto prog 5",
+                  "effectName": "pan-tilt-auto-prog-5"
+                },
+                {
+                  "kind": "effect",
+                  "min": 137,
+                  "max": 162,
+                  "label": "Pan-Tilt auto prog 6",
+                  "effectName": "pan-tilt-auto-prog-6"
+                },
+                {
+                  "kind": "effect",
+                  "min": 163,
+                  "max": 188,
+                  "label": "Pan-Tilt auto prog 7",
+                  "effectName": "pan-tilt-auto-prog-7"
+                },
+                {
+                  "kind": "effect",
+                  "min": 189,
+                  "max": 214,
+                  "label": "Pan-Tilt auto prog 8",
+                  "effectName": "pan-tilt-auto-prog-8"
+                },
+                {
+                  "kind": "effect",
+                  "min": 215,
+                  "max": 240,
+                  "label": "Pan-Tilt auto prog 9",
+                  "effectName": "pan-tilt-auto-prog-9"
+                },
+                {
+                  "kind": "effect",
+                  "min": 241,
+                  "max": 255,
+                  "label": "Sound control Pan-Tilt",
+                  "effectName": "sound-control-pan-tilt"
+                }
+              ]
+            },
+            {
+              "name": "Reset",
+              "typeId": "reset",
+              "defaultValue": 0,
+              "capabilities": [
+                {
+                  "kind": "range",
+                  "min": 0,
+                  "max": 189,
+                  "label": "No function"
+                },
+                {
+                  "kind": "range",
+                  "min": 190,
+                  "max": 210,
+                  "label": "Reset after 10 sec"
+                },
+                {
+                  "kind": "range",
+                  "min": 211,
+                  "max": 255,
+                  "label": "No function"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
