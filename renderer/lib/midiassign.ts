@@ -9,17 +9,27 @@ const { lumox } = window;
 
 let active = false;
 
-/** Read a Lumox target descriptor from a tagged element's data-* attributes. */
-function targetOf(el: HTMLElement): MidiTarget | null {
-  const key = el.dataset.midi;
+/** Build a MidiTarget from a key + its kind/label/min/max strings. */
+function makeTarget(key?: string, kind?: string, label?: string, min?: string, max?: string): MidiTarget | null {
   if (!key) return null;
-  const kind = (el.dataset.midiKind as 'trigger' | 'range') || 'trigger';
-  const target: MidiTarget = { key, label: el.dataset.midiLabel || key, kind };
-  if (kind === 'range') {
-    if (el.dataset.midiMin != null) target.min = Number(el.dataset.midiMin);
-    if (el.dataset.midiMax != null) target.max = Number(el.dataset.midiMax);
+  const k = (kind as 'trigger' | 'range') || 'trigger';
+  const target: MidiTarget = { key, label: label || key, kind: k };
+  if (k === 'range') {
+    if (min != null) target.min = Number(min);
+    if (max != null) target.max = Number(max);
   }
   return target;
+}
+
+/** Candidate targets on a tagged element: the primary `data-midi*` plus an optional
+ *  alternate `data-midi-alt*` of the other kind (e.g. a group tab = intensity range
+ *  + flash trigger). Main resolves which to bind from the learned message type. */
+function targetsOf(el: HTMLElement): MidiTarget[] {
+  const d = el.dataset;
+  return [
+    makeTarget(d.midi, d.midiKind, d.midiLabel, d.midiMin, d.midiMax),
+    makeTarget(d.midiAlt, d.midiAltKind, d.midiAltLabel, d.midiAltMin, d.midiAltMax),
+  ].filter((t): t is MidiTarget => !!t);
 }
 
 function onClickCapture(e: MouseEvent): void {
@@ -28,9 +38,9 @@ function onClickCapture(e: MouseEvent): void {
   if (!el) return;
   e.preventDefault();
   e.stopPropagation();
-  const t = targetOf(el);
-  if (!t) return;
-  lumox.midi.pickTarget(t);
+  const targets = targetsOf(el);
+  if (!targets.length) return;
+  lumox.midi.pickTarget(targets);
   document.querySelectorAll('.midi-picked').forEach((n) => n.classList.remove('midi-picked'));
   el.classList.add('midi-picked');
 }

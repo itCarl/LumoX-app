@@ -45,6 +45,9 @@ const ledColorOf = (b: MidiBinding) =>
     : caps.palette.some((c) => c.name === 'red') && b.target.key === 'blackout' ? 'red'
     : caps.palette[0]?.name ?? '');
 
+// Hex for a trigger row's live indicator dot (its LED colour, or the UI accent).
+const ledHexOf = (b: MidiBinding) => caps.palette.find((c) => c.name === ledColorOf(b))?.hex ?? 'var(--accent)';
+
 // ---- connection status -------------------------------------------------
 function applyStatus(s: MidiStatus) {
   statusEl.classList.toggle('on', s.connected);
@@ -85,7 +88,12 @@ function renderTable(list: MidiBinding[]) {
     </div>
     ${list.map((b) => html`
       <div class="mw-row" data-id="${b.id}">
-        <span class="mw-trig">${triggerLabel(b)}</span>
+        <span class="mw-trig">
+          ${b.target.kind === 'range'
+            ? html`<span class="mw-fb mw-fb-bar" data-fb="${b.id}" title="Live value"><span class="mw-fb-fill"></span></span>`
+            : html`<span class="mw-fb mw-fb-dot" data-fb="${b.id}" style="--lc:${ledHexOf(b)}" title="Live state"></span>`}
+          ${triggerLabel(b)}
+        </span>
         <span class="mw-tgt">${b.target.label}</span>
         <span class="mw-opt">
           ${b.target.kind === 'trigger'
@@ -160,6 +168,18 @@ lumox.midi.onMessage((m: MidiMonitorMessage) => {
   monEl.textContent = m.type === 'note'
     ? `note ch${m.channel} #${m.number} v${m.value}`
     : `cc ch${m.channel} #${m.number} → ${m.value}`;
+});
+// Live mirror of the device: lit dots for active triggers, value bars for ranges.
+lumox.midi.onFeedback((fb) => {
+  for (const f of fb) {
+    const el = root.querySelector(`.mw-fb[data-fb="${f.id}"]`) as HTMLElement | null;
+    if (!el) continue;
+    if (typeof f.active === 'boolean') el.classList.toggle('on', f.active);
+    if (typeof f.value === 'number') {
+      const fill = el.querySelector('.mw-fb-fill') as HTMLElement | null;
+      if (fill) fill.style.width = `${Math.round(Math.max(0, Math.min(1, f.value)) * 100)}%`;
+    }
+  }
 });
 
 // initial paint

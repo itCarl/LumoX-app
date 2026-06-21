@@ -1,5 +1,7 @@
 // Fixture Library tile — search bar on top, fixtures grouped by vendor in
-// collapsible accordions. Read-only for now; click selects a profile.
+// collapsible accordions. The bundled library is lazy-loaded: vendor heads come
+// from a cheap list and a vendor's fixtures load on first expand (search loads
+// everything). Read-only browsing; click selects a profile, drag patches it.
 
 import { bus, EV } from '../lib/bus';
 import { esc } from '../lib/html';
@@ -38,14 +40,42 @@ export async function makeLibraryTile() {
   const countEl = tile.querySelector('#lib-count') as HTMLElement;
   const detailEl = tile.querySelector('#lib-detail') as HTMLElement;
 
-  let defs: any[] = [];
+  // ---- lazy library state -----------------------------------------------
+  // `vendors` (cheap) drives the accordion heads; a vendor's fixtures are fetched
+  // on first expand into `loaded`; `byId` indexes everything fetched so far for
+  // detail / drag / delete; search forces a full load.
+  let vendors: { name: string; count: number; source: string }[] = [];
   try {
-    defs = (await lumox?.library?.list()) ?? [];
+    vendors = (await lumox?.library?.vendors()) ?? [];
   } catch (err: any) {
     treeEl.innerHTML = `<div class="muted pad">Library unavailable:<br>${esc(err.message)}</div>`;
     return tile;
   }
-  console.log(`[library] ${defs.length} fixture profiles loaded`);
+  const loaded = new Map<string, any[]>();   // vendor → its fixture DTOs (once parsed)
+  const byId = new Map<string, any>();        // id → DTO (for detail / drag / delete)
+  let allLoaded = false;
+  const totalCount = () => vendors.reduce((s, v) => s + v.count, 0);
+  const indexDefs = (list: any[]) => { for (const d of list) byId.set(d.id, d); };
+
+  async function loadVendor(name: string): Promise<any[]> {
+    const cached = loaded.get(name);
+    if (cached) return cached;
+    const list = (await lumox.library.vendor(name)) ?? [];
+    loaded.set(name, list); indexDefs(list);
+    return list;
+  }
+  async function loadAll(): Promise<void> {
+    if (allLoaded) return;
+    const list = (await lumox.library.list()) ?? [];
+    loaded.clear();
+    for (const d of list) {
+      const v = d.manufacturer || 'Generic';
+      (loaded.get(v) ?? loaded.set(v, []).get(v)!).push(d);
+    }
+    indexDefs(list);
+    allLoaded = true;
+  }
+  console.log(`[library] ${vendors.length} vendors, ${totalCount()} fixtures (lazy)`);
 
   // vendor accordions are collapsed by default; track which the user opened
   const expanded = new Set<string>();
@@ -53,7 +83,14 @@ export async function makeLibraryTile() {
 
   // Delegated handlers — bound once on the stable tree container so they
   // survive every renderTree() rebuild (no per-render re-attach / listener leak).
-  treeEl.addEventListener('click', (e) => {
+  treeEl.addEventListener('click', async (e) => {
+    const edit = (e.target as HTMLElement).closest('.ti-edit') as HTMLElement | null;
+    if (edit) {
+      e.stopPropagation();   // don't also select the row
+      const id = (edit.closest('.tree-item') as HTMLElement | null)?.dataset.def;
+      if (id) lumox.editor.open(id);
+      return;
+    }
     const del = (e.target as HTMLElement).closest('.ti-del') as HTMLElement | null;
     if (del) {
       e.stopPropagation();   // don't also select the row
@@ -63,11 +100,9 @@ export async function makeLibraryTile() {
     }
     const head = (e.target as HTMLElement).closest('.acc-head') as HTMLElement | null;
     if (head) {
-      const acc = head.parentElement as HTMLElement;
-      const v = acc.dataset.vendor as string;
-      acc.classList.toggle('collapsed');
-      if (acc.classList.contains('collapsed')) expanded.delete(v);
-      else expanded.add(v);
+      const v = (head.parentElement as HTMLElement).dataset.vendor as string;
+      if (expanded.has(v)) { expanded.delete(v); renderTree(); }
+      else { expanded.add(v); if (!loaded.has(v)) await loadVendor(v); renderTree(); }   // lazy-load on first open
       return;
     }
     const item = (e.target as HTMLElement).closest('.tree-item') as HTMLElement | null;
@@ -81,7 +116,7 @@ export async function makeLibraryTile() {
     dt.setData('text/plain', item.dataset.def as string);
     dt.effectAllowed = 'copy';
     item.classList.add('dragging');
-    const def = defs.find((d) => d.id === item.dataset.def);
+    const def = byId.get(item.dataset.def as string);
     bus.emit(EV.DRAG_START, { span: def?.modes?.[0]?.channelCount ?? 1, moveId: null });
   });
   treeEl.addEventListener('dragend', (e) => {
@@ -93,7 +128,7 @@ export async function makeLibraryTile() {
   // if it's still patched (shown inline in the dialog); on success it broadcasts
   // `library:changed`, which reloadDefs picks up to refresh the tree.
   async function onDeleteFixture(id: string) {
-    const d = defs.find((x) => x.id === id);
+    const d = byId.get(id);
     if (!d) return;
     await confirmDialog({
       title: 'Delete fixture',
@@ -107,57 +142,71 @@ export async function makeLibraryTile() {
     });
   }
 
-  function renderTree() {
-    if (!defs.length) {
+  // ---- tree render -------------------------------------------------------
+  function itemHTML(d: any): string {
+    const ch = d.modes?.[0]?.channelCount ?? '?';
+    const edit = `<button class="ti-edit" draggable="false" title="${d.source === 'user' ? 'Edit this fixture' : 'Edit (saves a Custom copy)'}" aria-label="Edit fixture"><i class="fa-solid fa-pen"></i></button>`;
+    const del = d.source === 'user'
+      ? `<button class="ti-del" draggable="false" title="Delete this Custom fixture" aria-label="Delete fixture"><i class="fa-solid fa-trash"></i></button>`
+      : '';
+    return `<div class="tree-item${selected === d.id ? ' sel' : ''}" draggable="true" data-def="${esc(d.id)}" title="Drag onto the patch grid · ${esc(d.id)}">
+      <span class="ti-model">${esc(d.model)}</span><span class="ti-right"><span class="ti-ch">${ch}ch</span>${edit}${del}</span></div>`;
+  }
+
+  function accHTML(vendor: string, items: any[] | null, collapsed: boolean, count: number): string {
+    const inner = items
+      ? items.map(itemHTML).join('')
+      : (collapsed ? '' : '<div class="muted pad">Loading…</div>');   // expanded but not yet fetched
+    return `
+      <div class="acc${collapsed ? ' collapsed' : ''}" data-vendor="${esc(vendor)}">
+        <button class="acc-head" title="Expand / collapse vendor">
+          <span class="acc-chev"><i class="fa-solid fa-chevron-down"></i></span>
+          <span class="acc-name">${esc(vendor)}</span>
+          <span class="acc-count">${count}</span>
+        </button>
+        <div class="acc-items">${inner}</div>
+      </div>`;
+  }
+
+  async function renderTree() {
+    const q = qEl.value.trim().toLowerCase();
+    const total = totalCount();
+
+    if (q) {
+      // Search spans the whole library — force a full load, then filter.
+      await loadAll();
+      const byVendor = new Map<string, any[]>();
+      for (const d of byId.values()) {
+        if (!d.manufacturer || !d.model) continue;
+        if (!`${d.manufacturer} ${d.model}`.toLowerCase().includes(q)) continue;
+        (byVendor.get(d.manufacturer) ?? byVendor.set(d.manufacturer, []).get(d.manufacturer)!).push(d);
+      }
+      let shown = 0; for (const a of byVendor.values()) shown += a.length;
+      countEl.textContent = `${shown}/${total}`;
+      if (!shown) {
+        treeEl.innerHTML = `<div class="muted pad">No fixtures match “${esc(qEl.value.trim())}”.</div>`;
+        return;
+      }
+      const names = [...byVendor.keys()].sort((a, b) => a.localeCompare(b));
+      treeEl.innerHTML = names.map((v) =>
+        accHTML(v, byVendor.get(v)!.sort((a, b) => a.model.localeCompare(b.model)), false, byVendor.get(v)!.length)).join('');
+      return;
+    }
+
+    countEl.textContent = String(total);
+    if (!vendors.length) {
       treeEl.innerHTML = '<div class="muted pad">No fixtures in library.</div>';
       countEl.textContent = '0';
       return;
     }
-    const q = qEl.value.trim().toLowerCase();
-
-    const byVendor = new Map<string, any[]>();
-    let shown = 0;
-    for (const d of defs) {
-      if (q && !`${d.manufacturer} ${d.model}`.toLowerCase().includes(q)) continue;
-      const v = d.manufacturer || 'Generic';
-      if (!byVendor.has(v)) byVendor.set(v, []);
-      byVendor.get(v)!.push(d);
-      shown++;
-    }
-    countEl.textContent = q ? `${shown}/${defs.length}` : String(defs.length);
-
-    if (!shown) {
-      treeEl.innerHTML = `<div class="muted pad">No fixtures match “${esc(qEl.value.trim())}”.</div>`;
-      return;
-    }
-
-    const vendors = [...byVendor.keys()].sort((a, b) => a.localeCompare(b));
     treeEl.innerHTML = vendors.map((v) => {
-      const items = byVendor.get(v)!.sort((a, b) => a.model.localeCompare(b.model));
-      // collapsed by default; auto-expand while a search is active
-      const isCollapsed = !q && !expanded.has(v);
-      return `
-        <div class="acc${isCollapsed ? ' collapsed' : ''}" data-vendor="${esc(v)}">
-          <button class="acc-head">
-            <span class="acc-chev"><i class="fa-solid fa-chevron-down"></i></span>
-            <span class="acc-name">${esc(v)}</span>
-            <span class="acc-count">${items.length}</span>
-          </button>
-          <div class="acc-items">
-            ${items.map((d) => {
-              const ch = d.modes?.[0]?.channelCount ?? '?';
-              const del = d.source === 'user'
-                ? `<button class="ti-del" draggable="false" title="Delete this Custom fixture" aria-label="Delete fixture"><i class="fa-solid fa-trash"></i></button>`
-                : '';
-              return `<div class="tree-item${selected === d.id ? ' sel' : ''}" draggable="true" data-def="${esc(d.id)}" title="Drag onto the patch grid · ${esc(d.id)}">
-                <span class="ti-model">${esc(d.model)}</span><span class="ti-right"><span class="ti-ch">${ch}ch</span>${del}</span></div>`;
-            }).join('')}
-          </div>
-        </div>`;
+      const collapsed = !expanded.has(v.name);
+      const items = loaded.get(v.name)?.slice().sort((a, b) => a.model.localeCompare(b.model)) ?? null;
+      return accHTML(v.name, items, collapsed, v.count);
     }).join('');
   }
 
-  // ---- patch detail form (always visible) ------------------------------
+  // ---- patch detail form (shown only when a fixture is selected) -------
   // Next free address = right after the last patched fixture on the universe.
   async function afterLastAddress(universeId: number) {
     let fixtures: any[] = [];
@@ -170,14 +219,15 @@ export async function makeLibraryTile() {
   let preserve: { count: number; index: number } | null = null;   // carried across re-renders
 
   async function renderDetail() {
+    const d = byId.get(selected ?? '') ?? null;
+    if (!d) { detailEl.classList.remove('show'); detailEl.innerHTML = ''; return; }
     detailEl.classList.add('show');
-    const d = defs.find((x) => x.id === selected) ?? null;
 
     let universes: any[] = [];
     try { universes = await lumox.universes.list(); } catch { /* ignore */ }
     if (!universes.length) universes = [{ id: 0, name: 'Universe 1' }];
 
-    const mode = d?.modes[0];
+    const mode = d.modes[0];
     const ch = mode?.channelCount;
     const uni = universes[0].id;
     const start = await afterLastAddress(uni);
@@ -185,10 +235,10 @@ export async function makeLibraryTile() {
     const index = preserve?.index ?? 1;
 
     detailEl.innerHTML = `
-      <div class="ld-title">${d ? esc(d.model) : 'Patch'} <span class="muted">${ch ? `(${ch} Channel${ch === 1 ? '' : 's'})` : '— select a fixture'}</span></div>
-      ${d && d.modes.length > 1 ? `
+      <div class="ld-title">${esc(d.model)} <span class="muted">${ch ? `(${ch} Channel${ch === 1 ? '' : 's'})` : ''}</span></div>
+      ${d.modes.length > 1 ? `
       <label class="frow"><span>Mode</span>
-        <select id="ld-mode">${d.modes.map((m, i) =>
+        <select id="ld-mode">${d.modes.map((m: any, i: number) =>
           `<option value="${esc(m.id)}"${i === 0 ? ' selected' : ''}>${esc(m.name)} · ${m.channelCount}ch</option>`).join('')}</select></label>` : ''}
       <label class="frow"><span>DMX Universe</span>
         <select id="ld-uni">${universes.map((u) =>
@@ -197,7 +247,7 @@ export async function makeLibraryTile() {
       <label class="frow"><span>Number of fixtures</span><input id="ld-count" type="number" min="1" max="512" value="${count}" /></label>
       <label class="frow"><span>Index</span><input id="ld-index" type="number" min="1" value="${index}" /></label>
       <div id="ld-msg" class="ld-msg"></div>
-      <button id="ld-patch" class="btn-patch"${d ? '' : ' disabled'}>PATCH</button>`;
+      <button id="ld-patch" class="btn-patch">PATCH</button>`;
 
     const modeSel = detailEl.querySelector('#ld-mode') as HTMLSelectElement | null;
     const uniSel = detailEl.querySelector('#ld-uni') as HTMLSelectElement;
@@ -207,7 +257,7 @@ export async function makeLibraryTile() {
     uniSel.addEventListener('change', async () => { addrEl.value = String(await afterLastAddress(Number(uniSel.value))); });
 
     const patchBtn = detailEl.querySelector('#ld-patch') as HTMLElement;
-    if (d) patchBtn.addEventListener('click', async () => {
+    patchBtn.addEventListener('click', async () => {
       msgEl.textContent = '';
       preserve = {
         count: Number((detailEl.querySelector('#ld-count') as HTMLInputElement).value) || 1,
@@ -234,8 +284,14 @@ export async function makeLibraryTile() {
     button({ variant: 'icon', label: '+', title: 'New fixture', onClick: () => lumox.editor.open() }),
   );
 
+  // A library change (user fixture added / removed) refreshes the vendor list and
+  // re-fetches whatever was already loaded so the tree reflects it.
   async function reloadDefs() {
-    try { defs = (await lumox.library.list()) ?? []; } catch { /* ignore */ }
+    try { vendors = (await lumox.library.vendors()) ?? []; } catch { /* ignore */ }
+    const reloadNames = allLoaded ? null : [...loaded.keys()];
+    loaded.clear(); byId.clear();
+    if (allLoaded) { allLoaded = false; await loadAll(); }
+    else if (reloadNames) for (const v of reloadNames) await loadVendor(v);
     renderTree();
     renderDetail();
   }

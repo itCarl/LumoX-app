@@ -31,18 +31,26 @@ export async function makeGroupBarTile(): Promise<{ tile: HTMLElement; refresh: 
     }
     const active = activeGroup.peek();
     tabs.set(html`
-      <button class="gb-tab${active === 'all' ? ' active' : ''}" data-grp="all">All</button>
+      <button class="gb-tab${active === 'all' ? ' active' : ''}" data-grp="all" title="Show all fixtures">All</button>
       ${groups.map((g) => html`
-        <button class="gb-tab${active === g.id ? ' active' : ''}" data-grp="${g.id}" data-midi="group:${g.id}:intensity" data-midi-kind="range" data-midi-min="0" data-midi-max="255" data-midi-label="Group: ${g.name}" title="${g.fixtureIds.length} fixtures">
+        <button class="gb-tab${active === g.id ? ' active' : ''}" data-grp="${g.id}" data-midi="group:${g.id}:intensity" data-midi-kind="range" data-midi-min="0" data-midi-max="255" data-midi-label="Group: ${g.name}" data-midi-alt="group:${g.id}:flash" data-midi-alt-kind="trigger" data-midi-alt-label="Group flash: ${g.name}" title="${g.fixtureIds.length} fixtures">
           <span class="gb-dot" style="background:${g.color}"></span>${g.name}
           <span class="gb-n">${g.fixtureIds.length}</span>
         </button>`)}`);
   }
 
   // ---- delegated events (bound once; survive every reload) --------------
-  tabs.on('click', '.gb-tab[data-grp]', (_e, t) => {
-    activeGroup.value = t.dataset.grp as string;
+  // A tab click both highlights the group (activeGroup → stage/grid outline) and
+  // SELECTS its fixtures: the live selection is the fader editor's edit target, so
+  // a group tab is the quick "edit this whole group" gesture. "All" selects the
+  // whole rig (in patch order, via the canonical select-all op).
+  tabs.on('click', '.gb-tab[data-grp]', async (_e, t) => {
+    const grp = t.dataset.grp as string;
+    activeGroup.value = grp;
     reload();
+    if (grp === 'all') { try { await lumox.selection.all(); } catch { /* ignore */ } return; }
+    const g = groups.find((x) => x.id === grp);
+    if (g) bus.emit(EV.FIXTURE_SELECTED, { ids: g.fixtureIds, src: 'groupbar' });
   });
   tabs.on('contextmenu', '.gb-tab[data-grp]', (e, t) => {
     if (t.dataset.grp === 'all') return;   // no menu on the "All" tab

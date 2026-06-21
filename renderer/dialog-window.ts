@@ -24,7 +24,7 @@ function answer(id: string) {
 }
 
 function btnClass(v?: string) {
-  return v === 'primary' ? 'lx-btn lx-btn-primary' : v === 'danger' ? 'lx-btn lx-btn-danger' : 'lx-btn';
+  return v === 'primary' ? 'lx-btn lx-btn-primary' : v === 'danger' ? 'lx-btn lx-btn-danger' : 'lx-btn lx-btn-ghost';
 }
 
 function render(spec: DialogSpec) {

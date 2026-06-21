@@ -11,6 +11,13 @@
 // Top and bottom rows each have an independent vertical splitter, so the
 // library can stay narrow while the stage is wide. A horizontal splitter
 // resizes the top row's height; the bottom row takes the remainder.
+//
+// Every panel has a per-zone MINIMUM size (width for the columns, height for the
+// rows). Splitter drags clamp to those minimums, and — crucially — so does
+// `apply()`, which re-runs on every window resize: shrinking the window can
+// never collapse a panel below its usable floor (content scrolls instead). A
+// panel's effective MAXIMUM is implied — it can grow only until the opposite
+// panel hits its own minimum.
 
 interface DockOptions {
   topCol?: number;
@@ -18,8 +25,15 @@ interface DockOptions {
   bottomCol?: number | null;
   bottomFraction?: number;
   groupsH?: number;
-  min?: number;
-  minRest?: number;
+  // Per-zone minimums (px). Column mins floor the vertical splitters; row mins
+  // floor the horizontal splitter. Each pair is { primary, rest }: `rest` is the
+  // flex-grow zone (tr / br) and so also caps how far the primary can grow.
+  colMinTop?: number;      // top-left (library / banks) min width
+  colRestMinTop?: number;  // top-right (patch / FX) min width
+  colMinBot?: number;      // bottom-left (stage) min width
+  colRestMinBot?: number;  // bottom-right (limits / fader) min width
+  rowMinTop?: number;      // top row min height
+  rowMinBot?: number;      // bottom row min height
 }
 
 interface DockZones {
@@ -40,8 +54,10 @@ export interface Dock {
 }
 
 export function makeDock(ws: HTMLElement, {
-  topCol = 300, topFraction = 0.65, bottomCol = null, bottomFraction, groupsH = 56,
-  min = 120, minRest = 80,
+  topCol = 300, topFraction = 0.5, bottomCol = null, bottomFraction, groupsH = 44,
+  colMinTop = 280, colRestMinTop = 320,
+  colMinBot = 320, colRestMinBot = 360,
+  rowMinTop = 240, rowMinBot = 260,
 }: DockOptions = {}): Dock {
   ws.classList.add('dock');
   ws.innerHTML = `
@@ -72,34 +88,46 @@ export function makeDock(ws: HTMLElement, {
   let _botCol = bottomCol;      // px, or null → 50% (unless _botColFrac is set)
   let _botColFrac: number | null = bottomFraction ?? null;   // fraction of bottom-row width; overrides px when set
 
+  // Largest valid value for a split: keep at least `rest` for the other side,
+  // but never below `lo` even on a window too small to satisfy both.
+  const hi = (total: number, rest: number, lo: number) => Math.max(lo, total - rest);
+
   function apply() {
     const avail = ws.clientHeight - groupsH;   // height left for top + bottom rows
-    const topPx = _topFrac != null ? Math.round(_topFrac * avail) : _topH;
+    const rawTop = _topFrac != null ? Math.round(_topFrac * avail) : _topH;
+    const topPx = clamp(rawTop, rowMinTop, hi(avail, rowMinBot, rowMinTop));
     wsTop.style.height = `${topPx}px`;
     groups.style.height = `${groupsH}px`;
-    const colPx = _topColFrac != null ? Math.round(_topColFrac * wsTop.clientWidth) : _topCol;
+
+    const topW = wsTop.clientWidth;
+    const rawCol = _topColFrac != null ? Math.round(_topColFrac * topW) : _topCol;
+    const colPx = clamp(rawCol, colMinTop, hi(topW, colRestMinTop, colMinTop));
     tl.style.flex = `0 0 ${colPx}px`;
-    const botPx = _botColFrac != null ? Math.round(_botColFrac * wsBottom.clientWidth) : _botCol;
-    bl.style.flex = botPx == null ? '0 0 50%' : `0 0 ${botPx}px`;
+
+    const botW = wsBottom.clientWidth;
+    const rawBot = _botColFrac != null ? Math.round(_botColFrac * botW)
+      : (_botCol ?? Math.round(0.5 * botW));
+    const botPx = clamp(rawBot, colMinBot, hi(botW, colRestMinBot, colMinBot));
+    bl.style.flex = `0 0 ${botPx}px`;
   }
 
   bindDrag('topcol', (e) => {
     const r = wsTop.getBoundingClientRect();
     _topColFrac = null;   // user override → px
-    _topCol = clamp(e.clientX - r.left, min, r.width - minRest);
+    _topCol = clamp(e.clientX - r.left, colMinTop, hi(r.width, colRestMinTop, colMinTop));
   });
   bindDrag('toph', (e) => {
     const r = ws.getBoundingClientRect();
     _topFrac = null;   // user override — switch to absolute px
-    _topH = clamp(e.clientY - r.top, min, r.height - groupsH - minRest);
+    _topH = clamp(e.clientY - r.top, rowMinTop, hi(r.height - groupsH, rowMinBot, rowMinTop));
   });
 
-  // keep the 65% (or dragged) split correct as the window resizes
+  // keep the split correct (and within mins) as the window resizes
   if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => apply()).observe(ws);
   bindDrag('botcol', (e) => {
     const r = wsBottom.getBoundingClientRect();
     _botColFrac = null;   // user override → px
-    _botCol = clamp(e.clientX - r.left, min, r.width - minRest);
+    _botCol = clamp(e.clientX - r.left, colMinBot, hi(r.width, colRestMinBot, colMinBot));
   });
 
   function bindDrag(name: string, update: (e: MouseEvent) => void) {

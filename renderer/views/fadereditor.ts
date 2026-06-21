@@ -1,12 +1,20 @@
 // Fader Editor tile (CONTROL view, bottom-right) — the main area is one strip
-// per channel and ALWAYS shows every channel of the selected group's fixtures.
-// When the group mixes fixture types (e.g. the "All" tab) the strips are split
-// into blocks: the TYPE / FIX toggle picks one block per channel-config (writes
-// broadcast to every fixture of that type) or one block per individual fixture.
-// The left sidebar of attribute categories (DIMMER / COLOR / … / FADER) only
-// highlights + scrolls to that category's channels; it never hides any, so
-// switching category never changes the layout. Each strip stacks an engage dot,
-// the channel number, a colour swatch, a value/OFF readout, and the fader.
+// per channel and shows every channel of the LIVE SELECTION (the fixtures picked
+// on the stage / patch grid; see selection.md). It is console-style **gated on
+// the selection**: with nothing selected the strip area is unavailable (a prompt
+// to pick fixtures) — faders only ever edit what you've selected. A group tab in
+// the group bar is the quick "select this whole group" gesture.
+// When the selection mixes fixture types the strips are split into one block per
+// channel-config — its faders broadcast to every selected fixture of that type,
+// so a homogeneous selection collapses to a single shared block. Block order
+// follows the selection order.
+// The left sidebar shows the full fixed set of attribute categories (DIMMER /
+// COLOR / … / FADER) like a pro console — always present, even for fixtures that
+// lack a category (selecting it just shows no strips). Selecting one filters the
+// strips to that category's channels; the FADER tab shows every channel (the flat
+// view). Each strip stacks the channel number and value/OFF readout above a body
+// that runs the full-height vertical fader with its colour swatch to the left,
+// and an engage dot at the bottom.
 // Moving a fader auto-engages its channel (green dot); clicking the dot toggles
 // the channel — engage it at 0 when off, release it when on.
 //
@@ -18,18 +26,20 @@
 //          touched universe is broadcast even with no scene active. The header
 //          shows how many channels are engaged and offers Clear (reset the
 //          programmer) and Store (capture it as a new scene in the active bank).
-// Either way writes apply to every fixture in the selected group.
+// Either way writes apply to every selected fixture.
 
 import { bus, EV } from '../lib/bus';
-import { activeGroup } from '../lib/store';
-import { effect } from '@preact/signals-core';
 import { html, mount, raw } from '../lib/dom';
 import { channelIconHtml } from '../lib/channel-icons';
+import { goboSvg } from '../lib/gobo';
+import { createColorPicker, type ColorPicker } from '../lib/colorpicker';
 
 const { lumox } = window;
 
+// RGB-primary colour channels the picker drives, by channel-type id → component.
+const RGB_PRIMARY: Record<string, 'r' | 'g' | 'b'> = { red: 'r', green: 'g', blue: 'b' };
+
 type Mode = 'edit' | 'live';
-type Layout = 'type' | 'fixture';
 interface SceneRef { id: string; name: string }
 type SceneValues = Record<number, Record<number, number>>;
 
@@ -38,8 +48,10 @@ type SceneValues = Record<number, Record<number, number>>;
 // channel-config for 'type').
 interface Block { rep: any; fixtures: any[]; label: string }
 
-// Attribute tabs, in display order. Only those the selected fixtures actually
-// have are shown; `all` (every channel — the flat view) is always appended.
+// Attribute tabs, in display order. The full fixed set is ALWAYS shown (like a
+// pro console's attribute palette) — selecting a category the current fixtures
+// lack simply leaves the strip area empty. `all` (every channel — the flat view)
+// is always appended as FADER.
 const ATTR_TABS: Array<[group: string, label: string]> = [
   ['intensity', 'DIMMER'], ['color', 'COLOR'], ['position', 'POSITION'],
   ['gobo', 'GOBO'], ['beam', 'BEAM'], ['prism', 'PRISM'],
@@ -54,10 +66,6 @@ export async function makeFaderEditorTile() {
       <span class="seg fe-mode">
         <button class="seg-btn active" data-mode="edit">EDIT</button>
         <button class="seg-btn" data-mode="live">LIVE</button>
-      </span>
-      <span class="seg fe-layout">
-        <button class="seg-btn active" data-layout="type" title="One fader block per fixture type">TYPE</button>
-        <button class="seg-btn" data-layout="fixture" title="One fader block per individual fixture">FIX</button>
       </span>
       <span class="fe-target" id="fe-target">EDIT: Scene</span>
       <span class="fe-prog" id="fe-prog" hidden>
@@ -91,11 +99,11 @@ export async function makeFaderEditorTile() {
 
   const state = {
     mode: 'edit' as Mode,
-    layout: 'type' as Layout,               // heterogeneous group split: per type or per fixture
-    attr: 'all',                            // sidebar category — highlights its channels ('all' = none)
-    group: 'all',
+    attr: 'all',                            // sidebar category — filters strips to this group ('all' = every channel)
+    vdimOpen: new Set<number>(),            // expanded per-cluster virtual-dimmer drawers (by channel index)
+    colorPickers: new Map<number, ColorPicker>(),  // COLOR view: block index → mounted picker
+    selectionIds: [] as string[],           // live ordered selection — the edit target (gates the strips)
     fixtures: [] as any[],
-    groups: [] as any[],
     blocks: [] as Block[],                  // current rendered blocks (event handlers resolve targets by index)
     editScene: null as SceneRef | null,    // scene being edited (EDIT mode)
     sceneValues: {} as SceneValues,         // editScene's sparse stored values
@@ -133,29 +141,23 @@ export async function makeFaderEditorTile() {
   }
 
   async function load() {
-    [state.fixtures, state.groups] = await Promise.all([
-      lumox.patch.list().catch(() => []),
-      lumox.groups.list().catch(() => []),
-    ]);
+    state.fixtures = await lumox.patch.list().catch(() => []);
     await resolveEditScene();
     await refreshProgrammer();
     render();
   }
 
-  function groupFixtures() {
-    if (state.group === 'all') return state.fixtures;     // every patched fixture
-    const g = state.groups.find((x) => x.id === state.group);
-    return g ? state.fixtures.filter((f) => g.fixtureIds.includes(f.id)) : [];
+  // The live selection resolved to fixture DTOs, in selection order. Stale ids
+  // (pruned by a patch change) drop out, so the strips always match the patch.
+  function selectionFixtures() {
+    const byId = new Map<string, any>(state.fixtures.map((f) => [f.id, f]));
+    return state.selectionIds.map((id) => byId.get(id)).filter(Boolean);
   }
 
-  // Split the selected group's fixtures into the blocks to render. 'fixture' = one
-  // block per individual fixture; 'type' = one block per channel-config (writes
-  // broadcast to all of that type). A homogeneous group yields a single block, so
-  // both modes match the classic single-strip view.
+  // Split the selected fixtures into the blocks to render: one block per
+  // channel-config (writes broadcast to all selected fixtures of that type). A
+  // homogeneous selection yields a single block, matching the classic single-strip view.
   function buildBlocks(fixtures: any[]): Block[] {
-    if (state.layout === 'fixture') {
-      return fixtures.map((f) => ({ rep: f, fixtures: [f], label: `${f.name} · @${f.startAddress}` }));
-    }
     const byKey = new Map<string, any[]>();
     for (const f of fixtures) {
       const k = f.configKey ?? f.id;
@@ -168,16 +170,25 @@ export async function makeFaderEditorTile() {
     }));
   }
 
+  // Channel descriptor for a fixture by 1-based fader index (real or virtual).
+  const chanOf = (f: any, ch: number) => f.channels.find((c: any) => c.index === ch);
+  // Universe-absolute address of a channel — explicit for virtual dimmers, else
+  // the contiguous `startAddress + index - 1`.
+  const absOf = (f: any, ch: number): number => chanOf(f, ch)?.absAddress ?? (f.startAddress + ch - 1);
+
   // ---- per-channel state (engaged + value) for the representative fixture --
   function cellState(rep: any, ch: number): { on: boolean; v: number } {
     if (state.mode === 'edit') {
       const chans = state.sceneValues[rep.universeId];
-      const abs = rep.startAddress + ch - 1;
+      const abs = absOf(rep, ch);
       const has = !!chans && Object.prototype.hasOwnProperty.call(chans, abs);
       return { on: has, v: has ? chans[abs] : 0 };
     }
     const key = `${rep.id}:${ch}`;
-    return { on: state.active.has(key), v: state.values.get(key) ?? 0 };
+    // Virtual dimmers rest at full (the engine seeds them to 255), so an
+    // untouched virtual fader reads 100%, not OFF.
+    const def = chanOf(rep, ch)?.isVirtual ? 255 : 0;
+    return { on: state.active.has(key), v: state.values.get(key) ?? def };
   }
 
   // ---- writes ------------------------------------------------------------
@@ -185,7 +196,7 @@ export async function makeFaderEditorTile() {
   function writeLive(fixtures: any[], ch: number, value: number) {
     for (const f of fixtures) {
       state.values.set(`${f.id}:${ch}`, value);
-      lumox.fixtures.setChannel(f.id, ch, value);
+      lumox.fixtures.setChannel(f.id, ch, value, chanOf(f, ch)?.absAddress);
     }
   }
 
@@ -194,7 +205,7 @@ export async function makeFaderEditorTile() {
   function releaseLive(fixtures: any[], ch: number) {
     for (const f of fixtures) {
       state.values.delete(`${f.id}:${ch}`);
-      lumox.fixtures.releaseChannel(f.id, ch);
+      lumox.fixtures.releaseChannel(f.id, ch, chanOf(f, ch)?.absAddress);
     }
   }
 
@@ -204,9 +215,9 @@ export async function makeFaderEditorTile() {
   function writeScene(fixtures: any[], ch: number, value: number | null) {
     const id = state.editScene?.id;
     if (!id) return;
-    for (const f of fixtures) lumox.scenes.setChannel(id, f.id, ch, value);
+    for (const f of fixtures) lumox.scenes.setChannel(id, f.id, ch, value, chanOf(f, ch)?.absAddress);
     const rep = fixtures[0];
-    const abs = rep.startAddress + ch - 1;
+    const abs = absOf(rep, ch);
     const chans = (state.sceneValues[rep.universeId] ??= {});
     if (value == null) delete chans[abs];
     else chans[abs] = value;
@@ -218,67 +229,215 @@ export async function makeFaderEditorTile() {
     else { state.active.add(`${fixtures[0].id}:${ch}`); writeLive(fixtures, ch, value); }
   }
 
-  // Sidebar categories present on the rep fixture, plus the always-on FADER (no
-  // highlight) entry. Selecting one highlights its channels — it never filters,
-  // so the strip layout stays identical across categories.
-  function attrTabs(blocks: Block[]): Array<{ id: string; label: string }> {
-    const present = new Set<string>();
-    for (const b of blocks) for (const c of b.rep.channels) if (c.group) present.add(c.group);
-    const tabs = ATTR_TABS.filter(([g]) => present.has(g)).map(([id, label]) => ({ id, label }));
+  // The full fixed category bar, always shown regardless of the selected
+  // fixtures (a category they lack just renders an empty strip area). Selecting
+  // one filters the strips to its channels; FADER shows every channel (flat view).
+  function attrTabs(): Array<{ id: string; label: string }> {
+    const tabs = ATTR_TABS.map(([id, label]) => ({ id, label }));
     tabs.push({ id: 'all', label: 'FADER' });
     return tabs;
   }
-  // The strip row — ALWAYS every channel (selecting a category only highlights,
-  // never hides, so switching categories never reflows). Each strip: engage
-  // dot · channel number · colour swatch · value/OFF · vertical fader.
+  // One fader strip (index · value/OFF above; swatch left of the full-height
+  // vertical fader; engage dot at the bottom).
+  function faderCol(rep: any, c: any) {
+    const { on, v } = cellState(rep, c.index);
+    const tint = c.color ? `--cc:${c.color};` : '';
+    // Virtual dimmers rest at full and always output, so they read live (their
+    // value, un-greyed) even when not explicitly engaged.
+    const lit = on || !!c.isVirtual;
+    // Profile presets (gobo / colour / shutter / macro ranges) → a column of
+    // quick-value chips beside the fader (Daslight-style). The active range
+    // annotates the strip: its label as the readout, and — for a drawn gobo —
+    // its shape as the icon.
+    const caps: any[] = Array.isArray(c.caps) ? c.caps : [];
+    const cur = capAt(caps, v);
+    const goboMarkup = lit && cur?.pattern ? goboSvg(cur.pattern, 18) : '';
+    return html`
+      <div class="fcol${lit ? ' active' : ''}${caps.length ? ' has-presets' : ''}" data-ch="${c.index}"
+           data-midi="fixture:${rep.id}:${c.index}" data-midi-kind="range" data-midi-min="0" data-midi-max="255" data-midi-label="${rep.name} · ${c.name}">
+        <div class="fc-n">${c.index}</div>
+        <div class="fc-val" title="${cur ? cur.label : ''}">${lit ? (cur ? cur.label : v) : 'OFF'}</div>
+        <div class="fc-body">
+          <div class="fc-left">
+            <span class="fc-icon${goboMarkup ? ' is-gobo' : ''}" title="${c.name}" style="${tint}">${raw(goboMarkup || channelIconHtml(c.typeId, c.group, c.color))}</span>
+            ${caps.length ? html`<div class="fc-chips">${presetChips(caps, v)}</div>` : ''}
+          </div>
+          <input class="fc-fader" type="range" min="0" max="255" value="${v}" orient="vertical" />
+        </div>
+        <div class="fc-dot${on ? ' on' : ''}" title="${on ? 'Release channel' : 'Move the fader to engage'}"></div>
+      </div>`;
+  }
+
+  // The profile range that contains a value (its named preset), or null.
+  const capAt = (caps: any[], v: number) =>
+    caps.find((cap) => v >= cap.min && v <= cap.max) ?? null;
+
+  // Preset chips beside a channel's fader — one per profile range. A colour cap
+  // shows its swatch, a drawn gobo its thumbnail, anything else a small label.
+  // Clicking a chip engages the channel and snaps it to that range's mid value
+  // (`data-v`); the active range's chip is highlighted.
+  function presetChips(caps: any[], v: number) {
+    return caps.map((cap) => {
+      const active = v >= cap.min && v <= cap.max;
+      const mid = Math.round((cap.min + cap.max) / 2);
+      const cls = `fc-chip${active ? ' on' : ''}`;
+      if (typeof cap.color === 'string')
+        return html`<button class="${cls} sw" style="background:${cap.color}" title="${cap.label}" data-v="${mid}"></button>`;
+      const gobo = cap.pattern ? goboSvg(cap.pattern, 18) : '';
+      if (gobo)
+        return html`<button class="${cls} gobo" title="${cap.label}" data-v="${mid}">${raw(gobo)}</button>`;
+      return html`<button class="${cls} lbl" title="${cap.label}" data-v="${mid}">${cap.label}</button>`;
+    });
+  }
+
+  // Per-cluster virtual-dimmer drawer: a slim toggle right after the cluster's
+  // RGB faders that reveals just that cluster's dimmer (FADER view only — the
+  // DIMMER category shows the virtual dimmers as plain strips instead).
+  function clusterDim(rep: any, vc: any) {
+    const open = state.vdimOpen.has(vc.index);
+    return html`
+      <div class="fe-vdim${open ? ' open' : ''}">
+        <button class="fe-vdim-toggle" data-vdim="${vc.index}" title="${open ? 'Hide' : 'Show'} ${vc.name}">
+          <i class="fa-solid fa-chevron-${open ? 'right' : 'left'}"></i>
+        </button>
+        <div class="fe-vdim-cols">${faderCol(rep, vc)}</div>
+      </div>`;
+  }
+
+  // The strip row. A selected category filters to just its channels, rendered as
+  // plain strips (virtual dimmers included — they carry the intensity group). The
+  // FADER tab shows every real channel in order, each RGB cluster (on an RGB-only
+  // fixture) followed by its own collapsed dimmer drawer.
   function fadersFor(rep: any) {
     const chans = rep.channels;
     if (!chans.length) return html`<div class="muted pad">No channels.</div>`;
+
+    if (state.attr !== 'all') {
+      const inCat = chans.filter((c: any) => c.group === state.attr);
+      // COLOR view leads with a colour picker (RGB fixtures only) that drives the
+      // red/green/blue strips; mounted post-render into this host.
+      const pick = state.attr === 'color' && colorPrimaries(rep)
+        ? html`<div class="fe-color-pick"></div>` : '';
+      return html`<div class="fe-row">${pick}${inCat.map((c: any) => faderCol(rep, c))}</div>`;
+    }
+
+    const real = chans.filter((c: any) => !c.isVirtual);
+    const virtual = chans.filter((c: any) => c.isVirtual);
+    const byAfter = new Map<number, any>(virtual.map((c: any) => [c.afterIndex, c]));
+    const orphans = virtual.filter((c: any) => !real.some((r: any) => r.index === c.afterIndex));
     return html`
       <div class="fe-row">
-        ${chans.map((c: any) => {
-          const { on, v } = cellState(rep, c.index);
-          const tint = c.color ? `--cc:${c.color};` : '';
-          return html`
-          <div class="fcol${on ? ' active' : ''}" data-ch="${c.index}" data-group="${c.group || ''}">
-            <div class="fc-n">${c.index}</div>
-            <span class="fc-icon" title="${c.name}" style="${tint}">${raw(channelIconHtml(c.typeId, c.group, c.color))}</span>
-            <div class="fc-val">${on ? v : 'OFF'}</div>
-            <input class="fc-fader" type="range" min="0" max="255" value="${v}" orient="vertical" />
-            <div class="fc-dot${on ? ' on' : ''}" title="${on ? 'Release channel' : 'Move the fader to engage'}"></div>
-          </div>`;
+        ${real.map((c: any) => {
+          const vc = byAfter.get(c.index);
+          return html`${faderCol(rep, c)}${vc ? clusterDim(rep, vc) : ''}`;
         })}
+        ${orphans.map((vc: any) => clusterDim(rep, vc))}
       </div>`;
+  }
+
+  // ---- COLOR picker ------------------------------------------------------
+  // The block's red/green/blue channels, mapped to colour components — or null
+  // when the fixture isn't a full RGB mixer (then no picker, just the strips).
+  function colorPrimaries(rep: any): Array<{ ch: number; comp: 'r' | 'g' | 'b' }> | null {
+    const prim = rep.channels
+      .filter((c: any) => RGB_PRIMARY[c.typeId])
+      .map((c: any) => ({ ch: c.index, comp: RGB_PRIMARY[c.typeId] }));
+    const comps = new Set(prim.map((p: any) => p.comp));
+    return comps.has('r') && comps.has('g') && comps.has('b') ? prim : null;
+  }
+
+  // Current colour of a block's rep, read back from its R/G/B strip values.
+  function currentRgb(rep: any, prim: Array<{ ch: number; comp: string }>) {
+    const rgb: any = { r: 0, g: 0, b: 0 };
+    for (const { ch, comp } of prim) rgb[comp] = Math.round(cellState(rep, ch).v);
+    return rgb;
+  }
+
+  // Push a colour onto a block: engage + write its R/G/B channels across the
+  // block's fixtures and repaint the rep's strips (no full re-render → stays smooth).
+  function applyColorToBlock(i: number, rgb: { r: number; g: number; b: number }) {
+    const block = state.blocks[i];
+    const prim = block && colorPrimaries(block.rep);
+    if (!block || !prim) return;
+    const blk = cols.el.querySelector<HTMLElement>(`.fe-block[data-block="${i}"]`);
+    for (const { ch, comp } of prim) {
+      const v = Math.round((rgb as any)[comp]);
+      engage(block.fixtures, ch, v);
+      if (blk) paintColumn(blk, ch, v);
+    }
+  }
+
+  // Repaint one strip's value/fader/engage state in place (shared by the picker
+  // and direct fader drags).
+  function paintColumn(blk: HTMLElement, ch: number, v: number) {
+    const col = blk.querySelector<HTMLElement>(`.fcol[data-ch="${ch}"]`);
+    if (!col) return;
+    col.classList.add('active');
+    col.querySelector('.fc-dot')?.classList.add('on');
+    const fader = col.querySelector('.fc-fader') as HTMLInputElement | null;
+    if (fader) fader.value = String(v);
+    const valEl = col.querySelector('.fc-val') as HTMLElement | null;
+    if (valEl) valEl.textContent = String(v);
+  }
+
+  // Mount one picker per COLOR block, seeded from its current colour. Picker
+  // drags write to the strips (onInput); strip drags push back via
+  // `syncColorPicker` (setRgb never re-fires onInput, so there's no echo).
+  function mountColorPickers() {
+    state.colorPickers.clear();
+    cols.el.querySelectorAll<HTMLElement>('.fe-color-pick').forEach((host) => {
+      const blk = host.closest('.fe-block') as HTMLElement | null;
+      const i = blk ? Number(blk.dataset.block) : -1;
+      const block = state.blocks[i];
+      const prim = block && colorPrimaries(block.rep);
+      if (!block || !prim) return;
+      const picker = createColorPicker({
+        initial: currentRgb(block.rep, prim),
+        onInput: (rgb) => applyColorToBlock(i, rgb),
+        onEnd: () => { if (state.mode === 'live') refreshProgrammer(); },
+      });
+      host.appendChild(picker.el);
+      state.colorPickers.set(i, picker);
+    });
+  }
+
+  // Reflect a strip's new value back onto its block's picker (no write-back).
+  function syncColorPicker(blk: HTMLElement) {
+    const i = Number(blk.dataset.block);
+    const picker = state.colorPickers.get(i);
+    const block = state.blocks[i];
+    const prim = block && colorPrimaries(block.rep);
+    if (picker && block && prim) picker.setRgb(currentRgb(block.rep, prim));
   }
 
   function render() {
     updateHead();
-    const fixtures = groupFixtures();
+    const fixtures = selectionFixtures();
     if (!fixtures.length) {
-      cols.set(html`<div class="muted pad">No fixtures patched — add fixtures in Setup.</div>`);
-      return;
-    }
-    if (state.mode === 'edit' && !state.editScene) {
-      cols.set(html`<div class="muted pad">No scene selected to edit. In CONTROL → Banks, click a scene's
-        colour strip to pick it, then move a fader here to set that channel.<br>
-        No scenes yet? Switch to <b>LIVE</b>, build a look, then press <b>+ Store</b>.</div>`);
+      cols.set(html`<div class="muted pad">Select fixtures on the stage or patch grid to edit.</div>`);
       return;
     }
     const blocks = buildBlocks(fixtures);
     state.blocks = blocks;
-    const single = blocks.length === 1;
-    const gname = state.groups.find((g) => g.id === state.group)?.name ?? '';
-    const tabs = attrTabs(blocks);
-    if (!tabs.some((t) => t.id === state.attr)) state.attr = tabs[0]?.id ?? 'all';
+    const selName = fixtures.length === 1 ? fixtures[0].name : `${fixtures.length} fixtures`;
+    const tabs = attrTabs();
+
+    // A selected category drops blocks with no channels in it (so empty blocks
+    // and their labels vanish, not just the strips). Keep each block's original
+    // index — event handlers resolve fixtures by `data-block` against state.blocks.
+    const hasAttr = (b: Block) =>
+      state.attr === 'all' || b.rep.channels.some((c: any) => c.group === state.attr);
+    const shown = blocks.map((b, i) => [b, i] as const).filter(([b]) => hasAttr(b));
+    const single = shown.length === 1;
 
     cols.set(html`
       <div class="fe-side">
         ${tabs.map((t) => html`<button class="fe-attr${t.id === state.attr ? ' active' : ''}" data-attr="${t.id}">${t.label}</button>`)}
       </div>
       <div class="fe-main">
-        ${gname ? html`<div class="fe-gname">${gname.toUpperCase()}</div>` : ''}
+        <div class="fe-gname">${selName.toUpperCase()}</div>
         <div class="fe-attr-body${single ? ' single' : ''}">
-          ${blocks.map((b, i) => html`
+          ${shown.map(([b, i]) => html`
             <div class="fe-block" data-block="${i}">
               ${single ? '' : html`<div class="fe-bname">${b.label}</div>`}
               ${fadersFor(b.rep)}
@@ -286,19 +445,8 @@ export async function makeFaderEditorTile() {
         </div>
       </div>`);
 
-    applyAttrHighlight(false);
-  }
-
-  // Emphasise the selected category's channels (and bring the first into view).
-  // Highlight only — it never adds or removes strips, so the layout never shifts.
-  function applyAttrHighlight(scroll: boolean) {
-    const all = state.attr === 'all';
-    cols.el.querySelectorAll<HTMLElement>('.fcol').forEach((c) => {
-      c.classList.toggle('hl', !all && c.dataset.group === state.attr);
-    });
-    if (scroll && !all) {
-      cols.el.querySelector<HTMLElement>('.fcol.hl')?.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
-    }
+    if (state.attr === 'color') mountColorPickers();
+    else state.colorPickers.clear();
   }
 
   // Header reflects the current write target: EDIT shows the scene being edited;
@@ -338,34 +486,30 @@ export async function makeFaderEditorTile() {
   head.querySelectorAll('.fe-mode .seg-btn').forEach((b) =>
     b.addEventListener('click', () => setMode((b as HTMLElement).dataset.mode as Mode)));
 
-  // ---- layout switch (per-type / per-fixture block split) ----------------
-  function setLayout(l: Layout) {
-    if (l === state.layout) return;
-    state.layout = l;
-    head.querySelectorAll('.fe-layout .seg-btn').forEach((b) =>
-      b.classList.toggle('active', (b as HTMLElement).dataset.layout === l));
-    render();
-  }
-  head.querySelectorAll('.fe-layout .seg-btn').forEach((b) =>
-    b.addEventListener('click', () => setLayout((b as HTMLElement).dataset.layout as Layout)));
-
   // Resolve the fixtures a strip writes to from its enclosing block (falls back to
-  // the whole group if, somehow, the strip is outside a block).
+  // the whole selection if, somehow, the strip is outside a block).
   function blockFixtures(el: HTMLElement): any[] {
     const blk = el.closest('.fe-block') as HTMLElement | null;
     const i = blk ? Number(blk.dataset.block) : -1;
-    return state.blocks[i]?.fixtures ?? groupFixtures();
+    return state.blocks[i]?.fixtures ?? selectionFixtures();
   }
 
   // ---- delegated events (bound once; survive every render) --------------
-  // sidebar category → highlight its channels (no strip rebuild → no reflow)
+  // sidebar category → filter the strips to that category's channels.
   cols.on('click', '.fe-attr', (_e, t) => {
     const a = (t as HTMLElement).dataset.attr;
     if (!a || a === state.attr) return;
     state.attr = a;
-    cols.el.querySelectorAll('.fe-attr').forEach((b) =>
-      b.classList.toggle('active', (b as HTMLElement).dataset.attr === a));
-    applyAttrHighlight(true);
+    render();
+  });
+
+  // expand / collapse one cluster's virtual-dimmer drawer (RGB-only fixtures)
+  cols.on('click', '.fe-vdim-toggle', (_e, t) => {
+    const btn = (t as HTMLElement).closest('.fe-vdim-toggle') as HTMLElement | null;
+    const k = Number(btn?.dataset.vdim);
+    if (!Number.isFinite(k)) return;
+    if (state.vdimOpen.has(k)) state.vdimOpen.delete(k); else state.vdimOpen.add(k);
+    render();
   });
 
   // dot click toggles the channel: engage it at 0 when off, release it when on
@@ -387,6 +531,16 @@ export async function makeFaderEditorTile() {
     if (state.mode === 'live') refreshProgrammer();
   });
 
+  // click a preset chip → engage the channel and snap it to that range's value
+  cols.on('click', '.fc-chip', (_e, t) => {
+    const col = (t as HTMLElement).closest('.fcol') as HTMLElement | null;
+    const fixtures = blockFixtures(t as HTMLElement);
+    if (!col || !fixtures.length) return;
+    engage(fixtures, Number(col.dataset.ch), Number((t as HTMLElement).dataset.v));
+    render();
+    if (state.mode === 'live') refreshProgrammer();
+  });
+
   // moving a fader auto-engages the channel and shows the green dot
   cols.on('input', '.fc-fader', (_e, t) => {
     const fader = t as HTMLInputElement;
@@ -399,7 +553,22 @@ export async function makeFaderEditorTile() {
     // live-update this column without a full re-render (keeps the drag smooth)
     col.classList.add('active');
     (col.querySelector('.fc-dot') as HTMLElement | null)?.classList.add('on');
-    (col.querySelector('.fc-val') as HTMLElement).textContent = String(v);
+    // Track the value range the fader is now on: its label as the readout and —
+    // for a drawn gobo — its shape as the icon, so the selected gobo updates live.
+    const chan = chanOf(fixtures[0], ch);
+    const cur = chan?.caps?.length ? capAt(chan.caps, v) : null;
+    (col.querySelector('.fc-val') as HTMLElement).textContent = cur ? cur.label : String(v);
+    const icon = col.querySelector('.fc-icon') as HTMLElement | null;
+    if (icon && chan?.caps?.length) {
+      const gobo = cur?.pattern ? goboSvg(cur.pattern, 18) : '';
+      icon.classList.toggle('is-gobo', !!gobo);
+      icon.innerHTML = gobo || channelIconHtml(chan.typeId, chan.group, chan.color);
+    }
+    // In COLOR view, dragging an R/G/B strip moves the wheel to match.
+    if (state.attr === 'color') {
+      const blk = col.closest('.fe-block') as HTMLElement | null;
+      if (blk) syncColorPicker(blk);
+    }
   });
 
   // Releasing a fader settles the programmer count (the Clear/Store header).
@@ -470,11 +639,14 @@ export async function makeFaderEditorTile() {
   boBtn.addEventListener('pointercancel', () => setBlackout(false));
 
   bus.on(EV.BANK_SELECTED, (id: string | null) => { state.bankId = id; });
-  effect(() => { state.group = activeGroup.value; render(); });
+  // The live selection (stage / patch grid / group bar / main) is the edit target.
+  bus.on(EV.FIXTURE_SELECTED, (d: { ids: string[] } | null) => { state.selectionIds = d?.ids ?? []; render(); });
   bus.on(EV.PATCH_CHANGED, load);
-  bus.on(EV.GROUPS_CHANGED, load);
   bus.on(EV.SCENE_SELECTED, async (sel: SceneRef | null) => { await resolveEditScene(sel); render(); });
+  // Deselect — drop the editor's scene target outright (don't fall back to active).
+  bus.on(EV.SCENE_DESELECTED, async () => { state.editScene = null; await refreshSceneValues(); render(); });
 
+  try { state.selectionIds = await lumox.selection.get(); } catch { state.selectionIds = []; }
   await load();
   return { tile, refresh: load };
 }

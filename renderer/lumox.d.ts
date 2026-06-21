@@ -68,6 +68,7 @@ export interface AppSettings {
   tempoSource: TempoSource;
   midiClockInput: string | null;
   audioInput: string | null;
+  audioBands: number;
 }
 
 /** One effect layer in a scene's FX rack. Mirrors FxLayerDTO. */
@@ -85,6 +86,8 @@ export interface FxLayerInfo {
   size: number;
   spread: number;
   beams: number;
+  /** fixture id behind each preview beam, index-aligned with `beams` (sweep order) */
+  beamFixtureIds: string[];
   color?: { palette: string[]; grayscale: boolean; colorWidth: number; angle: number; saturation: number; fade: number; randomize: boolean };
   move?: { shape: 'circle' | 'figure8' | 'line' | 'square'; symmetry: boolean; sizeX: number; sizeY: number; centerX: number; centerY: number; phaseShape: number };
   curve?: { waveform: FxWave; attr: string; min: number; max: number; duty: number; invert: boolean };
@@ -104,9 +107,6 @@ export interface FixtureLimits {
   swapPanTilt?: boolean;
 }
 
-/** Per-channel flags by 1-based local index. Mirrors FixtureChannelFlagsDTO. */
-export type FixtureChannelFlags = { [channelIndex: number]: { fade?: boolean; dimmer?: boolean } };
-
 /** Scene state surfaced to the renderer (Scene Properties panel). Mirrors SceneDTO. */
 export interface SceneInfo {
   id: string;
@@ -120,6 +120,9 @@ export interface SceneInfo {
   steps: { fadeMs: number; waitMs: number }[];
   /** FX rack — ordered effect layers over the base look */
   layers: FxLayerInfo[];
+  /** fixtures this scene drives (base look or any step), patch order — selecting
+   *  the scene auto-selects these on the stage */
+  fixtureIds: string[];
   level: number;
   speed: number;
   fadeIn: number;
@@ -199,6 +202,7 @@ export interface MidiStatus {
 export interface MidiMonitorMessage { type: 'note' | 'cc'; channel: number; number: number; value: number; }
 export interface MidiAssignMode { active: boolean; }
 export interface MidiAwaitingInput { waiting: boolean; label?: string; }
+export interface MidiFeedback { id: string; active?: boolean; value?: number; }
 
 // ---- audio-reactive input ----
 export type AudioTargetKind = 'range' | 'trigger';
@@ -239,7 +243,6 @@ export interface LumoxApi {
     patch(): Promise<UniverseOutputRow[]>;
     setUniverse(cfg: Partial<UniverseOutputRow> & { universeId: number }): Promise<any>;
     removeUniverse(universeId: number): Promise<any>;
-    addUniverse(): Promise<number>;
   };
   discovery: {
     start(): Promise<DiscoveryStatus>;
@@ -265,14 +268,17 @@ export interface LumoxApi {
     status(): Promise<any>;
   };
   library: {
+    vendors(): Promise<{ name: string; count: number; source: string }[]>;
+    vendor(name: string): Promise<any[]>;
     list(): Promise<any[]>;
     channelTypes(): Promise<any[]>;
-    add(def: any): Promise<any>;
+    add(def: any, replaceId?: string): Promise<any>;
     remove(id: string): Promise<{ ok: boolean; id: string }>;
     onChanged(cb: () => void): void;
   };
   editor: {
-    open(): Promise<any>;
+    open(defId?: string): Promise<any>;
+    target(): Promise<{ def: any; source: string } | null>;
   };
   project: {
     new: () => Promise<any>;
@@ -326,14 +332,21 @@ export interface LumoxApi {
     reorder(from: number, to: number): Promise<string[]>;
     onChanged(cb: (ids: string[]) => void): void;
   };
+  selections: {
+    list(): Promise<{ id: string; name: string; fixtureIds: string[] }[]>;
+    save(fixtureIds: string[], name?: string): Promise<{ id: string; name: string; fixtureIds: string[] } | null>;
+    rename(id: string, name: string): Promise<void>;
+    remove(id: string): Promise<void>;
+    setFixtures(id: string, fixtureIds: string[]): Promise<void>;
+    recall(id: string): Promise<string[]>;
+  };
   fixtures: {
-    setChannel(fixtureId: string, channel: number, value: number): Promise<any>;
-    releaseChannel(fixtureId: string, channel: number): Promise<any>;
+    setChannel(fixtureId: string, channel: number, value: number, absChannel?: number): Promise<any>;
+    releaseChannel(fixtureId: string, channel: number, absChannel?: number): Promise<any>;
     clearProgrammer(): Promise<{ channels: number; universes: number[] }>;
     programmer(): Promise<{ channels: number; universes: number[] }>;
     setLimits(fixtureIds: string[], patch: Partial<FixtureLimits> & Record<string, unknown>): Promise<void>;
     clearLimits(fixtureIds: string[]): Promise<void>;
-    setChannelFlag(fixtureIds: string[], channel: number, flag: 'fade' | 'dimmer', value: boolean | null): Promise<void>;
   };
   scenes: {
     list(): Promise<any[]>;
@@ -345,7 +358,7 @@ export interface LumoxApi {
     update(id: string): Promise<any>;
     merge(id: string): Promise<void>;
     setColor(id: string, color: string): Promise<any>;
-    setChannel(id: string, fixtureId: string, channel: number, value: number | null): Promise<any>;
+    setChannel(id: string, fixtureId: string, channel: number, value: number | null, absChannel?: number): Promise<any>;
     setType(id: string, type: string): Promise<any>;
     setRate(id: string, rateMs: number): Promise<any>;
     addStep(id: string): Promise<number>;
@@ -418,7 +431,7 @@ export interface LumoxApi {
     status(): Promise<MidiStatus>;
     listBindings(): Promise<MidiBinding[]>;
     beginAssign(): Promise<any>;
-    pickTarget(target: MidiTarget): Promise<any>;
+    pickTarget(target: MidiTarget | MidiTarget[]): Promise<any>;
     cancelAssign(): Promise<any>;
     setBindingOptions(id: string, options: MidiBindingOptions): Promise<any>;
     removeBinding(id: string): Promise<any>;
@@ -427,6 +440,7 @@ export interface LumoxApi {
     onAssignMode(cb: (mode: MidiAssignMode) => void): void;
     onAwaitingInput(cb: (info: MidiAwaitingInput) => void): void;
     onMessage(cb: (msg: MidiMonitorMessage) => void): void;
+    onFeedback(cb: (feedback: MidiFeedback[]) => void): void;
   };
   audio: {
     levels(frame: { bands: number[]; volume: number; beat: boolean }): Promise<void>;

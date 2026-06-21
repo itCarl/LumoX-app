@@ -1,25 +1,32 @@
-// Stage tile — top-down 2D view of the rig as built on stage. Each fixture is a
-// draggable footprint showing its real emitters; the picture is the engine's
+// Stage tile — top-down 2D view of the rig on a FIXED-SIZE stage. Each fixture is
+// a draggable footprint showing its real emitters; the picture is the engine's
 // pixel-map, so MATRIX FX read each emitter's world position from here.
 //
-// Coordinates are WORLD units (1 unit = one emitter cell), the same space the
-// engine consumes — persisted per fixture as `stageTransform` via
-// `lumox.patch.setTransform`. The tile renders them at an adjustable zoom
-// (px/unit) — see the zoom controls / mouse wheel. Fixtures can be
-// marquee-selected, drag-moved, rotated (Ctrl-drag / edge handle), and
-// aligned / distributed / arranged.
+// The stage is a bounded box of STAGE_SIZE world units (1 unit = one emitter cell);
+// fixtures live inside it. Coordinates here are raw WORLD units (the space the engine
+// consumes); positions are *persisted normalised* to the box (0..1 per axis) in
+// `Fixture.toJSON` and restored to world units on load, so this tile never sees the
+// normalised form — it pushes world units via `lumox.patch.setTransform`. The tile
+// renders at an adjustable zoom (px/unit) and pans within the box (Hand tool, or a
+// middle-mouse-button drag from any tool; the wheel zooms).
+// Fixtures can be marquee-selected, drag-moved, rotated, and aligned / distributed.
 
 import { bus, EV } from '../lib/bus';
 import { activeGroup } from '../lib/store';
 import { effect } from '@preact/signals-core';
 import { esc } from '../lib/html';
+import { openMenu, closeMenu, type MenuItem } from '../lib/widgets';
 import { onShortcut } from '../lib/keys';
-import { emitterGrid, emitterLocalPositions } from '../../src/fixtures/emitterGeometry';
+import { emitterGrid, emitterLocalPositions, STAGE_SIZE } from '../../src/fixtures/emitterGeometry';
 
 const { lumox } = window;
+const STAGE_W = STAGE_SIZE.width, STAGE_H = STAGE_SIZE.height;   // fixed stage extent (world units)
 const DEFAULT_ZOOM = 24;   // px per world unit (emitter cell) — fixtures start zoomed in
-const MIN_ZOOM = 6;        // furthest out (0.25× the default — fits a whole rig in view)
+const MIN_ZOOM = 12;       // furthest out (0.5× the default — fits the whole stage box in view)
 const MAX_ZOOM = 48;       // closest in (2× the default — magnify a single fixture)
+// World units of empty margin around the fixed stage box inside the scrollable
+// world, so the Hand tool has a little room to pan past the stage edges when zoomed.
+const PAD = 4;
 const COARSE = 1;          // default snap grid (world units = whole cells)
 const FINE = 0.25;         // fine snap grid (quarter cell) for precise placement
 const COLOR_POLL_MS = 66;  // live emitter-colour readback cadence (~15 fps)
@@ -27,9 +34,12 @@ const COLOR_POLL_MS = 66;  // live emitter-colour readback cadence (~15 fps)
 interface Pos { x: number; y: number; rot: number; }   // world units + degrees
 interface Dim { w: number; h: number; }                  // footprint in px (for hit-testing)
 // Live-colour plan for a fixture: per-emitter RGB addresses (or null) + master dimmer.
-interface ColorPlan { uid: number; groupColor: string; master: number; cells: ({ r: number; g: number; b: number } | null)[]; }
+// `master` is the fixture-wide dimmer (used for the off-emitter tint); each cell
+// also carries its own `m` dimmer address (per-segment bars/matrices), falling
+// back to the fixture master. 0 = no dimmer governs it (treated as full).
+interface ColorPlan { uid: number; groupColor: string; master: number; cells: ({ r: number; g: number; b: number; m: number } | null)[]; }
 
-export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () => Promise<void> }> {
+export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () => Promise<void>; setMode: (tab: string) => void }> {
   const tile = document.createElement('section');
   tile.className = 'tile stage-tile';
   tile.innerHTML = `
@@ -40,9 +50,12 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
         <button data-tool="lasso" title="Lasso — freeform select (L)"><i class="fa-solid fa-draw-polygon"></i></button>
         <button data-tool="pan" title="Hand — pan the canvas (H)"><i class="fa-solid fa-hand"></i></button>
       </span>
-      <span class="st-grp st-grid" title="Grid">
-        <button data-act="arrange" title="Arrange in grid"><i class="fa-solid fa-table-cells"></i></button>
+      <span class="st-grp st-grid st-pos" title="Arrange">
+        <button data-act="arrange" title="Arrange in a grid"><i class="fa-solid fa-table-cells"></i></button>
+        <button data-act="arrange-line" title="Arrange in a line"><i class="fa-solid fa-grip-lines"></i></button>
+        <button data-act="arrange-circle" title="Arrange in a circle"><i class="fa-solid fa-circle-notch"></i></button>
         <button data-act="fine" title="Fine grid — precise placement"><i class="fa-solid fa-ruler-combined"></i></button>
+        <button data-act="reset-stage" title="Reset stage — re-centre all fixtures & clear rotation"><i class="fa-solid fa-arrows-to-dot"></i></button>
       </span>
       <div class="st-tools">
         <span class="st-grp st-zoom" title="Zoom">
@@ -60,30 +73,53 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
           <button data-sel="none" title="Deselect all"><i class="fa-solid fa-border-none"></i></button>
           <button data-sel="invert" title="Invert selection"><i class="fa-solid fa-circle-half-stroke"></i></button>
         </span>
-        <span class="st-rail-sep"></span>
-        <span class="st-grp st-grp-v" title="Align horizontally">
+        <span class="st-grp st-grp-v" title="Thin selection — keep every Nth">
+          <button data-sel="half" class="st-frac" title="Keep every 2nd (½)">½</button>
+          <button data-sel="third" class="st-frac" title="Keep every 3rd (⅓)">⅓</button>
+          <button data-sel="quarter" class="st-frac" title="Keep every 4th (¼)">¼</button>
+        </span>
+        <span class="st-grp st-grp-v" title="Shift selection by one">
+          <button data-act="shift-back" title="Shift selection back"><i class="fa-solid fa-backward-step"></i></button>
+          <button data-act="shift-fwd" title="Shift selection forward"><i class="fa-solid fa-forward-step"></i></button>
+        </span>
+        <span class="st-grp st-grp-v" title="Selection order (drives FX fan)">
+          <button data-act="order-invert" title="Invert order — reverse the index sequence"><i class="fa-solid fa-arrow-down-up-across-line"></i></button>
+          <button data-act="order-mirror" title="Symmetry — mirror order for a symmetric fan"><i class="fa-solid fa-left-right"></i></button>
+        </span>
+        <span class="st-rail-sep st-pos"></span>
+        <span class="st-grp st-grp-v st-pos" title="Align horizontally">
           <button data-al="left"   title="Align left"><i class="fa-solid fa-arrows-up-to-line fa-rotate-270"></i></button>
           <button data-al="hcenter" title="Center horizontally"><i class="fa-solid fa-arrows-left-right-to-line"></i></button>
           <button data-al="right"  title="Align right"><i class="fa-solid fa-arrows-up-to-line fa-rotate-90"></i></button>
         </span>
-        <span class="st-grp st-grp-v" title="Align vertically">
+        <span class="st-grp st-grp-v st-pos" title="Align vertically">
           <button data-al="top"    title="Align top"><i class="fa-solid fa-arrows-up-to-line"></i></button>
           <button data-al="vcenter" title="Center vertically"><i class="fa-solid fa-arrows-left-right-to-line fa-rotate-90"></i></button>
           <button data-al="bottom" title="Align bottom"><i class="fa-solid fa-arrows-down-to-line"></i></button>
         </span>
-        <span class="st-grp st-grp-v" title="Distribute">
+        <span class="st-grp st-grp-v st-pos" title="Distribute">
           <button data-dist="h" title="Distribute horizontally"><i class="fa-solid fa-arrows-left-right"></i></button>
           <button data-dist="v" title="Distribute vertically"><i class="fa-solid fa-arrows-up-down"></i></button>
         </span>
-        <span class="st-grp st-grp-v" title="Rotation">
+        <span class="st-grp st-grp-v st-pos" title="Rotation">
           <button data-act="rot-reset" title="Reset rotation"><i class="fa-solid fa-rotate-left"></i></button>
         </span>
       </div>
-      <div id="st-canvas" class="st-canvas"></div>
+      <div id="st-canvas" class="st-canvas"><div id="st-world" class="st-world"></div></div>
+      <div class="st-rail st-rail-r">
+        <button class="st-sv-toggle" title="Collapse / expand saved selections"><i class="fa-solid fa-chevron-right"></i><span class="st-sv-cap">Selections</span></button>
+        <div class="st-sv-body">
+          <button class="st-sv-save" title="Save the current selection as a named selection"><i class="fa-solid fa-plus"></i> Save</button>
+          <div class="st-sv-list"></div>
+        </div>
+      </div>
     </div>`;
 
-  const canvas = tile.querySelector('#st-canvas') as HTMLElement;
+  const canvas = tile.querySelector('#st-canvas') as HTMLElement;   // scroll viewport
+  const world = canvas.querySelector('#st-world') as HTMLElement;    // pannable content layer
   let zoom = DEFAULT_ZOOM;   // current px per world unit (mutated by the zoom controls)
+  // px offset of the world's content origin from the scroll origin = the pan margin.
+  const off = () => PAD * zoom;
 
   const state = {
     fixtures: [] as any[],
@@ -92,8 +128,14 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     dim: new Map<string, Dim>(),   // fxId → footprint px {w,h}
     plan: new Map<string, ColorPlan>(), // fxId → live-colour plan
     selected: new Set<string>(),
+    saved: [] as { id: string; name: string; fixtureIds: string[] }[],   // named selections
     fine: false,                   // fine snap grid (always snaps; this just halves the step)
     tool: 'select' as 'select' | 'rect' | 'lasso' | 'pan',   // active canvas interaction mode
+    // The stage is shared between tabs: SETUP positions fixtures (move/rotate/resize/
+    // arrange), CONTROL is selection-only — you pick fixtures to program, never move
+    // them. `setMode` (called from the tab switch) hides the positioning controls and
+    // disables those gestures in CONTROL.
+    mode: 'setup' as 'setup' | 'control',
   };
 
   function shown() { return state.fixtures; }   // always show all fixtures
@@ -134,21 +176,40 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     return out;
   }
 
+  // Place never-positioned fixtures CLUSTERED around the stage centre: pack them
+  // into a compact near-square block, then translate it so the block's centre is
+  // the stage's centre. One fixture lands dead centre; a batch fans out around it.
+  function centerCluster(list: any[]): Map<string, Pos> {
+    const packed = packLayout(list, Math.max(1, Math.ceil(Math.sqrt(list.length))), () => 0);
+    let maxX = 0, maxY = 0;
+    for (const f of list) {
+      const p = packed.get(f.id) as Pos, g = emitterGrid(f);
+      maxX = Math.max(maxX, p.x + g.width); maxY = Math.max(maxY, p.y + g.height);
+    }
+    const dx = (STAGE_W - maxX) / 2, dy = (STAGE_H - maxY) / 2;
+    const out = new Map<string, Pos>();
+    for (const f of list) { const p = packed.get(f.id) as Pos; out.set(f.id, { x: p.x + dx, y: p.y + dy, rot: 0 }); }
+    return out;
+  }
+
   async function reload() {
     try { state.fixtures = await lumox.patch.list(); } catch { state.fixtures = []; }
+    try { state.saved = await lumox.selections.list(); } catch { state.saved = []; }
+    renderSavedPop();
     const placed: string[] = [];
     const toPlace: any[] = [];
     for (const f of state.fixtures) {
       if (state.pos.has(f.id)) continue;
       const t = f.transform ?? { x: 0, y: 0, rotation: 0 };
-      // A fixture still at the origin has never been placed — auto-arrange it (and
-      // push to the engine, without dirtying) so it has real world coords for MATRIX FX.
+      // A fixture still at the origin has never been placed — drop it in the centre
+      // of the stage (and push to the engine, without dirtying) so it has real world
+      // coords for MATRIX FX.
       if (t.x === 0 && t.y === 0 && t.rotation === 0) toPlace.push(f);
       else state.pos.set(f.id, { x: t.x, y: t.y, rot: t.rotation });
     }
     if (toPlace.length) {
-      const packed = packLayout(toPlace, 8, () => 0);
-      for (const f of toPlace) { state.pos.set(f.id, packed.get(f.id) as Pos); placed.push(f.id); }
+      const placedPos = centerCluster(toPlace);
+      for (const f of toPlace) { state.pos.set(f.id, placedPos.get(f.id) as Pos); placed.push(f.id); }
     }
     const ids = new Set(state.fixtures.map((f) => f.id));
     for (const id of [...state.selected]) if (!ids.has(id)) state.selected.delete(id);
@@ -158,21 +219,30 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   }
 
   // Per-fixture live-colour plan: map each emitter (in geometry order) to its
-  // RGB DMX addresses (universe-absolute), plus a master dimmer if present. A
-  // single-colour fixture lights every dot from its one RGB set.
+  // RGB DMX addresses (universe-absolute) plus the dimmer that governs it. A
+  // single-colour fixture lights every dot from its one RGB set; a bar/matrix
+  // with one *real* dimmer per segment (`intens.length === ncol`) dims each
+  // segment from its own — otherwise a lone dimmer is the shared fixture master.
+  // VIRTUAL dimmers are excluded: they live in the virtual region (not the wire
+  // buffer this reads) and the engine has already scaled the cluster's wire RGB
+  // by them, so treating one as a master would double-apply and (worse) read a
+  // bogus wire address — which left RGB-only bars/PARs dark or partly lit.
   function buildPlan(f: any): ColorPlan {
+    const isDimmer = (c: any) => c.isIntensity && !c.isVirtual;
     const localOf = (tid: string): number[] => (f.channels as any[]).filter((c) => c.typeId === tid).map((c) => c.index);
     const reds = localOf('red'), greens = localOf('green'), blues = localOf('blue');
+    const intens = (f.channels as any[]).filter(isDimmer).map((c) => c.index);
     const ncol = Math.min(reds.length, greens.length, blues.length);
+    const perCell = intens.length === ncol && ncol > 0;   // one dimmer per colour cluster
     const abs = (i: number) => f.startAddress + i - 1;
+    const fixtureMaster = intens.length ? abs(intens[0]) : 0;
     const g = emitterGrid(f);
-    const cells: ({ r: number; g: number; b: number } | null)[] = [];
+    const cells: ({ r: number; g: number; b: number; m: number } | null)[] = [];
     for (let k = 0; k < g.n; k++) {
       const j = k < ncol ? k : (ncol === 1 ? 0 : -1);
-      cells.push(j >= 0 ? { r: abs(reds[j]), g: abs(greens[j]), b: abs(blues[j]) } : null);
+      cells.push(j >= 0 ? { r: abs(reds[j]), g: abs(greens[j]), b: abs(blues[j]), m: perCell ? abs(intens[j]) : fixtureMaster } : null);
     }
-    const m = (f.channels as any[]).find((c) => c.typeId === 'intensity' || c.typeId === 'intensity-master' || c.typeId === 'dimmer');
-    return { uid: f.universeId, groupColor: f.color || '#6b6b6b', master: m ? abs(m.index) : 0, cells };
+    return { uid: f.universeId, groupColor: f.color || '#6b6b6b', master: fixtureMaster, cells };
   }
 
   // ---- render -----------------------------------------------------------
@@ -181,7 +251,22 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     state.dim.clear();
     state.plan.clear();
     const selOrder = [...state.selected];   // insertion order = the selection index (1-based badge)
-    canvas.innerHTML = list.map((f) => {
+    const o = off();
+    // Rebuilding the world's content drops the viewport's scroll position — keep it,
+    // so a selection / live-colour re-render never yanks the pan back to the origin.
+    // (fitAll / setZoom set scroll explicitly after they call render(), so they win.)
+    const sl = canvas.scrollLeft, st = canvas.scrollTop;
+    // The fixed stage box (grid + border) drawn behind the fixtures; nodes/overlays
+    // sit on top. Both share the world's +off() margin frame. Only the box is ruled —
+    // the world layer is a plain dark backdrop with no grid, so the grid stays bounded
+    // to the actual stage and never bleeds out into the surrounding canvas. Once the
+    // whole box fits the viewport it would read as a floating shadowed card — so in
+    // that state (`.flat`) we drop just the drop-shadow, keeping the box's fill +
+    // border to mark the stage.
+    const vr = canvas.getBoundingClientRect();
+    const flat = STAGE_W * zoom <= vr.width && STAGE_H * zoom <= vr.height;
+    const stageRect = `<div class="st-stage${state.fine ? ' fine' : ''}${flat ? ' flat' : ''}" style="left:${o}px;top:${o}px;width:${STAGE_W * zoom}px;height:${STAGE_H * zoom}px"></div>`;
+    const nodesHtml = list.map((f) => {
       const p = state.pos.get(f.id) ?? { x: 0, y: 0, rot: 0 };
       const g = emitterGrid(f);
       const w = g.width * zoom, h = g.height * zoom;
@@ -196,14 +281,29 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
       const emitters = emitterLocalPositions(f).map((c) =>
         `<i class="st-em" style="left:${(c.x / g.width * 100).toFixed(1)}%;top:${(c.y / g.height * 100).toFixed(1)}%"></i>`).join('');
       return `<div class="st-node${sel}${hl}${dim}" data-fx="${f.id}"
-        style="left:${p.x * zoom}px;top:${p.y * zoom}px;width:${w}px;height:${h}px;transform:rotate(${p.rot}deg);--fx:${esc(f.color || '#6b6b6b')}"
+        style="left:${p.x * zoom + o}px;top:${p.y * zoom + o}px;width:${w}px;height:${h}px;transform:rotate(${p.rot}deg);--fx:${esc(f.color || '#6b6b6b')}"
         title="${esc(f.name)} · @${f.startAddress} · ${g.n} emitter${g.n === 1 ? '' : 's'}">
         ${si >= 0 ? `<span class="st-idx">${si + 1}</span>` : ''}
-        <span class="st-addr">${f.startAddress}</span>
         <div class="st-emitters">${emitters}</div>
-        <button class="st-rot" title="Rotate (or Ctrl-drag the fixture)"><i class="fa-solid fa-rotate"></i></button>
       </div>`;
     }).join('');
+    world.innerHTML = stageRect + nodesHtml;
+    sizeWorld();
+    updateSelBox();
+    canvas.scrollLeft = sl; canvas.scrollTop = st;   // restore the pan (see above)
+    // Repaint emitters from the last poll frame in THIS task, before the browser
+    // paints — so rebuilt dots show their live colour, not the default tint (no flash).
+    paintNodes(lastData);
+  }
+
+  // Size the scrollable world to the fixed stage box plus a PAD margin on every
+  // side (never smaller than the viewport), so the Hand tool has pan range in both
+  // axes when zoomed in. The stage box sits at +off().
+  function sizeWorld() {
+    const r = canvas.getBoundingClientRect();
+    const o = off();
+    world.style.width = `${Math.max(STAGE_W * zoom, r.width) + o * 2}px`;
+    world.style.height = `${Math.max(STAGE_H * zoom, r.height) + o * 2}px`;
   }
 
   // ---- shared helpers ---------------------------------------------------
@@ -214,21 +314,128 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   // Always snap; the fine toggle just shrinks the step for precise placement.
   const snap = (v: number) => { const s = state.fine ? FINE : COARSE; return Math.round(v / s) * s; };
 
+  // Update ONLY the selection visuals — the `.sel` class, the 1-based order badge,
+  // and the selection box — without rebuilding the world. A full render() tears down
+  // and recreates every emitter dot, which flashes the rig on each click; a pure
+  // selection change touches none of the geometry, so just repaint the overlay.
+  function paintSelection() {
+    const selOrder = [...state.selected];
+    world.querySelectorAll('.st-node').forEach((el) => {
+      const node = el as HTMLElement;
+      const si = selOrder.indexOf(node.dataset.fx as string);
+      node.classList.toggle('sel', si >= 0);
+      let badge = node.querySelector('.st-idx') as HTMLElement | null;
+      if (si >= 0) {
+        if (!badge) { badge = document.createElement('span'); badge.className = 'st-idx'; node.prepend(badge); }
+        badge.textContent = `${si + 1}`;
+      } else badge?.remove();
+    });
+    updateSelBox();
+  }
+
   // Live-apply position + rotation without re-rendering (keeps the marquee div).
   function applyNodeStyles() {
-    canvas.querySelectorAll('.st-node').forEach((el) => {
+    const o = off();
+    world.querySelectorAll('.st-node').forEach((el) => {
       const node = el as HTMLElement;
       const p = state.pos.get(node.dataset.fx as string);
-      if (p) { node.style.left = `${p.x * zoom}px`; node.style.top = `${p.y * zoom}px`; node.style.transform = `rotate(${p.rot}deg)`; }
+      if (p) { node.style.left = `${p.x * zoom + o}px`; node.style.top = `${p.y * zoom + o}px`; node.style.transform = `rotate(${p.rot}deg)`; }
     });
+    updateSelBox();
+  }
+
+  // The selection bounding box — a dashed frame around the whole selection (one
+  // fixture or many) with a round rotate handle at each corner. Dragging a handle
+  // spins the selection as a rigid body (see beginRotate). It tracks the
+  // selection's axis-aligned world extent and re-fits live during drag/rotate.
+  function updateSelBox() {
+    let box = world.querySelector('.st-selbox') as HTMLElement | null;
+    if (!state.selected.size) { box?.remove(); return; }
+    const by = new Map(shown().map((f) => [f.id, f] as const));
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const id of state.selected) {
+      const p = state.pos.get(id), f = by.get(id);
+      if (!p || !f) continue;
+      const g = emitterGrid(f);
+      minX = Math.min(minX, p.x); minY = Math.min(minY, p.y);
+      maxX = Math.max(maxX, p.x + g.width); maxY = Math.max(maxY, p.y + g.height);
+    }
+    if (!isFinite(minX)) { box?.remove(); return; }
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'st-selbox';
+      const corners = ['nw', 'ne', 'se', 'sw'].map((c) =>
+        `<button class="st-selrot" data-corner="${c}" title="Rotate selection (Shift = 15°)"></button>`).join('');
+      const edges = ['n', 'e', 's', 'w'].map((c) =>
+        `<button class="st-selsize" data-edge="${c}" title="Resize — scale the selection's spread"></button>`).join('');
+      box.innerHTML = corners + edges;
+      world.appendChild(box);
+    }
+    // Edge (resize) handles only make sense for 2+ fixtures — there's nothing to
+    // spread with one. Corner (rotate) handles always show.
+    box.classList.toggle('multi', state.selected.size >= 2);
+    const o = off();
+    box.style.left = `${minX * zoom + o}px`; box.style.top = `${minY * zoom + o}px`;
+    box.style.width = `${(maxX - minX) * zoom}px`; box.style.height = `${(maxY - minY) * zoom}px`;
   }
 
   // ---- selection tools --------------------------------------------------
-  function selectAll() { state.selected = new Set(shown().map((f) => f.id)); render(); emitSelection(); }
-  function selectNone() { state.selected.clear(); render(); emitSelection(); }
+  function selectAll() { state.selected = new Set(shown().map((f) => f.id)); paintSelection(); emitSelection(); }
+  function selectNone() { state.selected.clear(); paintSelection(); emitSelection(); }
   function invertSelection() {
     state.selected = new Set(shown().filter((f) => !state.selected.has(f.id)).map((f) => f.id));
-    render(); emitSelection();
+    paintSelection(); emitSelection();
+  }
+  // Fixtures in reading order (top-to-bottom rows, then left-to-right) — the basis
+  // for the every-Nth and shift helpers (which work by 2D position, not index).
+  function byPosition(): any[] {
+    return [...shown()].sort((a, b) => {
+      const pa = state.pos.get(a.id), pb = state.pos.get(b.id);
+      if (!pa || !pb) return 0;
+      return (Math.round(pa.y) - Math.round(pb.y)) || (pa.x - pb.x);
+    });
+  }
+  // Re-order a freshly region-selected set: keep any pre-existing `base` ids in their
+  // order, then append the newly-caught ones in READING order (top-to-bottom rows,
+  // then left-to-right) — so a marquee/lasso numbers fixtures the way you read the
+  // rig, which is the index an FX layer fans/phases across.
+  function orderByReading(base: Set<string>) {
+    const baseOrder = [...base].filter((id) => state.selected.has(id));
+    const added = byPosition().filter((f) => state.selected.has(f.id) && !base.has(f.id)).map((f) => f.id);
+    state.selected = new Set([...baseOrder, ...added]);
+  }
+  // Thin the selection (or all, if none) to every Nth fixture by position — ½/⅓/¼.
+  function selectEveryNth(n: number) {
+    const pool = state.selected.size ? byPosition().filter((f) => state.selected.has(f.id)) : byPosition();
+    state.selected = new Set(pool.filter((_, i) => i % n === 0).map((f) => f.id));
+    paintSelection(); emitSelection();
+  }
+  // Slide the whole selection one fixture along the position order (wraps around).
+  function shiftSelection(dir: number) {
+    if (!state.selected.size) return;
+    const order = byPosition().map((f) => f.id);
+    const L = order.length; if (!L) return;
+    const idx = new Map(order.map((id, i) => [id, i] as const));
+    state.selected = new Set([...state.selected].map((id) => {
+      const i = idx.get(id); return i == null ? id : order[(i + dir + L) % L];
+    }));
+    paintSelection(); emitSelection();
+  }
+  // Reverse the selection ORDER (the index sequence the FX fan reads) — flips fan direction.
+  function reverseOrder() {
+    if (state.selected.size < 2) return;
+    state.selected = new Set([...state.selected].reverse());
+    paintSelection(); emitSelection();
+  }
+  // Symmetry: re-order by interleaving from both ends (outer pair first … centre last),
+  // so an index-driven FX fan radiates symmetrically about the centre. NOTE: Lumox's
+  // selection is a flat ordered list (index = position), so this is the order-model
+  // equivalent of a mirror — not duplicate indices like 1,2,3,3,2,1.
+  function mirrorOrder() {
+    const a = [...state.selected]; if (a.length < 3) return;
+    const out: string[] = [];
+    for (let i = 0, j = a.length - 1; i <= j; i++, j--) { out.push(a[i]); if (i !== j) out.push(a[j]); }
+    state.selected = new Set(out); paintSelection(); emitSelection();
   }
 
   // ---- zoom (px per world unit) -----------------------------------------
@@ -255,7 +462,15 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   // percentage tooltip, and re-render (node footprints are sized in JS from `zoom`).
   function applyZoom() {
     canvas.style.setProperty('--cell', `${zoom}px`);
-    canvas.style.setProperty('--em', `${Math.max(4, zoom * 0.62).toFixed(1)}px`);
+    // Emitter dots fill their whole cell (no internal padding) — a single-emitter
+    // fixture reads as one solid lit tile, a matrix as a contiguous pixel grid.
+    canvas.style.setProperty('--em', `${Math.max(4, zoom).toFixed(1)}px`);
+    // Selection-box grab handles scale with the zoom too (a fraction of a cell),
+    // so they stay proportional to the fixtures — never burying a tiny rig when
+    // zoomed out — yet stay clamped to a grabbable min / a sane max.
+    const handle = Math.round(Math.max(7, Math.min(15, zoom * 0.42)));
+    canvas.style.setProperty('--handle', `${handle}px`);
+    canvas.style.setProperty('--handle-e', `${Math.round(handle * 0.85)}px`);
     zoomSlider.value = `${zoomToSlider(zoom)}`;
     zoomSlider.title = `Zoom ${Math.round((zoom / DEFAULT_ZOOM) * 100)}% — double-click to reset`;
     render();
@@ -267,16 +482,17 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     if (z === zoom) return;
     const r = canvas.getBoundingClientRect();
     const ax = anchor ? anchor.x : r.width / 2, ay = anchor ? anchor.y : r.height / 2;
-    const wx = (canvas.scrollLeft + ax) / zoom, wy = (canvas.scrollTop + ay) / zoom;
+    const wx = (canvas.scrollLeft + ax - off()) / zoom, wy = (canvas.scrollTop + ay - off()) / zoom;
     zoom = z;
     applyZoom();
-    canvas.scrollLeft = wx * zoom - ax;
-    canvas.scrollTop = wy * zoom - ay;
+    canvas.scrollLeft = wx * zoom - ax + off();
+    canvas.scrollTop = wy * zoom - ay + off();
   }
-  // Frame the whole rig: pick the zoom that fits every fixture's bounding box
-  // (with a little padding, never zooming in past the default) and centre it.
-  // The canvas itself doesn't scroll — fit + wheel-zoom + the hand tool are the
-  // only ways to move around. Returns false if there's nothing to fit yet.
+  // Frame the rig: pick the zoom that fits the fixtures' bounding box (with a little
+  // breathing room, never zooming in past the default) and centre it by scrolling
+  // the world — so the view focuses on the actual fixtures, not the whole empty
+  // stage. Scrollbars are hidden — fit + wheel-zoom + the hand tool move around.
+  // Returns false if there's nothing to fit yet.
   function fitAll(): boolean {
     const list = shown();
     if (!list.length) return false;
@@ -289,12 +505,12 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     }
     const r = canvas.getBoundingClientRect();
     if (!isFinite(minX) || r.width < 2 || r.height < 2) return false;
-    const PAD = 1.5;   // world units of breathing room around the rig
-    const bw = (maxX - minX) + PAD * 2, bh = (maxY - minY) + PAD * 2;
+    const FIT_PAD = 2;   // world units of breathing room around the rig when framing
+    const bw = (maxX - minX) + FIT_PAD * 2, bh = (maxY - minY) + FIT_PAD * 2;
     zoom = Math.min(DEFAULT_ZOOM, clampZoom(Math.min(r.width / bw, r.height / bh)));
     applyZoom();
-    canvas.scrollLeft = ((minX + maxX) / 2) * zoom - r.width / 2;
-    canvas.scrollTop = ((minY + maxY) / 2) * zoom - r.height / 2;
+    canvas.scrollLeft = ((minX + maxX) / 2) * zoom + off() - r.width / 2;
+    canvas.scrollTop = ((minY + maxY) / 2) * zoom + off() - r.height / 2;
     return true;
   }
 
@@ -302,22 +518,26 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   // Poll the universes the rig spans and paint each emitter its live colour
   // (RGB × master dimmer), with a glow when lit; off emitters fall back to a dim
   // group tint so the footprint stays readable. Gated on visibility.
-  async function pollColors() {
-    const uids = [...new Set(state.fixtures.map((f) => f.universeId))];
-    const datas = await Promise.all(uids.map((u) => lumox.universes.read(u).catch(() => null)));
-    const byUid = new Map(uids.map((u, i) => [u, datas[i]]));
+  // The last fetched frame is cached so render() can repaint emitters in the SAME
+  // synchronous task it rebuilds them — otherwise a freshly-rebuilt dot shows its
+  // CSS default tint until the next poll (≤66 ms), flashing the rig on every click.
+  let lastData = new Map<number, number[] | null>();
+  function paintNodes(byUid: Map<number, number[] | null>) {
     canvas.querySelectorAll('.st-node').forEach((el) => {
       const node = el as HTMLElement;
       const plan = state.plan.get(node.dataset.fx as string);
       const data = plan && byUid.get(plan.uid);
       if (!plan || !data) return;
-      const m = plan.master ? (data[plan.master - 1] ?? 0) / 255 : 1;
+      const m = plan.master ? (data[plan.master - 1] ?? 0) / 255 : 1;   // fixture-wide, for the off-emitter tint
       const dots = node.querySelectorAll('.st-em');
       dots.forEach((d, k) => {
         const dot = d as HTMLElement;
         const cell = plan.cells[k];
         let r = 0, g = 0, b = 0;
-        if (cell) { r = (data[cell.r - 1] ?? 0) * m; g = (data[cell.g - 1] ?? 0) * m; b = (data[cell.b - 1] ?? 0) * m; }
+        if (cell) {
+          const cm = cell.m ? (data[cell.m - 1] ?? 0) / 255 : 1;   // this segment's own dimmer
+          r = (data[cell.r - 1] ?? 0) * cm; g = (data[cell.g - 1] ?? 0) * cm; b = (data[cell.b - 1] ?? 0) * cm;
+        }
         const lum = Math.max(r, g, b);
         if (lum < 6) {
           if (cell) { dot.style.background = '#141414'; dot.style.boxShadow = 'inset 0 0 2px rgba(255,255,255,.12)'; }
@@ -330,44 +550,94 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
       });
     });
   }
+  async function pollColors() {
+    const uids = [...new Set(state.fixtures.map((f) => f.universeId))];
+    const datas = await Promise.all(uids.map((u) => lumox.universes.read(u).catch(() => null)));
+    lastData = new Map(uids.map((u, i) => [u, datas[i] ?? null]));
+    paintNodes(lastData);
+  }
   let colorTimer: ReturnType<typeof setInterval> | null = null;
   const stopPoll = () => { if (colorTimer) { clearInterval(colorTimer); colorTimer = null; } };
   const startPoll = () => { if (!colorTimer) { void pollColors(); colorTimer = setInterval(() => void pollColors(), COLOR_POLL_MS); } };
-  let fitted = false;   // fit the rig once, the first time the tile is shown with a real size
+  // Fit the whole stage once, the first time the tile is shown with a real size.
+  // The intersection / resize callbacks can fire before layout gives the canvas a
+  // size, so retry across frames until fitAll() succeeds (then latch).
+  let fitted = false, fitTries = 0;
+  function tryFit() {
+    if (fitted) return;
+    if (fitAll()) { fitted = true; return; }
+    if (++fitTries < 60) setTimeout(tryFit, 50);   // ~3s — wait out the SETUP-tab layout
+  }
   new IntersectionObserver((es) => {
     const vis = es.some((e) => e.isIntersecting);
-    vis ? startPoll() : stopPoll();
-    if (vis && !fitted && fitAll()) fitted = true;
+    if (vis) startPoll(); else stopPoll();
+    if (vis && !fitted) { fitTries = 0; tryFit(); }
   }).observe(tile);
+  // Keep the world ≥ viewport (+ pan margins) as the tile resizes, so the Hand tool
+  // never runs out of scroll range when the window grows.
+  new ResizeObserver(() => sizeWorld()).observe(canvas);
 
-  // Pointer position in canvas-content px (accounts for scroll).
-  function canvasPx(e: MouseEvent): { x: number; y: number } { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left + canvas.scrollLeft, y: e.clientY - r.top + canvas.scrollTop }; }
+  // Pointer position in unpadded world px (the `p.x * zoom` frame). Measured off the
+  // world layer, whose rect already folds in both the scroll offset and the PAD margin.
+  function canvasPx(e: MouseEvent): { x: number; y: number } { const r = world.getBoundingClientRect(); return { x: e.clientX - r.left - off(), y: e.clientY - r.top - off() }; }
+
+  // Apply a click's (de)selection to a node and broadcast. In SETUP Ctrl is reserved
+  // for rotate, so only Shift/⌘ toggle; in CONTROL (no rotate) Ctrl toggles too.
+  function selectNode(e: MouseEvent, el: HTMLElement) {
+    const id = el.dataset.fx as string;
+    const toggle = e.shiftKey || e.metaKey || (state.mode === 'control' && e.ctrlKey);
+    if (toggle) {
+      if (state.selected.has(id)) state.selected.delete(id);
+      else state.selected.add(id);
+    } else if (state.selected.has(id)) {
+      // Plain click on an already-selected fixture: in a multi-selection, drop just
+      // this one (keep the rest); a sole selection stays selected. In SETUP the drag
+      // path defers this to mouseup so grabbing a member can still move the group.
+      if (state.selected.size >= 2) state.selected.delete(id);
+    } else {
+      selectOnly(id);
+    }
+    paintSelection();
+    emitSelection();
+  }
 
   // ---- move drag --------------------------------------------------------
-  let drag: { start: { x: number; y: number }; origin: Map<string, Pos>; moved: boolean } | null = null;
+  // `bounds` = the selection's axis-aligned world extent at grab time; the drag
+  // delta is clamped against it so the whole selection stays inside the stage box
+  // (rigid — fixtures keep their relative layout instead of clamping individually).
+  let drag: { start: { x: number; y: number }; origin: Map<string, Pos>; moved: boolean; bounds: { minX: number; minY: number; maxX: number; maxY: number }; pendingDeselect: string | null } | null = null;
   function startDrag(e: MouseEvent, el: HTMLElement) {
     e.preventDefault();
     const id = el.dataset.fx as string;
-    if (e.shiftKey || e.metaKey) {                    // Ctrl is reserved for rotate
-      if (state.selected.has(id)) state.selected.delete(id);
-      else state.selected.add(id);
-    } else if (!state.selected.has(id)) {
-      selectOnly(id);
-    }
-    render();
-    emitSelection();
+    // Grabbing one member of a multi-selection with a plain click is ambiguous: a
+    // DRAG moves the whole group, a CLICK deselects just that member. Keep the group
+    // intact now (so a drag works) and resolve the deselect on mouseup-without-move.
+    const toggle = e.shiftKey || e.metaKey;   // SETUP: Ctrl/Alt rotate, so only these toggle
+    const pendingDeselect = !toggle && state.selected.has(id) && state.selected.size >= 2 ? id : null;
+    if (!pendingDeselect) selectNode(e, el);
     const origin = new Map([...state.selected].map((sid) => [sid, { ...state.pos.get(sid) } as Pos]));
-    drag = { start: canvasPx(e), origin, moved: false };
+    const by = new Map(shown().map((f) => [f.id, f] as const));
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const [sid, o] of origin) {
+      const g = emitterGrid(by.get(sid) ?? { emitters: 1, emitterLayout: null } as any);
+      minX = Math.min(minX, o.x); minY = Math.min(minY, o.y);
+      maxX = Math.max(maxX, o.x + g.width); maxY = Math.max(maxY, o.y + g.height);
+    }
+    drag = { start: canvasPx(e), origin, moved: false, bounds: { minX, minY, maxX, maxY }, pendingDeselect };
     document.addEventListener('mousemove', onDrag);
     document.addEventListener('mouseup', endDrag);
   }
   function onDrag(e: MouseEvent) {
     if (!drag) return;
     const pt = canvasPx(e);
-    const dx = (pt.x - drag.start.x) / zoom, dy = (pt.y - drag.start.y) / zoom;   // px → world
+    let dx = (pt.x - drag.start.x) / zoom, dy = (pt.y - drag.start.y) / zoom;   // px → world
     if (Math.abs(dx) + Math.abs(dy) > 0.1) drag.moved = true;
+    // Keep the selection's bounding box within [0, STAGE]; rigid (one shared delta).
+    const b = drag.bounds;
+    dx = Math.max(-b.minX, Math.min(STAGE_W - b.maxX, dx));
+    dy = Math.max(-b.minY, Math.min(STAGE_H - b.maxY, dy));
     for (const [id, o] of drag.origin) {
-      state.pos.set(id, { x: Math.max(0, o.x + dx), y: Math.max(0, o.y + dy), rot: o.rot });
+      state.pos.set(id, { x: o.x + dx, y: o.y + dy, rot: o.rot });
     }
     applyNodeStyles();
   }
@@ -379,43 +649,131 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
       }
       applyNodeStyles();
       persist(state.selected);
+    } else if (drag?.pendingDeselect) {                  // click (no move) on a member → drop just it
+      state.selected.delete(drag.pendingDeselect);
+      paintSelection();
+      emitSelection();
     }
     document.removeEventListener('mousemove', onDrag);
     document.removeEventListener('mouseup', endDrag);
     drag = null;
   }
 
-  // ---- rotation (Ctrl-drag on a node, or drag the edge handle) ----------
-  // Every selected fixture spins around its own centre by the same angular delta.
-  let rot: { cx: number; cy: number; startAng: number; origin: Map<string, number> } | null = null;
+  // ---- rotation (Ctrl-drag on a node, or drag the rotate handle) --------
+  // The whole selection rotates as a RIGID BODY about its collective centre:
+  // every fixture orbits that centre AND spins by the same angular delta (like
+  // spinning a real truss). A single fixture therefore just spins in place.
+  // The pivot is derived from world coords (not the DOM), so it survives the
+  // render() that a select-on-grab triggers.
+  interface RotOrigin { cx: number; cy: number; rot: number; gw: number; gh: number; }   // world centre + rotation + footprint
+  let rot: { cx: number; cy: number; wcx: number; wcy: number; startAng: number; origin: Map<string, RotOrigin> } | null = null;
+  // Ctrl/Alt-drag a node → make sure it's selected, then rotate the selection.
   function startRotate(e: MouseEvent, el: HTMLElement) {
-    e.preventDefault(); e.stopPropagation();
     const id = el.dataset.fx as string;
-    if (!state.selected.has(id)) { selectOnly(id); render(); emitSelection(); }
-    const r = el.getBoundingClientRect();
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const origin = new Map([...state.selected].map((sid) => [sid, state.pos.get(sid)?.rot ?? 0]));
-    rot = { cx, cy, startAng: Math.atan2(e.clientY - cy, e.clientX - cx), origin };
+    if (!state.selected.has(id)) { selectOnly(id); paintSelection(); emitSelection(); }
+    beginRotate(e);
+  }
+  // Begin a rigid-body rotation of the CURRENT selection (from a corner handle on
+  // the selection box, or a Ctrl/Alt-drag once the node is selected).
+  function beginRotate(e: MouseEvent) {
+    e.preventDefault(); e.stopPropagation();
+    // World-space bounding box of the selection → its centre is the pivot.
+    const by = new Map(shown().map((f) => [f.id, f] as const));
+    const origin = new Map<string, RotOrigin>();
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const sid of state.selected) {
+      const p = state.pos.get(sid), f = by.get(sid);
+      if (!p || !f) continue;
+      const g = emitterGrid(f);
+      origin.set(sid, { cx: p.x + g.width / 2, cy: p.y + g.height / 2, rot: p.rot, gw: g.width, gh: g.height });
+      minX = Math.min(minX, p.x); minY = Math.min(minY, p.y);
+      maxX = Math.max(maxX, p.x + g.width); maxY = Math.max(maxY, p.y + g.height);
+    }
+    if (!origin.size) return;
+    const wcx = (minX + maxX) / 2, wcy = (minY + maxY) / 2;
+    const r = world.getBoundingClientRect();
+    const cx = r.left + off() + wcx * zoom, cy = r.top + off() + wcy * zoom;
+    rot = { cx, cy, wcx, wcy, startAng: Math.atan2(e.clientY - cy, e.clientX - cx), origin };
     document.addEventListener('mousemove', onRotate);
     document.addEventListener('mouseup', endRotate);
   }
   function onRotate(e: MouseEvent) {
     if (!rot) return;
     const ang = Math.atan2(e.clientY - rot.cy, e.clientX - rot.cx);
-    const deg = (ang - rot.startAng) * 180 / Math.PI;
+    let deg = (ang - rot.startAng) * 180 / Math.PI;
+    if (e.shiftKey) deg = Math.round(deg / 15) * 15;   // Shift snaps the rotation to 15°
+    const rad = deg * Math.PI / 180, cos = Math.cos(rad), sin = Math.sin(rad);
     for (const [id, o] of rot.origin) {
-      let v = o + deg;
-      if (e.shiftKey) v = Math.round(v / 15) * 15;   // Shift snaps to 15°
-      const p = state.pos.get(id) as Pos;
-      state.pos.set(id, { ...p, rot: Math.round(v) });
+      const dx = o.cx - rot.wcx, dy = o.cy - rot.wcy;        // orbit the centre about the pivot
+      const ncx = rot.wcx + dx * cos - dy * sin, ncy = rot.wcy + dx * sin + dy * cos;
+      state.pos.set(id, { x: ncx - o.gw / 2, y: ncy - o.gh / 2, rot: Math.round(o.rot + deg) });
     }
+    applyNodeStyles();
+  }
+  // The canvas is anchored at the world origin (it can't scroll past 0), so a
+  // rotation that swings fixtures past x/y = 0 would clip them off the top-left.
+  // Shift the whole set rigidly by the minimal offset that brings its bounding box
+  // back to >= 0 — shape (and thus the rigid rotation) is preserved.
+  function nudgeIntoView(ids: string[]) {
+    let minX = Infinity, minY = Infinity;
+    for (const id of ids) { const p = state.pos.get(id); if (p) { minX = Math.min(minX, p.x); minY = Math.min(minY, p.y); } }
+    const dx = minX < 0 ? -minX : 0, dy = minY < 0 ? -minY : 0;
+    if (!dx && !dy) return;
+    for (const id of ids) { const p = state.pos.get(id); if (p) state.pos.set(id, { x: p.x + dx, y: p.y + dy, rot: p.rot }); }
     applyNodeStyles();
   }
   function endRotate() {
     document.removeEventListener('mousemove', onRotate);
     document.removeEventListener('mouseup', endRotate);
-    if (rot) persist(state.selected);
+    if (rot) { const ids = [...state.selected]; nudgeIntoView(ids); persist(ids); }
     rot = null;
+  }
+
+  // ---- resize (scale the selection's spread) ----------------------------
+  // Drag a selection-box EDGE handle to scale the arrangement uniformly about its
+  // centre: each fixture's position moves in/out by the same factor (footprints and
+  // rotations stay fixed), so e.g. a ring of fixtures changes diameter. The factor
+  // is the dragged edge's distance from the centre over its start distance.
+  interface SizeOrigin { cx: number; cy: number; gw: number; gh: number; rot: number; }
+  let resize: { cx: number; cy: number; axis: 'x' | 'y'; halfPx: number; wcx: number; wcy: number; origin: Map<string, SizeOrigin> } | null = null;
+  function beginResize(e: MouseEvent, edge: string) {
+    e.preventDefault(); e.stopPropagation();
+    const by = new Map(shown().map((f) => [f.id, f] as const));
+    const origin = new Map<string, SizeOrigin>();
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const id of state.selected) {
+      const p = state.pos.get(id), f = by.get(id);
+      if (!p || !f) continue;
+      const g = emitterGrid(f);
+      origin.set(id, { cx: p.x + g.width / 2, cy: p.y + g.height / 2, gw: g.width, gh: g.height, rot: p.rot });
+      minX = Math.min(minX, p.x); minY = Math.min(minY, p.y);
+      maxX = Math.max(maxX, p.x + g.width); maxY = Math.max(maxY, p.y + g.height);
+    }
+    if (origin.size < 2) return;
+    const wcx = (minX + maxX) / 2, wcy = (minY + maxY) / 2;
+    const r = world.getBoundingClientRect();
+    const cx = r.left + off() + wcx * zoom, cy = r.top + off() + wcy * zoom;
+    const axis: 'x' | 'y' = (edge === 'e' || edge === 'w') ? 'x' : 'y';
+    const halfPx = Math.max(1, (axis === 'x' ? (maxX - minX) / 2 : (maxY - minY) / 2) * zoom);
+    resize = { cx, cy, axis, halfPx, wcx, wcy, origin };
+    document.addEventListener('mousemove', onResize);
+    document.addEventListener('mouseup', endResize);
+  }
+  function onResize(e: MouseEvent) {
+    if (!resize) return;
+    const cur = resize.axis === 'x' ? Math.abs(e.clientX - resize.cx) : Math.abs(e.clientY - resize.cy);
+    const factor = Math.max(0.05, Math.min(20, cur / resize.halfPx));   // uniform scale about the centre
+    for (const [id, o] of resize.origin) {
+      const ncx = resize.wcx + (o.cx - resize.wcx) * factor, ncy = resize.wcy + (o.cy - resize.wcy) * factor;
+      state.pos.set(id, { x: ncx - o.gw / 2, y: ncy - o.gh / 2, rot: o.rot });
+    }
+    applyNodeStyles();
+  }
+  function endResize() {
+    document.removeEventListener('mousemove', onResize);
+    document.removeEventListener('mouseup', endResize);
+    if (resize) { const ids = [...state.selected]; nudgeIntoView(ids); persist(ids); }
+    resize = null;
   }
 
   // ---- marquee (rubber-band) selection ----------------------------------
@@ -424,10 +782,10 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     const start = canvasPx(e);
     const additive = e.shiftKey || e.ctrlKey || e.metaKey;
     const base = additive ? new Set(state.selected) : new Set<string>();
-    if (!additive) { state.selected.clear(); render(); }   // render() first, then add the band
+    if (!additive) { state.selected.clear(); paintSelection(); }   // clear visuals first, then add the band
     const box = document.createElement('div');
     box.className = 'st-marquee';
-    canvas.appendChild(box);
+    world.appendChild(box);
     band = { start, base, box };
     document.addEventListener('mousemove', onMarquee);
     document.addEventListener('mouseup', endMarquee);
@@ -437,7 +795,8 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     const pt = canvasPx(e);
     const x = Math.min(band.start.x, pt.x), y = Math.min(band.start.y, pt.y);
     const w = Math.abs(pt.x - band.start.x), h = Math.abs(pt.y - band.start.y);
-    Object.assign(band.box.style, { left: `${x}px`, top: `${y}px`, width: `${w}px`, height: `${h}px` });
+    const o = off();   // box lives in the world layer → shift by the PAD margin
+    Object.assign(band.box.style, { left: `${x + o}px`, top: `${y + o}px`, width: `${w}px`, height: `${h}px` });
     const next = new Set(band.base);
     for (const f of shown()) {
       const p = state.pos.get(f.id), d = state.dim.get(f.id);
@@ -450,11 +809,13 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     state.selected = next;
   }
   function endMarquee() {
+    const base = band?.base;
     band?.box.remove();
     band = null;
     document.removeEventListener('mousemove', onMarquee);
     document.removeEventListener('mouseup', endMarquee);
-    render();
+    if (base) orderByReading(base);   // number the catch in reading order
+    paintSelection();
     emitSelection();
   }
 
@@ -474,14 +835,14 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     e.preventDefault();
     const additive = e.shiftKey || e.ctrlKey || e.metaKey;
     const base = additive ? new Set(state.selected) : new Set<string>();
-    if (!additive) { state.selected.clear(); render(); }
+    if (!additive) { state.selected.clear(); paintSelection(); }
     const svg = document.createElementNS(SVGNS, 'svg');
     svg.setAttribute('class', 'st-lasso');
-    svg.style.width = `${canvas.scrollWidth}px`;
-    svg.style.height = `${canvas.scrollHeight}px`;
+    svg.style.width = `${world.offsetWidth}px`;
+    svg.style.height = `${world.offsetHeight}px`;
     const poly = document.createElementNS(SVGNS, 'polygon');
     svg.appendChild(poly);
-    canvas.appendChild(svg);
+    world.appendChild(svg);
     lasso = { pts: [canvasPx(e)], poly, svg, base };
     document.addEventListener('mousemove', onLasso);
     document.addEventListener('mouseup', endLasso);
@@ -492,7 +853,8 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     const last = lasso.pts[lasso.pts.length - 1];
     if (Math.hypot(pt.x - last.x, pt.y - last.y) < 4) return;   // throttle by travel
     lasso.pts.push(pt);
-    lasso.poly.setAttribute('points', lasso.pts.map((p) => `${p.x},${p.y}`).join(' '));
+    const o = off();   // pts are unpadded (for hit-test); the drawn polygon lives in the world layer
+    lasso.poly.setAttribute('points', lasso.pts.map((p) => `${p.x + o},${p.y + o}`).join(' '));
     const next = new Set(lasso.base);
     for (const f of shown()) {
       const p = state.pos.get(f.id), d = state.dim.get(f.id);
@@ -504,11 +866,13 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     state.selected = next;
   }
   function endLasso() {
+    const base = lasso?.base;
     lasso?.svg.remove();
     lasso = null;
     document.removeEventListener('mousemove', onLasso);
     document.removeEventListener('mouseup', endLasso);
-    render();
+    if (base) orderByReading(base);   // number the catch in reading order
+    paintSelection();
     emitSelection();
   }
 
@@ -538,16 +902,24 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   // rotates fixtures, the others are whole-canvas pan / selection gestures.
   canvas.addEventListener('mousedown', (e) => {
     const ev = e as MouseEvent;
+    // Middle mouse button pans the canvas from any tool (a console convention).
+    if (ev.button === 1) { startPan(ev); return; }
     if (ev.button !== 0) return;
     if (state.tool === 'pan') { startPan(ev); return; }
     if (state.tool === 'lasso') { startLasso(ev); return; }
     if (state.tool === 'rect') { startMarquee(ev); return; }
     const t = ev.target as HTMLElement;
-    const handle = t.closest('.st-rot') as HTMLElement | null;
-    if (handle) { startRotate(ev, handle.closest('.st-node') as HTMLElement); return; }
+    // CONTROL is selection-only: skip the positioning gestures (move / rotate /
+    // resize) — a click on a fixture just (de)selects it.
+    if (state.mode === 'setup') {
+      const sizeH = t.closest('.st-selsize') as HTMLElement | null;
+      if (sizeH) { beginResize(ev, sizeH.dataset.edge as string); return; }   // box edge → scale spread
+      if (t.closest('.st-selrot')) { beginRotate(ev); return; }   // selection-box corner → rigid rotate
+    }
     const node = t.closest('.st-node') as HTMLElement | null;
     if (node) {
-      if (ev.ctrlKey || ev.altKey) startRotate(ev, node);   // Ctrl/Alt-drag rotates
+      if (state.mode === 'control') selectNode(ev, node);          // select only, never move
+      else if (ev.ctrlKey || ev.altKey) startRotate(ev, node);    // Ctrl/Alt-drag rotates
       else startDrag(ev, node);
       return;
     }
@@ -615,6 +987,45 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     persist(list.map((f) => f.id));
   }
 
+  // The list an arrange/shape acts on, in SELECTION order when there is one (so the
+  // shape follows the user's index order), else every fixture in position order.
+  function arrangeList(): any[] {
+    if (!state.selected.size) return shown();
+    const by = new Map(shown().map((f) => [f.id, f] as const));
+    return [...state.selected].map((id) => by.get(id)).filter(Boolean) as any[];
+  }
+
+  // Lay the list out as a single row, packed by real footprint (+1-cell gap), in order.
+  function arrangeLine() {
+    const list = arrangeList();
+    if (!list.length) return;
+    const packed = packLayout(list, list.length, (f) => state.pos.get(f.id)?.rot ?? 0);
+    for (const f of list) state.pos.set(f.id, packed.get(f.id) as Pos);
+    render();
+    persist(list.map((f) => f.id));
+  }
+
+  // Lay the list evenly around a circle (in order, starting at the top, clockwise).
+  // Radius grows with count so footprints don't overlap.
+  function arrangeCircle() {
+    const list = arrangeList();
+    const n = list.length;
+    if (n < 2) return;
+    let maxF = 1;
+    for (const f of list) { const g = emitterGrid(f); maxF = Math.max(maxF, g.width, g.height); }
+    const radius = Math.max(2, (n * (maxF + PACK_GAP)) / (2 * Math.PI));
+    const c = PACK_MARGIN + radius + maxF / 2;
+    list.forEach((f, i) => {
+      const g = emitterGrid(f);
+      const ang = -Math.PI / 2 + i * (2 * Math.PI / n);
+      const x = snap(c + radius * Math.cos(ang) - g.width / 2);
+      const y = snap(c + radius * Math.sin(ang) - g.height / 2);
+      state.pos.set(f.id, { x: Math.max(0, x), y: Math.max(0, y), rot: state.pos.get(f.id)?.rot ?? 0 });
+    });
+    render();
+    persist(list.map((f) => f.id));
+  }
+
   function resetRotation() {
     const ids = state.selected.size ? [...state.selected] : shown().map((f) => f.id);
     for (const id of ids) { const p = state.pos.get(id); if (p) state.pos.set(id, { ...p, rot: 0 }); }
@@ -622,19 +1033,195 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     persist(ids);
   }
 
+  // Reset the whole stage: discard all manual placement — re-cluster every fixture
+  // at the stage centre and clear rotation, then re-frame. A normal edit (dirties +
+  // undoable), so a misclick is one Ctrl+Z away.
+  function resetStage() {
+    const list = shown();
+    if (!list.length) return;
+    const placed = centerCluster(list);
+    for (const f of list) state.pos.set(f.id, placed.get(f.id) as Pos);
+    render();
+    persist(list.map((f) => f.id));
+    fitAll();
+  }
+
+  const SEL_OPS: Record<string, () => void> = {
+    all: selectAll, none: selectNone, invert: invertSelection,
+    half: () => selectEveryNth(2), third: () => selectEveryNth(3), quarter: () => selectEveryNth(4),
+  };
   tile.querySelectorAll('[data-sel]').forEach((b) => {
     const btn = b as HTMLElement;
-    btn.addEventListener('click', () => { const k = btn.dataset.sel; if (k === 'all') selectAll(); else if (k === 'none') selectNone(); else invertSelection(); });
+    btn.addEventListener('click', () => SEL_OPS[btn.dataset.sel as string]?.());
   });
   tile.querySelectorAll('[data-al]').forEach((b) => { const btn = b as HTMLElement; btn.addEventListener('click', () => align(btn.dataset.al as string)); });
   tile.querySelectorAll('[data-dist]').forEach((b) => { const btn = b as HTMLElement; btn.addEventListener('click', () => distribute(btn.dataset.dist as string)); });
-  (tile.querySelector('[data-act="arrange"]') as HTMLElement).addEventListener('click', arrange);
-  (tile.querySelector('[data-act="rot-reset"]') as HTMLElement).addEventListener('click', resetRotation);
+  const ACT_OPS: Record<string, () => void> = {
+    arrange, 'arrange-line': arrangeLine, 'arrange-circle': arrangeCircle, 'rot-reset': resetRotation,
+    'reset-stage': resetStage,
+    'shift-back': () => shiftSelection(-1), 'shift-fwd': () => shiftSelection(1),
+    'order-invert': reverseOrder, 'order-mirror': mirrorOrder,
+  };
+  tile.querySelectorAll('[data-act]').forEach((b) => {
+    const btn = b as HTMLElement;
+    const op = ACT_OPS[btn.dataset.act as string];
+    if (op) btn.addEventListener('click', op);
+  });
   const fineBtn = tile.querySelector('[data-act="fine"]') as HTMLElement;
-  fineBtn.addEventListener('click', () => { state.fine = !state.fine; fineBtn.classList.toggle('active', state.fine); canvas.classList.toggle('fine', state.fine); });
+  fineBtn.addEventListener('click', () => { state.fine = !state.fine; fineBtn.classList.toggle('active', state.fine); render(); });
 
-  // zoom — toolbar buttons + mouse wheel (zooms toward the cursor). Use the hand
-  // tool / scrollbars to pan, since the wheel is taken by zoom.
+  // ---- grouping & saved selections (driven from the context menu) -------
+  // A group may only hold fixtures that share one channel configuration; this is
+  // the config common to the whole selection, or null if it's empty / spans configs.
+  function sharedConfigKey(): string | null {
+    const fxs = state.fixtures.filter((f) => state.selected.has(f.id));
+    if (!fxs.length) return null;
+    const k = fxs[0].configKey;
+    return fxs.every((f) => f.configKey === k) ? k : null;
+  }
+  async function newGroupFromSelection() {
+    const fixtureIds = [...state.selected];
+    if (!fixtureIds.length || !sharedConfigKey()) return;
+    try { await lumox.groups.add({ fixtureIds }); }
+    catch (err: any) { console.error('[stage] new group failed:', err.message); return; }
+    bus.emit(EV.GROUPS_CHANGED); bus.emit(EV.PATCH_CHANGED);
+  }
+  async function addToGroup(g: any) {
+    const next = [...new Set([...g.fixtureIds, ...state.selected])];
+    try { await lumox.groups.setFixtures(g.id, next); }
+    catch (err: any) { console.error('[stage] add to group failed:', err.message); return; }
+    bus.emit(EV.GROUPS_CHANGED); bus.emit(EV.PATCH_CHANGED);
+  }
+  async function removeFromGroup(g: any) {
+    const next = g.fixtureIds.filter((id: string) => !state.selected.has(id));
+    try { await lumox.groups.setFixtures(g.id, next); }
+    catch (err: any) { console.error('[stage] remove from group failed:', err.message); return; }
+    bus.emit(EV.GROUPS_CHANGED); bus.emit(EV.PATCH_CHANGED);
+  }
+  // Save the live selection (in order) as a named selection in the right rail,
+  // then drop straight into rename — same gesture as the rail's Save button.
+  async function saveCurrentSelection() {
+    if (!state.selected.size) return;
+    const dto = await lumox.selections.save([...state.selected]);
+    await loadSaved();
+    if (dto) startRenameSaved(dto.id);
+  }
+
+  // ---- right-click context menu (rail ops + grouping, at the cursor) -----
+  // Reuses the shared menu widget (headers, dividers, disabled, danger); a
+  // right-click on an unselected fixture selects it first so the ops have a target.
+  function showAddToGroupMenu(at: MouseEvent, eligible: any[]) {
+    openMenu([
+      { sub: 'Add selection to' },
+      ...eligible.map((g) => ({ label: g.name, dot: g.color, onClick: () => addToGroup(g) })),
+    ], { at });
+  }
+  canvas.addEventListener('contextmenu', async (e) => {
+    e.preventDefault();
+    if (!shown().length) return;
+    const node = (e.target as HTMLElement).closest('.st-node') as HTMLElement | null;
+    if (node) {
+      const id = node.dataset.fx as string;
+      if (!state.selected.has(id)) { selectOnly(id); paintSelection(); emitSelection(); }
+    }
+    const has = state.selected.size > 0;
+    const cfg = sharedConfigKey();
+    let groups: any[] = [];
+    try { groups = await lumox.groups.list(); } catch { /* ignore */ }
+    const eligible = cfg ? groups.filter((g) => g.configKey === cfg) : [];
+    const active = activeGroup.peek();
+    const activeGrp = active !== 'all' ? groups.find((g) => g.id === active) : null;
+    const inActive = !!activeGrp && activeGrp.fixtureIds.some((id: string) => state.selected.has(id));
+
+    const items: MenuItem[] = [
+      { label: 'Select all', onClick: selectAll },
+      { label: 'Invert selection', onClick: invertSelection },
+      { label: 'Keep every 2nd (½)', disabled: !has, onClick: () => selectEveryNth(2) },
+      { label: 'Keep every 3rd (⅓)', disabled: !has, onClick: () => selectEveryNth(3) },
+      { divider: true },
+      { label: 'Invert order', disabled: state.selected.size < 2, onClick: reverseOrder },
+      { label: 'Symmetry', disabled: state.selected.size < 3, onClick: mirrorOrder },
+      { divider: true },
+      { label: 'Save selection', disabled: !has, onClick: saveCurrentSelection },
+      {
+        label: 'New group from selection', disabled: !cfg,
+        title: has && !cfg ? 'Selection spans channel configs — a group holds one config' : undefined,
+        onClick: newGroupFromSelection,
+      },
+      {
+        label: 'Add to group…', disabled: !eligible.length,
+        onClick: () => showAddToGroupMenu(e, eligible),
+      },
+    ];
+    if (inActive) items.push({ label: `Remove from "${activeGrp.name}"`, onClick: () => removeFromGroup(activeGrp) });
+    items.push(
+      { divider: true },
+      { label: 'Arrange — grid', onClick: arrange },
+      { label: 'Arrange — line', onClick: arrangeLine },
+      { label: 'Arrange — circle', onClick: arrangeCircle },
+      { label: 'Reset rotation', onClick: resetRotation },
+      { label: 'Reset stage', onClick: resetStage },
+    );
+    if (has) items.push({ divider: true }, { label: 'Delete', key: 'Del', danger: true, onClick: removeSelected });
+    openMenu(items, { at: e });
+  });
+  bus.on(EV.PATCH_CHANGED, closeMenu);
+
+  // ---- saved (named) selections — right rail ---------------------------
+  // A persistent list mirroring the left tools rail. Save captures the current
+  // selection IN ORDER; click a row to recall it into the live selection (main
+  // broadcasts it back, so the stage adopts it via the FIXTURE_SELECTED bridge);
+  // double-click to rename inline; × to delete.
+  const savedSaveBtn = tile.querySelector('.st-sv-save') as HTMLElement;
+  const savedList = tile.querySelector('.st-sv-list') as HTMLElement;
+  const savedRail = tile.querySelector('.st-rail-r') as HTMLElement;
+  // Collapse / expand the saved-selections rail (the canvas reclaims the space).
+  (tile.querySelector('.st-sv-toggle') as HTMLElement).addEventListener('click', () => savedRail.classList.toggle('collapsed'));
+  function renderSavedPop() {   // (called from reload too)
+    savedList.innerHTML = state.saved.length
+      ? state.saved.map((s) => `
+          <div class="st-sv-row" data-id="${s.id}">
+            <button class="st-sv-name" title="Recall — double-click to rename">${esc(s.name)}<span class="st-sv-n">${s.fixtureIds.length}</span></button>
+            <button class="st-sv-del" title="Delete"><i class="fa-solid fa-xmark"></i></button>
+          </div>`).join('')
+      : `<div class="st-sv-empty">Select fixtures, then Save.</div>`;
+  }
+  async function loadSaved() { try { state.saved = await lumox.selections.list(); } catch { state.saved = []; } renderSavedPop(); }
+  function startRenameSaved(id: string) {
+    const row = savedList.querySelector(`.st-sv-row[data-id="${id}"]`) as HTMLElement | null;
+    const cur = state.saved.find((s) => s.id === id);
+    if (!row || !cur) return;
+    const nameBtn = row.querySelector('.st-sv-name') as HTMLElement;
+    const input = document.createElement('input');
+    input.className = 'st-sv-input'; input.value = cur.name;
+    nameBtn.replaceWith(input);
+    input.focus(); input.select();
+    input.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter') input.blur();
+      else if (ev.key === 'Escape') { input.value = cur.name; input.blur(); }
+    });
+    input.addEventListener('blur', async () => {
+      const v = input.value.trim();
+      if (v && v !== cur.name) await lumox.selections.rename(id, v);
+      await loadSaved();
+    }, { once: true });
+  }
+  savedSaveBtn.addEventListener('click', saveCurrentSelection);
+  savedList.addEventListener('click', async (e) => {
+    const t = e.target as HTMLElement;
+    const row = t.closest('.st-sv-row') as HTMLElement | null;
+    if (!row) return;
+    const id = row.dataset.id as string;
+    if (t.closest('.st-sv-del')) { await lumox.selections.remove(id); await loadSaved(); }
+    else if (t.closest('.st-sv-name')) await lumox.selections.recall(id);
+  });
+  savedList.addEventListener('dblclick', (e) => {
+    const row = (e.target as HTMLElement).closest('.st-sv-row') as HTMLElement | null;
+    if (row) startRenameSaved(row.dataset.id as string);
+  });
+
+  // zoom — toolbar buttons + mouse wheel (zooms toward the cursor). Pan with the
+  // hand tool or a middle-button drag, since the wheel is taken by zoom.
   tile.querySelectorAll('[data-zoom]').forEach((b) => {
     const btn = b as HTMLElement;
     btn.addEventListener('click', () => {
@@ -696,8 +1283,18 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     render();
   });
 
+  // Switch the stage's role with the active tab: SETUP positions fixtures, CONTROL
+  // is selection-only (hide the positioning controls + handles via `.mode-control`;
+  // the gestures themselves are gated on `state.mode` at mousedown).
+  function setMode(tab: string) {
+    state.mode = tab === 'control' ? 'control' : 'setup';
+    tile.classList.toggle('mode-control', state.mode === 'control');
+    if (state.mode === 'control' && state.tool !== 'select') setTool('select');   // arrange/move tools are moot here
+  }
+
   applyZoom();   // seed the grid/dot CSS vars + label before the first render
   setTool('select');   // seed the canvas cursor class
   await reload();
-  return { tile, refresh: reload };
+  tryFit();   // fit the stage as soon as the canvas has a real size
+  return { tile, refresh: reload, setMode };
 }

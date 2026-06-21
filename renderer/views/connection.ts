@@ -44,14 +44,13 @@ export async function makeConnectionView(): Promise<HTMLElement> {
             <div class="cx-pane cx-pane-patch">
               <div class="cx-pane-head">
                 <span class="cx-pane-title">DMX patch</span>
-                <span class="cx-pane-hint">One output per universe · saved with the show</span>
+                <span class="cx-pane-hint">One output per patched universe · saved with the show</span>
               </div>
               <div class="cx-patch">
                 <div class="cx-patch-head">
                   <span>Universe</span><span>Protocol</span><span>Target IP</span><span>Frame mode</span><span>Rate</span><span>On</span><span>Status</span>
                 </div>
                 <div class="cx-rows" id="cx-patch"></div>
-                <button class="cx-add" id="cx-add"><i class="fa-solid fa-plus"></i> Add universe</button>
               </div>
             </div>
             <div class="cx-pane cx-pane-disc">
@@ -68,6 +67,10 @@ export async function makeConnectionView(): Promise<HTMLElement> {
           <div class="cx-pane cx-pane-capture">
             <div class="cx-pane-head">
               <span class="cx-pane-title">Capture source</span>
+              <label class="cx-audio-bands" title="Number of frequency bands the meter & reactive bindings expose (1–32)">
+                <span>Bands</span>
+                <input type="number" id="cx-audio-bands-n" min="1" max="32" step="1" inputmode="numeric">
+              </label>
               <span class="cx-audio-status" id="cx-audio-status"></span>
             </div>
             <div class="cx-audio-body">
@@ -112,17 +115,13 @@ export async function makeConnectionView(): Promise<HTMLElement> {
   const patchEl = el.querySelector('#cx-patch') as HTMLElement;
   const pill = el.querySelector('#cx-pill') as HTMLElement;
   const pillText = el.querySelector('#cx-pill-text') as HTMLElement;
-  const addBtn = el.querySelector('#cx-add') as HTMLButtonElement;
   const discEl = el.querySelector('#cx-disc') as HTMLElement;
   const discStatus = el.querySelector('#cx-disc-status') as HTMLElement;
   const scanBtn = el.querySelector('#cx-disc-scan') as HTMLButtonElement;
-  const MAX_UNIVERSES = 16;   // matches context.MAX_UNIVERSES (default Art-Net range)
   const SCAN_MS = 120000;     // auto-stop a scan after ~2 minutes
 
   // Latest patch rows — kept so a discovered node can be matched to a universe.
   let patchRows: UniverseOutputRow[] = [];
-
-  addBtn.addEventListener('click', () => { void lumox.outputs.addUniverse().then(rebuild); });
 
   // Push one universe's config, then rebuild from the authoritative result.
   const set = (universeId: number, patch: Partial<UniverseOutputRow>) =>
@@ -179,8 +178,11 @@ export async function makeConnectionView(): Promise<HTMLElement> {
     let rows: UniverseOutputRow[] = [];
     try { rows = await lumox.outputs.patch(); } catch { rows = []; }
     patchRows = rows;
-    patchEl.replaceChildren(...rows.map(rowEl));
-    addBtn.disabled = rows.length >= MAX_UNIVERSES;
+    if (rows.length) {
+      patchEl.replaceChildren(...rows.map(rowEl));
+    } else {
+      patchEl.replaceChildren(node(html`<div class="cx-patch-empty">No universes in use — patch fixtures to set up their DMX output.</div>`));
+    }
     updatePill(rows);
     renderDiscovery();   // assign targets depend on the current patch
   }
@@ -313,6 +315,7 @@ export async function makeConnectionView(): Promise<HTMLElement> {
   const audioBars = el.querySelector('#cx-audio-bars') as HTMLElement;
   const audioBeat = el.querySelector('#cx-audio-beat') as HTMLElement;
   const audioStatus = el.querySelector('#cx-audio-status') as HTMLElement;
+  const audioBandsN = el.querySelector('#cx-audio-bands-n') as HTMLInputElement;
 
   let inputs: MediaDeviceInfo[] = [];
   let chosen: string | null = null;        // current audioInput setting (null = system default)
@@ -320,8 +323,26 @@ export async function makeConnectionView(): Promise<HTMLElement> {
   let audioStateUnsub: Unsubscribe | null = null;
   let beatTimer = 0;
 
-  const barEls = Array.from({ length: audioEngine.getBandCount() }, () => {
-    const b = document.createElement('span'); audioBars.appendChild(b); return b;
+  // One meter bar per frequency band; rebuilt when the band count changes.
+  let barEls: HTMLElement[] = [];
+  function rebuildBars(): void {
+    barEls = Array.from({ length: audioEngine.getBandCount() }, () => {
+      const b = document.createElement('span'); return b;
+    });
+    audioBars.replaceChildren(...barEls);
+  }
+  rebuildBars();
+  audioBandsN.value = String(audioEngine.getBandCount());
+
+  // Changing the band count re-grids the meter and re-lists the binding sources;
+  // the count is a machine setting applied to the shared capture.
+  audioBandsN.addEventListener('change', () => {
+    const n = Math.max(1, Math.min(32, Math.round(Number(audioBandsN.value) || audioEngine.getBandCount())));
+    audioBandsN.value = String(n);
+    audioEngine.setBandCount(n);
+    rebuildBars();
+    renderBinds();
+    void lumox.settings.update({ audioBands: n }).catch(() => {});
   });
 
   const deviceLabel = (id: string | null): string =>
@@ -400,7 +421,11 @@ export async function makeConnectionView(): Promise<HTMLElement> {
   }
 
   lumox.settings.get()
-    .then((s) => { chosen = s.audioInput; audioEngine.setDevice(chosen); renderSlot(); renderDevices(); })
+    .then((s) => {
+      chosen = s.audioInput; audioEngine.setDevice(chosen);
+      audioEngine.setBandCount(s.audioBands); audioBandsN.value = String(s.audioBands); rebuildBars();
+      renderSlot(); renderDevices();
+    })
     .catch(() => {});
   void enumerate();
   navigator.mediaDevices.addEventListener?.('devicechange', () => void enumerate());
@@ -535,7 +560,8 @@ export async function makeConnectionView(): Promise<HTMLElement> {
   const io = new IntersectionObserver((entries) => {
     const visible = entries.some((en) => en.isIntersecting);
     if (visible) {
-      void pollStatus(); if (!pollTimer) pollTimer = setInterval(() => void pollStatus(), POLL_MS);
+      void rebuild();   // the set of in-use universes may have changed while hidden
+      if (!pollTimer) pollTimer = setInterval(() => void pollStatus(), POLL_MS);
       startMeter();
       void refreshTargets();   // groups/scenes may have changed while hidden
     } else {

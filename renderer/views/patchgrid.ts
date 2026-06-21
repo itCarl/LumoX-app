@@ -11,6 +11,7 @@ import { openMenu } from '../lib/widgets';
 const { lumox } = window;
 const CHANNELS = 512;
 const COLS = 32;
+const UNIVERSE_COUNT = 100;   // selectable universe space (Universe 1..100)
 
 export async function makePatchGridTile() {
   const tile = document.createElement('section');
@@ -21,17 +22,23 @@ export async function makePatchGridTile() {
       <span class="pg-head-right">
         <span id="pg-msg" class="pg-msg"></span>
         <span class="seg pg-seg">
-          <button class="seg-btn active" data-mode="grid">GRID</button>
-          <button class="seg-btn" data-mode="list">LIST</button>
+          <button class="seg-btn active" data-mode="grid" title="Grid view">GRID</button>
+          <button class="seg-btn" data-mode="list" title="List view">LIST</button>
         </span>
-        <select id="pg-uni" class="pg-uni"></select>
+        <span class="uni-step" role="group" aria-label="Universe">
+          <button class="uni-arrow" data-step="-1" aria-label="Previous universe"><i class="fa-solid fa-chevron-left"></i></button>
+          <button id="pg-uni" class="uni-label" aria-haspopup="menu" title="Switch universe"><span class="uni-name"></span><i class="fa-solid fa-caret-down uni-caret"></i></button>
+          <button class="uni-arrow" data-step="1" aria-label="Next universe"><i class="fa-solid fa-chevron-right"></i></button>
+        </span>
       </span>
     </div>
     <div class="tile-body pg-body">
       <div id="pg-grid" class="pg-grid"></div>
     </div>`;
 
-  const uniSel = tile.querySelector('#pg-uni') as HTMLSelectElement;
+  const uniLabel = tile.querySelector('#pg-uni') as HTMLButtonElement;
+  const uniName = uniLabel.querySelector('.uni-name') as HTMLElement;
+  const uniArrows = [...tile.querySelectorAll('.uni-step .uni-arrow')] as HTMLButtonElement[];
   const gridEl = tile.querySelector('#pg-grid') as HTMLElement;
   const msgEl = tile.querySelector('#pg-msg') as HTMLElement;
   gridEl.style.setProperty('--cols', String(COLS));
@@ -46,7 +53,9 @@ export async function makePatchGridTile() {
   }
 
   let currentUni = 0;
-  let universes: any[] = [];
+  // Fixed selectable universe space — patching a fixture into any of these creates
+  // the universe (and its default output) on demand in the engine.
+  const universes = Array.from({ length: UNIVERSE_COUNT }, (_, i) => ({ id: i, name: `Universe ${i + 1}` }));
   let fixtures: any[] = [];
   let viewMode = 'grid';   // 'grid' | 'list'
   let lastCellFx: any[] = [];     // ch → fixture (current universe) for hover checks
@@ -56,16 +65,33 @@ export async function makePatchGridTile() {
   const selected = new Set<string>();   // shared fixture selection (mirrored with the stage)
 
   async function reload() {
-    [universes, fixtures] = await Promise.all([
-      lumox.universes.list(),
-      lumox.patch.list(),
-    ]);
+    fixtures = await lumox.patch.list();
     for (const id of [...selected]) if (!fixtures.some((f) => f.id === id)) selected.delete(id);
-    if (!universes.length) universes = [{ id: 0, name: 'Universe 1' }];
-    if (!universes.some((u) => u.id === currentUni)) currentUni = universes[0].id;
-    uniSel.innerHTML = universes.map((u) =>
-      `<option value="${u.id}"${u.id === currentUni ? ' selected' : ''}>${esc(u.name)}</option>`).join('');
+    renderUniStep();
     render();
+  }
+
+  // Universe stepper — current name flanked by prev/next arrows for sequential
+  // moves; click the name to drop a list and jump straight to any universe.
+  // Arrows clamp at the ends (no wrap) and dim out when there's nowhere to step
+  // (disable, not hide); the name button stays usable while a single universe.
+  function renderUniStep() {
+    const i = universes.findIndex((u) => u.id === currentUni);
+    uniName.textContent = universes[i]?.name ?? '';
+    uniArrows[0].disabled = i <= 0;
+    uniArrows[1].disabled = i >= universes.length - 1;
+    uniLabel.disabled = universes.length <= 1;
+  }
+  function setUniverse(id: number) {
+    if (id === currentUni) return;
+    currentUni = id;
+    renderUniStep();
+    render();
+  }
+  function stepUniverse(delta: number) {
+    const i = universes.findIndex((u) => u.id === currentUni);
+    const next = universes[i + delta];
+    if (next) setUniverse(next.id);
   }
 
   // notify other tiles after a mutating action (kept out of reload to avoid loops)
@@ -312,7 +338,20 @@ export async function makePatchGridTile() {
     if (viewMode === 'grid') renderGrid();
   });
 
-  uniSel.addEventListener('change', () => { currentUni = Number(uniSel.value); render(); });
+  uniArrows.forEach((b) =>
+    b.addEventListener('click', () => stepUniverse(Number(b.dataset.step))));
+  uniLabel.addEventListener('click', (e) => {
+    e.stopPropagation();   // don't let the global outside-click handler close it instantly
+    // Annotate in-use universes with their fixture count so the long list is easy
+    // to navigate; jump straight to any of the 100 selectable universes.
+    const counts = new Map<number, number>();
+    for (const f of fixtures) counts.set(f.universeId, (counts.get(f.universeId) ?? 0) + 1);
+    const menu = openMenu(universes.map((u) => {
+      const n = counts.get(u.id) ?? 0;
+      return { label: u.name, check: u.id === currentUni, key: n ? String(n) : undefined, onClick: () => setUniverse(u.id) };
+    }), { anchor: uniLabel });
+    menu.querySelector('.ctx-check .fa-check')?.closest('button')?.scrollIntoView({ block: 'nearest' });
+  });
 
   // grid / list toggle
   tile.querySelectorAll('.pg-seg .seg-btn').forEach((b) =>

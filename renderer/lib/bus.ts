@@ -21,6 +21,7 @@ export const EV = {
   DRAG_END: 'drag-end',               // drag finished/cancelled
   LIBRARY_CHANGED: 'library-changed', // fixture definitions added/removed
   SCENE_SELECTED: 'scene-selected',   // scene recalled for editing (detail = {id, name} | null)
+  SCENE_DESELECTED: 'scene-deselected', // edit target explicitly cleared — no scene (vs SELECTED-null = re-resolve to active)
   SCENE_UPDATED: 'scene-updated',     // a scene's content/params changed (detail = sceneId)
   BANK_SELECTED: 'bank-selected',     // active bank tab changed (detail = bankId | null)
   TEMPO_CHANGED: 'tempo-changed',     // master BPM changed anywhere (detail = bpm number)

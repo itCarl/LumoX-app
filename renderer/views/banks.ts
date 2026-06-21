@@ -50,20 +50,14 @@ export async function makeBanksTile() {
     s.type === 'chase' ? `CHASE ${s.stepCount}`
       : (s.layers?.length ? `FX ${s.layers.length}` : 'STATIC');
 
-  // Active-scene timeline. `total` = the scene's cycle (chase walk / FX layer
-  // period) or, for a plain static look, its fade in+out. A periodic scene also
-  // shows a loop icon; the strip fills with the live playhead within `total`.
-  const fadeFrac = (s: any) => {
-    const lvl = s.level > 0 ? s.level : 1;
-    return Math.max(0, Math.min(1, (s.opacity ?? 0) / lvl));
-  };
-  const sceneTotalMs = (s: any): number =>
-    s.cycleMs > 0 ? s.cycleMs : ((s.fadeIn ?? 0) + (s.fadeOut ?? 0)) * (s.fadeSpeed ?? 1) * 1000;
-  // Live position within the scene's timeline (counts up; wraps each cycle).
+  // Active-scene timeline — only a periodic scene (a chase walk or FX-layer
+  // period, `cycleMs > 0`) has a playhead; a static look is just static and
+  // shows none. The cell also gets a loop icon; the strip fills with the live
+  // position within the cycle.
+  // Live position within the cycle (counts up; wraps each cycle).
   const sceneCurrentMs = (s: any): number =>
-    s.cycleMs > 0 ? (((s.phaseMs ?? 0) % s.cycleMs) + s.cycleMs) % s.cycleMs : fadeFrac(s) * sceneTotalMs(s);
-  const sceneFrac = (s: any): number =>
-    s.cycleMs > 0 ? (sceneCurrentMs(s) / s.cycleMs) : fadeFrac(s);
+    (((s.phaseMs ?? 0) % s.cycleMs) + s.cycleMs) % s.cycleMs;
+  const sceneFrac = (s: any): number => sceneCurrentMs(s) / s.cycleMs;
   // mm:ss:cs timecode — 880ms → "00m00s88", 65430ms → "01m05s43".
   const timecode = (ms: number): string => {
     const t = Math.max(0, Math.round(ms));
@@ -79,7 +73,7 @@ export async function makeBanksTile() {
   function structuralSig(): string {
     return `${active}|` + banks.map((b: any) =>
       `${b.id}${compact.has(b.id) ? '~' : ''}[` +
-      b.scenes.map((s: any) => `${s.id}${s.active ? 'A' : ''}${s.cycleMs > 0 ? 'L' : ''}${sceneTotalMs(s) > 0 ? 'T' : ''}${s.name}:${typeLabel(s)}`).join(',') +
+      b.scenes.map((s: any) => `${s.id}${s.active ? 'A' : ''}${s.cycleMs > 0 ? 'L' : ''}${s.name}:${typeLabel(s)}`).join(',') +
       ']').join(';');
   }
   let domSig = '';
@@ -93,26 +87,37 @@ export async function makeBanksTile() {
       <div class="bank-col${compact.has(b.id) ? ' compact' : ''}" data-bank="${b.id}" style="--bank:${bankColor(i)}">
         <button class="bank-col-head" data-bank="${b.id}" title="Compact / expand scenes"><span>${b.name}</span><span class="bk-chev"><i class="fa-solid fa-chevron-down"></i></span></button>
         <button class="bk-cap" data-bank="${b.id}" title="Capture current output as a scene">${raw(ICON.plus)}</button>
-        <div class="bank-scenes">
-          ${b.scenes.map((s: any) => html`
-            <div class="scene-cell${s.active ? ' active' : ''}${s.id === selected ? ' selected' : ''}" data-scene="${s.id}" data-midi="scene:${s.id}" data-midi-kind="trigger" data-midi-label="Scene: ${s.name}" style="--sc:${bankColor(i)}">
-              <div class="sc-box">
-                <div class="sc-level" style="height:${Math.round(s.opacity * 100)}%"></div>
-                <div class="sc-info">
-                  <div class="sc-name">${s.name}</div>
-                  <div class="sc-type">${typeLabel(s)}</div>
-                  ${s.active && sceneTotalMs(s) > 0 ? html`<div class="sc-time">${timecode(sceneCurrentMs(s))}</div>` : ''}
-                </div>
-                ${s.active && s.cycleMs > 0 ? html`<span class="sc-loop" title="Loops every ${timecode(s.cycleMs)}"><i class="fa-solid fa-arrows-rotate"></i></span>` : ''}
-                ${s.active && sceneTotalMs(s) > 0 ? html`<div class="sc-timing"><div class="sc-timing-fill" style="width:${Math.round(sceneFrac(s) * 100)}%"></div></div>` : ''}
+        ${b.scenes.map((s: any) => html`
+          <div class="scene-cell${s.active ? ' active' : ''}${s.id === selected ? ' selected' : ''}" data-scene="${s.id}" data-midi="scene:${s.id}" data-midi-kind="trigger" data-midi-label="Scene: ${s.name}" style="--sc:${bankColor(i)}">
+            <div class="sc-box">
+              <div class="sc-level" style="height:${Math.round(s.opacity * 100)}%"></div>
+              <div class="sc-info">
+                <div class="sc-name">${s.name}</div>
+                <div class="sc-type">${typeLabel(s)}</div>
+                ${s.active && s.cycleMs > 0 ? html`<div class="sc-time">${timecode(sceneCurrentMs(s))}</div>` : ''}
               </div>
-              <button class="sc-strip" data-scene="${s.id}" title="Select for editing"></button>
-            </div>`)}
-        </div>
+              ${s.active && s.cycleMs > 0 ? html`<span class="sc-loop" title="Loops every ${timecode(s.cycleMs)}"><i class="fa-solid fa-arrows-rotate"></i></span>` : ''}
+              ${s.active && s.cycleMs > 0 ? html`<div class="sc-timing"><div class="sc-timing-fill" style="width:${Math.round(sceneFrac(s) * 100)}%"></div></div>` : ''}
+            </div>
+            <button class="sc-strip" data-scene="${s.id}" title="Select for editing (click again to deselect)"></button>
+          </div>`)}
       </div>`)}`);
 
     domSig = structuralSig();
     anchorAt = performance.now();   // re-anchor the interpolated timeline
+    pinColumnHeights();
+  }
+
+  // Each bank column is a CSS column-wrap flow (header + scene cells): scenes fill
+  // top-to-bottom and wrap into a new column to the right once the height fills.
+  // Chromium only expands a column-wrap box's WIDTH to fit the extra columns when
+  // its height is definite — the stretched (flex) height isn't enough — so pin each
+  // bank column to its resolved height. Re-run on every rebuild and on resize.
+  function pinColumnHeights() {
+    const list = [...cols.el.querySelectorAll('.bank-col')] as HTMLElement[];
+    for (const el of list) el.style.height = '';             // release → re-resolve from the row
+    const heights = list.map((el) => el.clientHeight);       // batched read (one reflow)
+    list.forEach((el, i) => { el.style.height = `${heights[i]}px`; });
   }
 
   // Patch the dynamic bits in place (no innerHTML) so clicks/hover survive while
@@ -125,7 +130,7 @@ export async function makeBanksTile() {
       cell.classList.toggle('selected', s.id === selected);
       const lvl = cell.querySelector('.sc-level') as HTMLElement | null;
       if (lvl) lvl.style.height = `${Math.round(s.opacity * 100)}%`;
-      if (s.active && sceneTotalMs(s) > 0) {
+      if (s.active && s.cycleMs > 0) {
         const t = cell.querySelector('.sc-time'); if (t) t.textContent = timecode(sceneCurrentMs(s));
         const f = cell.querySelector('.sc-timing-fill') as HTMLElement | null;
         if (f) f.style.width = `${Math.round(sceneFrac(s) * 100)}%`;
@@ -257,9 +262,13 @@ export async function makeBanksTile() {
   });
 
   // Right strip (tall rectangle) selects the scene as the fader-editor EDIT
-  // target (loads it for editing) without changing playback. Selection is a class
-  // toggle (not structural), so patch it in place — no rebuild, instant.
-  cols.on('click', '.sc-strip', (_e, t) => selectScene(t.dataset.scene as string));
+  // target (loads it for editing) without changing playback — clicking the
+  // already-selected scene's strip toggles it back off (deselect). Selection is a
+  // class toggle (not structural), so patch it in place — no rebuild, instant.
+  cols.on('click', '.sc-strip', (_e, t) => {
+    const id = t.dataset.scene as string;
+    if (selected === id) deselectScene(); else selectScene(id);
+  });
 
   // Mark a scene as the EDIT target: patch the highlight in place (selection isn't
   // structural, so no rebuild) and broadcast so the fader editor loads it.
@@ -268,6 +277,19 @@ export async function makeBanksTile() {
     cols.el.querySelectorAll('.scene-cell.selected').forEach((c) => c.classList.remove('selected'));
     cols.el.querySelector(`.scene-cell[data-scene="${id}"]`)?.classList.add('selected');
     bus.emit(EV.SCENE_SELECTED, { id, name: findScene(id)?.name ?? '' });
+    // Auto-select the scene's fixtures on the stage so they're ready to edit (and
+    // become the live target for any selection-driven FX). The stage adopts this
+    // via the FIXTURE_SELECTED bridge; skip when the scene drives nothing.
+    const fids = (findScene(id) as any)?.fixtureIds as string[] | undefined;
+    if (fids?.length) bus.emit(EV.FIXTURE_SELECTED, { ids: fids, src: 'banks' });
+  }
+
+  // Clear the EDIT target entirely (no scene). Distinct from SCENE_SELECTED-null,
+  // which re-resolves to the active scene — this explicitly empties the editors.
+  function deselectScene() {
+    selected = null;
+    cols.el.querySelectorAll('.scene-cell.selected').forEach((c) => c.classList.remove('selected'));
+    bus.emit(EV.SCENE_DESELECTED, null);
   }
   cols.on('contextmenu', '.scene-cell', (e, t) => {
     e.preventDefault();
@@ -351,6 +373,12 @@ export async function makeBanksTile() {
   onShortcut({ key: 'd', ctrl: true }, () => { if (selected) duplicateScene(selected); }, sceneTargeted);
   // F2 renames the edit-selected scene, or the active bank when none is selected.
   onShortcut({ key: 'F2' }, () => { if (selected) renameScene(selected); else if (active) renameBank(active); }, visible);
+
+  // Re-pin the bank-column heights when the tile resizes (dock splitter / window),
+  // so the wrap point — and thus how many columns each bank uses — tracks the
+  // available height. Observing the cols container; pinning the inner columns
+  // doesn't change its own box, so this can't loop.
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => pinColumnHeights()).observe(cols.el);
 
   await reload();
   return { tile, refresh: reload };

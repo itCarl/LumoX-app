@@ -1,12 +1,12 @@
 // Scene panel (CONTROL view, top-right). Reflects the scene clicked in the Banks
 // tile. The narrow column is decluttered with a right-hand icon rail that switches
-// between full-width pages (no nested boxes, no deep back-tracking):
+// between full-width pages:
 //   • Base    — base look STATIC / CHASE + (chase) the steps list.
-//   • FX Rack — flat list of FX layers; each row opens its own editor page.
-//       └ Layer — one layer's editor (color / move / curve / chaser / value):
-//                 target (group), sweep order, kind config + live preview, timing.
-//                 Reorder, enable/bypass and delete live in the page's title row;
-//                 a ← FX Rack link returns to the list.
+//   • FX Rack — an inline collapsible STACK of FX layers (console-style): every
+//               layer is a block with a header row (caret / enable / icon+name /
+//               target / reorder / delete); clicking the header expands ONE layer
+//               in place to reveal its editor (target, sweep order, kind config +
+//               live preview, timing) — a single-expand accordion, no separate page.
 //   • Scene   — scene-level: DIMMER, chase transport/tempo, fade timing.
 //   • Advanced— priority, loop + jump-to, release/protect scopes, flash.
 // The header carries the scene name, a rename pencil, live status and recall.
@@ -57,9 +57,9 @@ const r2 = (v: number): number => Math.round(v * 100) / 100;
 const dirIcon = (d: string): string => (d === 'backward' ? ICON.back : d === 'bounce' ? ICON.bounce : ICON.fwd);
 function fmtBeat(b: number): string { return b >= 1 ? `${r2(b)}` : `1/${Math.round(1 / b)}`; }
 
-// Pages of the Scene panel, switched via the right-hand rail. `layer` is a
-// sub-page of `rack` (drilled into from an FX-rack row; returns there).
-type View = 'base' | 'rack' | 'layer' | 'scene' | 'adv';
+// Pages of the Scene panel, switched via the right-hand rail. Inside `rack`, one
+// layer is expanded inline (tracked by `state.layerId`); no separate layer page.
+type View = 'base' | 'rack' | 'scene' | 'adv';
 
 // ---- FX preview diagrams (canvas 2D) -----------------------------------
 // Drawn in a 120-unit design space scaled by `s` to the canvas's CSS size, so
@@ -90,26 +90,35 @@ function waveSample(wave: string, t: number, duty = 0.5): number {
     default:         return (Math.sin(t * TAU) + 1) / 2;
   }
 }
-// A marker per target beam at its phase position, lower indices drawn on top.
-function drawBeamDots(ctx: CanvasRenderingContext2D, at: (i: number) => [number, number], beams: number, r: number, s: number, col: PreviewColors): void {
-  const n = Math.min(Math.max(0, beams), 40);
+// A marker per target beam at its phase position. `labels[i]` is the stage
+// selection badge of the fixture behind beam `i` (null = not selected): selected
+// beams are drawn in the accent colour with their badge number on top, the rest
+// recede so the connection between the moving dots and the picked fixtures reads
+// at a glance (the same numbers shown on the stage tiles).
+function drawBeamDots(ctx: CanvasRenderingContext2D, at: (i: number) => [number, number], labels: (string | null)[], r: number, s: number, col: PreviewColors): void {
+  const n = Math.min(labels.length, 40);
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.font = `${(r * 1.5).toFixed(1)}px system-ui, sans-serif`;
-  for (let i = n - 1; i >= 0; i--) {
+  ctx.font = `${(r * 1.6).toFixed(1)}px system-ui, sans-serif`;
+  const dot = (i: number): void => {
     const [x, y] = at(i);
+    const label = labels[i];
     ctx.beginPath();
-    ctx.arc(x, y, r, 0, TAU);
-    ctx.fillStyle = col.accent;
+    ctx.arc(x, y, label != null ? r : r * 0.78, 0, TAU);
+    ctx.fillStyle = label != null ? col.accent : col.fgDim;
     ctx.fill();
     ctx.lineWidth = 0.5 * s;
     ctx.strokeStyle = '#000';
     ctx.stroke();
-    if (n <= 12) { ctx.fillStyle = '#000'; ctx.fillText(String(i + 1), x, y + 0.4 * s); }
-  }
+    if (label != null) { ctx.fillStyle = '#000'; ctx.fillText(label, x, y + 0.4 * s); }
+  };
+  // Two passes so selected (numbered) beams sit above the unselected ones; within
+  // a pass lower indices land on top (badge #1 wins).
+  for (let i = n - 1; i >= 0; i--) if (labels[i] == null) dot(i);
+  for (let i = n - 1; i >= 0; i--) if (labels[i] != null) dot(i);
 }
 
-function drawShape(ctx: CanvasRenderingContext2D, w: number, h: number, shape: string, sizeX: number, sizeY: number, rotDeg: number, beams: number, spreadDeg: number, phaseRad: number, col: PreviewColors): void {
+function drawShape(ctx: CanvasRenderingContext2D, w: number, h: number, shape: string, sizeX: number, sizeY: number, rotDeg: number, labels: (string | null)[], spreadDeg: number, phaseRad: number, col: PreviewColors): void {
   const s = Math.min(w, h) / 120, cx = w / 2, cy = h / 2;
   const rot = (rotDeg * Math.PI) / 180, cos = Math.cos(rot), sin = Math.sin(rot);
   const at = (theta: number): [number, number] => {
@@ -133,10 +142,10 @@ function drawShape(ctx: CanvasRenderingContext2D, w: number, h: number, shape: s
   for (let k = 0; k <= 96; k++) { const [px, py] = at((k / 96) * TAU); if (k) ctx.lineTo(px, py); else ctx.moveTo(px, py); }
   ctx.stroke();
   // each beam sits at the live playhead (phaseRad) plus its phase offset (matches renderMoveFx)
-  drawBeamDots(ctx, (i) => at(phaseRad + (i * spreadDeg * Math.PI) / 180), beams, 4 * s, s, col);
+  drawBeamDots(ctx, (i) => at(phaseRad + (i * spreadDeg * Math.PI) / 180), labels, 4 * s, s, col);
 }
 
-function drawWave(ctx: CanvasRenderingContext2D, w: number, _h: number, wave: string, duty: number, invert: boolean, min: number, max: number, beams: number, spreadDeg: number, phaseCyc: number, col: PreviewColors): void {
+function drawWave(ctx: CanvasRenderingContext2D, w: number, _h: number, wave: string, duty: number, invert: boolean, min: number, max: number, labels: (string | null)[], spreadDeg: number, phaseCyc: number, col: PreviewColors): void {
   const s = w / 120;
   const lvl = (t: number): number => { let v = waveSample(wave, t, duty); if (invert) v = 1 - v; return (min + (max - min) * v) / 255; };
   const X = (t: number): number => (8 + t * 104) * s;
@@ -158,7 +167,7 @@ function drawWave(ctx: CanvasRenderingContext2D, w: number, _h: number, wave: st
   for (let k = 0; k <= 120; k++) { const t = k / 120; if (k) ctx.lineTo(X(t), Y(lvl(t))); else ctx.moveTo(X(t), Y(lvl(t))); }
   ctx.stroke();
   // each beam travels the period at the live playhead (phaseCyc) plus its phase fraction (matches renderWaveFx)
-  drawBeamDots(ctx, (i) => { const frac = (((phaseCyc + i * spreadDeg / 360) % 1) + 1) % 1; return [X(frac), Y(lvl(frac))]; }, beams, 3.2 * s, s, col);
+  drawBeamDots(ctx, (i) => { const frac = (((phaseCyc + i * spreadDeg / 360) % 1) + 1) % 1; return [X(frac), Y(lvl(frac))]; }, labels, 3.2 * s, s, col);
 }
 
 export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
@@ -173,7 +182,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     </div>
     <div class="sp-main">
       <div class="tile-body sp-content" id="sp-content"></div>
-      <nav class="sp-rail" id="sp-rail" hidden>
+      <nav class="sp-rail" id="sp-rail">
         <button class="sp-railbtn" data-nav="base" title="Base look"><i class="fa-solid fa-fill-drip"></i><span>Base</span></button>
         <button class="sp-railbtn" data-nav="rack" title="FX Rack"><i class="fa-solid fa-layer-group"></i><span>FX</span></button>
         <button class="sp-railbtn" data-nav="scene" title="Scene settings"><i class="fa-solid fa-gauge-high"></i><span>Scene</span></button>
@@ -193,13 +202,17 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     scene: null as SceneInfo | null,
     bpm: 120,
     view: 'rack' as View,              // which page the rail has open
-    layerId: null as string | null,    // FX layer whose editor page is open
+    layerId: null as string | null,    // FX layer expanded inline in the rack (null = all collapsed)
     groups: [] as { id: string; name: string }[],
     attrs: [] as { id: string; name: string; group: string }[],
     palettes: [] as { id: string; name: string; colors: string[] }[],
     presets: [] as { id: string; name: string }[],
     banks: [] as { id: string; name: string; scenes: { id: string; name: string }[] }[],
   };
+  // Live ordered stage selection, mirrored for the preview so each beam dot can be
+  // numbered with its fixture's selection badge (the rAF loop reads this each frame).
+  let selOrder: string[] = [];
+  lumox.selection.get().then((ids) => { selOrder = ids; }).catch(() => {});
   const reloadLib = async () => {
     state.palettes = await lumox.palettes.list().catch(() => []);
     state.presets = await lumox.presets.list().catch(() => []);
@@ -239,7 +252,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     if (!res) return;
     const info = 'scene' in res ? res.scene : res;
     state.scene = info;
-    if ('layerId' in res) { state.layerId = res.layerId; state.view = 'layer'; render(false); }   // jump to the new layer's page
+    if ('layerId' in res) { state.layerId = res.layerId; state.view = 'rack'; render(false); }   // expand the new layer inline
     else render();
     if (affectsBanks) emitUpdated(info.id);
   }
@@ -256,12 +269,11 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     recallBtn.classList.toggle('on', !!s?.active);
     status.textContent = s ? (s.active ? (s.paused ? 'PAUSED' : 'LIVE') : 'idle') : '';
 
-    if (state.view === 'layer' && !layer()) state.view = 'rack';   // layer deleted → fall back to the rack list
+    if (state.layerId && !layer()) state.layerId = null;   // expanded layer deleted → collapse
     updateRail(s);
 
-    if (!s) content.set(html`<div class="sp-empty">Click a scene in CONTROL → Banks to edit it.</div>`);
+    if (!s) renderEmpty();
     else if (state.view === 'base') renderBase(s);
-    else if (state.view === 'layer') renderLayerPage(s);
     else if (state.view === 'scene') renderScene(s);
     else if (state.view === 'adv') renderAdvanced(s);
     else renderRack(s);
@@ -272,12 +284,42 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
   // Always-visible quick switch between the top-level pages. A layer page is a
   // sub-page of the rack, so the rail shows FX Rack active while editing a layer.
   function updateRail(s: SceneInfo | null): void {
-    railEl.hidden = !s;
-    const active = state.view === 'layer' ? 'rack' : state.view;
+    railEl.hidden = false;                 // always visible — disabled (greyed) when no scene, never hidden
+    const active = state.view;
     for (const b of railBtns) {
       b.disabled = !s;
       b.classList.toggle('active', b.dataset.nav === active);
     }
+  }
+
+  // Compact FX-type palette bar (icon-only, tooltips) + a one-row preset footer.
+  // Shared by the rack page and the no-scene skeleton so the two states keep the
+  // same shape (no layout shift). The icon strip is the console-style "add a layer"
+  // toolbar — one tight row instead of a wrapping grid of labelled buttons.
+  const addBar = () => html`
+    <div class="fxrack-add" role="group" aria-label="Add FX layer">
+      <span class="fxadd-lbl">ADD</span>
+      ${KINDS.map((k) => html`<button class="fxadd-btn" data-act="addlayer" data-kind="${k.kind}" title="Add ${k.label} FX" aria-label="Add ${k.label} FX">${raw(k.icon)}</button>`)}
+    </div>`;
+  const presetFoot = (canSave: boolean) => html`
+    <div class="fxrack-foot">
+      <select class="sp-select fxpreset" id="preset-pick">
+        <option value="">Preset…</option>
+        ${state.presets.map((p) => html`<option value="${p.id}">${p.name}</option>`)}
+      </select>
+      <button class="fe-btn" data-act="preset-save" title="Save this FX rack as a preset"${canSave ? '' : ' disabled'}>Save</button>
+    </div>`;
+
+  // No-scene state — keep the FX-rack skeleton visible but greyed + inert (no
+  // layout shift / no hidden UI), with a prompt, instead of collapsing the panel.
+  function renderEmpty() {
+    content.set(html`
+      <div class="sp-note">Select a scene in CONTROL → Banks to edit its FX rack.</div>
+      <div class="sp-ghost">
+        <div class="fxrack"><div class="sp-empty">No scene selected</div></div>
+        ${addBar()}
+        ${presetFoot(false)}
+      </div>`);
   }
 
   // ---- base page (STATIC / CHASE + steps) ---------------------------------
@@ -295,60 +337,45 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
         : html`<div class="sp-note">Static holds one look. Switch to Chase to step through captured cues.</div>`}`);
   }
 
-  // ---- FX rack page (flat layer list + add + presets) ---------------------
+  // ---- FX rack page (inline collapsible layer stack + add + presets) ------
   function renderRack(s: SceneInfo) {
     content.set(html`
       <div class="fxrack">
         ${s.layers.length
-          ? s.layers.map((l) => layerItem(l))
+          ? s.layers.map((l) => layerBlock(l))
           : html`<div class="sp-empty">No FX layers. Add one below — they stack over the base look.</div>`}
       </div>
-      <div class="fxrack-add">
-        ${KINDS.map((k) => html`<button class="fx-btn" data-act="addlayer" data-kind="${k.kind}" title="Add ${k.label} FX">${raw(k.icon)} ${k.label}</button>`)}
-      </div>
-
-      <div class="fxrack-hdr">PRESETS</div>
-      <div class="fxe-row">
-        <select class="sp-select" id="preset-pick">
-          <option value="">Apply preset…</option>
-          ${state.presets.map((p) => html`<option value="${p.id}">${p.name}</option>`)}
-        </select>
-        <button class="fe-btn" data-act="preset-save" title="Save this FX rack as a preset"${s.layers.length ? '' : ' disabled'}>Save rack</button>
-      </div>`);
-  }
-
-  // One rack row — flat and clickable: tapping it opens the layer's full-width
-  // editor page. The enable dot is the only nested action (toggles bypass in place).
-  function layerItem(l: FxLayerInfo) {
-    const gid = l.target.mode === 'group' ? l.target.groupId : '';
-    const tgt = gid ? (state.groups.find((g) => g.id === gid)?.name ?? 'Group') : 'All';
-    return html`
-      <div class="fxlayer${l.enabled ? '' : ' off'}" data-act="open" data-l="${l.id}" title="Edit layer">
-        <button class="fxrow-on${l.enabled ? ' on' : ''}" data-act="enable" data-l="${l.id}" title="Enable / bypass"><span class="fxrow-dot"></span></button>
-        <span class="fxlayer-name">${raw(kindIcon(l.kind))}<span>${kindLabel(l.kind)}</span></span>
-        <span class="fxlayer-tgt">${tgt}</span>
-        ${raw(ICON.right)}
-      </div>`;
-  }
-
-  // ---- FX layer page (full-width editor for one layer) --------------------
-  // A title row (icon + reorder + enable + delete) above the layer's editor body.
-  function renderLayerPage(s: SceneInfo) {
+      ${addBar()}
+      ${presetFoot(s.layers.length > 0)}`);
+    // Mount the one expanded layer's knobs + preview (only it renders a body).
     const l = layer();
-    if (!l) { renderRack(s); return; }
-    content.set(html`
-      <button class="sp-back" data-act="back" title="Back to FX Rack">${raw(ICON.back)}<span>FX Rack</span></button>
-      <div class="fx-layerhead${l.enabled ? '' : ' off'}">
-        <span class="fxlayer-name">${raw(kindIcon(l.kind))}<span>${kindLabel(l.kind)}</span></span>
-        <span class="fx-layeracts">
-          <button class="stp-mini" data-act="lup" data-l="${l.id}" title="Move up">${raw(ICON.up)}</button>
-          <button class="stp-mini" data-act="ldown" data-l="${l.id}" title="Move down">${raw(ICON.down)}</button>
+    if (l) mountLayerControls(s, l);
+  }
+
+  // One stacked layer block: an always-visible header (caret / enable / icon+name
+  // / target / reorder / delete), and — when this is the expanded layer — its full
+  // editor body inline below. Clicking the header toggles expansion (accordion).
+  function layerBlock(l: FxLayerInfo) {
+    const open = l.id === state.layerId;
+    const gid = l.target.mode === 'group' ? l.target.groupId : '';
+    const tgt = l.target.mode === 'selection' ? 'Selection'
+      : gid ? (state.groups.find((g) => g.id === gid)?.name ?? 'Group')
+      : 'All';
+    return html`
+      <div class="fxblock${open ? ' open' : ''}${l.enabled ? '' : ' off'}">
+        <div class="fxblock-hd" data-act="open" data-l="${l.id}" title="${open ? 'Collapse' : 'Expand'}">
+          <span class="fxblock-caret">${raw(open ? ICON.down : ICON.right)}</span>
           <button class="fxrow-on${l.enabled ? ' on' : ''}" data-act="enable" data-l="${l.id}" title="Enable / bypass"><span class="fxrow-dot"></span></button>
-          <button class="stp-mini stp-del" data-act="ldel" data-l="${l.id}" title="Remove layer">${raw(ICON.trash)}</button>
-        </span>
-      </div>
-      ${layerBody(l)}`);
-    mountLayerControls(s, l);
+          <span class="fxlayer-name">${raw(kindIcon(l.kind))}<span>${kindLabel(l.kind)}</span></span>
+          <span class="fxlayer-tgt">${tgt}</span>
+          <span class="fx-layeracts">
+            <button class="stp-mini" data-act="lup" data-l="${l.id}" title="Move up">${raw(ICON.up)}</button>
+            <button class="stp-mini" data-act="ldown" data-l="${l.id}" title="Move down">${raw(ICON.down)}</button>
+            <button class="stp-mini stp-del" data-act="ldel" data-l="${l.id}" title="Remove layer">${raw(ICON.trash)}</button>
+          </span>
+        </div>
+        ${open ? html`<div class="fxblock-bd">${layerBody(l)}</div>` : ''}
+      </div>`;
   }
 
   // The layer page's editor body: target + sweep order, kind-specific config,
@@ -446,6 +473,23 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     return html`<select class="sp-select" data-cfg="attr">${raw(groups)}</select>`;
   }
 
+  // The "Apply palette…" picker, split into a read-only Built-in group (curated
+  // gradients shipped with the app) and the user's Saved group. Shared by the
+  // COLOR and MATRIX editors, which both drive a `palette[]` of hex stops.
+  const palOptions = () => {
+    const builtin = state.palettes.filter((p) => p.id.startsWith('builtin_'));
+    const saved = state.palettes.filter((p) => !p.id.startsWith('builtin_'));
+    return html`
+      <option value="">Apply palette…</option>
+      <optgroup label="Built-in">${builtin.map((p) => html`<option value="${p.id}">${p.name}</option>`)}</optgroup>
+      ${saved.length ? html`<optgroup label="Saved">${saved.map((p) => html`<option value="${p.id}">${p.name}</option>`)}</optgroup>` : ''}`;
+  };
+  const savedPalRow = (canSave: boolean) => html`
+    <div class="fxe-row"><span class="sp-lbl">Saved</span>
+      <select class="sp-select" id="pal-pick">${palOptions()}</select>
+      <button class="fe-btn" data-act="pal-save" title="Save this palette"${canSave ? '' : ' disabled'}>Save</button>
+    </div>`;
+
   function kindEditor(l: FxLayerInfo) {
     if (l.kind === 'color' && l.color) {
       const c = l.color;
@@ -460,13 +504,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
             <button class="cfx-add" data-act="cfx-add" title="Add colour (empty = rainbow)">${raw(ICON.plus)}</button>
           </span>
         </div>
-        <div class="fxe-row"><span class="sp-lbl">Saved</span>
-          <select class="sp-select" id="pal-pick">
-            <option value="">Apply palette…</option>
-            ${state.palettes.map((p) => html`<option value="${p.id}">${p.name}</option>`)}
-          </select>
-          <button class="fe-btn" data-act="pal-save" title="Save this palette"${c.palette.length ? '' : ' disabled'}>Save</button>
-        </div>
+        ${savedPalRow(c.palette.length > 0)}
         ${row('Saturation', slider('saturation', 0, 1, 0.01, c.saturation, pct))}
         ${row('Fade', slider('fade', 0, 1, 0.01, c.fade, pct))}
         ${row('Color width', slider('colorWidth', 0, 4, 0.05, c.colorWidth, (v) => r2(v).toString()))}
@@ -522,6 +560,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
             <button class="cfx-add" data-act="cfx-add" title="Add colour (empty = rainbow)">${raw(ICON.plus)}</button>
           </span>
         </div>
+        ${savedPalRow(m.palette.length > 0)}
         ${row('Saturation', slider('saturation', 0, 1, 0.01, m.saturation, pct))}
         ${row('Fade', slider('fade', 0, 1, 0.01, m.fade, pct))}
         ${row('Scale', slider('scale', 0.1, 8, 0.05, m.scale, (v) => r2(v).toString()))}
@@ -704,7 +743,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     phasePoll = window.setInterval(pollPhase, 150);
     redrawPreview();   // paint frame 0 synchronously so the canvas never flashes blank
     const step = (t: number): void => {
-      if (state.view !== 'layer' || !content.el.querySelector('.fxe-shape')) { stopPreviewAnim(); return; }
+      if (state.view !== 'rack' || !content.el.querySelector('.fxe-shape')) { stopPreviewAnim(); return; }
       redrawPreview(t);
       previewRaf = requestAnimationFrame(step);
     };
@@ -744,12 +783,27 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     const tog = (f: string): boolean => content.el.querySelector(`[data-cfgtoggle="${f}"]`)?.classList.contains('on') ?? false;
     const { clockMs, periodMs } = previewClock(l, tMs);
     const cyc = previewPhaseCyc(l, clockMs, periodMs);
+    const labels = beamLabels(l);
     if (l.kind === 'move' && l.move) {
-      drawShape(ctx, w, h, selv('shape', l.move.shape), num('sizeX', 1), num('sizeY', 1), num('phaseShape', 0), l.beams, l.spread, cyc * TAU, col);
+      drawShape(ctx, w, h, selv('shape', l.move.shape), num('sizeX', 1), num('sizeY', 1), num('phaseShape', 0), labels, l.spread, cyc * TAU, col);
     } else if ((l.kind === 'curve' && l.curve) || (l.kind === 'value' && l.value)) {
       const c = (l.curve ?? l.value)!;
-      drawWave(ctx, w, h, selv('waveform', c.waveform), num('duty', 0.5), tog('invert'), num('min', 0), num('max', 255), l.beams, l.spread, cyc, col);
+      drawWave(ctx, w, h, selv('waveform', c.waveform), num('duty', 0.5), tog('invert'), num('min', 0), num('max', 255), labels, l.spread, cyc, col);
     }
+  }
+
+  // Per-beam labels for the preview dots: each beam's fixture mapped to its 1-based
+  // stage selection badge (null when that fixture isn't selected). When no beam
+  // belongs to the selection the badge link is empty, so fall back to plain 1..N
+  // beam numbering so the preview is still readable. `beams` may exceed the id list
+  // (e.g. a stale frame) — pad with nulls so the dot count still drives the loop.
+  function beamLabels(l: FxLayerInfo): (string | null)[] {
+    const ids = l.beamFixtureIds ?? [];
+    const byBadge = ids.map((id) => { const i = selOrder.indexOf(id); return i >= 0 ? String(i + 1) : null; });
+    const out: (string | null)[] = [];
+    for (let i = 0; i < l.beams; i++) out.push(byBadge[i] ?? null);
+    if (out.some((v) => v != null)) return out;
+    return Array.from({ length: Math.min(l.beams, 40) }, (_, i) => String(i + 1));
   }
 
   // ---- delegated events --------------------------------------------------
@@ -762,8 +816,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     switch (act) {
       case 'base': apply(lumox.scenes.setType(id, val as string), true); break;
       case 'addlayer': apply(lumox.scenes.addLayer(id, t.dataset.kind as FxKind), true); break;
-      case 'open': state.view = 'layer'; state.layerId = lid; render(false); break;
-      case 'back': state.view = 'rack'; render(false); break;
+      case 'open': state.layerId = state.layerId === lid ? null : lid; render(); break;   // accordion toggle (keep scroll)
       case 'enable': { const l = s.layers.find((x) => x.id === lid); if (l) apply(lumox.scenes.setLayerEnabled(id, lid, !l.enabled), true); break; }
       case 'lup': apply(lumox.scenes.moveLayer(id, lid, -1), true); break;
       case 'ldown': apply(lumox.scenes.moveLayer(id, lid, +1), true); break;
@@ -958,11 +1011,16 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     if (sel?.id) select(sel.id);
     else if (state.scene) refetch();
   });
+  // Explicit deselect — clear the edit target and show the (greyed) no-scene state.
+  bus.on(EV.SCENE_DESELECTED, () => { state.scene = null; state.layerId = null; state.view = 'rack'; render(false); });
   bus.on(EV.SCENE_UPDATED, (id: string) => {
     if (id === suppressId) return;
     if (state.scene && id === state.scene.id) refetch();
   });
   bus.on(EV.GROUPS_CHANGED, async () => { state.groups = await lumox.groups.list().catch(() => []); if (state.scene) render(); });
+  // Track the live ordered selection so preview beams stay numbered to match the
+  // stage badges (the rAF preview loop picks up the new order on its next frame).
+  bus.on(EV.FIXTURE_SELECTED, (d: { ids: string[] } | null) => { selOrder = d?.ids ?? []; });
 
   render();
   return { tile };

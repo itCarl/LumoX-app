@@ -15,6 +15,7 @@ import { openSettingsModal } from './views/settings-modal';
 import { openMenu, closeMenu } from './lib/widgets';
 import { initAppSettings } from './lib/settings';
 import { initSelectionBridge } from './lib/selection';
+import { initNumberSteppers } from './lib/numberStepper';
 import { initMidiAssign } from './lib/midiassign';
 import { isEditable } from './lib/keys';
 import { bus, EV } from './lib/bus';
@@ -31,6 +32,9 @@ initAppSettings();
 // (so FX layers can sweep across it) and reflect main-driven reorders back.
 initSelectionBridge();
 
+// Replace the native number-input spin arrows with custom on-theme steppers.
+initNumberSteppers();
+
 // MIDI control surface: title-bar button opens the mapping window; the assign
 // overlay paints tagged controls purple while assigning.
 initMidiAssign();
@@ -43,7 +47,7 @@ lumox?.midi.status().then((s) => midiBtn?.classList.toggle('connected', s.connec
 const ws = document.querySelector('.workspace') as HTMLElement;
 const debugView = document.querySelector('.debug-view') as HTMLElement;
 const connectionView = document.querySelector('.connection-view') as HTMLElement;
-const dock = makeDock(ws, { topCol: 300, topFraction: 0.65, bottomFraction: 0.33 });  // top 65% height, stage 33% of bottom row
+const dock = makeDock(ws, { topCol: 300, topFraction: 0.5, bottomFraction: 0.5 });  // top 50% height, stage / limits split the bottom row 50/50
 
 // full-page views — debug (⋯ menu) and connection (its own titlebar tab)
 const fullViews: Record<string, HTMLElement> = { debug: debugView, connection: connectionView };
@@ -52,7 +56,10 @@ makeConnectionView().then((el) => connectionView.appendChild(el));
 
 // Bottom row + groups strip are SHARED across tabs (mounted once).
 makeGroupBarTile().then(({ tile }) => dock.mount('groups', tile));
-makeStageTile().then(({ tile }) => dock.mount('bl', tile));
+// The stage is shared too, but its role switches per tab: SETUP positions fixtures,
+// CONTROL is selection-only (`setStageMode`).
+let setStageMode: ((tab: string) => void) | null = null;
+makeStageTile().then(({ tile, setMode }) => { setStageMode = setMode; dock.mount('bl', tile); setMode(currentTab); });
 
 // Bottom-right: fader editor in CONTROL, fixture-limits editor in SETUP (both
 // mounted into the same slot; the active tab toggles which is visible).
@@ -96,6 +103,8 @@ function showTab(name: string) {
   // bottom-right: fader editor only in CONTROL, limits editor only in SETUP
   if (faderTile) faderTile.classList.toggle('hidden', name !== 'control');
   if (limitsTile) limitsTile.classList.toggle('hidden', name !== 'setup');
+  // stage role: positioning in SETUP, selection-only in CONTROL (full views leave it as-is)
+  if (!isFull) setStageMode?.(name);
   // top split per tab: SETUP → library at 25%; CONTROL → scenes 75%, FX 25%
   if (name === 'control') dock.setTopColFraction(0.75);
   else dock.setTopColFraction(0.25);
@@ -110,9 +119,13 @@ function showTab(name: string) {
 // ---- project: titlebar name + dirty marker -----------------------------
 const docEl = document.querySelector('.tb-doc') as HTMLElement;
 let projectDirty = false;
-function applyProjectInfo(info: { name: string; dirty: boolean }) {
+function applyProjectInfo(info: { name: string; path: string | null; dirty: boolean }) {
   projectDirty = info.dirty;
-  if (docEl) docEl.textContent = `— ${info.name}${info.dirty ? ' *' : ''}`;
+  // Show the whole file name (e.g. `demo-show.lmx`); for an unsaved project with
+  // no path yet, append the `.lmx` extension to the display name so the titlebar
+  // always carries the project-file extension.
+  const label = info.path ? info.path.replace(/^.*[\\/]/, '') : `${info.name}.lmx`;
+  if (docEl) docEl.textContent = `— ${label}${info.dirty ? ' *' : ''}`;
 }
 // Confirm before discarding unsaved changes (New / Open) via the dialog window.
 async function guardDirty(action: () => void) {
@@ -249,10 +262,14 @@ function syncAudioSource(source: TempoSource): void {
   }
 }
 
-// The chosen input device is a machine setting; apply it to the shared capture at boot
-// and whenever it changes (the Connection tab writes it).
-lumox?.settings?.get().then((s) => audioEngine.setDevice(s.audioInput)).catch(() => {});
-lumox?.settings?.onChanged((s) => audioEngine.setDevice(s.audioInput));
+// The chosen input device + band count are machine settings; apply them to the shared
+// capture at boot and whenever they change (the Connection tab writes them).
+const applyAudioSettings = (s: { audioInput: string | null; audioBands: number }): void => {
+  audioEngine.setDevice(s.audioInput);
+  audioEngine.setBandCount(s.audioBands);
+};
+lumox?.settings?.get().then(applyAudioSettings).catch(() => {});
+lumox?.settings?.onChanged(applyAudioSettings);
 
 // Audio-reactive bindings: while the engine holds bindings, main asks the renderer to
 // keep the shared capture open and forward level frames (even off the Connection tab),
