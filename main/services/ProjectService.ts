@@ -6,11 +6,14 @@
 import { EventEmitter } from 'node:events';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { Fixture, Group, Scene, toChaseStep, DEFAULT_STEP_WAIT } from '../../src/index';
+import { Fixture, Group, Scene, toChaseStep, DEFAULT_STEP_WAIT, denormalizeTransform } from '../../src/index';
+import { engine, show, banks } from '../context';
 import {
-  engine, show, banks, liveUniverses, updateActiveUniverses, sceneTrack,
-  ensureDefaultScene, applyOutputPatch, seedDefaultOutputs, savedOutputs, rebuildLimits,
-} from '../context';
+  liveUniverses, updateActiveUniverses, applyOutputPatch, seedDefaultOutputs, savedOutputs,
+} from './OutputPatchService';
+import { sceneTrack } from './SceneCompiler';
+import { ensureDefaultScene } from './SceneOrchestrator';
+import { rebuildFixtureMaps } from './FixtureMaps';
 import { transport } from './Transport';
 import { palettes, presets } from './presets';
 import { listMidiBindings, loadMidiBindings } from './MidiService';
@@ -57,6 +60,7 @@ export function markDirty(): void {
 export function newProject(): void {
   show.patch.clear();
   show.groups.clear();
+  show.clearSelections();
   show.clearScenes();
   engine.scenes.clear();
   banks.clear();
@@ -84,6 +88,7 @@ export function buildProject(): ProjectData {
     library: show.library.list().filter((d) => d.source === 'user').map((d) => d.toJSON()),
     patch: show.patch.list().map((fx) => fx.toJSON()),
     groups: show.groups.list().map((g) => ({ ...g.toJSON(), configKey: g.configKey ?? null })),
+    selections: show.listSelections().map((s) => ({ id: s.id, name: s.name, fixtureIds: [...s.fixtureIds] })),
     scenes: show.listScenes().map((s) => ({
       id: s.id, name: s.name, color: s.color ?? null, values: s.values, fadeIn: s.fadeIn, fadeOut: s.fadeOut,
       type: s.type, steps: s.steps, rateMs: s.rateMs,
@@ -121,7 +126,7 @@ export function validateProject(p: unknown): asserts p is ProjectData {
     throw new Error('Invalid project: "name" must be a string');
   }
   // Optional sections must be arrays when present.
-  for (const key of ['library', 'patch', 'groups', 'scenes', 'banks', 'devices'] as const) {
+  for (const key of ['library', 'patch', 'groups', 'selections', 'scenes', 'banks', 'devices'] as const) {
     if (o[key] != null && !Array.isArray(o[key])) {
       throw new Error(`Invalid project: "${key}" must be an array`);
     }
@@ -174,7 +179,14 @@ export async function restoreProject(p: unknown): Promise<void> {
   validateProject(p);
 
   // user fixture definitions
-  for (const d of p.library ?? []) { try { show.library.add(d, 'user'); } catch { /* skip */ } }
+  for (const d of p.library ?? []) {
+    try { show.library.add(d, 'user'); }
+    catch (err) { console.error('[show] project user fixture rejected:', (err as Error).message); }
+  }
+
+  // Lazy library: parse every bundled vendor the patch references before
+  // resolving definitions below (and before the post-restore analyze).
+  await show.library.ensureForIds((p.patch ?? []).map((fj: { definitionId?: string }) => fj?.definitionId).filter((x: unknown): x is string => !!x));
 
   // universes — ensure every one the project references (patch targets + saved
   // outputs), at least the default count; drop any extras from a prior project.
@@ -191,18 +203,29 @@ export async function restoreProject(p: unknown): Promise<void> {
     const def = show.library.get(fj.definitionId);
     if (!def) continue;
     const mode = def.mode(fj.modeId) ?? def.defaultMode;
-    const fx = new Fixture({ id: fj.id, name: fj.name, definition: def, mode, universeId: fj.universeId, startAddress: fj.startAddress, stageTransform: fj.stageTransform, limits: fj.limits ?? null, channelFlags: fj.channelFlags ?? null });
+    const fx = new Fixture({ id: fj.id, name: fj.name, definition: def, mode, universeId: fj.universeId, startAddress: fj.startAddress, stageTransform: denormalizeTransform(fj.stageTransform), limits: fj.limits ?? null });
     show.patch.add(fx);
     const u = engine.universes.get(fx.universeId);
     if (u) fx.apply(u);
   }
-  rebuildLimits();   // re-resolve per-fixture limit targets for the loaded patch
+  rebuildFixtureMaps();   // re-resolve per-fixture limit + virtual-dimmer targets for the loaded patch
 
   // groups
   show.groups.clear();
   for (const gj of p.groups ?? []) {
     const g = show.groups.add(new Group(gj));
     g.configKey = gj.configKey ?? null;
+  }
+
+  // saved selections (named, ordered, recallable)
+  show.clearSelections();
+  for (const sj of p.selections ?? []) {
+    if (!sj || typeof sj.id !== 'string') continue;
+    show.addSelection({
+      id: sj.id,
+      name: String(sj.name ?? sj.id),
+      fixtureIds: Array.isArray(sj.fixtureIds) ? sj.fixtureIds.filter((x: unknown) => typeof x === 'string') : [],
+    });
   }
 
   // scenes

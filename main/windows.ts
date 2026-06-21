@@ -76,7 +76,13 @@ export function createWindow(): void {
   win.on('closed', () => { if (mainWindow === win) mainWindow = null; });
 }
 
-export function openEditorWindow(): void {
+// The definition the next-opened editor should load (set per open), or null for a
+// blank "New fixture". Peeked by `lumox:editor:target` on the editor's init.
+let pendingEditId: string | null = null;
+export function getEditTargetId(): string | null { return pendingEditId; }
+
+export function openEditorWindow(defId?: string): void {
+  pendingEditId = defId ?? null;
   if (editorWindow && !editorWindow.isDestroyed()) { editorWindow.focus(); return; }
   // No `parent` — a parented child window shares the main window's taskbar
   // button on Windows. A top-level window gets its own entry so the user can

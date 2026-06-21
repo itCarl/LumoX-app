@@ -5,7 +5,7 @@
 // reflects the same order.
 
 import { ipcMain } from 'electron';
-import { getSelection, setSelection, selectionOp } from '../context';
+import { getSelection, setSelection, selectionOp } from '../services/SelectionService';
 import { getMainWindow } from '../windows';
 
 /** Push the current selection to the renderer (badges + FX target reflect it). */

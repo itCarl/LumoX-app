@@ -8,8 +8,26 @@ import { getMainWindow } from '../windows';
 import { CUSTOM_VENDOR, saveUserDefinition, deleteUserDefinitionFile } from '../services/UserLibraryService';
 
 export function registerLibraryHandlers(): void {
-  ipcMain.handle('lumox:library:list', () =>
-    show.library.list().filter((d) => d.manufacturer && d.model).map(defJSON));
+  // Lightweight vendor list — no definitions parsed (the bundled library is
+  // lazy-loaded per vendor). The renderer renders accordion heads from this and
+  // fetches a vendor's fixtures on expand via `lumox:library:vendor`.
+  ipcMain.handle('lumox:library:vendors', () => show.library.vendors());
+
+  // One vendor's fixtures — parses that vendor's directory on demand, then
+  // returns its definition summaries.
+  ipcMain.handle('lumox:library:vendor', async (_e, name) => {
+    await show.library.ensureVendor(String(name ?? ''));
+    return show.library.list()
+      .filter((d) => d.manufacturer === name && d.model)
+      .map(defJSON);
+  });
+
+  // Full list — forces every vendor to load (used by search / browse-all). Avoid
+  // calling at boot; prefer `vendors` + `vendor`.
+  ipcMain.handle('lumox:library:list', async () => {
+    await show.library.ensureAll();
+    return show.library.list().filter((d) => d.manufacturer && d.model).map(defJSON);
+  });
 
   // Channel types for the fixture editor's per-channel dropdown.
   ipcMain.handle('lumox:library:channelTypes', () =>
@@ -22,18 +40,29 @@ export function registerLibraryHandlers(): void {
   // All user fixtures are forced under the "Custom" vendor (real vendor profiles
   // ship bundled with the app); the saved fixture persists to the user library
   // under userData so it survives restarts (see UserLibraryService).
-  ipcMain.handle('lumox:library:add', async (_e, def) => {
+  // `replaceId` (optional): the id being edited. When a Custom fixture is renamed
+  // (its id changes) the stale entry + file are dropped, so an in-place edit doesn't
+  // leave a duplicate. Built-in sources are never touched — editing one saves a copy.
+  ipcMain.handle('lumox:library:add', async (_e, def, replaceId) => {
     if (!def?.model?.trim()) throw new Error('Model is required');
     if (!def.modes?.length || !def.modes.some((m: { channels?: unknown[] }) => m.channels?.length)) {
       throw new Error('At least one mode with one channel is required');
     }
-    const added = show.library.add({ ...def, manufacturer: CUSTOM_VENDOR }, 'user');   // fromJSON validates typeIds
+    const added = show.library.add({ ...def, manufacturer: CUSTOM_VENDOR }, 'user');   // fromJSON validates typeIds (replaces by id)
     try {
       await saveUserDefinition(added);
     } catch (err) {
       // Keep the in-memory add — it's usable this session — but warn that it
       // won't survive a restart.
       console.error('[library] persisting user fixture failed:', (err as Error).message);
+    }
+    // Renamed Custom fixture → remove the old id (unless it's still patched).
+    if (typeof replaceId === 'string' && replaceId !== added.id) {
+      const old = show.library.get(replaceId);
+      if (old?.source === 'user' && !show.patch.list().some((f) => f.definition.id === replaceId)) {
+        show.library.remove(replaceId);
+        await deleteUserDefinitionFile(replaceId).catch(() => {});
+      }
     }
     getMainWindow()?.webContents.send('library:changed');  // refresh the main window's library tile
     return defJSON(added);

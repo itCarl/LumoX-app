@@ -9,6 +9,7 @@ import { registerLibraryHandlers } from './library';
 import { registerPatchHandlers } from './patch';
 import { registerGroupHandlers } from './groups';
 import { registerSelectionHandlers } from './selection';
+import { registerSavedSelectionHandlers } from './selections';
 import { registerFixtureHandlers } from './fixtures';
 import { registerSceneHandlers } from './scenes';
 import { registerBankHandlers } from './banks';
@@ -29,7 +30,7 @@ import { recordHistory } from '../services/HistoryService';
 // Read-only actions and channels that touch only transient (unsaved) state —
 // live output, playback, windows, the project commands themselves — never flag
 // the project dirty. Everything else mutates saved show state.
-const READONLY = /:(list|get|read|values|status|available|overlaps|channelTypes|info|isMaximized)$/;
+const READONLY = /:(list|get|read|values|status|available|overlaps|channelTypes|info|isMaximized|vendors?)$/;
 const TRANSIENT_AREAS = /^lumox:(win|engine|universes|master|blackout|project|editor|settings|discovery|history|selection|dialog|panel|dev):/;
 const TRANSIENT_CHANNELS = new Set([
   'lumox:outputs:patch',                                                         // read-only output-patch query (name isn't caught by READONLY)
@@ -37,6 +38,7 @@ const TRANSIENT_CHANNELS = new Set([
   'lumox:fixtures:setChannel',                                                   // LIVE programmer write
   'lumox:fixtures:clearProgrammer', 'lumox:fixtures:programmer',                  // programmer reset / query
   'lumox:scenes:recall',                                                          // playback (opacity)
+  'lumox:selections:recall',                                                      // loads a saved pick into the live selection (transient)
   'lumox:scenes:transport',                                                       // scene playhead (runtime)
   'lumox:transport:setSource',                                                    // BPM source = machine setting
   'lumox:transport:audioBpm',                                                     // live audio-detected tempo
@@ -70,6 +72,7 @@ export function registerHandlers(): void {
   registerPatchHandlers();
   registerGroupHandlers();
   registerSelectionHandlers();
+  registerSavedSelectionHandlers();
   registerFixtureHandlers();
   registerSceneHandlers();
   registerBankHandlers();

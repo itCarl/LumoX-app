@@ -3,8 +3,9 @@
 
 import { ipcMain } from 'electron';
 import { normalizeLayer } from '../../src/index';
-import { show, rebuildSceneTrack } from '../context';
-import { palettes, presets, newId } from '../services/presets';
+import { show } from '../context';
+import { rebuildSceneTrack } from '../services/SceneOrchestrator';
+import { palettes, presets, newId, BUILTIN_PALETTES } from '../services/presets';
 import { sceneJSON } from '../serializers';
 
 const HEX6 = /^#?[0-9a-fA-F]{6}$/;
@@ -14,7 +15,8 @@ const cleanColors = (c: unknown): string[] =>
 
 export function registerPaletteHandlers(): void {
   // ---- colour palettes ----
-  ipcMain.handle('lumox:palettes:list', () => palettes.list());
+  // Built-in curated palettes first (read-only), then the user's saved ones.
+  ipcMain.handle('lumox:palettes:list', () => [...BUILTIN_PALETTES, ...palettes.list()]);
   ipcMain.handle('lumox:palettes:add', (_e, { name, colors }) =>
     palettes.add({ id: newId('pal'), name: (name || 'Palette').toString().slice(0, 60), colors: cleanColors(colors) }));
   ipcMain.handle('lumox:palettes:rename', (_e, { id, name }) => { palettes.rename(id, String(name).slice(0, 60)); });

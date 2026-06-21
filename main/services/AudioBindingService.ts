@@ -14,7 +14,9 @@
 // keeps the capture open and forwards frames even when the Connection tab is hidden.
 
 import { EventEmitter } from 'node:events';
-import { engine, show, recallScene, markLiveUniverse } from '../context';
+import { engine, show } from '../context';
+import { recallScene } from './SceneOrchestrator';
+import { markLiveUniverse } from './OutputPatchService';
 
 export type AudioTargetKind = 'range' | 'trigger';
 export type AudioCurve = 'linear' | 'exp' | 'log';
@@ -55,6 +57,30 @@ export interface AudioLevels { bands: number[]; volume: number; beat: boolean; }
 
 const newId = (): string => `ab_${Math.random().toString(36).slice(2, 9)}`;
 const clamp01 = (n: number): number => Math.max(0, Math.min(1, n));
+
+/** Continuous per-layer FX scalars an audio binding can drive (read live by the
+ *  SceneMixer each tick). `speed` scales the cycle rate, `size` the move amplitude,
+ *  `spread` the per-fixture phase fan — the three knobs that exist on every layer. */
+type FxParam = 'speed' | 'size' | 'spread';
+const FX_PARAMS: { param: FxParam; label: string; min: number; max: number }[] = [
+  { param: 'speed', label: 'Speed', min: 0.25, max: 4 },
+  { param: 'size', label: 'Size', min: 0, max: 127 },
+  { param: 'spread', label: 'Spread', min: 0, max: 360 },
+];
+const FX_KIND_LABEL: Record<string, string> = {
+  color: 'Color', move: 'Move', curve: 'Curve', chaser: 'Chaser', value: 'Value', matrix: 'Matrix',
+};
+
+/** Parse a `layer:<sceneId>:<layerId>:<param>` target key (scene/layer ids carry
+ *  no colons, so exactly three segments). Returns null for any other shape. */
+function parseLayerKey(key: string): { sceneId: string; layerId: string; param: FxParam } | null {
+  if (!key.startsWith('layer:')) return null;
+  const parts = key.slice('layer:'.length).split(':');
+  if (parts.length !== 3) return null;
+  const [sceneId, layerId, param] = parts;
+  if (param !== 'speed' && param !== 'size' && param !== 'spread') return null;
+  return { sceneId, layerId, param };
+}
 
 /** Apply a response curve to a 0..1 level. */
 function shape(curve: AudioCurve | undefined, v: number): number {
@@ -130,6 +156,19 @@ export class AudioBindingService extends EventEmitter {
       if (!uni) return;
       uni.setChannel(ch, Math.round(clamp01(out / 255) * 255));
       markLiveUniverse(u);
+      return;
+    }
+    const layer = parseLayerKey(key);
+    if (layer) {
+      // Drive the LIVE track's FX-layer scalar in place (no rebuild) — the
+      // SceneMixer reads it next tick, so it animates while the scene is showing.
+      // Only the live track is touched, not the stored design value, so the
+      // scene's authored speed/size/spread survives a save/reload.
+      const L = engine.scenes.tracks.get(layer.sceneId)?.layers?.find((x) => x.id === layer.layerId);
+      if (!L) return;
+      if (layer.param === 'speed') L.speed = Math.max(0.05, Math.min(20, out));
+      else if (layer.param === 'size') L.size = Math.max(0, Math.min(127, Math.round(out)));
+      else L.spread = Math.max(0, Math.min(360, Math.round(out)));
     }
   }
 
@@ -198,6 +237,14 @@ export class AudioBindingService extends EventEmitter {
     }
     for (const s of show.listScenes()) {
       list.push({ key: `scene:${s.id}`, label: `Scene · ${s.name}`, kind: 'trigger' });
+      // Each FX layer exposes its continuous scalars (speed / size / spread) so a
+      // band can modulate the effect's rate or amplitude live.
+      s.layers.forEach((L, i) => {
+        const lname = `L${i + 1} ${FX_KIND_LABEL[L.kind] ?? L.kind}`;
+        for (const p of FX_PARAMS) {
+          list.push({ key: `layer:${s.id}:${L.id}:${p.param}`, label: `FX · ${s.name} › ${lname} · ${p.label}`, kind: 'range', min: p.min, max: p.max });
+        }
+      });
     }
     return list;
   }
@@ -242,6 +289,8 @@ export class AudioBindingService extends EventEmitter {
     if (key.startsWith('group:') && key.endsWith(':intensity')) {
       return !!show.groups.get(key.slice('group:'.length, key.length - ':intensity'.length));
     }
+    const layer = parseLayerKey(key);
+    if (layer) return !!show.scenes.get(layer.sceneId)?.getLayer(layer.layerId);
     if (key.startsWith('dmx:')) {
       const [u, ch] = key.slice('dmx:'.length).split(':').map(Number);
       return Number.isInteger(u) && Number.isInteger(ch) && ch >= 1 && ch <= 512 && !!engine.universes.get(u);

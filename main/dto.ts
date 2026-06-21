@@ -30,9 +30,6 @@ export interface FixtureLimitsDTO {
   swapPanTilt?: boolean;
 }
 
-/** Per-channel flags by 1-based local index. Mirrors engine `FixtureChannelFlags`. */
-export type FixtureChannelFlagsDTO = { [channelIndex: number]: { fade?: boolean; dimmer?: boolean } };
-
 export interface DefDTO {
   id: string;
   manufacturer: string;
@@ -44,12 +41,35 @@ export interface DefDTO {
   modes: ModeDTO[];
 }
 
+/** One profile-defined value range on a channel — a named preset (gobo, colour,
+ *  shutter state, macro). Surfaced as a quick-value chip in the fader editor. */
+export interface CapabilityDTO {
+  min: number;
+  max: number;
+  label: string;
+  kind: string;            // 'range' | 'color' | 'gobo' | 'shutter' | 'effect'
+  color: string | null;    // hex for colour presets, else null
+  pattern: string | null;  // drawn mono gobo bitmask ("g16:…") for gobo presets, else null
+}
+
 export interface ChannelDTO {
   index: number;
   name: string;
   typeId: string | null;
   group: string | null;
   color: string | null;
+  /** Brightness-like channel (master/dimmer + fine) — drives the Limits dimmer cap. */
+  isIntensity: boolean;
+  /** Profile-defined value-range presets (gobo / colour / shutter / macro), in order. */
+  caps?: CapabilityDTO[];
+  /** Synthetic virtual dimmer (RGB-only fixture) — not a real DMX channel. */
+  isVirtual?: boolean;
+  /** Universe-absolute address for channels that aren't `startAddress + index - 1`
+   *  (i.e. virtual dimmers in the virtual region). Absent for real DMX channels. */
+  absAddress?: number;
+  /** Virtual dimmer only — the cluster's last real channel index, so the renderer
+   *  places this dimmer's expander right after its RGB cluster. */
+  afterIndex?: number;
 }
 
 export interface FixtureDTO {
@@ -71,12 +91,13 @@ export interface FixtureDTO {
   endAddress: number;
   channelCount: number;
   channels: ChannelDTO[];
+  /** Physical pan/tilt travel in degrees (definition's focus), or null if unspecified. */
+  panMaxDeg: number | null;
+  tiltMaxDeg: number | null;
   /** 2D top-down placement on the STAGE tile (world units + degrees). */
   transform: StageTransformDTO;
   /** Per-fixture output limits, or null when unconstrained. */
   limits: FixtureLimitsDTO | null;
-  /** Per-channel behaviour flags, or null when none set. */
-  channelFlags: FixtureChannelFlagsDTO | null;
 }
 
 export interface GroupDTO {
@@ -84,6 +105,13 @@ export interface GroupDTO {
   name: string;
   color: string;
   configKey: string | null;
+  fixtureIds: string[];
+}
+
+/** A named, ordered, recallable fixture selection (saved in the show). */
+export interface SelectionDTO {
+  id: string;
+  name: string;
   fixtureIds: string[];
 }
 
@@ -109,6 +137,9 @@ export interface FxLayerDTO {
   spread: number;
   /** number of fixtures this layer drives (target beams) — for the preview */
   beams: number;
+  /** fixture id behind each preview beam, index-aligned with `beams` (sweep order)
+   *  — lets the preview number each dot with its fixture's stage selection badge */
+  beamFixtureIds: string[];
   color?: { palette: string[]; grayscale: boolean; colorWidth: number; angle: number; saturation: number; fade: number; randomize: boolean };
   move?: { shape: 'circle' | 'figure8' | 'line' | 'square'; symmetry: boolean; sizeX: number; sizeY: number; centerX: number; centerY: number; phaseShape: number };
   curve?: { waveform: FxWaveDTO; attr: string; min: number; max: number; duty: number; invert: boolean };
@@ -131,6 +162,9 @@ export interface SceneDTO {
   steps: { fadeMs: number; waitMs: number }[];
   /** FX rack — ordered effect layers over the base look */
   layers: FxLayerDTO[];
+  /** fixtures this scene drives (captured in the base look or any step), patch
+   *  order — selecting the scene auto-selects these on the stage for editing */
+  fixtureIds: string[];
   // ---- Scene Properties panel ----
   /** DIMMER master (0..1) */
   level: number;
@@ -205,6 +239,8 @@ export interface ProjectData {
   library?: any[];
   patch?: any[];
   groups?: any[];
+  /** named, ordered, recallable fixture selections */
+  selections?: any[];
   scenes?: any[];
   banks?: any[];
   devices?: any[];
@@ -297,4 +333,6 @@ export interface AppSettings {
   midiClockInput: string | null;
   /** Web Audio input `deviceId` for capture (BPM detect + spectrum); null = default. */
   audioInput: string | null;
+  /** Number of log-spaced frequency bands the spectrum reader produces (1..32). */
+  audioBands: number;
 }

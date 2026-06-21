@@ -24,13 +24,14 @@ export function registerMidiHandlers(): void {
   midiService.on('assign-mode', (a) => broadcast('midi:assign-mode', a));
   midiService.on('awaiting-input', (a) => broadcast('midi:awaiting-input', a));
   midiService.on('message', (m) => broadcast('midi:message', m));
+  midiService.on('feedback', (f) => broadcast('midi:feedback', f));
   midiService.on('dirty', () => { markDirty(); recordHistory('lumox:midi:learn'); });
 
   ipcMain.handle('lumox:midi:openWindow', () => openMidiWindow());
   ipcMain.handle('lumox:midi:status', () => midiService.status());
   ipcMain.handle('lumox:midi:listBindings', () => midiService.listBindings());
   ipcMain.handle('lumox:midi:beginAssign', () => midiService.beginAssign());
-  ipcMain.handle('lumox:midi:pickTarget', (_e, target: MidiTarget) => midiService.pickTarget(target));
+  ipcMain.handle('lumox:midi:pickTarget', (_e, target: MidiTarget | MidiTarget[]) => midiService.pickTarget(target));
   ipcMain.handle('lumox:midi:cancelAssign', () => midiService.cancelAssign());
   ipcMain.handle('lumox:midi:setBindingOptions', (_e, { id, options }: { id: string; options: MidiBindingOptions }) =>
     midiService.setBindingOptions(id, options));

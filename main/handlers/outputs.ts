@@ -1,11 +1,13 @@
 // Output IPC — the per-universe output patch. Each engine universe can have one
 // output (protocol + target IP + frame mode + rate cap); the patch is persisted
-// per project (ProjectService `devices`). See context.ts for the lifecycle.
+// per project (ProjectService `devices`). See services/OutputPatchService.ts for
+// the lifecycle.
 
 import { ipcMain } from 'electron';
 import { OutputManager } from '../../src/index';
 import type { FrameMode } from '../../src/index';
-import { engine, setUniverseOutput, removeUniverseOutput, outputForUniverse, addUniverse } from '../context';
+import { engine, show } from '../context';
+import { setUniverseOutput, removeUniverseOutput, outputForUniverse } from '../services/OutputPatchService';
 import { outputJSON } from '../serializers';
 import { markDirty } from '../services/ProjectService';
 import { getSetting } from '../services/SettingsService';
@@ -21,13 +23,15 @@ export function registerOutputHandlers(): void {
   // Raw output list (low-level status); each per-universe output appears here.
   ipcMain.handle('lumox:outputs:list', () => engine.outputs.list().map(outputJSON));
 
-  // The output patch — one entry per engine universe (its configured output, or
-  // a default-disabled placeholder), with live transmit status.
+  // The output patch — one entry per universe that has fixtures patched into it
+  // (its configured output, or a default-disabled placeholder), with live transmit
+  // status. Universes with no fixtures are omitted: the patch follows what's in use.
   ipcMain.handle('lumox:outputs:patch', () => {
     const dProto = getSetting('dmxProtocol');
     const dHost = getSetting('broadcastHost');
     const dRate = getSetting('maxRateHz');
-    return engine.universes.list().map((u) => {
+    const used = new Set(show.patch.list().map((f) => f.universeId));
+    return engine.universes.list().filter((u) => used.has(u.id)).map((u) => {
       const o = outputForUniverse(u.id);
       if (!o) {
         return {
@@ -63,16 +67,5 @@ export function registerOutputHandlers(): void {
   ipcMain.handle('lumox:outputs:removeUniverse', (_e, { universeId }) => {
     removeUniverseOutput(vUniverseId(universeId));
     markDirty();
-  });
-
-  // Append a new universe with a default output (Connection tab "Add universe").
-  ipcMain.handle('lumox:outputs:addUniverse', () => {
-    const id = addUniverse({
-      protocol: getSetting('dmxProtocol'),
-      host: getSetting('broadcastHost'),
-      maxRateHz: getSetting('maxRateHz'),
-    });
-    if (id >= 0) markDirty();
-    return id;
   });
 }

@@ -1,10 +1,12 @@
 // Electron main — thin shell. Boots the headless engine (src/), opens the
 // window, and wires the IPC surface. The work lives in:
-//   context.ts      engine/show/bank singletons + domain helpers
+//   context.ts      engine/show/bank singletons + tiny pure helpers (a leaf)
 //   windows.ts      BrowserWindow lifecycle + hardening
 //   serializers.ts  engine → DTO mappers (dto.ts)
 //   handlers/*      one module per `lumox:<area>` IPC group
-//   services/*      ProjectService (save/load)
+//   services/*      show-domain logic — SceneCompiler, SceneOrchestrator,
+//                   OutputPatchService, SelectionService, FixtureMaps, Project…;
+//                   showRuntime.wireShowRuntime() composes the per-tick runtime
 //
 // This module is bundled to CommonJS (dist/main/index.cjs), so esbuild compiles
 // the named electron import straight to `require('electron').app` etc.
@@ -12,7 +14,9 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 import { setLogLevel } from '../src/index';
-import { engine, show, discovery, blackoutAllOutputs } from './context';
+import { engine, show, discovery } from './context';
+import { blackoutAllOutputs } from './services/OutputPatchService';
+import { wireShowRuntime } from './services/showRuntime';
 import { APP_ROOT, createWindow, getMainWindow } from './windows';
 import { registerHandlers } from './handlers';
 import { newProject, loadProjectFromPath, setProject } from './services/ProjectService';
@@ -60,6 +64,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 registerHandlers();
+wireShowRuntime();   // per-tick scene runtime + selection-change hook (before engine.start)
 
 // Load the built-in fixture library, then ensure default universes + bank so
 // the UI has something to draw on first launch, then open the broadcast output.
@@ -68,15 +73,13 @@ async function bootShow(): Promise<void> {
   await loadSettings();   // app preferences (needs app ready for userData path)
   await transport.init(); // adopt the persisted BPM source (after settings load)
 
-  try {
-    const r = await show.library.loadFromDirectory(FIXTURES_DIR, { source: 'builtin' });
-    console.log(`[show] library: ${r.loaded} loaded, ${r.skipped} skipped, ${r.errors.length} errors`);
-  } catch (err) {
-    console.error('[show] library load failed:', (err as Error).message);
-  }
+  // The bundled library (hundreds of files) is lazy-loaded per vendor — register
+  // the root here; vendors parse on demand (accordion open / patch / project load
+  // / search). See FixtureLibrary.ensureVendor.
+  show.library.setBuiltinRoot(FIXTURES_DIR);
 
-  // User-authored fixtures (the "Custom" vendor) persisted under userData — load
-  // them alongside the built-ins so they're available without opening a project.
+  // User-authored fixtures (the "Custom" vendor) persisted under userData are few,
+  // so load them eagerly so they're always available without opening a project.
   await loadUserLibrary();
 
   // Boot project: reopen the last project when enabled in Settings; otherwise in

@@ -13,7 +13,6 @@ contextBridge.exposeInMainWorld('lumox', {
     patch:          ()       => ipcRenderer.invoke('lumox:outputs:patch'),
     setUniverse:    (cfg: unknown) => ipcRenderer.invoke('lumox:outputs:setUniverse', cfg),
     removeUniverse: (universeId: number) => ipcRenderer.invoke('lumox:outputs:removeUniverse', { universeId }),
-    addUniverse:    ()       => ipcRenderer.invoke('lumox:outputs:addUniverse'),
   },
   discovery: {
     start:     () => ipcRenderer.invoke('lumox:discovery:start'),
@@ -40,14 +39,17 @@ contextBridge.exposeInMainWorld('lumox', {
     status: () => ipcRenderer.invoke('lumox:engine:status'),
   },
   library: {
+    vendors:      () => ipcRenderer.invoke('lumox:library:vendors'),
+    vendor:       (name: string) => ipcRenderer.invoke('lumox:library:vendor', name),
     list:         () => ipcRenderer.invoke('lumox:library:list'),
     channelTypes: () => ipcRenderer.invoke('lumox:library:channelTypes'),
-    add:          (def: unknown) => ipcRenderer.invoke('lumox:library:add', def),
+    add:          (def: unknown, replaceId?: string) => ipcRenderer.invoke('lumox:library:add', def, replaceId),
     remove:       (id: string) => ipcRenderer.invoke('lumox:library:remove', id),
     onChanged:    (cb: Cb) => ipcRenderer.on('library:changed', () => cb()),
   },
   editor: {
-    open: () => ipcRenderer.invoke('lumox:editor:open'),
+    open:   (defId?: string) => ipcRenderer.invoke('lumox:editor:open', defId),
+    target: () => ipcRenderer.invoke('lumox:editor:target'),
   },
   project: {
     new:      () => ipcRenderer.invoke('lumox:project:new'),
@@ -107,17 +109,24 @@ contextBridge.exposeInMainWorld('lumox', {
     reorder:  (from: number, to: number) => ipcRenderer.invoke('lumox:selection:reorder', { from, to }),
     onChanged: (cb: Cb<string[]>) => ipcRenderer.on('selection:changed', (_e, ids) => cb(ids)),
   },
+  // Saved (named, ordered, recallable) selections — persisted in the show.
+  selections: {
+    list:        ()   => ipcRenderer.invoke('lumox:selections:list'),
+    save:        (fixtureIds: string[], name?: string) => ipcRenderer.invoke('lumox:selections:save', { fixtureIds, name }),
+    rename:      (id: string, name: string) => ipcRenderer.invoke('lumox:selections:rename', { id, name }),
+    remove:      (id: string) => ipcRenderer.invoke('lumox:selections:remove', id),
+    setFixtures: (id: string, fixtureIds: string[]) => ipcRenderer.invoke('lumox:selections:setFixtures', { id, fixtureIds }),
+    recall:      (id: string) => ipcRenderer.invoke('lumox:selections:recall', id),
+  },
   fixtures: {
-    setChannel: (fixtureId: string, channel: number, value: number) =>
-      ipcRenderer.invoke('lumox:fixtures:setChannel', { fixtureId, channel, value }),
-    releaseChannel: (fixtureId: string, channel: number) =>
-      ipcRenderer.invoke('lumox:fixtures:releaseChannel', { fixtureId, channel }),
+    setChannel: (fixtureId: string, channel: number, value: number, absChannel?: number) =>
+      ipcRenderer.invoke('lumox:fixtures:setChannel', { fixtureId, channel, value, absChannel }),
+    releaseChannel: (fixtureId: string, channel: number, absChannel?: number) =>
+      ipcRenderer.invoke('lumox:fixtures:releaseChannel', { fixtureId, channel, absChannel }),
     clearProgrammer: () => ipcRenderer.invoke('lumox:fixtures:clearProgrammer'),
     programmer:      () => ipcRenderer.invoke('lumox:fixtures:programmer'),
     setLimits:   (fixtureIds: string[], patch: unknown) => ipcRenderer.invoke('lumox:fixtures:setLimits', { fixtureIds, patch }),
     clearLimits: (fixtureIds: string[]) => ipcRenderer.invoke('lumox:fixtures:clearLimits', { fixtureIds }),
-    setChannelFlag: (fixtureIds: string[], channel: number, flag: 'fade' | 'dimmer', value: boolean | null) =>
-      ipcRenderer.invoke('lumox:fixtures:setChannelFlag', { fixtureIds, channel, flag, value }),
   },
   scenes: {
     list:    ()   => ipcRenderer.invoke('lumox:scenes:list'),
@@ -129,8 +138,8 @@ contextBridge.exposeInMainWorld('lumox', {
     update:  (id: string) => ipcRenderer.invoke('lumox:scenes:update', id),
     merge:   (id: string) => ipcRenderer.invoke('lumox:scenes:merge', id),
     setColor: (id: string, color: string) => ipcRenderer.invoke('lumox:scenes:setColor', { id, color }),
-    setChannel: (id: string, fixtureId: string, channel: number, value: number | null) =>
-      ipcRenderer.invoke('lumox:scenes:setChannel', { id, fixtureId, channel, value }),
+    setChannel: (id: string, fixtureId: string, channel: number, value: number | null, absChannel?: number) =>
+      ipcRenderer.invoke('lumox:scenes:setChannel', { id, fixtureId, channel, value, absChannel }),
     setType: (id: string, type: string) => ipcRenderer.invoke('lumox:scenes:setType', { id, type }),
     setRate: (id: string, rateMs: number) => ipcRenderer.invoke('lumox:scenes:setRate', { id, rateMs }),
     addStep: (id: string) => ipcRenderer.invoke('lumox:scenes:addStep', id),
@@ -213,6 +222,7 @@ contextBridge.exposeInMainWorld('lumox', {
     onAssignMode:    (cb: Cb<unknown>) => ipcRenderer.on('midi:assign-mode', (_e, a) => cb(a)),
     onAwaitingInput: (cb: Cb<unknown>) => ipcRenderer.on('midi:awaiting-input', (_e, a) => cb(a)),
     onMessage:       (cb: Cb<unknown>) => ipcRenderer.on('midi:message', (_e, m) => cb(m)),
+    onFeedback:      (cb: Cb<unknown[]>) => ipcRenderer.on('midi:feedback', (_e, f) => cb(f)),
   },
   audio: {
     levels:            (frame: unknown) => ipcRenderer.invoke('lumox:audio:levels', frame),

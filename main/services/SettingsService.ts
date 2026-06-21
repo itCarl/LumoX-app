@@ -22,6 +22,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   tempoSource: 'manual',
   midiClockInput: null,
   audioInput: null,
+  audioBands: 8,
 };
 
 // Events:
@@ -61,6 +62,7 @@ function sanitize(o: unknown): AppSettings {
     tempoSource: TEMPO_SOURCES.has(r.tempoSource as TempoSource) ? (r.tempoSource as TempoSource) : DEFAULT_SETTINGS.tempoSource,
     midiClockInput: typeof r.midiClockInput === 'string' && r.midiClockInput ? r.midiClockInput : null,
     audioInput: typeof r.audioInput === 'string' && r.audioInput ? r.audioInput : null,
+    audioBands: num(r.audioBands, DEFAULT_SETTINGS.audioBands, 1, 32),
   };
 }
 

@@ -8,7 +8,9 @@
 // The `npm run shot` wrapper sets LUMOX_DEV=1 for screenshot runs.
 
 import { ipcMain } from 'electron';
-import { engine, show, banks, getSelection, programmerSummary } from '../context';
+import { engine, show, banks } from '../context';
+import { getSelection } from '../services/SelectionService';
+import { programmerSummary } from '../services/OutputPatchService';
 
 export const DEV_BRIDGE_ENABLED = process.env.LUMOX_DEV === '1';
 

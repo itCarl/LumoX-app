@@ -3,26 +3,40 @@
 
 import { ipcMain } from 'electron';
 import { Fixture, Group, sanitizeTransform } from '../../src/index';
-import { engine, show, nextColor, configKey, rebuildLimits } from '../context';
+import { engine, show, nextColor, configKey } from '../context';
+import { rebuildFixtureMaps } from '../services/FixtureMaps';
+import { ensureUniverseOutput, pruneUnusedOutputs } from '../services/OutputPatchService';
+import { getSetting } from '../services/SettingsService';
 import { fixtureJSON } from '../serializers';
 import { vInt, vChannel, vUniverseId, vString } from '../validate';
+
+// A universe a fixture is patched into gets a default output if it has none, so it
+// appears (enabled) in the Connection patch — which lists only in-use universes.
+const ensureOutput = (universeId: number): void =>
+  ensureUniverseOutput(universeId, {
+    protocol: getSetting('dmxProtocol'),
+    host: getSetting('broadcastHost'),
+    maxRateHz: getSetting('maxRateHz'),
+  });
 
 export function registerPatchHandlers(): void {
   ipcMain.handle('lumox:patch:list', () => show.patch.list().map(fixtureJSON));
 
   // Add `count` fixtures of a definition/mode, packing them consecutively from
   // `startAddress`. Returns the created fixtures (serialized).
-  ipcMain.handle('lumox:patch:add', (_e, { definitionId, modeId, universeId, startAddress, count = 1, name, index = 1 }) => {
+  ipcMain.handle('lumox:patch:add', async (_e, { definitionId, modeId, universeId, startAddress, count = 1, name, index = 1 }) => {
     vUniverseId(universeId);
     vChannel(startAddress, 'startAddress');
     vInt(count, 'count', 1, 512);
     vInt(index, 'index', 0, 100000);
-    const def = show.library.get(vString(definitionId, 'definitionId'));
-    if (!def) throw new Error(`Unknown fixture definition: ${definitionId}`);
+    const defId = vString(definitionId, 'definitionId');
+    const def = await show.library.ensure(defId);   // lazy-load the vendor if needed
+    if (!def) throw new Error(`Unknown fixture definition: ${defId}`);
     const mode = modeId ? def.mode(modeId) : def.defaultMode;
     if (!mode) throw new Error(`Definition ${definitionId} has no mode ${modeId}`);
 
     engine.universes.ensure(universeId, `Universe ${universeId + 1}`);
+    ensureOutput(universeId);
 
     // Overlap / bounds guard — reject if any requested slot is out of the
     // 1..512 range or already occupied on this universe.
@@ -64,6 +78,10 @@ export function registerPatchHandlers(): void {
       g.configKey = configKey(created[0]);
     }
 
+    // Seed each new fixture's virtual dimmers to full so an RGB-only fixture
+    // shows colour at 100% by default (the engine rests them at full).
+    for (const fx of created) { const u = engine.universes.get(fx.universeId); if (u) fx.applyVirtual(u); }
+    rebuildFixtureMaps();   // new fixtures may need virtual-dimmer targets
     return created.map(fixtureJSON);
   });
 
@@ -86,21 +104,30 @@ export function registerPatchHandlers(): void {
     }
     // clear old output, move, re-apply
     const oldUni = engine.universes.get(fx.universeId);
-    if (oldUni) for (let a = fx.startAddress; a <= fx.endAddress; a++) oldUni.setChannel(a, 0);
+    if (oldUni) {
+      for (let a = fx.startAddress; a <= fx.endAddress; a++) oldUni.setChannel(a, 0);
+      for (const vd of fx.virtualDimmers()) oldUni.setChannel(vd.virtualAddr, 0);   // clear stale virtual-dimmer slots
+    }
     fx.universeId = uni;
     fx.startAddress = startAddress;
     const newUni = engine.universes.ensure(uni, `Universe ${uni + 1}`);
+    ensureOutput(uni);
     if (newUni) fx.apply(newUni);
-    rebuildLimits();   // addresses / universe changed — re-resolve limit targets
+    pruneUnusedOutputs();   // the old universe may now be empty → close its output
+    rebuildFixtureMaps();   // addresses / universe changed — re-resolve limit + virtual-dimmer targets
     return fixtureJSON(fx);
   });
 
   ipcMain.handle('lumox:patch:remove', (_e, id) => {
     show.patch.remove(id);
     show.groups.purgeFixture(id);
+    show.purgeFixtureFromSelections(id);   // and from any saved selection
     // drop now-empty auto-groups
     for (const g of show.groups.list()) if (g.size === 0) show.groups.remove(g.id);
-    rebuildLimits();   // fixture gone — drop its limit targets
+    // drop now-empty saved selections
+    for (const s of show.listSelections()) if (!s.fixtureIds.length) show.removeSelection(s.id);
+    pruneUnusedOutputs();   // universe may now be empty → close its output
+    rebuildFixtureMaps();   // fixture gone — drop its limit + virtual-dimmer targets
   });
 
   ipcMain.handle('lumox:patch:rename', (_e, { id, name }) => {

@@ -4,11 +4,12 @@
 // via `sceneTrack` so dynamic scenes always carry their FX channel targets.
 
 import { ipcMain } from 'electron';
-import { Scene, DMX_CHANNELS, chaseStep, ChannelTypeRegistry } from '../../src/index';
+import { Scene, DMX_CHANNELS, TOTAL_CHANNELS, chaseStep, ChannelTypeRegistry } from '../../src/index';
 import type { SceneType, FxKind, FxOrder, FxLayer } from '../../src/index';
-import {
-  engine, show, banks, updateActiveUniverses, recallScene, sceneTrack, rebuildSceneTrack,
-} from '../context';
+import { engine, show, banks } from '../context';
+import { updateActiveUniverses } from '../services/OutputPatchService';
+import { sceneTrack } from '../services/SceneCompiler';
+import { recallScene, rebuildSceneTrack } from '../services/SceneOrchestrator';
 import { sceneJSON } from '../serializers';
 import { vChannel, vLevel } from '../validate';
 
@@ -85,15 +86,22 @@ export function registerSceneHandlers(): void {
   ipcMain.handle('lumox:scenes:values', (_e, id) => show.scenes.get(id)?.values ?? {});
 
   // Edit a single channel of a scene (fader editor EDIT mode). `channel` is
-  // fixture-local; mapped to the universe-absolute address via the patch. A null
-  // `value` removes the channel (disengage). Mirrored into the live track so an
-  // active scene updates immediately.
-  ipcMain.handle('lumox:scenes:setChannel', (_e, { id, fixtureId, channel, value }) => {
+  // fixture-local; mapped to the universe-absolute address via the patch. For an
+  // RGB-only fixture's virtual dimmer the editor passes an explicit `absChannel`
+  // (a virtual-region address) instead. A null `value` removes the channel
+  // (disengage). Mirrored into the live track so an active scene updates immediately.
+  ipcMain.handle('lumox:scenes:setChannel', (_e, { id, fixtureId, channel, value, absChannel }) => {
     const s = show.scenes.get(id);
     const fx = show.patch.get(fixtureId);
     if (!s || !fx) return;
-    const abs = fx.startAddress + vChannel(channel) - 1;
-    if (abs < 1 || abs > DMX_CHANNELS) return;
+    let abs: number;
+    if (absChannel != null) {
+      abs = Number(absChannel);
+      if (!fx.virtualDimmers().some((vd) => vd.virtualAddr === abs)) return;   // only the fixture's own virtual addresses
+    } else {
+      abs = fx.startAddress + vChannel(channel) - 1;
+      if (abs < 1 || abs > DMX_CHANNELS) return;
+    }
 
     const track = engine.scenes.tracks.get(id);
     if (value == null) {
@@ -103,7 +111,7 @@ export function registerSceneHandlers(): void {
     } else {
       const v = vLevel(value);
       s.setValue(fx.universeId, abs, v);
-      if (track) (track.values[fx.universeId] ??= new Uint8Array(DMX_CHANNELS))[abs - 1] = v;
+      if (track) (track.values[fx.universeId] ??= new Uint8Array(TOTAL_CHANNELS))[abs - 1] = v;
     }
     updateActiveUniverses();
   });

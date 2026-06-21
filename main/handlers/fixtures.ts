@@ -10,30 +10,46 @@
 // look in LIVE, then `clearProgrammer` resets it or `scenes:capture` stores it.
 
 import { ipcMain } from 'electron';
-import type { FixtureLimits, FixtureChannelFlags } from '../../src/index';
-import { engine, show, markLiveUniverse, clearProgrammer, programmerSummary, rebuildLimits } from '../context';
+import type { FixtureLimits } from '../../src/index';
+import { engine, show } from '../context';
+import { markLiveUniverse, clearProgrammer, programmerSummary } from '../services/OutputPatchService';
+import { rebuildLimits } from '../services/FixtureMaps';
 import { vChannel, vLevel } from '../validate';
 
 export function registerFixtureHandlers(): void {
-  // Engage one fixture-local channel at a value (a moved fader).
-  ipcMain.handle('lumox:fixtures:setChannel', (_e, { fixtureId, channel, value }) => {
+  // Engage one fixture-local channel at a value (a moved fader). For an RGB-only
+  // fixture's virtual dimmer the renderer passes an explicit `absChannel` (a
+  // virtual-region address) instead of a fixture-local `channel`.
+  ipcMain.handle('lumox:fixtures:setChannel', (_e, { fixtureId, channel, value, absChannel }) => {
     const fx = show.patch.get(fixtureId);
     if (!fx) return;
-    const ch = vChannel(channel);
-    if (ch > fx.channelCount) return;
     const u = engine.universes.get(fx.universeId);
-    if (u) u.engage(fx.startAddress + ch - 1, vLevel(value));
+    if (!u) return;
+    if (absChannel != null) {
+      const abs = Number(absChannel);
+      if (fx.virtualDimmers().some((vd) => vd.virtualAddr === abs)) u.engage(abs, vLevel(value));
+    } else {
+      const ch = vChannel(channel);
+      if (ch > fx.channelCount) return;
+      u.engage(fx.startAddress + ch - 1, vLevel(value));
+    }
     markLiveUniverse(fx.universeId);
   });
 
   // Release one fixture-local channel (drop it from the programmer / disengage).
-  ipcMain.handle('lumox:fixtures:releaseChannel', (_e, { fixtureId, channel }) => {
+  ipcMain.handle('lumox:fixtures:releaseChannel', (_e, { fixtureId, channel, absChannel }) => {
     const fx = show.patch.get(fixtureId);
     if (!fx) return;
-    const ch = vChannel(channel);
-    if (ch > fx.channelCount) return;
     const u = engine.universes.get(fx.universeId);
-    if (u) u.release(fx.startAddress + ch - 1);
+    if (!u) return;
+    if (absChannel != null) {
+      const abs = Number(absChannel);
+      if (fx.virtualDimmers().some((vd) => vd.virtualAddr === abs)) u.release(abs);
+    } else {
+      const ch = vChannel(channel);
+      if (ch > fx.channelCount) return;
+      u.release(fx.startAddress + ch - 1);
+    }
     markLiveUniverse(fx.universeId);
   });
 
@@ -68,24 +84,6 @@ export function registerFixtureHandlers(): void {
     for (const id of (fixtureIds ?? []) as string[]) {
       const fx = show.patch.get(id);
       if (fx) fx.limits = null;
-    }
-    rebuildLimits();
-  });
-
-  // Per-channel flag — `flag` is 'fade' | 'dimmer', `channel` is 1-based local.
-  // `value` true/false sets it; null clears that flag (and the whole entry if empty).
-  ipcMain.handle('lumox:fixtures:setChannelFlag', (_e, { fixtureIds, channel, flag, value }) => {
-    if (flag !== 'fade' && flag !== 'dimmer') return;
-    const ch = Number(channel);
-    for (const id of (fixtureIds ?? []) as string[]) {
-      const fx = show.patch.get(id);
-      if (!fx || ch < 1 || ch > fx.channelCount) continue;
-      const flags: FixtureChannelFlags = { ...(fx.channelFlags ?? {}) };
-      const entry = { ...(flags[ch] ?? {}) };
-      if (value === null || value === undefined) delete entry[flag as 'fade' | 'dimmer'];
-      else entry[flag as 'fade' | 'dimmer'] = !!value;
-      if (Object.keys(entry).length) flags[ch] = entry; else delete flags[ch];
-      fx.channelFlags = Object.keys(flags).length ? flags : null;
     }
     rebuildLimits();
   });
