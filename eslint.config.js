@@ -20,11 +20,11 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
 
-  // Node — engine, main process, CLI, examples, preload source, build script.
+  // Node — engine, main process, CLI, examples, tests, preload source, build script.
   {
     files: [
       'src/**/*.ts', 'main/**/*.ts', 'cli/**/*.ts', 'examples/**/*.ts',
-      'preload.ts', 'build.mjs',
+      'test/**/*.ts', 'preload.ts', 'build.mjs', 'vitest.config.ts',
     ],
     languageOptions: {
       ecmaVersion: 'latest',

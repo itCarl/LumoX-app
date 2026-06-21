@@ -54,6 +54,18 @@ function copyFontAwesome() {
   fs.cpSync(path.join(src, 'webfonts'), path.join(dest, 'webfonts'), { recursive: true });
 }
 
+// Vendor the Inter variable UI font (latin + latin-ext only — the UI is English,
+// but fixture/brand names carry accents). Same offline rationale as Font Awesome:
+// main.css `@font-face`s 'Inter Variable' from ./dist/inter/. dist/ is gitignored.
+function copyInter() {
+  const src = path.join('node_modules', '@fontsource-variable', 'inter', 'files');
+  const dest = path.join('renderer', 'dist', 'inter');
+  fs.mkdirSync(dest, { recursive: true });
+  for (const f of ['inter-latin-wght-normal.woff2', 'inter-latin-ext-wght-normal.woff2']) {
+    fs.copyFileSync(path.join(src, f), path.join(dest, f));
+  }
+}
+
 // Launch Electron through electronmon (watch mode only). electronmon hard-
 // restarts the app on main/preload changes and soft-reloads renderer windows
 // when their esbuild bundle / Tailwind CSS rebuild. Exiting it stops the watch.
@@ -107,6 +119,7 @@ const configs = [
 ];
 
 copyFontAwesome();
+copyInter();
 
 if (watch) {
   const contexts = await Promise.all(configs.map((c) => esbuild.context(c)));
