@@ -25,6 +25,13 @@ export interface LoadResult {
   errors: LoadError[];
 }
 
+/** Lightweight vendor entry for the library UI (no definitions parsed). */
+export interface VendorInfo {
+  name: string;
+  count: number;
+  source: string;
+}
+
 /**
  * FixtureLibrary — searchable store of FixtureDefinitions.
  * Built-in + user defs share one library; segregate by `source` tag if needed.
@@ -35,6 +42,13 @@ export interface LoadResult {
  */
 export class FixtureLibrary extends EventEmitter {
   definitions: Map<string, FixtureDefinition>;
+  /** Root of the bundled `fixtures/<Vendor>/…` tree, for lazy per-vendor loading. */
+  private builtinRoot: string | null = null;
+  /** Vendors whose directory has been fully parsed into `definitions`. */
+  private loadedVendors = new Set<string>();
+  /** In-flight per-vendor loads, so concurrent `ensureVendor` calls share one read. */
+  private vendorLoads = new Map<string, Promise<void>>();
+  private allLoaded = false;
 
   constructor() {
     super();
@@ -89,6 +103,86 @@ export class FixtureLibrary extends EventEmitter {
     const result: LoadResult = { loaded: 0, skipped: 0, errors: [] };
     await this._scan(dir, source, result);
     return result;
+  }
+
+  // ---- lazy per-vendor loading -------------------------------------------
+  // The bundled library (hundreds of files) is NOT parsed at boot. Instead the
+  // root is registered, vendors are listed cheaply from the directory tree, and
+  // a vendor's definitions are parsed on demand — when its accordion is opened,
+  // when a definition it owns is patched/loaded, or when a search forces a full
+  // load. A definition id is `"<Vendor>/<Model>"`, and the vendor is the folder
+  // name, so any id maps straight to its directory.
+
+  /** Register the bundled `fixtures/` root for lazy loading (replaces an eager
+   *  `loadFromDirectory` at boot). */
+  setBuiltinRoot(dir: string): void { this.builtinRoot = dir; }
+
+  /** Vendor of a definition id (`"<Vendor>/<Model>"`). */
+  static vendorOf(id: string): string { return String(id).split('/')[0]; }
+
+  /** Lightweight vendor list for the UI — bundled vendors from the directory
+   *  tree (file counts, nothing parsed) plus any already-loaded user vendors. */
+  async vendors(): Promise<VendorInfo[]> {
+    const out: VendorInfo[] = [];
+    if (this.builtinRoot) {
+      let entries: import('node:fs').Dirent[] = [];
+      try { entries = await readdir(this.builtinRoot, { withFileTypes: true }); } catch { /* no dir */ }
+      for (const e of entries) {
+        if (!e.isDirectory() || e.name.startsWith('.')) continue;
+        let count = 0;
+        try {
+          const files = await readdir(path.join(this.builtinRoot, e.name));
+          count = files.filter((f) => !!ImporterRegistry.forExtension(path.extname(f).toLowerCase())).length;
+        } catch { /* ignore */ }
+        if (count) out.push({ name: e.name, count, source: 'builtin' });
+      }
+    }
+    // User (Custom) definitions are loaded eagerly and live flat — group by their
+    // manufacturer so they appear as a vendor too.
+    const userByVendor = new Map<string, number>();
+    for (const d of this.definitions.values()) {
+      if (d.source !== 'builtin' && d.manufacturer) userByVendor.set(d.manufacturer, (userByVendor.get(d.manufacturer) ?? 0) + 1);
+    }
+    for (const [name, count] of userByVendor) out.push({ name, count, source: 'user' });
+    return out.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  /** Parse a bundled vendor's directory into the library (idempotent, deduped). */
+  async ensureVendor(name: string): Promise<void> {
+    if (this.loadedVendors.has(name) || !this.builtinRoot) return;
+    let p = this.vendorLoads.get(name);
+    if (!p) {
+      p = this._loadVendorDir(name).finally(() => this.vendorLoads.delete(name));
+      this.vendorLoads.set(name, p);
+    }
+    await p;
+  }
+
+  private async _loadVendorDir(name: string): Promise<void> {
+    const result: LoadResult = { loaded: 0, skipped: 0, errors: [] };
+    try { await this._scan(path.join(this.builtinRoot!, name), 'builtin', result); } catch { /* missing/empty vendor */ }
+    this.loadedVendors.add(name);
+  }
+
+  /** Ensure a definition is loaded (parsing its vendor on demand); returns it. */
+  async ensure(id: string): Promise<FixtureDefinition | undefined> {
+    if (!this.definitions.has(id)) await this.ensureVendor(FixtureLibrary.vendorOf(id));
+    return this.definitions.get(id);
+  }
+
+  /** Ensure every vendor referenced by a set of ids is loaded (project load). */
+  async ensureForIds(ids: Iterable<string>): Promise<void> {
+    const vendors = new Set<string>();
+    for (const id of ids) { if (id) vendors.add(FixtureLibrary.vendorOf(id)); }
+    await Promise.all([...vendors].map((v) => this.ensureVendor(v)));
+  }
+
+  /** Parse every bundled vendor (search / "browse all"). Idempotent. */
+  async ensureAll(): Promise<void> {
+    if (this.allLoaded) return;
+    const vs = await this.vendors();
+    await Promise.all(vs.filter((v) => v.source === 'builtin').map((v) => this.ensureVendor(v.name)));
+    this.allLoaded = true;
   }
 
   async _scan(dir: string, source: string, result: LoadResult): Promise<void> {

@@ -18,6 +18,21 @@ function hash01(i: number): number {
 }
 
 /**
+ * Parsed-palette cache. The hex→RGB conversion (a culori parse) is pure but not
+ * free, and COLOR/MATRIX FX run it on every tick. The FX config holds a stable
+ * palette-array reference between edits (the scenes handler replaces the array
+ * when it changes), so we memoize on that reference: a cache hit every tick,
+ * recomputed only when the palette actually changes. Returned arrays are shared
+ * and must be treated as read-only.
+ */
+const paletteCache = new WeakMap<readonly string[], Rgb[]>();
+function parsePalette(palette: readonly string[]): Rgb[] {
+  let parsed = paletteCache.get(palette);
+  if (!parsed) { parsed = palette.map(hexToBytes); paletteCache.set(palette, parsed); }
+  return parsed;
+}
+
+/**
  * Sample a palette (ring) at position p (wraps). `fade` shapes the transition
  * between stops: 1 = smooth linear blend, 0 = hard cut at the midpoint.
  */
@@ -58,7 +73,7 @@ export function renderColorFx(
   const sat = cfg?.saturation ?? 1;
   const fade = cfg?.fade ?? 1;
   const randomize = cfg?.randomize ?? false;
-  const palette = cfg && cfg.palette.length ? cfg.palette.map(hexToBytes) : null;
+  const palette = cfg && cfg.palette.length ? parsePalette(cfg.palette) : null;
 
   for (let i = 0; i < n; i++) {
     const [r, g, b] = targets[i];
@@ -102,7 +117,7 @@ export function renderMatrixFx(
   const scale = Math.max(0.01, cfg?.scale ?? 1);
   const angle = ((cfg?.angle ?? 0) * Math.PI) / 180;
   const ca = Math.cos(angle), sa = Math.sin(angle);
-  const palette = cfg && cfg.palette.length ? cfg.palette.map(hexToBytes) : null;
+  const palette = cfg && cfg.palette.length ? parsePalette(cfg.palette) : null;
   const scroll = now / Math.max(1, periodMs);
 
   // Normalize positions to 0..1 over the rig's bounding box (centre = 0.5,0.5).

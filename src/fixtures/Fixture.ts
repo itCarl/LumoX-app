@@ -1,6 +1,7 @@
 import type { FixtureDefinition } from './FixtureDefinition';
 import type { FixtureMode } from './FixtureMode';
-import { type StageTransform, type Vec2, DEFAULT_TRANSFORM, sanitizeTransform, emitterWorldPositions, resolveEmitterCount } from './emitterGeometry';
+import { DMX_CHANNELS } from '../core/Universe';
+import { type StageTransform, type Vec2, DEFAULT_TRANSFORM, sanitizeTransform, normalizeTransform, emitterWorldPositions, resolveEmitterCount } from './emitterGeometry';
 
 /**
  * Fixture — patched instance of a FixtureDefinition + FixtureMode.
@@ -32,6 +33,15 @@ export interface UniverseTarget {
 }
 
 /**
+ * One synthetic per-cluster virtual dimmer on an RGB-only fixture (a fixture
+ * with colour mixing but no intensity channel). `virtualAddr` is a universe
+ * address in the virtual region (above {@link DMX_CHANNELS}), derived as
+ * `DMX_CHANNELS + r` so it is unique and stable; `r`/`g`/`b`(`/w`) are the
+ * cluster's real DMX addresses the engine scales by this dimmer's value.
+ */
+export interface VirtualDimmerCluster { virtualAddr: number; r: number; g: number; b: number; w?: number; }
+
+/**
  * Per-fixture output limitations — clamp / shape the final mixed output safely,
  * regardless of which source (scene / FX / live) drove it. Ranges are in coarse
  * DMX (0..255); the engine's Limits module applies them 16-bit-aware when a fine
@@ -43,16 +53,6 @@ export interface FixtureLimits {
   tilt?: { min: number; max: number; invert?: boolean };
   swapPanTilt?: boolean;                                    // route pan output to the tilt channel & vice-versa
 }
-
-/**
- * Per-channel behaviour flags, keyed by 1-based fixture-local channel index.
- * Both default off (absent):
- *   - `fade: false` → the channel **snaps** on scene crossfades instead of
- *      interpolating (e.g. gobo / colour-wheel slots). Default = fades.
- *   - `dimmer: true` → the channel **follows the fixture's dimmer** (its output
- *      scales with the mixed intensity). Default = independent of the dimmer.
- */
-export type FixtureChannelFlags = { [channelIndex: number]: { fade?: boolean; dimmer?: boolean } };
 
 /** Options bag accepted by the `Fixture` constructor. */
 export interface FixtureOptions {
@@ -67,8 +67,6 @@ export interface FixtureOptions {
   stageTransform?: Partial<StageTransform> | null;
   /** Per-fixture output limitations (pan/tilt range, invert, swap, dimmer cap). */
   limits?: FixtureLimits | null;
-  /** Per-channel behaviour flags (snap-on-fade / follows-dimmer). */
-  channelFlags?: FixtureChannelFlags | null;
 }
 
 export class Fixture {
@@ -79,18 +77,20 @@ export class Fixture {
   universeId: number;
   startAddress: number;
   values: Uint8Array;
+  /** Per-cluster virtual dimmer levels (RGB-only fixtures), index-aligned with
+   *  {@link virtualDimmers}. 0..255, default 0. Flushed to the virtual channel
+   *  region by {@link apply}; empty for fixtures with a real intensity channel. */
+  virtualLevels: Uint8Array;
   liveApply: boolean;
   /** 2D top-down placement on the STAGE tile (world units + degrees). */
   stageTransform: StageTransform;
   /** Per-fixture output limitations, or null when unconstrained. */
   limits: FixtureLimits | null;
-  /** Per-channel behaviour flags, or null when none set. */
-  channelFlags: FixtureChannelFlags | null;
   _universeRef: UniverseTarget | null;
 
   constructor({
     id, name, definition, mode, universeId = 0, startAddress,
-    liveApply = false, stageTransform = null, limits = null, channelFlags = null,
+    liveApply = false, stageTransform = null, limits = null,
   }: FixtureOptions) {
     if (!definition) throw new Error('Fixture needs definition');
     const m = typeof mode === 'string' ? definition.mode(mode) : (mode ?? definition.defaultMode);
@@ -102,10 +102,10 @@ export class Fixture {
     this.universeId = universeId;
     this.startAddress = startAddress;
     this.values = new Uint8Array(m.channelCount);
+    this.virtualLevels = new Uint8Array(this.virtualDimmers().length);
     this.liveApply = liveApply;
     this.stageTransform = stageTransform ? sanitizeTransform(stageTransform) : { ...DEFAULT_TRANSFORM };
     this.limits = limits ?? null;
-    this.channelFlags = channelFlags ?? null;
     this._universeRef = null; // set when liveApply target attached
     this.applyDefaults();
   }
@@ -125,6 +125,7 @@ export class Fixture {
 
   applyDefaults(): void {
     this.mode.channels.forEach((c, i) => { if (c) this.values[i] = c.defaultValue; });
+    this.virtualLevels?.fill(255);   // virtual dimmers rest at full — an RGB-only fixture shows colour at 100% unless dimmed
   }
 
   /** Attach live target so writes auto-flush. Pass null to detach. */
@@ -143,10 +144,24 @@ export class Fixture {
     }
   }
 
-  /** Write by channel-type id. Returns true if a channel of that type existed. */
+  /**
+   * Write by channel-type id. Returns true if the type existed. For an RGB-only
+   * fixture, an `intensity`/`intensity-master` write with no real channel drives
+   * every virtual dimmer (whole-fixture intensity), so group/master dimmers work.
+   */
   set(typeId: string, value: number): boolean {
     const idx = this.mode.indexOfType(typeId);
-    if (!idx) return false;
+    if (!idx) {
+      if ((typeId === 'intensity' || typeId === 'intensity-master') && this.virtualLevels.length) {
+        const v = value & 0xff;
+        this.virtualLevels.fill(v);
+        if (this.liveApply && this._universeRef) {
+          for (const vd of this.virtualDimmers()) this._universeRef.setChannel(vd.virtualAddr, v);
+        }
+        return true;
+      }
+      return false;
+    }
     this.setChannel(idx, value);
     return true;
   }
@@ -171,11 +186,18 @@ export class Fixture {
   setRGBW(r: number, g: number, b: number, w: number): void { this.setRGB(r, g, b); this.set('white', w); }
   setPanTilt(pan16: number, tilt16: number): void { this.set16('pan', pan16); this.set16('tilt', tilt16); }
 
-  /** Flush current `values` into universe's programmer buffer. */
+  /** Flush current `values` (+ any virtual dimmer levels) into universe's programmer buffer. */
   apply(universe: UniverseTarget): void {
     for (let i = 0; i < this.values.length; i++) {
       universe.setChannel(this.startAddress + i, this.values[i]);
     }
+    this.applyVirtual(universe);
+  }
+
+  /** Flush only the virtual dimmer levels into the universe (seed full-by-default). */
+  applyVirtual(universe: UniverseTarget): void {
+    const vds = this.virtualDimmers();
+    for (let k = 0; k < vds.length; k++) universe.setChannel(vds[k].virtualAddr, this.virtualLevels[k] ?? 0);
   }
 
   /** All 1-based DMX addresses (universe-absolute) that are intensity-typed. */
@@ -224,6 +246,32 @@ export class Fixture {
     return out;
   }
 
+  /** True if the mode has any intensity-typed channel (master or per-element dimmer). */
+  hasIntensityChannel(): boolean {
+    return this.mode.indicesWhere((c) => !!c.type?.isIntensity).length > 0;
+  }
+
+  /**
+   * Whether this fixture needs virtual dimmers: it mixes colour (≥1 RGB cluster)
+   * but has no intensity channel of its own, so brightness can only be ridden by
+   * scaling its RGB output. See {@link virtualDimmers}.
+   */
+  needsVirtualDimmer(): boolean {
+    return !this.hasIntensityChannel() && this.emitterColorAddresses().length > 0;
+  }
+
+  /**
+   * Synthetic per-cluster virtual dimmers for an RGB-only fixture — one entry per
+   * colour cluster (a multi-cluster bar yields several; a single-cluster par one).
+   * Each carries a stable virtual-region address (`DMX_CHANNELS + r`) the engine's
+   * VirtualDimmer stage reads to scale that cluster's RGB(W). Empty unless
+   * {@link needsVirtualDimmer}.
+   */
+  virtualDimmers(): VirtualDimmerCluster[] {
+    if (!this.needsVirtualDimmer()) return [];
+    return this.emitterColorAddresses().map((c) => ({ virtualAddr: DMX_CHANNELS + c.r, r: c.r, g: c.g, b: c.b, ...(c.w != null ? { w: c.w } : {}) }));
+  }
+
   /** Per-emitter 2D world positions (top-down stage), index-aligned with emitters. */
   emitterWorldPositions(): Vec2[] {
     return emitterWorldPositions({ emitters: this.emitterCount, emitterLayout: this.definition.emitterLayout }, this.stageTransform);
@@ -237,9 +285,10 @@ export class Fixture {
       modeId: this.mode.id,
       universeId: this.universeId,
       startAddress: this.startAddress,
-      stageTransform: { ...this.stageTransform },
+      // Persisted normalised (0..1 per axis) over the fixed stage box; restored to
+      // world units in `restoreProject`. Runtime keeps world units.
+      stageTransform: normalizeTransform(this.stageTransform),
       ...(this.limits ? { limits: this.limits } : {}),
-      ...(this.channelFlags ? { channelFlags: this.channelFlags } : {}),
     };
   }
 }

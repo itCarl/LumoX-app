@@ -69,7 +69,7 @@ export class SacnOutput extends Output {
       sock.bind(0, this.bindAddress, () => {
         sock.setMulticastTTL(16);
         this._socket = sock;
-        log.info(`open mode=${this.mode} ${this.mode === 'unicast' ? `→ ${this.host}` : ''} cid=${this.cid.toString('hex').slice(0, 8)}`);
+        log.info(`open mode=${this.mode} ${this.mode === 'unicast' ? `-> ${this.host}` : ''} cid=${this.cid.toString('hex').slice(0, 8)}`);
         resolve();
       });
       sock.once('error', reject);

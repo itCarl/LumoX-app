@@ -18,14 +18,16 @@ export {
   Capability, ColorCapability, GoboCapability, ShutterCapability,
   EffectCapability, CapabilityRegistry,
 } from './Capability';
+export { GOBO_GRID, encodeGobo, decodeGobo, isGoboPattern } from './goboPattern';
 export { ChannelDefinition } from './ChannelDefinition';
 export { FixtureMode } from './FixtureMode';
 export { FixtureDefinition } from './FixtureDefinition';
 export type { EmitterCell, FixtureDefinitionJSON } from './FixtureDefinition';
 export { Fixture } from './Fixture';
-export type { FixtureLimits, FixtureChannelFlags } from './Fixture';
+export type { FixtureLimits } from './Fixture';
 export {
   emitterGrid, emitterLocalPositions, emitterWorldPositions, sanitizeTransform, DEFAULT_TRANSFORM,
+  normalizeTransform, denormalizeTransform, STAGE_SIZE,
   colorClusterCount, resolveEmitterCount,
 } from './emitterGeometry';
 export type { StageTransform, Vec2, EmitterSource, EmitterGrid } from './emitterGeometry';

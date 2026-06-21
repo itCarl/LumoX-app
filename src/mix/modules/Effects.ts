@@ -1,5 +1,6 @@
 import { MixModule, blendHTP } from '../MixModule';
 import type { MixModuleConfig, MixContext } from '../MixModule';
+import { TOTAL_CHANNELS } from '../../core/Universe';
 import type { Universe } from '../../core/Universe';
 
 /**
@@ -39,7 +40,7 @@ export class Effects extends MixModule {
   constructor(config: MixModuleConfig = {}) {
     super({ name: 'Effects', ...config });
     this.effects = new Map();
-    this._scratch = new Uint8Array(512);
+    this._scratch = new Uint8Array(TOTAL_CHANNELS);
   }
 
   add(effect: Effect): Effect { this.effects.set(effect.id, effect); return effect; }

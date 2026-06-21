@@ -1,4 +1,4 @@
-import { DMX_CHANNELS } from '../core/Universe';
+import { TOTAL_CHANNELS } from '../core/Universe';
 
 /** Sparse channel values: { [universeId]: { [channel]: value } } (1-based). */
 export type SceneValues = Record<number, Record<number, number>>;
@@ -258,6 +258,9 @@ export interface TrackLayer {
   targets?: { [universeId: number]: number[][] };
   /** per-universe emitter world positions, index-aligned with `targets` (MATRIX FX) */
   positions?: { [universeId: number]: { x: number; y: number }[] };
+  /** per-universe fixture id behind each target tuple, index-aligned with `targets`
+   *  (attached by the app layer; lets the UI label each preview beam) */
+  beamIds?: { [universeId: number]: string[] };
 }
 
 export interface MixerTrack {
@@ -491,11 +494,11 @@ function clampNum(n: number, lo: number, hi: number, fallback: number): number {
   return Math.max(lo, Math.min(hi, n));
 }
 
-/** Sparse SceneValues → dense per-universe Uint8Array(512) buffers. */
+/** Sparse SceneValues → dense per-universe channel buffers (real DMX + virtual). */
 function densify(values: SceneValues): Record<number, Uint8Array> {
   const dense: Record<number, Uint8Array> = {};
   for (const [uniId, channels] of Object.entries(values)) {
-    const buf = new Uint8Array(DMX_CHANNELS);
+    const buf = new Uint8Array(TOTAL_CHANNELS);
     for (const [ch, v] of Object.entries(channels)) buf[(+ch) - 1] = v & 0xff;
     dense[+uniId] = buf;
   }

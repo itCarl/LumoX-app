@@ -69,20 +69,24 @@ export class ColorCapability extends Capability {
 /** Options for `GoboCapability`. */
 export interface GoboCapabilityOptions extends CapabilityOptions {
   image?: string | null;
+  pattern?: string | null;
   shake?: boolean;
 }
 
-/** Gobo with optional image resource id. */
+/** Gobo with an optional image resource id and a hand-drawn mono `pattern`
+ *  (see `goboPattern.ts`) shown next to the value range and on the GOBO fader. */
 export class GoboCapability extends Capability {
   static KIND = 'gobo';
   image: string | null;
+  pattern: string | null;
   shake: boolean;
   constructor(opts: GoboCapabilityOptions) {
     super(opts);
     this.image = opts.image ?? null;     // path or resource id
+    this.pattern = opts.pattern ?? null; // drawn mono bitmask ("g16:…")
     this.shake = !!opts.shake;
   }
-  toJSON(): CapabilityJSON { return { ...super.toJSON(), image: this.image, shake: this.shake }; }
+  toJSON(): CapabilityJSON { return { ...super.toJSON(), image: this.image, pattern: this.pattern, shake: this.shake }; }
 }
 
 /** Options for `ShutterCapability`. */

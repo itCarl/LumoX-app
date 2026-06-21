@@ -76,7 +76,7 @@ export class ArtNetOutput extends Output {
         sock.on('error', (err) => this.emit('error', err));
         if (this.broadcast) sock.setBroadcast(true);
         this._socket = sock;
-        log.info(`open → ${this.host}:${this.port} (bind ${this.bindAddress}:${sock.address().port})`);
+        log.info(`open -> ${this.host}:${this.port} (bind ${this.bindAddress}:${sock.address().port})`);
         resolve();
       });
     });

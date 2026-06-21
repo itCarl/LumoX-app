@@ -30,8 +30,6 @@ export interface FixtureLimitTargets {
   pan?: AxisLimitTarget;
   tilt?: AxisLimitTarget;
   swap?: { pan: number; panFine: number; tilt: number; tiltFine: number };
-  /** follows-dimmer: scale each `addr` by the mixed dimmer at `dim` (÷255). */
-  follows?: { addrs: number[]; dim: number };
 }
 /** universeId → resolved per-fixture limit targets. */
 export type LimitMap = Map<number, FixtureLimitTargets[]>;
@@ -86,11 +84,6 @@ export class Limits extends MixModule {
       if (e.swap) {
         swapBytes(d, e.swap.pan, e.swap.tilt);
         if (e.swap.panFine && e.swap.tiltFine) swapBytes(d, e.swap.panFine, e.swap.tiltFine);
-      }
-      if (e.follows) {
-        const di = e.follows.dim - 1;
-        const scale = di >= 0 && di < d.length ? d[di] / 255 : 1;
-        for (const a of e.follows.addrs) { const i = a - 1; if (i >= 0 && i < d.length) d[i] = (d[i] * scale) | 0; }
       }
     }
   }

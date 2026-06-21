@@ -12,7 +12,7 @@
 // Editable on purpose: change the rig / limits below to assert any engine case.
 
 import { FixtureDefinition, FixtureMode, ChannelDefinition, Fixture } from '../src/index';
-import { engine, show, rebuildLimits } from '../main/context';
+import { engine, show, rebuildFixtureMaps } from '../main/context';
 
 const json = process.argv.includes('--json');
 const sleep = (ms: number): Promise<void> => new Promise((r) => setTimeout(r, ms));
@@ -59,7 +59,7 @@ const raw = read();
 
 // ---- apply per-fixture limits, tick, read the limited frame -------------
 mh.limits = { dimmer: { max: 100 }, tilt: { min: 0, max: 60 }, pan: { min: 0, max: 255, invert: true } };
-rebuildLimits();
+rebuildFixtureMaps();
 await sleep(150);
 const limited = read();
 engine.stop();

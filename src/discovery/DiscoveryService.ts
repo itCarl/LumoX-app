@@ -120,7 +120,7 @@ export class DiscoveryService extends EventEmitter {
     const pkt = buildArtPoll();
     for (const target of new Set(['255.255.255.255', ...directedBroadcasts()])) {
       this._socket.send(pkt, 0, pkt.length, this.bindPort, target, (err) => {
-        if (err) log.debug(`poll → ${target} failed: ${err.message}`);
+        if (err) log.debug(`poll -> ${target} failed: ${err.message}`);
       });
     }
   }

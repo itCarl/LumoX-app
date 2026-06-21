@@ -1,4 +1,5 @@
 import { EventEmitter } from 'node:events';
+import { DMX_CHANNELS } from '../core/Universe';
 import type { Universe } from '../core/Universe';
 
 /**
@@ -150,15 +151,17 @@ export class Output extends EventEmitter {
   }
 
   /** Frame to put on the wire — full 512, or (partial) up to the highest used
-   *  channel, tracked as a per-universe high-water mark so it never shrinks. */
+   *  channel, tracked as a per-universe high-water mark so it never shrinks.
+   *  Always confined to the real DMX range; the virtual channel region above
+   *  {@link DMX_CHANNELS} never reaches the wire. */
   _frameData(universe: Universe): Uint8Array {
-    if (this.frameMode !== 'partial') return universe.data;
-    const d = universe.data;
+    const wire = universe.data.subarray(0, DMX_CHANNELS);
+    if (this.frameMode !== 'partial') return wire;
     let hi = 1;
-    for (let i = d.length - 1; i >= 0; i--) { if (d[i] !== 0) { hi = i + 1; break; } }
+    for (let i = wire.length - 1; i >= 0; i--) { if (wire[i] !== 0) { hi = i + 1; break; } }
     const hw = Math.max(hi, this._partialHigh.get(universe.id) ?? 0);
     this._partialHigh.set(universe.id, hw);
-    return d.subarray(0, hw);
+    return wire.subarray(0, hw);
   }
 
   send(universe: Universe, now: number): void {
@@ -179,7 +182,7 @@ export class Output extends EventEmitter {
   blackout(universe: Universe): void {
     if (!this._open) return;
     try {
-      this._sendImpl(universe, new Uint8Array(universe.data.length));
+      this._sendImpl(universe, new Uint8Array(DMX_CHANNELS));
     } catch (err) {
       this.emit('error', err);
     }

@@ -298,6 +298,9 @@ export class FixtureValidator {
         this.warn(`${p}.color`, `not a #rgb / #rrggbb hex string: "${cap.color}"`);
       }
     }
+    if (cap.kind === 'gobo' && 'pattern' in cap && cap.pattern != null && typeof cap.pattern !== 'string') {
+      this.err(`${p}.pattern`, 'must be string or null');
+    }
     if (cap.kind === 'shutter' && 'mode' in cap && cap.mode != null) {
       if (!['open', 'closed', 'strobe', 'pulse', 'random'].includes(cap.mode as string)) {
         this.warn(`${p}.mode`, `unexpected shutter mode: "${cap.mode}"`);

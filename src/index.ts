@@ -1,7 +1,7 @@
 // Public API — one import point for the rest of the app (main process + later renderer via IPC bridge).
 
 export { Engine } from './core/Engine';
-export { Universe, DMX_CHANNELS } from './core/Universe';
+export { Universe, DMX_CHANNELS, VIRTUAL_CHANNELS, TOTAL_CHANNELS } from './core/Universe';
 export { UniverseManager } from './core/UniverseManager';
 
 export { Output } from './outputs/Output';
@@ -28,6 +28,8 @@ export {
 export { GrandMaster } from './mix/modules/GrandMaster';
 export { Limits } from './mix/modules/Limits';
 export type { FixtureLimitTargets, AxisLimitTarget, LimitMap } from './mix/modules/Limits';
+export { VirtualDimmer } from './mix/modules/VirtualDimmer';
+export type { VirtualCluster, VirtualDimmerMap } from './mix/modules/VirtualDimmer';
 export { Blackout } from './mix/modules/Blackout';
 
 // Fixtures (channel types, capabilities, definitions, modes, library, importers)
@@ -38,6 +40,7 @@ export * from './midi/index';
 
 // Show
 export { Show } from './show/Show';
+export type { SavedSelection } from './show/Show';
 export { Patch } from './show/Patch';
 export {
   Scene, chaseStep, toChaseStep, DEFAULT_STEP_WAIT,

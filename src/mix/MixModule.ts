@@ -93,8 +93,17 @@ export function scaleMasked(dst: Uint8Array, factor: number, mask: Set<number>):
 
 export function clamp01(x: number): number { return x < 0 ? 0 : x > 1 ? 1 : x; }
 
-export function buffersEqual(a: Uint8Array, b: Uint8Array): boolean {
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false;
+/**
+ * Byte-equal compare. With no `len` it compares the whole buffers (lengths must
+ * match); with `len` it compares only the first `len` bytes — used for dirty
+ * detection over just the wire region, ignoring the virtual channels that never
+ * reach the wire.
+ */
+export function buffersEqual(a: Uint8Array, b: Uint8Array, len?: number): boolean {
+  if (len == null) {
+    if (a.length !== b.length) return false;
+    len = a.length;
+  }
+  for (let i = 0; i < len; i++) if (a[i] !== b[i]) return false;
   return true;
 }

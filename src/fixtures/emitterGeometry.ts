@@ -25,6 +25,16 @@ export interface EmitterGrid { n: number; cols: number; rows: number; width: num
 
 export const DEFAULT_TRANSFORM: StageTransform = { x: 0, y: 0, rotation: 0 };
 
+/**
+ * The fixed 2D stage extent, in world units (emitter cells), 16:9. The STAGE tile
+ * draws this bounded box and fixtures live inside it. Fixture placements **persist
+ * normalised** to this box (`x/width`, `y/height` → 0..1 per axis), so a saved show
+ * is resolution-independent; the engine + renderer still work in raw world units
+ * (only relative positions matter to FX), with the (de)normalise happening at the
+ * project (de)serialisation boundary — see `Fixture.toJSON` / `restoreProject`.
+ */
+export const STAGE_SIZE = { width: 64, height: 36 } as const;
+
 const isNum = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
 
 /** Coerce arbitrary input into a valid StageTransform (defaults on bad fields). */
@@ -35,6 +45,17 @@ export function sanitizeTransform(raw: unknown): StageTransform {
     y: isNum(o.y) ? o.y : 0,
     rotation: isNum(o.rotation) ? o.rotation : 0,
   };
+}
+
+/** World-unit transform → normalised (0..1 per axis over the fixed stage box). */
+export function normalizeTransform(t: StageTransform): StageTransform {
+  return { x: t.x / STAGE_SIZE.width, y: t.y / STAGE_SIZE.height, rotation: t.rotation };
+}
+
+/** Normalised transform (as persisted) → raw world units, with field validation. */
+export function denormalizeTransform(raw: unknown): StageTransform {
+  const s = sanitizeTransform(raw);
+  return { x: s.x * STAGE_SIZE.width, y: s.y * STAGE_SIZE.height, rotation: s.rotation };
 }
 
 /**

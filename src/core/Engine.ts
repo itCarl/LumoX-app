@@ -1,5 +1,6 @@
 import { EventEmitter } from 'node:events';
 import { UniverseManager } from './UniverseManager';
+import { DMX_CHANNELS } from './Universe';
 import { OutputManager } from '../outputs/OutputManager';
 import { MixPipeline } from '../mix/MixPipeline';
 import { BaseLayer } from '../mix/modules/BaseLayer';
@@ -7,6 +8,7 @@ import { SceneMixer } from '../mix/modules/SceneMixer';
 import { Effects } from '../mix/modules/Effects';
 import { GroupEffects } from '../mix/modules/GroupEffects';
 import { Limits } from '../mix/modules/Limits';
+import { VirtualDimmer } from '../mix/modules/VirtualDimmer';
 import { GrandMaster } from '../mix/modules/GrandMaster';
 import { Blackout } from '../mix/modules/Blackout';
 import { createLogger } from '../util/logger';
@@ -31,7 +33,7 @@ export interface EngineOptions {
  *        d. copy data → _prev
  *
  * Default pipeline (constructable via `buildDefault: false` to skip):
- *   BaseLayer → SceneMixer → Effects → GroupEffects → Limits → GrandMaster → Blackout
+ *   BaseLayer → SceneMixer → Effects → GroupEffects → Limits → VirtualDimmer → GrandMaster → Blackout
  * Add/remove modules at runtime via `engine.mix.add(...)`, `.remove(...)`, etc.
  *
  * Convenience refs created when default pipeline used:
@@ -39,6 +41,7 @@ export interface EngineOptions {
  *   engine.effects       Effects host instance (raw channel effects)
  *   engine.groupEffects  GroupEffects host (fixture-aware, needs Patch)
  *   engine.limits        Limits post-stage (per-fixture range/invert/swap/cap)
+ *   engine.virtualDimmer VirtualDimmer post-stage (RGB-only fixture dimming)
  *   engine.grandMaster   GrandMaster instance
  *   engine.blackout      Blackout instance
  */
@@ -56,6 +59,7 @@ export class Engine extends EventEmitter {
   effects!: Effects;
   groupEffects!: GroupEffects;
   limits!: Limits;
+  virtualDimmer!: VirtualDimmer;
   grandMaster!: GrandMaster;
   blackout!: Blackout;
 
@@ -89,6 +93,7 @@ export class Engine extends EventEmitter {
     this.effects      = this.mix.add(new Effects());
     this.groupEffects = this.mix.add(new GroupEffects());
     this.limits       = this.mix.add(new Limits());
+    this.virtualDimmer = this.mix.add(new VirtualDimmer());
     this.grandMaster  = this.mix.add(new GrandMaster({ value: 1 }));
     this.blackout     = this.mix.add(new Blackout());
   }
@@ -123,7 +128,9 @@ export class Engine extends EventEmitter {
 
     for (const u of this.universes.list()) {
       this.mix.process(u, ctx);
-      u.dirty = !buffersEqual(u.data, u._prev);
+      // Change-detect only the wire region — the virtual channels above
+      // DMX_CHANNELS never reach the wire, so a change there is not "dirty".
+      u.dirty = !buffersEqual(u.data, u._prev, DMX_CHANNELS);
       if (u.dirty) u._prev.set(u.data);
       this.outputs.dispatch(u, now);
     }
