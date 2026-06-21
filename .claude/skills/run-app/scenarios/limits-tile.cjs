@@ -1,5 +1,5 @@
-// Limits tile (SETUP bottom-right) — selects a mover so the pan/tilt range box,
-// dimmer-cap bar, and channel-flag pills all render.
+// Limits tile (SETUP bottom-right) — selects a mover so the pan/tilt range box
+// (crop-box handles) and the dimmer-cap bar render.
 
 module.exports = {
   cover: 'limits-tile',

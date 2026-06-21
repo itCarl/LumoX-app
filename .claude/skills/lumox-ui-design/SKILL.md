@@ -114,10 +114,12 @@ product from AI slop.
 - **Icons** — Font Awesome `<i>` elements, sized in px to match neighbours.
 - **Numerics** — `font-variant-numeric: tabular-nums` for any live/changing
   number (BPM, addresses, timecode) so digits don't jitter.
-- **Type** — `system-ui` at 14px base; labels ~11px with letter-spacing.
-  Hierarchy comes from size/weight/colour/spacing, **not** decorative fonts. A
-  control surface wants neutral, legible type — the frontend-design "characterful
-  display face" advice does **not** apply here; that would itself read as AI-y.
+- **Type** — `var(--font)` = **Inter** (variable, vendored offline; `system-ui`
+  fallback) at 14px base and `--font-weight: 430` (a hair over regular); labels
+  ~11px with letter-spacing. Inter is the neutral pro UI face — keep it; don't
+  swap in a decorative display font. Hierarchy comes from size/weight/colour/spacing, **not** decorative fonts. A
+  control surface wants neutral, legible type — generic "characterful display
+  face" advice does **not** apply here; that would itself read as AI-y.
 
 If a new need genuinely isn't covered, add a token at `:root` (or scope one
 locally, as `.sceneprops-tile` scopes `--radius: 4px`) rather than a one-off
@@ -138,11 +140,26 @@ These come straight from the user's stated preferences — follow them by defaul
 4. **Drill-down / rail navigation over nesting.** For a busy panel in a narrow
    column, avoid "containers within containers", many tabs, and inline
    accordions. Prefer **one full-width thing at a time**: a persistent compact
-   icon rail to switch top-level sections, and a `← back` link to drill into
-   detail (the Scene panel's Base/FX/Scene/Advanced rail is the reference).
+   icon rail to switch top-level sections (the Scene panel's Base/FX/Scene/Advanced
+   rail is the reference). **Exception — the FX rack** (inside the Scene panel's FX
+   page) is a deliberate **single-expand inline accordion**: every layer is a
+   collapsible block, click a header to expand one in place. This matches the
+   console FX-stack convention where seeing the whole stack at a glance and editing
+   without losing your place outweighs the one-thing-at-a-time rule. Use this
+   pattern only where that same "see-all-while-editing-one" need genuinely applies;
+   default everything else to the rail + drill-down.
 5. **Density without clutter.** Pro operators prefer information-dense over
    airy, but density must be *organised* — alignment, grouping, and quiet
    chrome — never a wall of competing borders and accents.
+6. **Disable, don't hide — no layout shift.** When a control is unavailable or
+   inapplicable, **grey it slightly out** (reduced opacity + `pointer-events:
+   none`, e.g. the existing `.lx-check.off { opacity: 0.4 }`) and leave it in
+   place; do **not** `display:none` it. Removing elements makes the surrounding
+   layout jump and reflow, so the operator's target moves between states — a
+   real error on a live surface where muscle memory matters. Reserve actually
+   removing a block for a true mode/section change (a different view), not for
+   the momentary enable/disable of a control. Same rule for empty/partial
+   states: keep the frame and dim the contents rather than collapsing the box.
 
 ## Motion
 
@@ -200,7 +217,3 @@ next action. Everything in English (project rule).
   [color.md](../../../docs/knowledge-base/color.md).
 - **Reactivity (for live feedback wiring):** [reactivity.md](../../../docs/knowledge-base/reactivity.md).
 - **Verify in the real app:** the `run-app` skill.
-- **General anti-AI-slop philosophy this is adapted from:** the `frontend-design`
-  skill — borrow its "intentional choices, one signature element, self-critique"
-  spine; ignore its expressive-typography / bold-hero advice, which suits
-  marketing pages, not a control surface.
