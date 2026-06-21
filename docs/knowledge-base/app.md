@@ -40,19 +40,26 @@ Internals: [mix-engine.md](mix-engine.md).
 The main process boots the engine and exposes it over IPC. The IPC surface is
 **modular**: `main/handlers/index.ts` registers one handler module per area
 (window, outputs, universes, engine, library, patch, groups, fixtures, scenes,
-banks, palettes, transport, settings, project). Channels are namespaced
+banks, palettes, transport, settings, project), channels namespaced
 `lumox:<area>:<action>`.
 
 | Path | Role |
 | --- | --- |
-| `main/index.ts` | Boots engine, creates windows, registers handlers |
+| `main/index.ts` | Boots engine, creates windows, registers handlers, wires the show runtime |
 | `main/handlers/*` | Per-area `lumox:*` IPC handlers |
+| `main/services/SceneCompiler.ts` | Translates a `Scene` (show model) → `SceneMixer` track, resolving each FX layer's group + sweep order to absolute DMX target addresses (the one place the patch is consulted; the engine stays fixture-agnostic) |
+| `main/services/SceneOrchestrator.ts` | Scene playback orchestration — `recallScene` crossfades, release/protect scopes, counted-loop completion (jump/release/pause), `rebuildSceneTrack` in place ([mix-engine.md](mix-engine.md)) |
+| `main/services/OutputPatchService.ts` | Per-universe output patch (one Art-Net/sACN output each), the live programmer + engaged channels, broadcast gating + release linger, and the shutdown blackout ([connection.md](connection.md)) |
+| `main/services/SelectionService.ts` | The transient ordered "programming target" (live selection) + a change hook the runtime connects to scene re-fan ([selection.md](selection.md)) |
+| `main/services/FixtureMaps.ts` | Resolves each fixture's limits + virtual dimmers to the addresses the engine's `Limits` / `VirtualDimmer` post-stages consume ([limits.md](limits.md), [virtual-dimmers.md](virtual-dimmers.md)) |
+| `main/services/showRuntime.ts` | `wireShowRuntime()` — composes the above at boot: the per-tick `engine.on('tick')` runtime + the selection-change hook (keeps the services one-directional, no import cycles) |
 | `main/services/ProjectService.ts` | `.lmx` project save/open |
 | `main/services/UserLibraryService.ts` | User (**Custom**) fixture library — boot-load, persist, and delete editor-authored fixtures under `userData` ([fixtures.md](fixtures.md)) |
 | `main/services/Transport.ts` | master tempo (BPM) for beat-synced scenes; persisted top-level in the project |
 | `main/services/MidiService.ts` | MIDI control surface — APC Mini MK2 ports, click-to-assign learn, binding dispatch + LED feedback ([midi.md](midi.md)) |
 | `main/validate.ts` | Range-checks IPC payloads (channel/universe/host) |
-| `main/dto.ts`, `serializers.ts`, `context.ts`, `windows.ts` | DTOs, (de)serialization, shared context, window factory |
+| `main/dto.ts`, `serializers.ts`, `windows.ts` | DTOs, (de)serialization, window factory |
+| `main/context.ts` | **Leaf** — the single `engine` / `show` / `banks` / `discovery` instances + tiny pure helpers (group colour, fixture-config identity). Holds no orchestration; the show-domain services above import these singletons one-directionally |
 | `preload.ts` | contextBridge → `window.lumox.*` (built to `dist/preload.cjs`) |
 
 **Adding an IPC handler:** add `ipcMain.handle('lumox:<area>:<action>', …)` in
@@ -69,14 +76,21 @@ esbuild. Render primitives + delegated events keep tiles from re-implementing ma
   markup) + `mount(el)` with **delegated** `.on()` events (bound once, survive re-renders).
 - **`lib/widgets.ts`** — `button()`, `input()`, `openMenu()` (single dropdown impl).
 - **`lib/html.ts`** — `esc()` escaper. **`lib/bus.ts`** / **`lib/dock.ts`** — event bus, docking.
+  The dock is the resizable two-row workspace (top: library/banks + patch/FX, a
+  full-width groups strip, bottom: stage + limits/fader). Each zone has a per-panel
+  **minimum** size (`colMin*`/`colRestMin*` widths, `rowMin*` heights); splitter
+  drags **and** window resize clamp to those mins (`apply()` re-runs on resize), so
+  a panel scrolls rather than collapsing, and can only grow until the opposite one
+  hits its minimum. CSS mirrors the floors as `.z-*` `min-width` backstops; the sums
+  stay under the 1024px window min.
 - **`lib/store.ts`** — the shared-state store for values read across tiles
   (e.g. `activeGroup`), built on `@preact/signals-core` (`signal`/`effect`/
   `computed`). Signals own *shared state*; the bus stays for fire-and-forget
   notifications. See [reactivity.md](reactivity.md).
 - **`lib/confirm.ts`** — `confirmDialog()` modal over the shared `.lx-modal`
   markup; resolves `Promise<boolean>` and takes an async `onConfirm` that shows a
-  thrown error inline (keeping the dialog open). Used for destructive actions —
-  e.g. deleting a Custom fixture from the library tile.
+  thrown error inline (keeping the dialog open). Used for destructive actions
+  (e.g. deleting a Custom fixture from the library tile).
 - **`lib/channel-icons.ts`** — `channelIcon()` / `channelIconHtml()` map a channel
   type → Font Awesome glyph (per id, `group` fallback; colour emitters tinted).
   Used by the fader editor columns and fixture editor rows.
@@ -88,28 +102,28 @@ esbuild. Render primitives + delegated events keep tiles from re-implementing ma
   `.lx-*` classes compiled to `renderer/dist/tailwind.css`. CSP `style-src 'self'`.
 - **Titlebar (`index.ts`)** — tab nav, project name/dirty marker, window controls,
   and a **master BPM clock** left of the window buttons: a beat-LED metronome
-  (local `requestAnimationFrame` clock, no engine downbeat), an editable tempo
-  field (type, or drag it vertically to scrub — up = faster, Shift = fine), and
-  tap-tempo. Edits go through `lumox:transport:setBpm` and broadcast
-  `EV.TEMPO_CHANGED`, so the scene-properties Tempo field and BPM-driven previews
-  stay in sync wherever the tempo is changed.
+  (local `requestAnimationFrame` clock), an editable tempo field (type, or drag
+  vertically to scrub — up = faster, Shift = fine), and tap-tempo. Edits go through
+  `lumox:transport:setBpm` and broadcast `EV.TEMPO_CHANGED`, so the scene-properties
+  Tempo field and BPM-driven previews stay in sync.
 
-- **Keyboard shortcuts** (`lib/keys.ts` — `onShortcut()` + `isEditable()`; every
-  shortcut is ignored while typing in a field). `onShortcut(combo, run, enabled?)`
-  registers a global keydown whose `enabled()` guard lets separate tiles bind the
-  **same** key without colliding — each scopes itself to when it's on screen:
+- **Keyboard shortcuts** (`lib/keys.ts` — `onShortcut()` + `isEditable()`; ignored
+  while typing in a field). `onShortcut(combo, run, enabled?)` registers a global
+  keydown whose `enabled()` guard lets separate tiles bind the **same** key without
+  colliding (each scopes to when it's on screen):
   - **Global** (`index.ts`): `Ctrl+Z` undo · `Ctrl+Y` / `Ctrl+Shift+Z` redo ·
     `Ctrl+N`/`O`/`S`/`Shift+S` project new/open/save/save-as · `Ctrl+,` settings.
-  - **Stage / Patch** (SETUP): `Delete` / `Backspace` removes the **selected
-    fixture(s)**; `Ctrl+A` selects every fixture on the Stage; `V`/`M`/`L`/`H` pick the canvas tool (select / rect / lasso / hand). Fixture selection is **shared** between the Patch grid and the
-    Stage (click a patched cell or marquee on the stage → both highlight it, via
-    `EV.FIXTURE_SELECTED` tagged with its `src` to avoid echo); the Stage owns the
-    Delete so the two SETUP tiles never double-fire.
+  - **Stage / Patch** (SETUP): `Delete` / `Backspace` removes the selected
+    fixture(s); `Ctrl+A` selects every fixture on the Stage; `V`/`M`/`L`/`H` pick
+    the canvas tool (select / rect / lasso / hand). Fixture selection is **shared**
+    between the Patch grid and the Stage (via `EV.FIXTURE_SELECTED`, tagged with its
+    `src` to avoid echo); the Stage owns the Delete so the two SETUP tiles never
+    double-fire.
   - **Banks** (CONTROL): `Delete` deletes · `Ctrl+D` duplicates · `F2` renames the
-    edit-selected scene — or, with no scene selected, the **active bank** (`F2` is
-    the Windows-standard rename key, sidestepping the `Ctrl+R` reload clash).
-  The ⋯ menu and context menus show each accelerator **flush-right** (classic
-  Windows style, `.ctx-key`). See also [undo-redo.md](undo-redo.md).
+    edit-selected scene — or, with none selected, the **active bank** (`F2` is the
+    Windows-standard rename key, sidestepping the `Ctrl+R` reload clash).
+  The ⋯ menu and context menus show each accelerator **flush-right** (`.ctx-key`).
+  See also [undo-redo.md](undo-redo.md).
 
 Tiles (views):
 
@@ -117,11 +131,11 @@ Tiles (views):
 | --- | --- |
 | `views/patchgrid.ts` | PATCH — 512-channel map, drag/drop; click a patched fixture to **select** it (Ctrl/Cmd to multi-select) — selection is shared with the Stage and `Delete` unpatches it |
 | `views/library.ts` | FIXTURE LIBRARY — vendor accordion, patch form; **Custom** (user) fixtures carry an inline delete (confirm dialog → `lumox:library:remove`) |
-| `views/stage.ts` | STAGE — top-down 2D rig view: per-emitter footprints — emitter count is **derived from the channel layout** (a 9-LED bar's 9 R/G/B clusters → 9 cells), drawn at their `emitterLayout` positions or, with none, a single row — where **each emitter shows its live mixed-output colour** (RGB × master dimmer, with a glow; polled from `universes.read`, gated on visibility). drag-move (**always snaps**; a fine-grid toggle quarters the step for precise placement), Ctrl-drag/edge-handle rotate. A **canvas-tool mode** (header, left) picks the pointer gesture — **select/move** (V), **rectangular** marquee (M), freeform **lasso** (L, SVG polygon → point-in-poly by footprint centre), or **hand/pan** (H, drag-scroll); only select moves fixtures, the rest are whole-canvas gestures. A **left vertical rail** holds commands: selection (select all `Ctrl+A` / deselect / invert) on top, then align (a consistent arrows-to-line family) / distribute / reset-rotation. The header also carries **grid** (arrange-in-grid + fine-grid toggle) and a **zoom** control (− / horizontal slider / +; the slider is **log-mapped** so its centre is the default zoom — left zooms out, right zooms in; also `Ctrl`+scroll, which zooms toward the cursor, and double-click the slider to reset); zoom drives px-per-world-unit and the grid/emitter-dot size via CSS vars, default zoomed in for readable footprints. Placement is the engine's world geometry — persisted per fixture via `lumox:patch:setTransform` (see [fixtures.md](fixtures.md)) and consumed by MATRIX FX |
+| `views/stage.ts` | STAGE — top-down 2D rig view of per-emitter footprints (emitter count **derived from the channel layout** — a 9-LED bar → 9 cells — drawn at `emitterLayout` positions or a single row), each emitter painting its **live mixed-output colour** (RGB × master dimmer, glow; polled from `universes.read`, gated on visibility). Drag-move **always snaps** (fine-grid toggle quarters the step). The live selection is framed by a **bounding box**: round corner handles **rotate** it as a rigid body (about the centre; Ctrl-drag a fixture also rotates), square edge handles **scale** its spread. The stage is **shared between tabs but switches role**: **SETUP** positions fixtures (move/rotate/resize/arrange); **CONTROL** is **selection-only** (positioning controls + handles hidden, a click just selects). A **canvas-tool mode** (header, left) picks the gesture: **select/move** (V), **rect** marquee (M), **lasso** (L, point-in-poly by footprint centre), **hand/pan** (H); only select moves fixtures. A **middle-mouse drag pans** from any tool. Zoomed out far enough to fit the whole box, the card frame drops away so only grid lines show. A **left vertical rail** holds selection (select all `Ctrl+A` / deselect / invert), then align / distribute / reset-rotation. The header also carries **grid** (arrange + fine-grid toggle) and a **zoom** control (− / **log-mapped** slider centred on default / +; also `Ctrl`+scroll toward cursor, double-click slider to reset); zoom drives px-per-world-unit and grid/emitter-dot/selection-handle size via CSS vars. Placement is engine world geometry, persisted per fixture via `lumox:patch:setTransform` (see [fixtures.md](fixtures.md)) and consumed by MATRIX FX |
 | `views/groupbar.ts` | GROUPS — group select/highlight |
-| `views/fadereditor.ts` | FADER — a left sidebar of attribute categories (DIMMER/COLOR/…/FADER) that only highlights + scrolls to its channels, over a strip-per-channel main area that **always shows every channel** (so switching category never reflows). When the selected group mixes fixture types (e.g. the **All** tab) the strips split into labelled **blocks**; a header **TYPE / FIX** toggle picks one block per channel-config (writes broadcast to every fixture of that type) or one block per individual fixture — a homogeneous group is a single block either way. Each strip: engage dot · channel number · colour swatch · value/OFF · vertical fader; moving one auto-engages it. EDIT (recalled scene) / LIVE (programmer) target; LIVE header shows engaged-channel count + **Clear** / **Store** (capture programmer → new scene in the active bank). Right rail: **GrandMaster** + a momentary **Blackout** (BO) — flash button, forced to zero only while held (pointer capture releases on up) |
+| `views/fadereditor.ts` | FADER — left sidebar of attribute categories (DIMMER/COLOR/…/FADER) that highlight + scroll to their channels, over a strip-per-channel main area that **always shows every channel** (so switching category never reflows). A mixed-type group (e.g. the **All** tab) splits into labelled **blocks**, one per channel-config (writes broadcast to every fixture of that type); a homogeneous group is one block. Each strip stacks the channel number + value/OFF readout above a **full-height vertical fader** with its **colour swatch (and preset chips) in a left column** and an engage dot at the bottom; moving the fader auto-engages it. EDIT (recalled scene) / LIVE (programmer) target; LIVE header shows engaged count + **Clear** / **Store**. Right rail: **GrandMaster** + a momentary **Blackout** (BO) — forced to zero only while held |
 | `views/banks.ts` | BANKS — ordered scene groups: scene cells + a `+` that captures current output as a new scene, scene type & chase-step menu |
-| `views/fxpalette.ts` | SCENE panel — header has the scene name, a rename **pencil**, live status + recall. A **right-hand icon rail** (Base / FX / Scene / Advanced) switches the body between **full-width pages** — decluttering the narrow column by showing one thing at a time instead of nesting. **Base page**: STATIC/CHASE segment + optional STEPS table (per-step fade/wait). **FX Rack page**: a flat list of layer rows (enable dot · kind icon+name · target hint · ›) — clicking a row **drills into that layer's own full-width editor page** (a `← FX Rack` back link, a title row with reorder ▲▼ + enable + delete, then target group + sweep order, the kind config, then TIMING = Speed/Phasing/Size knobs `lib/knob.ts` + direction + drive/beat/rate); below the list are the add-FX buttons (color/move/curve/chaser/value/matrix) and the rack preset apply/save. **Scene page**: Dimmer/Speed knobs, playhead transport, tempo drive+beat+BPM, start mode, fade timing. **Advanced page**: priority (low/normal/high), loop (always / ×N) with jump-to (next/prev/specific scene) + release-at-end, release mode + protect-from-release (off/all/bank/outside-bank/specific, with a bank checklist for 'specific'), and a flash toggle — see [mix-engine.md](mix-engine.md#advanced-playback-priority-loopjump-releaseprotect-flash). Kind editors: COLOR (palette/gradient/transform), MOVE (shape + symmetry), CURVE/VALUE (waveform + min/max/duty), CHASER (lit/gap/levels), MATRIX (pattern + palette + scale/angle — pixel-maps emitters by their STAGE position). MOVE/CURVE/VALUE editors draw a live, full-width `<canvas>` preview (backing store kept at CSS-size × `devicePixelRatio` for crisp lines; theme colours read from CSS vars) whose per-beam dots sit at the current FX playhead: when the scene is live the engine's actual layer phase is polled (`lumox:scenes:layerPhase` → `SceneMixer.layerPhaseInfo`) and dead-reckoned forward between samples so the dots match the rig exactly; when idle it free-runs a local `requestAnimationFrame` clock reusing the mixer's period + direction math. Knob/slider drags update the preview live (knob `onInput` + slider `input`), and a commit keeps the body's scroll offset (in-place rerender) and the playhead continuous because `rebuildSceneTrack` preserves the playback phase clock (only recall reseeds it per start mode) |
+| `views/fxpalette.ts` | SCENE panel — header: scene name, rename **pencil**, live status + recall. A **right-hand icon rail** (Base / FX / Scene / Advanced) switches the body between **full-width pages** (one section at a time). **Base page**: STATIC/CHASE segment + optional STEPS table (per-step fade/wait). **FX Rack page**: an inline **collapsible stack** of layer blocks; each header carries `caret · enable dot · kind icon+name · target hint · reorder ▲▼ · delete`, and clicking it **expands that one layer in place** (single-expand accordion) to reveal target group + sweep order, kind config, then TIMING (Speed/Phasing/Size knobs `lib/knob.ts` + direction + drive/beat/rate); below sits an **add-FX palette bar** (one icon button per kind — color/move/curve/chaser/value/matrix) and a **preset** apply/save footer. **Scene page**: Dimmer/Speed knobs, playhead transport, tempo drive+beat+BPM, start mode, fade timing. **Advanced page**: priority (low/normal/high), loop (always / ×N) with jump-to + release-at-end, release mode + protect-from-release (off/all/bank/outside-bank/specific), flash toggle — see [mix-engine.md](mix-engine.md#advanced-playback-priority-loopjump-releaseprotect-flash). Kind editors: COLOR (palette/gradient/transform), MOVE (shape + symmetry), CURVE/VALUE (waveform + min/max/duty), CHASER (lit/gap/levels), MATRIX (pattern + palette + scale/angle). MOVE/CURVE/VALUE editors draw a live full-width `<canvas>` preview (backing store at CSS-size × `devicePixelRatio`; theme colours from CSS vars) whose per-beam dots sit at the current FX playhead: live, the engine's layer phase is polled (`lumox:scenes:layerPhase` → `SceneMixer.layerPhaseInfo`) and dead-reckoned between samples; idle, a local `requestAnimationFrame` clock reuses the mixer's period + direction math. Knob/slider drags update the preview live, and a commit keeps scroll offset + playhead continuity because `rebuildSceneTrack` preserves the phase clock (only recall reseeds it per start mode) |
 | `views/debug.ts` | DEBUG — 512 faders + live readback (full-page view, ⋯ menu) |
 | `views/connection.ts` | CONNECTION — DMX output transport (Art-Net/sACN cards, target IP, refresh) + live status; full-page view on its own titlebar tab. See [connection.md](connection.md) |
 | `fixtureeditor-window.ts` | Fixture editor — standalone window (own taskbar entry) |
@@ -198,7 +212,11 @@ legacy loaders), handled in `main/handlers/project.ts` +
   resolves.
 - **Dirty marker** — `registerHandlers()` wraps `ipcMain.handle` so any
   show-mutating channel flips a dirty flag (read-only / live / playback / window
-  channels don't). The titlebar shows `— <name>` with a `*` when dirty.
+  channels don't — including the read-only library catalog queries
+  `library:vendors`/`library:vendor`, which would otherwise dirty a fresh load).
+  The titlebar shows `— <file.lmx>` (the whole file name, derived from the project
+  `path`; an unsaved/`Untitled` show falls back to the display `name` with `.lmx`
+  appended, so the extension always shows) with a `*` when dirty.
   Identity changes are pushed to the renderer via the `projectEvents` emitter
   → `project:changed`.
 - **Open** — `validateProject()` rejects malformed files before any mutation;

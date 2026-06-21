@@ -41,6 +41,17 @@ not leave commented-out code.
   `main/validate.ts`. Handler recipe: [app.md](app.md).
 - The app **has a build step** — esbuild + Tailwind via `build.mjs`.
 
+## UI copy & help text
+
+- **No inline help / instructional text.** No prompts like "Select a fixture to…",
+  hint banners, or explanatory paragraphs inside a panel — standing help text is
+  clutter that competes with live data. When a control is unavailable, **grey it out
+  in place** (don't replace it with a sentence) — see the
+  [UI laws](../../.claude/skills/lumox-ui-design/SKILL.md) "disable, don't hide".
+- **Explain on hover only.** Put guidance in a `title` tooltip on the control itself.
+- A short **status note** for a genuine empty/error condition (e.g. "the selection
+  has no dimmer or pan/tilt to limit") is fine — that reports state, not how-to help.
+
 ## CSS
 
 - Dark theme, CSS custom properties (`--bg`, `--fg`, `--accent`, …).
@@ -48,12 +59,17 @@ not leave commented-out code.
 
 ## Icons
 
-- **Font Awesome (free, solid)** via `<i class="fa-solid fa-…">` tags — never inline
-  SVG for UI icons. The webfont is vendored offline by `build.mjs` into
+- **Font Awesome (free, solid)** via `<i class="fa-solid fa-…">` is the default for
+  **generic** icons. The webfont is vendored offline by `build.mjs` into
   `renderer/dist/fontawesome/` (no CDN; CSP `font-src 'self'`) and linked from the
   HTML. Size icons with `font-size` on the button/container (`color` tints them).
-- Custom **SVG is only for diagrams**, not icons — e.g. the rotary knob dial
-  (`lib/knob.ts`) and the FX preview shapes/waveforms (`views/fxpalette.ts`).
+- **Custom UI icons** are allowed only for **domain-specific glyphs Font Awesome
+  lacks** (DMX universe, emitter/node, fixture archetype, fan/phase, beat) — none
+  exist yet. When needed, authored filled to match FA Solid weight and rendered as
+  inline SVG through an `icon()` helper (spec: `renderer/icons/` source + `lib/icons.ts`).
+  Don't redraw an icon FA already has. Full spec + workflow: the `lumox-icon-design` skill.
+- Custom **SVG diagrams** (not icons) — e.g. the rotary knob dial (`lib/knob.ts`)
+  and the FX preview shapes/waveforms (`views/fxpalette.ts`).
 
 ## Security baseline
 

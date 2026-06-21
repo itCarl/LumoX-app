@@ -7,10 +7,7 @@
 
 Fine-grained reactivity for **shared renderer state** — state read by more than
 one dock tile — built on **`@preact/signals-core`** (a tiny, standard signals
-library; no UI framework, no virtual DOM). It replaces the hand-wired pattern
-where one value lived as a private copy inside each tile and was re-synced by
-broadcasting a bus event that every consumer listened for and reacted to with a
-manual re-render.
+library; no UI framework, no virtual DOM).
 
 This is **not** a UI framework and does not replace `lib/dom.ts` (`html` + `mount`)
 — rendering stays imperative. Signals only own the *state* layer; tiles still draw
@@ -34,18 +31,20 @@ The three primitives come from `@preact/signals-core`:
 Wrap multiple writes in **`batch(() => { … })`** to coalesce them into a single
 flush so a burst of updates causes one re-render, not several.
 
-**Dependency tracking** is automatic: reading `signal.value` inside a running
-effect links that effect to the signal; each re-run re-collects dependencies so
-stale subscriptions can't accumulate.
+**Dependency tracking** is automatic: each effect re-run re-collects the
+`signal.value`s it reads, so stale subscriptions can't accumulate.
 
 ### Shared store (`store.ts`)
 
 `store.ts` holds the app-wide signals (one source of truth per value). Today:
 
-- **`activeGroup`** — the active fixture-group filter (`'all'` or a group id).
+- **`activeGroup`** — the active fixture-group **highlight** (`'all'` or a group id).
   Written by the group bar (`views/groupbar.ts`); read inside an `effect()` by the
-  patch grid, stage, and fader editor, which re-render automatically. There is no
-  `GROUP_SELECTED` event and no echo-guard — the signal *is* the channel.
+  patch grid and stage, which re-render the group outline automatically. There is no
+  `GROUP_SELECTED` event and no echo-guard — the signal *is* the channel. It is a
+  visual highlight only: the fader editor is driven by the **live selection**
+  (`EV.FIXTURE_SELECTED`), not this signal — a group-bar tab click *also* selects
+  its fixtures so a whole group can be edited (see [selection.md](selection.md)).
 
 Consumer shape:
 

@@ -1,7 +1,7 @@
 # Color
 
 **Status:** stable
-**Files:** `src/util/color.ts` (DMX-byte bridges over [culori](https://culorijs.org/)), consumed by `src/mix/sceneFx.ts`, `src/mix/modules/GroupEffects.ts`
+**Files:** `src/util/color.ts` (DMX-byte bridges over [culori](https://culorijs.org/)), consumed by `src/mix/sceneFx.ts`, `src/mix/modules/GroupEffects.ts`; `renderer/lib/colorpicker.ts` (UI colour picker)
 
 ## What
 
@@ -29,17 +29,45 @@ bytes.
 
 Both are implemented with culori's `converter('rgb')` and `parse()`.
 
-**Using culori directly** (the common ones — see the [culori docs](https://culorijs.org/api/)):
-
-```ts
-import { converter, parse, interpolate, formatHex, wcagLuminance } from 'culori';
-
-converter('hsl')(parse('#ff8000'));        // → { mode:'hsl', h, s, l }   (0..1)
-wcagLuminance('#ff8000');                  // perceived luminance 0..1
-formatHex(interpolate(['red','blue'], 'oklab')(0.5));  // perceptual midpoint
-```
-
+For anything richer, import culori directly — `converter`, `parse`,
+`interpolate`, `formatHex`, `wcagLuminance` ([culori docs](https://culorijs.org/api/)).
 Runnable reference: [`examples/25-color-utility.ts`](../../examples/25-color-utility.ts).
+
+## Renderer — colour picker
+
+`renderer/lib/colorpicker.ts` is a small **dependency-light** colour picker for
+the UI, styled to the dark control surface (`.cpick*` in `main.css`). It owns its
+DOM + pointer handling and speaks **8-bit RGB** (`{ r, g, b }` 0..255) at its
+edges to match DMX channel values; conversions go through culori (`converter('rgb'
+| 'hsv')`), so no extra colour dependency. API: `createColorPicker({ initial,
+onInput, onEnd })` → `{ el, setRgb }` — append `el` into a host, `onInput(rgb)`
+fires while dragging/applying, and `setRgb()` reflects an external change
+**without** re-firing `onInput` (so a two-way binding can't loop).
+
+**Model — hue × saturation, no value.** A **hue (X) × saturation (Y)** square
+(top = saturated, bottom = white) flanked by two synced sliders: **saturation**
+vertical on the **left**, **hue** horizontal **below**. **Brightness is
+deliberately not part of the picker** — the square always outputs full value, and
+intensity comes from the **dimmer / [virtual dimmer](virtual-dimmers.md)**, so
+colour and level are programmed independently (the console convention). So `setRgb`
+reads hue + saturation and **ignores value** (a dimmed strip moves the level, not
+the picker). Greyscale has no defined hue, so the picker keeps the last hue through
+white/grey. Live **Hue (°) / Sat (%)** readouts sit above the square.
+
+**Favourites + palettes.** Below the square is a **favourites** row of
+quick-apply swatches (`+` captures the current colour; right-click removes one)
+and a **`•••` palette menu**: built-in named palettes (Basic, Warm, Cool, Pastel,
+Tungsten, Fire) load into the favourites row, and the current favourites can be
+**saved as a named palette** (custom palettes get a delete in the menu).
+Favourites and palettes are **global** (every mounted picker mirrors them via a
+small module-level pub/sub) and **persist in `localStorage`**
+(`lumox.color.favourites`, `lumox.color.palettes`).
+
+It drives the **COLOR** category of the fader editor
+(`renderer/views/fadereditor.ts`): each RGB-mixer block (a fixture with red +
+green + blue channels) gets a picker ahead of its strips; dragging it (or applying
+a favourite) engages and writes the R/G/B channels across the block's fixtures,
+and dragging a strip pushes the colour back onto the picker via `setRgb`.
 
 ## Notes / Gotchas
 

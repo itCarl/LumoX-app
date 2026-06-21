@@ -6,9 +6,8 @@
 ## What
 
 The Electron security baseline the app must hold, plus the recurring audit
-checklist. **Run a security audit regularly** — each release, and after any
-change to the Electron shell, the IPC surface, the project-file format, or the
-wire protocols.
+checklist. Audit each release and after any change to the Electron shell, the IPC
+surface, the project-file format, or the wire protocols.
 
 ## Baseline
 
@@ -48,10 +47,6 @@ wire protocols.
 
 - Art-Net capped at 44 Hz (`src/outputs/ArtNetOutput.ts`).
 - sACN priority clamped 0–200 (`buildDataPacket` in `src/protocols/sacn.ts`).
-
-### Tooling / deps
-
-- `npm run lint` clean; review `npm audit`; keep Electron on a supported release.
 
 ## Audit steps
 

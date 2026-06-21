@@ -20,14 +20,9 @@ semantics · settings store · BPM sources · audio-reactive input. See their en
 
 ## How to read a spec
 
-Each spec below has **Goal**, **Current state** (grounded in real files), a **Plan**,
-**Acceptance**, and **Touch-points**. House style: IPC channels `lumox:<area>:<action>`
-with one handler module per area in `main/handlers/` (the dirty-flag wrapper in
-`main/handlers/index.ts` excludes read-only/transient channels); renderer tiles talk
-via the `bus` (`renderer/lib/bus.ts`, `EV.*`); DTOs in `main/dto.ts`, mappers in
-`main/serializers.ts`, typed surface in `renderer/lumox.d.ts`. The engine (`src/`) is
-fixture-agnostic — anything needing the patch is resolved in `main/context.ts` and
-attached to the mixer (see `sceneTrack`, `buildLimitMap`).
+Each spec below has **Goal**, **Current state**, a **Plan**, **Acceptance**, and
+**Touch-points**. For the IPC/DTO/bus house style and engine-vs-show-domain split,
+see [`docs/knowledge-base/conventions.md`](../knowledge-base/conventions.md).
 
 ---
 
@@ -42,32 +37,10 @@ persistence. Folded into [`docs/knowledge-base/midi.md`](../knowledge-base/midi.
 slice spec is [midi-scene-mapping-apc.md](midi-scene-mapping-apc.md).
 
 **Remaining.** The broader generic vision in
-[midi-control-surface.md](midi-control-surface.md): a first-class Action registry,
-non-APC / multi-device support, relative encoders, FeedbackEngine generalisation, and
-the Devices view — extending naturally to OSC / keyboard / DMX-in via the same registry.
-
----
-
-## Audio→FX-layer parameter targets 📋 (M, PLANNED — extension)
-
-**Goal.** Let an audio binding drive an **FX layer's** intensity / depth / speed, not just
-the masters / group intensity / raw DMX / scene+blackout triggers that
-[audio.md](../knowledge-base/audio.md) already ships.
-
-**Current state.** The audio-reactive system is shipped (capture, spectrum, input picker,
-bindings table, range + trigger dispatch). `AudioBindingService` resolves a `target.key` to
-an engine setter; the missing piece is an **addressable FX-layer parameter** target — the
-FX rack has no stable per-layer param handle a binding can write each frame.
-
-**Plan (sketch).** Add a `layer:<sceneId>:<layerId>:<param>` target kind whose dispatch
-writes the layer's live modulation (reusing whatever continuous setter the FX rack exposes /
-needs to expose); surface those targets in `AudioBindingService.targets()` and the bindings
-table's target select. Converges with the MIDI surface once Input mapping's generic Action
-registry lands (both would target the same FX-layer params).
-
-**Touch-points.** `main/services/AudioBindingService.ts` (target + dispatch),
-`src/mix/modules/SceneMixer.ts` (FX-layer param setter), `renderer/views/connection.ts`
-(target options).
+[midi-control-surface.md](midi-control-surface.md): a first-class Action registry and
+relative-encoder *input* — extending naturally to OSC / keyboard / DMX-in via the same
+registry. (Multi-device support and hardware-side encoder-ring / motor-fader feedback
+are out of scope; the FeedbackEngine + software mirror have shipped.)
 
 ---
 
@@ -88,7 +61,7 @@ matrix-aware target ordering.
 **Acceptance.** Create a 10×5 RGB matrix; a COLOR FX sweeps a gradient across it in a
 chosen direction.
 
-**Touch-points.** `main/handlers/patch.ts`, `src/fixtures/*`, `main/context.ts` (matrix
+**Touch-points.** `main/handlers/patch.ts`, `src/fixtures/*`, `main/services/SceneCompiler.ts` (matrix
 target ordering), `renderer/views/patchgrid.ts`/`stage.ts`, FX UI.
 
 ---
@@ -127,10 +100,9 @@ Input mapping.
 
 ## Notes
 
-- **Active: Input mapping.** Audio-reactive input has shipped ([audio.md](../knowledge-base/audio.md));
-  only the small FX-layer-target extension above remains. Matrix/strip, Stand-alone export and
-  Touch/remote are parked at lowest priority — do not start any of them until the active work
-  lands and they are explicitly reprioritised.
+- Input mapping is the only active build; Matrix/strip, Stand-alone export and
+  Touch/remote are parked at lowest priority until it lands and they are explicitly
+  reprioritised.
 - Keep naming generic in code/UI/docs (`conventions.md`). When a feature ships, move its
   spec out of this file, fold the behaviour into `docs/knowledge-base/`, and update the
   table in `CLAUDE.md` + [backlog-summary.md](backlog-summary.md).

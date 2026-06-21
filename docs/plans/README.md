@@ -16,6 +16,6 @@ rack, colour palettes, cue semantics, settings store, BPM sources, audio-reactiv
 | Plan | Scope |
 | --- | --- |
 | [backlog-summary.md](backlog-summary.md) | **Start here** — one-glance status table of every feature (shipped / active / parked) with effort + dependencies |
-| [feature-backlog.md](feature-backlog.md) | Detailed specs for the **remaining** work only — Input mapping (active), the Audio→FX-layer-target extension, and the parked Matrix/strip, Stand-alone export, Touch/remote |
+| [feature-backlog.md](feature-backlog.md) | Detailed specs for the **remaining** work only — Input mapping (active), and the parked Matrix/strip, Stand-alone export, Touch/remote |
 | [midi-control-surface.md](midi-control-surface.md) | Input mapping design — app-level MIDI device management + action mapping + MIDI-learn + feedback, on the existing `src/midi/` engine stack |
 | [midi-scene-mapping-apc.md](midi-scene-mapping-apc.md) | Input mapping first slice — a separate MIDI window with click-to-assign ("just clicky") mapping, APC Mini MK2 only |

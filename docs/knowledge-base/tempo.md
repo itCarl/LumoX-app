@@ -36,24 +36,23 @@ override an external clock. Source switching tears down the previous driver and
 starts the new one:
 
 - **MIDI clock** — `MidiClockSource` opens a MIDI input via the engine MIDI backend
-  (`src/midi`, reused), counts `clock` (0xF8) pulses, and computes BPM from the
-  average pulse interval over ~one beat (`bpm = 60000 / (perPulse × 24)`). The
-  window resets on transport start/stop or after a >1 s gap. `EasyMidiBackend` opts
-  the underlying node-midi port back into timing messages (ignored by default).
-- **Audio** — the shared `renderer/lib/audio-engine.ts` runs only in the renderer (Web
-  Audio has no main equivalent). One capture (`getUserMedia` + `AnalyserNode`) feeds many
-  consumers; the BPM consumer samples low-band energy, flags onsets above a rolling
-  average (with a refractory gap), folds inter-onset intervals into 70–180 BPM, and
-  pushes the most common estimate via `lumox:transport:audioBpm`. Main applies it only
-  while `audio` is the source. Input denial reverts the source to `manual`. The capture
-  device is the machine-scoped `audioInput` setting, chosen on the Connection tab
-  ([connection.md](connection.md)); the same engine also feeds the Connection-tab spectrum
-  meter, so one capture serves both.
+  (`src/midi`, reused), counts `clock` (0xF8) pulses, and computes
+  `bpm = 60000 / (perPulse × 24)` from the average pulse interval over ~one beat.
+  The window resets on transport start/stop or after a >1 s gap. `EasyMidiBackend`
+  opts the node-midi port back into timing messages (ignored by default).
+- **Audio** — `renderer/lib/audio-engine.ts` runs only in the renderer (no main Web
+  Audio). One capture (`getUserMedia` + `AnalyserNode`) feeds many consumers; the BPM
+  consumer flags low-band-energy onsets above a rolling average (refractory gap),
+  folds inter-onset intervals into 70–180 BPM, and pushes the most common estimate
+  via `lumox:transport:audioBpm` (main applies it only while `audio` is the source).
+  Input denial reverts to `manual`. Capture device = the machine-scoped `audioInput`
+  setting, chosen on the Connection tab ([connection.md](connection.md)); the same
+  capture also feeds the Connection-tab spectrum meter.
 - **Ableton Link** — `LinkSource` lazily `import()`s the optional `abletonlink`
   native addon (gated like `easymidi`; kept out of the esbuild bundle via the
   `external` list and ambient-declared so the build type-checks without it). It
-  tracks the session tempo and broadcasts local manual edits back into Link. Absent
-  addon → the Settings option is shown disabled.
+  tracks session tempo and broadcasts local manual edits back into Link. Absent
+  addon → the Settings option is disabled.
 
 IPC (`main/handlers/transport.ts`): `lumox:transport:get` (live `TransportStatus`),
 `setBpm`, `setSource` (applies + persists), `audioBpm`, `midiInputs` (device picker).

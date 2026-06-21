@@ -5,9 +5,9 @@
 
 ## What
 
-Transport between the app and the ESP32 nodes. **Art-Net** over UDP 6454 (default)
-or **sACN E1.31** over UDP 5568. Compatible with standard Art-Net / sACN
-consoles, software, and nodes. Each node = one universe.
+Transport between the app and the ESP32 nodes: **Art-Net** over UDP 6454 (default)
+or **sACN E1.31** over UDP 5568, compatible with standard Art-Net / sACN gear.
+Each node = one universe.
 
 ## How
 
@@ -19,8 +19,7 @@ consoles, software, and nodes. Each node = one universe.
   ArtPoll periodically and collects ArtPollReply (`parsePollReply` parses IP, MAC,
   ShortName/LongName, firmware, universe). sACN has no wire discovery; mDNS is not
   used. Full detail: [discovery.md](discovery.md).
-- **sACN** — priority byte clamped 0–200 (`buildDataPacket` in `src/protocols/sacn.ts`);
-  multicast group `239.255.<U high>.<U low>` per universe.
+- **sACN** — priority byte clamped 0–200 (`buildDataPacket` in `src/protocols/sacn.ts`); per-universe multicast group `239.255.<U high>.<U low>`.
 
 ## Transmission (frame) modes
 

@@ -17,12 +17,12 @@ from the ⋯ app menu (or `Ctrl+,`) as a modal. Covers:
 - **Project** — autosave period (minutes, `0` = off) and reopen-last-project on
   launch.
 
-> **DMX output transport** (`dmxProtocol` / `broadcastHost` / `maxRateHz`) is
-> persisted here too, but its **UI lives in the Connection tab**, not this modal
-> (single source of truth) — see [connection.md](connection.md). Likewise the
-> **tempo source/device** (`tempoSource` / `midiClockInput`, UI in the Tempo section +
-> titlebar — [tempo.md](tempo.md)) and the **audio capture device** (`audioInput`, picked
-> on the Connection tab — [connection.md](connection.md)) live in `settings.json`.
+> **DMX output transport** (`dmxProtocol` / `broadcastHost` / `maxRateHz`),
+> **tempo source/device** (`tempoSource` / `midiClockInput`) and **audio capture
+> device + band count** (`audioInput` / `audioBands`) are persisted in
+> `settings.json` too, but their **UI lives elsewhere** (single source of truth):
+> DMX + audio on the Connection tab ([connection.md](connection.md)), tempo in the
+> Tempo section + titlebar ([tempo.md](tempo.md)).
 
 Settings are stored as **`settings.json` in the Electron `userData` directory**
 (NOT in the `.lmx` project file). Changing a setting never marks the project
@@ -39,37 +39,35 @@ renderer modal ──lumox:settings.update──▶ SettingsService ──settin
                                               └─▶ handlers/project  → reschedule autosave if autosaveMinutes moved
 ```
 
-- **SettingsService** is the single in-memory store. `loadSettings()` runs once
-  at boot (needs app ready for the `userData` path); `getSettings()` /
-  `getSetting(k)` read, `updateSettings(patch)` merges + persists + emits. Every
-  field is `sanitize()`d on load and update (enum membership, hex colour, numeric
-  clamps) so a corrupt or hand-edited file falls back to `DEFAULT_SETTINGS`.
-  `updateSettings` emits `'changed'` with the **list of keys that actually moved**
-  so listeners can ignore irrelevant updates (e.g. don't tear down the UDP socket
-  when only the accent changed).
-- **Side effects** live with the modules that own the resource, each subscribing
-  to `settingsEvents`: the settings handler recreates the broadcast output
-  (`context.recreateBroadcast`) on a DMX-key change and pushes `settings:changed`
-  to every window; the project handler reschedules its autosave timer on an
-  `autosaveMinutes` change.
+- **SettingsService** is the single in-memory store. `loadSettings()` runs once at
+  boot (needs app ready for the `userData` path); `getSettings()` / `getSetting(k)`
+  read, `updateSettings(patch)` merges + persists + emits. Every field is
+  `sanitize()`d on load/update (enum membership, hex colour, numeric clamps), so a
+  corrupt file falls back to `DEFAULT_SETTINGS`. `updateSettings` emits `'changed'`
+  with the **list of keys that actually moved**, so listeners ignore irrelevant
+  updates (e.g. don't tear down the UDP socket when only the accent changed).
+- **Side effects** live with the modules owning the resource, each subscribing to
+  `settingsEvents`: the settings handler recreates the broadcast output
+  (`context.recreateBroadcast`) on a DMX-key change + pushes `settings:changed` to
+  every window; the project handler reschedules autosave on an `autosaveMinutes`
+  change.
 - **Startup** (`main/index.ts → bootShow`): after `loadSettings()`, if
-  `reopenLastProject` is set and `lastProjectPath` resolves it loads that project
-  (`ProjectService.loadProjectFromPath`, shared with the Open dialog); otherwise
-  it seeds the dev demo / blank show. The broadcast output is then created from
-  the DMX settings.
+  `reopenLastProject` is set and `lastProjectPath` resolves, it loads that project
+  (`ProjectService.loadProjectFromPath`); otherwise it seeds the dev demo / blank
+  show. The broadcast output is then created from the DMX settings.
 - **`lastProjectPath`** is recorded by the project handler on every save/open via
   `SettingsService.setLastProjectPath` (no-op when unchanged).
-- **Renderer** (`lib/settings.ts`): `initAppSettings()` fetches once, applies
-  `lang` + `--accent`, and re-applies on every `settings:changed`. Called per
-  window so the accent/language reach the fixture-editor window too.
+- **Renderer** (`lib/settings.ts`): `initAppSettings()` fetches once, applies `lang`
+  + `--accent`, re-applies on every `settings:changed`. Called per window so the
+  accent/language reach the fixture-editor window too.
 
 ## Adding a setting
 
 1. Add the field to `AppSettings` in `main/dto.ts` **and** `renderer/lumox.d.ts`.
 2. Add its default + `sanitize()` rule in `SettingsService.ts`.
 3. Add a control to `renderer/views/settings-modal.ts`.
-4. If it has a side effect, subscribe to `settingsEvents` in the owning module
-   and guard on the relevant key in `changedKeys`.
+4. If it has a side effect, subscribe to `settingsEvents` in the owning module and
+   guard on the relevant key in `changedKeys`.
 
 ## Notes / Gotchas
 

@@ -5,12 +5,10 @@
 
 ## What
 
-The Lumox brand mark and application icon. Concept: *Lumos* (light) + **DMX** —
-two stage-light sources at the top corners fire diagonally, each beam spreading
-into a **cone**, and cross through the centre to form an **X**; screen-blended,
-their overlap fuses to a white-hot core (a nod to DMX additive colour mixing).
-Brand accent blue (`#5eb3ff` family) paired with a violet, two lens sources on a
-dark rounded tile that matches the app shell.
+The Lumox brand mark and application icon. Two stage-light beams fire diagonally
+from the top corners and cross at the centre to form an **X**; screen-blended,
+their overlap fuses to a white-hot core. Brand accent blue (`#5eb3ff` family) +
+violet, on a dark rounded tile matching the app shell.
 
 `assets/icon.svg` is the **single source of truth**. The raster files are
 generated from it and committed so they are available at runtime and to any

@@ -22,15 +22,14 @@ ships: the **AKAI APC Mini MK2**.
 
 Two layers, used independently:
 
-- **Engine layer** (`src/midi/`) — the device drivers + backends, exported from
-  the public barrel and used by the CLI and example 23. The `ApcMiniMk2` driver
-  here keeps its own hard-wired defaults (faders→groups, scene buttons→utilities)
-  for headless/CLI use.
+- **Engine layer** (`src/midi/`) — device drivers + backends, exported from the
+  public barrel, used by the CLI and example 23. The `ApcMiniMk2` driver keeps its
+  own hard-wired defaults (faders→groups, scene buttons→utilities) for headless/CLI.
 - **App layer** (`main/` + the MIDI window) — the Electron control surface:
-  point-and-click "assign mode" that binds **any** MIDI control to **any** Lumox
+  point-and-click "assign mode" binding **any** MIDI control to **any** Lumox
   function, persisted per project. It does **not** use the `ApcMiniMk2` driver's
-  default action handlers (that would double-fire); instead `MidiService` listens
-  to the raw input itself and dispatches user **bindings**. See
+  default action handlers (that would double-fire); `MidiService` listens to the raw
+  input itself and dispatches user **bindings**. See
   [the App control surface](#app-control-surface-midiservice--mapping-window) below.
 
 ## How
@@ -98,7 +97,7 @@ overriding `_onScenePress` / `_onTrackPress` (reserved scene slots 5–7 are the
   (auto-detects the port, opens input + optional output for LEDs, attaches an
   `ApcMiniMk2`), `midi disconnect [id]`, `midi controllers`.
 - **Example** `examples/23-midi-apc-mini.ts` — full wiring against real hardware or
-  the mock backend (`--mock`), including `bindPad` colour demos.
+  the mock backend (`--mock`), with `bindPad` colour demos.
 - **Barrel**: `import { MidiManager, ApcMiniMk2, MockMidiBackend } from '../src/index'`.
 
 ## App control surface (MidiService + mapping window)
@@ -130,13 +129,14 @@ intensity), so hardware behaves exactly like clicking.
   `main/windows.ts`, third renderer entry in `build.mjs`). Shows the connected
   device + status, **+ Add mapping**, the bindings table (with per-pad LED colour
   and Solid/Blink/Fade controls, driven by the device's reported capabilities),
-  and a live MIDI monitor.
+  a **live state mirror** on each row (a lit dot in the LED colour for active
+  triggers, a value bar for ranges — fed by `midi:feedback`), and a live MIDI
+  monitor.
 - **`renderer/lib/midiassign.ts`** — main-window assign overlay: while assigning,
-  every `[data-midi]` control is marked with a dotted purple border + a 45°
-  diagonal striped fill; a capture-phase click reads its target descriptor →
-  `pickTarget`. `Esc` cancels. Closing the MIDI window also cancels assign mode
-  (`midiService.cancelAssign()` in `windows.ts`), so the overlay can never get
-  stuck on.
+  every `[data-midi]` control gets a dotted purple border + 45° striped fill; a
+  capture-phase click reads its target descriptor → `pickTarget`. `Esc` cancels.
+  Closing the MIDI window also cancels assign mode (`midiService.cancelAssign()` in
+  `windows.ts`), so the overlay can never get stuck on.
 
 ### Device profiles (plugin layer) — `main/midi/profiles/`
 
@@ -178,10 +178,22 @@ MidiBinding { id, trigger, target, options }                      // one table r
 ```
 
 Targets are tagged in the DOM as `data-midi="<key>"` + `data-midi-kind` +
-`data-midi-label` (+ `data-midi-min`/`-max` for ranges). The v1 tagged set:
-**scenes** (`scene:<id>`, banks tile), **groups** (`group:<id>:intensity`,
-group bar), **GrandMaster** (`master`) and **Blackout** (`blackout`) in the fader
-editor. Add more by tagging one element — no other code change.
+`data-midi-label` (+ `data-midi-min`/`-max` for ranges). A control may carry an
+**alternate** target of the other kind via `data-midi-alt*`; `learn()` picks which to
+bind from the message type (**CC → `range`, note → `trigger`**), so one control
+serves both a fader and a pad. The tagged set:
+
+| Control | Key | Kind |
+| --- | --- | --- |
+| Scene cell (banks tile) | `scene:<id>` | trigger |
+| Group tab (group bar) | `group:<id>:intensity` | range |
+| Group tab — alt | `group:<id>:flash` | trigger (flash group to full) |
+| Channel strip (fader editor) | `fixture:<id>:<localCh>` | range (live programmer write) |
+| GrandMaster (fader editor) | `master` | range |
+| Blackout (fader editor) | `blackout` | trigger |
+| Tap tempo (title bar) | `bpm-tap` | trigger |
+
+Add more by tagging one element — no other code change.
 
 ### Assign flow (cross-window)
 
@@ -197,18 +209,33 @@ later: APC press/move → MidiService matches a binding → recallScene / grandM
 
 ### Executor dispatch + LED feedback
 
-`scene:` triggers `recallScene` (toggle = flip `isLive`; flash = on press / off on
-release). `blackout` toggles or flashes `engine.blackout`. `master` (range) →
-`grandMaster.setValue` (CC 0..127 → min..max, with `invert`). `group:<id>:intensity`
-(range) → `Group.setIntensity` + `apply` + `markLiveUniverse`.
+A matched binding runs the *same* engine path the UI uses:
 
-**LED feedback** (modelled on QLC+'s per-assignment feedback, richer for RGB pads):
-each note binding has an `ledColor` + `ledMode` (Solid / Blink / Fade). The device
-profile encodes them — on the APC MK2, while the bound target is **active** the pad
-shows the colour with that animation; while **idle** it shows the colour dimmed
-(so you can see the pad is assigned). `MidiService` diffs LED state and pushes only
-changes on a low-rate poll. Which colours + modes are offered comes from the
-device's `capabilities`, so it adapts per controller.
+| Target | Dispatch |
+| --- | --- |
+| `scene:` (trigger) | `recallScene` — toggle = flip `isLive`; flash = on press / off on release |
+| `blackout` (trigger) | toggle or flash `engine.blackout` |
+| `bpm-tap` (trigger) | averages recent tap gaps → `transport.setBpm` (only while the tempo source is `manual`; mirrors the title-bar TAP) |
+| `master` (range) | `grandMaster.setValue` (CC 0..127 → min..max, with `invert`) |
+| `group:<id>:intensity` (range) | `Group.setIntensity` + `apply` + `markLiveUniverse` |
+| `group:<id>:flash` (trigger) | engages every member's intensity to full (flash = while held; toggle = latch) and **releases** it on the way out, back to whatever scene/base drives it |
+| `fixture:<id>:<localCh>` (range) | engages that fixture-local channel in the live programmer (`universe.engage`), the same path the fader editor's LIVE strips use |
+
+**Feedback (device LEDs + software mirror).** A single source of truth —
+`MidiService.bindingActive(b)` (scene live / blackout on / group-flash latched) for
+triggers, `feedbackValue` (last driven 0..1) for ranges — drives **both** the
+hardware and the UI:
+
+- **Device LEDs** (per-assignment, richer for RGB pads): each note binding has an
+  `ledColor` + `ledMode` (Solid / Blink / Fade), encoded by the device profile — on
+  the APC MK2, an **active** target shows the colour with that animation, an **idle**
+  one shows it dimmed (so you can see the pad is assigned). `MidiService` diffs LED
+  state and pushes only changes on a low-rate poll. Offered colours + modes come from
+  the device's `capabilities`, so it adapts per controller.
+- **Software mirror** — every poll/dispatch emits `feedback` (`MidiFeedback[]`),
+  broadcast as `midi:feedback`; the MIDI window paints each mapping row's live state
+  (lit dot / value bar). This runs even with no LED-capable device (works for
+  input-only controllers).
 
 ### Persistence
 

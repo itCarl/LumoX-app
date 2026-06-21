@@ -1,24 +1,18 @@
 # Plan — MIDI Control Surface
 
-**Status:** partially shipped — the first concrete slice (APC Mini MK2
-click-to-assign window + bindings + executor dispatch + LED feedback + per-project
-persistence + the main-window assign overlay) is live; see
-[docs/knowledge-base/midi.md](../knowledge-base/midi.md). What remains here is the
-**generic** layer: a typed Action registry, non-driver (data-profile) devices,
-relative encoders, MIDI-learn driven from the main UI, and a multi-device Devices
-view.
-**Scope:** app-level MIDI device management + mapping, on top of the existing engine MIDI stack.
-**Owner:** —
-
-> This is a forward-looking design/plan, not a description of shipped behaviour.
-> The knowledge base (`docs/knowledge-base/`) remains the source of truth for what
-> exists; fold the relevant parts into it as each phase ships.
+**Status:** phases 1–3 shipped (APC Mini MK2 click-to-assign window, bindings +
+executor dispatch, expanded target set, LED feedback, FeedbackEngine, per-project
+persistence) — see [docs/knowledge-base/midi.md](../knowledge-base/midi.md), the
+source of truth. **Phase 4 remains** (typed Action registry + relative encoders),
+specced below. Scope: app-level MIDI device management + mapping on top of the
+existing engine MIDI stack. **Multi-device support is out of scope** — one connected
+controller at a time.
 
 ## Goal
 
 Let a user plug in a MIDI controller, add it in the app, and bind its
 buttons/faders/encoders to Lumox actions (recall scenes, run banks, group levels,
-master, blackout, tap tempo, …) with LED/motor feedback — configured via a
+master, blackout, tap tempo, …) with LED feedback — configured via a
 **MIDI-learn** flow, persisted with the project.
 
 ## Guiding principle
@@ -30,21 +24,13 @@ like clicking — correct fades, one-active-per-bank, programmer rules — and f
 reflects true state. This decouples *what a control does* from *what hardware
 triggers it*, the way pro consoles separate an input profile from the patch.
 
-## Current state (what already exists)
+## Current state
 
-Engine-side MIDI is in good shape and is **reused as-is**:
-
-- `src/midi/MidiManager.ts` — backend select (easymidi → mock), `listInputs()/listOutputs()`, `openInput()/openOutput()`, `attach()/detach()` controllers.
-- `src/midi/MidiInput.ts` / `MidiOutput.ts` — port abstractions (input emits `noteon`/`noteoff`/`cc`/…; output sends note/cc for LEDs).
-- `src/midi/controllers/MidiController.ts` — base driver (connect/disconnect, handler binding, LED hooks).
-- `src/midi/controllers/ApcMiniMk2.ts` — a full driver (8×8 grid, faders, scene/track buttons, LED palette + feedback).
-- `examples/23-midi-apc-mini.ts` — the only current consumer.
-
-**Gaps (what this plan adds):** no Electron integration at all — no IPC, no UI, no
-persistence, no generic (non-driver) mapping, no MIDI-learn. Also the APC driver
-pokes the engine directly (`engine.scenes.setOpacity`, group intensity) and so
-**bypasses** app semantics (`recallScene` fades / one-per-bank). The Action layer
-below fixes that seam; the APC becomes an Action-emitting profile.
+The engine MIDI stack (`src/midi/`: `MidiManager.ts`, `MidiInput.ts`,
+`MidiOutput.ts`, `controllers/MidiController.ts`, `controllers/ApcMiniMk2.ts`,
+`examples/23-midi-apc-mini.ts`) plus the shipped app layer (phases 1–3) are live —
+see [midi.md](../knowledge-base/midi.md). What phase 4 adds: a typed Action registry
+shared by the mapping UI and dispatch, and relative-encoder accumulation.
 
 ## Model (new, app layer)
 
@@ -58,9 +44,9 @@ below fixes that seam; the APC becomes an Action-emitting profile.
   - `tap.tempo` (trigger), `bpm.set` (range)
   - `programmer.clear` (trigger)
   One source of truth for both the mapping UI and the dispatcher.
-- **MidiDevice** — `{ id, name, inputPort, outputPort?, profileId?, enabled }`.
-  "Add device" = pick an input port from `MidiManager.listInputs()` (+ optional
-  output port for feedback).
+- **Device** — a single connected controller, auto-selected from the available
+  input ports by its profile (`selectDevice`). No multi-device list — one controller
+  at a time, opened for input (+ output for LED feedback when the profile has them).
 - **Binding** — a mapping row:
   ```
   { id, deviceId,
@@ -74,12 +60,14 @@ below fixes that seam; the APC becomes an Action-emitting profile.
 
 ## Runtime services (new, `main/`)
 
-- **InputRouter** — receives messages from each enabled device, matches bindings,
+- **InputRouter** — receives messages from the connected device, matches bindings,
   runs the Action. `range` maps CC/velocity 0..127 → param (with min/max/invert);
   `relative` accumulates encoder deltas.
-- **FeedbackEngine** — subscribes to app state (scene active, bank playing,
-  blackout, group selected) and pushes LED / motor-fader updates back through the
-  device's profile feedback map.
+- **FeedbackEngine** — subscribes to app state (scene active, blackout, group
+  flash latched, master/group level, …) and pushes **LED** updates back through the
+  device's profile feedback map, AND surfaces that same state to the renderer so the
+  software mirror reflects exactly what the device shows. (Pad LEDs only — encoder
+  LED rings / motor faders are out of scope.)
 
 ## Key UX — MIDI Learn
 
@@ -93,44 +81,36 @@ Plus a reverse flow in the mapping table (pick a row → Learn → wiggle contro
 Reuse the `fullViews` mechanism in `renderer/index.ts` (its comment already
 anticipates `// debug / devices`).
 
-```
-┌ Devices ──────────┬ Mapping: <selected device> ─────────────┐
-│ ● <controller>     │ Trig   Ch Type Num  Action       Target │
-│   in: …  out: …    │ ───────────────────────────────────────│
-│ ○ <controller>     │ Note   0  note 0    scene.recall  Red…  ⟳│  ⟳ = Learn
-│ + Add device       │ CC     0  cc   48   group.level   Wash  ⟳│
-│ [profile ▾]        │ + Add binding                            │
-├────────────────────┴──────────────────────────────────────────┤
-│ MIDI monitor:  noteon ch0 n36 v127   cc ch0 48 → 64  …          │  (live — great for debugging)
+```text
+┌ Device: <controller> — connected ──────────────────────────────┐
+│ Trig   Ch Type Num  Action       Target                       │
+│ ───────────────────────────────────────────────────────────── │
+│ Note   0  note 0    scene.recall  Red…   [colour][solid] ⟳ ✕  │  ⟳ = Learn
+│ CC     0  cc   48   group.level   Wash                  ⟳ ✕  │
+│ + Add binding                                                  │
+├─ Virtual surface (mirrors the hardware LEDs live) ─────────────┤
+│  ▦▦▦▦▦▦▦▦   each pad lit in its current colour/animation       │
+│  ▦▦▦▦▦▦▦▦   faders show their live value                       │
+├────────────────────────────────────────────────────────────────┤
+│ MIDI monitor:  noteon ch0 n36 v127   cc ch0 48 → 64  …          │  (live)
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ## Persistence
 
-- **Device port + profile** → app settings (machine-specific: ports differ per
-  computer). A port missing on launch shows "disconnected" but keeps its bindings
-  and rebinds when it reappears.
-- **Bindings** → the project file (they reference scene/bank/group ids that belong
-  to the show). On load, bindings whose target id vanished get the same
-  missing-target report treatment as missing fixtures.
+- **Bindings** → the project file (they reference scene/group/fixture ids that
+  belong to the show). On load, bindings whose target id vanished are dropped
+  (`targetResolves`). The connected device/port is machine-specific and auto-detected,
+  not stored.
 
-## Build phases (each shippable)
+## Build phases
 
-1. **App MIDI manager + IPC + Devices view + monitor.**
-   - `main/services/MidiService.ts` (wraps `MidiManager`; owns devices + open ports).
-   - IPC area `main/handlers/midi.ts` — `lumox:midi:listPorts`, `:addDevice`,
-     `:removeDevice`, `:setEnabled`, `:setProfile`, plus a `midi:message` event
-     stream for the monitor. Preload + `renderer/lumox.d.ts`.
-   - `renderer/views/midi.ts` registered as a full view; list/add/remove ports,
-     enable toggle, live MIDI monitor. No mapping yet — but hardware is visible.
-2. **Action registry + generic bindings + InputRouter + mapping table + MIDI Learn.**
-   - `main/midi/actions.ts` (registry + executors routing to existing handlers).
-   - `main/midi/InputRouter.ts`. IPC for binding CRUD + learn arm/cancel.
-   - Mapping table UI + Learn mode overlay.
-3. **FeedbackEngine + profiles.**
-   - Refactor `ApcMiniMk2` to emit Actions + expose a feedback map; data-profile JSON loader.
-4. **Persistence + missing-target report.**
-   - Settings (ports/profile) + project (bindings); restore + report.
+1–3. ✅ **Shipped** — app MIDI manager + IPC + mapping window + monitor +
+   click-to-assign; bindings + executor dispatch + expanded target set; FeedbackEngine
+   (pad-LED + renderer mirror). See [midi.md](../knowledge-base/midi.md).
+   *(Encoder LED rings / motor faders are out of scope.)*
+4. 📋 **Action registry + relative encoders.** A typed registry of actions (so the
+   mapping UI and dispatch share one vocabulary) and relative-encoder accumulation.
 
 ## Notes / decisions
 

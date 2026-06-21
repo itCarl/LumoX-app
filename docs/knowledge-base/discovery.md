@@ -25,8 +25,8 @@ to an sACN universe (it just sets a unicast host / confirms the node is reachabl
 - **Polling** — `start()` sends an ArtPoll immediately, then every `pollIntervalMs`
   (3 s). `poll()` broadcasts to `255.255.255.255` **and** each interface's directed
   broadcast (`ip | ~mask` from `os.networkInterfaces()`), because limited broadcast
-  isn't reliably routed to every subnet on Windows (and the firmware itself answers
-  per-interface). This matters for the WiFi-AP + Ethernet host setup.
+  isn't reliably routed to every subnet on Windows — needed for the WiFi-AP +
+  Ethernet host setup.
 - **Parsing** — `parsePacket` → `parsePollReply` returns IP, MAC (bytes 201-206),
   ShortName/LongName, VersInfo (firmware), OEM and the universe (decoded from
   NetSwitch/SubSwitch/SwOut via `portAddress`). Devices are kept in a
@@ -58,9 +58,9 @@ to an sACN universe (it just sets a unicast host / confirms the node is reachabl
 - **Windows firewall** — the first broadcast prompts to allow the app on
   Private/Public networks; if denied, replies never arrive and the list stays empty.
 - **Lifecycle** — `start()` is a no-op while listening, `stop()` a no-op while
-  stopped. The renderer auto-stops a scan after ~2 min and on tab hide; the engine
-  `start()` has no built-in timeout (the renderer owns that). `main/index.ts
-  shutdown()` stops it on every quit path, so the socket + timers never leak.
+  stopped. The renderer owns the timeout (auto-stop after ~2 min and on tab hide);
+  the engine `start()` has none. `main/index.ts shutdown()` stops it on every quit
+  path, so the socket + timers never leak.
 - **Universe numbers** are decoded Art-Net port-addresses, not engine universe ids
   (see [connection.md](connection.md)); the Assign auto-match relies on the default
   net 0 / subnet 0 mapping where engine universe id N ↔ Art-Net universe N.

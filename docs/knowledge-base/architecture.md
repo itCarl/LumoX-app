@@ -5,11 +5,10 @@
 
 ## What
 
-Lumox is a wireless DMX system. A laptop hosts a WiFi hotspot and runs **this
-app** (the Electron controller); ESP32 nodes (a separate project,
-`lumox-firmware`) join as WiFi/Ethernet clients, each outputting one DMX512
-universe. Transport is Art-Net (default) or sACN E1.31 over UDP — compatible with
-standard Art-Net / sACN consoles, software, and nodes.
+A laptop hosts a WiFi hotspot and runs **this app** (the Electron controller);
+ESP32 nodes (a separate project, `lumox-firmware`) join as WiFi/Ethernet clients,
+each outputting one DMX512 universe. Transport is Art-Net (default) or sACN E1.31
+over UDP — compatible with standard Art-Net / sACN consoles, software, and nodes.
 
 ## How
 

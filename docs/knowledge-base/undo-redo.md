@@ -9,13 +9,14 @@
 ## What
 
 Project-level undo/redo for every **saved-show** edit — patch, fixtures, groups,
-scenes, FX layers, banks, palettes/presets, per-universe outputs, tempo. Driven
-by **Ctrl+Z** / **Ctrl+Y** (Ctrl+Shift+Z also redoes) and the **Undo / Redo**
-entries at the top of the ⋯ app menu (which show their enabled state).
+scenes, FX layers, banks, palettes/presets, per-universe outputs, tempo. Driven by
+**Ctrl+Z** / **Ctrl+Y** (Ctrl+Shift+Z also redoes) and the **Undo / Redo** entries
+at the top of the ⋯ app menu (which show their enabled state). The undoable set is
+*exactly* the set that flags the project dirty.
 
 Transient state is intentionally **not** undoable: live playback (scene recall),
 the LIVE programmer, window/settings/discovery state, and the project commands
-themselves. The undoable set is *exactly* the set that flags the project dirty.
+themselves.
 
 ## How
 
@@ -36,10 +37,9 @@ logic to maintain.
   - `undo()` / `redo()` — pop one stack, push `present` onto the other, restore,
     and `markDirty()` (content now differs from the last save).
   - `resetHistory()` — re-baseline to the current show and clear both stacks.
-- **Coalescing.** A single gesture fires many IPC calls — dragging a fader/knob
-  sends one per input event, and a group write sends one per fixture. Successive
-  records on the **same channel** within `COALESCE_MS = 400` fold into one undo
-  step (the pre-gesture state is already on the stack), so one drag = one undo.
+- **Coalescing.** A single gesture fires many IPC calls (one per input event /
+  per fixture). Successive records on the **same channel** within
+  `COALESCE_MS = 400` fold into one undo step, so one drag = one undo.
 - **Reset points** — `resetHistory()` runs after a full state replace so you
   can't undo across project boundaries: at boot (`main/index.ts bootShow`), on
   `lumox:project:new`, and on `lumox:project:open` (`main/handlers/project.ts`).

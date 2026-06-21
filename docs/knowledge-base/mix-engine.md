@@ -13,19 +13,26 @@ It is the core of the app and runs with or without the Electron shell.
 - **Tick loop** (`src/core/Engine.ts`) runs at `refreshHz` (default **44**). Per
   tick, per universe:
   1. `mix.process(universe, ctx)` runs the pipeline → writes `universe.data`
-  2. dirty check vs `_prev`
+  2. dirty check vs `_prev` — compares only the **wire region** (first
+     `DMX_CHANNELS`); changes in the virtual region never reach the wire so they
+     don't mark the universe dirty
   3. `outputs.dispatch(universe, now)` — outputs gate on dirty / keepalive / rate
 - **Mix pipeline** (`src/mix/MixPipeline.ts`), order matters:
-  `BaseLayer → SceneMixer → Effects → GroupEffects → GrandMaster → Blackout`.
+  `BaseLayer → SceneMixer → Effects → GroupEffects → Limits → VirtualDimmer → GrandMaster → Blackout`.
   Add/remove modules at runtime via `engine.mix.add/remove`; convenience refs
-  `engine.scenes`, `engine.effects`, `engine.groupEffects`, `engine.grandMaster`,
-  `engine.blackout`.
+  `engine.scenes`, `engine.effects`, `engine.groupEffects`, `engine.limits`,
+  `engine.virtualDimmer`, `engine.grandMaster`, `engine.blackout`.
 - **Universe buffers** (`src/core/Universe.ts`):
   - `programmer` — user/base writes (`setChannel`, IPC) land here
   - `data` — final mixed output the pipeline writes; outputs read this
   - `_prev` — last-sent snapshot for dirty detection
 
-  512 channels, 1-indexed in the `setChannel`/`getChannel` API.
+  Buffers are `TOTAL_CHANNELS` (1024) long: the **512 wire channels** plus a
+  **virtual region** (`VIRTUAL_CHANNELS`, addresses 513..1024) for synthetic
+  per-fixture controls (see [virtual-dimmers.md](virtual-dimmers.md)). The pipeline
+  blends the virtual region like any channel; only the first 512 reach the wire
+  (the Art-Net/sACN encoders cap every frame at `DMX_CHANNELS`). All 1-indexed in
+  the `setChannel`/`getChannel` API.
 - **Show model** (`src/show/`): `Show`, `Patch`, `Scene`, `Group` + `GroupManager`,
   and `BankManager` (banks of scenes). New mix behaviour = subclass `MixModule`
   and implement `process(universe, ctx)`.
@@ -70,8 +77,8 @@ Layer kinds (`src/mix/sceneFx.ts`):
   [fixtures.md](fixtures.md) (stage transform + emitter world coordinates).
 
 Each layer's DMX target addresses (`TrackLayer.targets`) are derived from the patch
-by the app layer (`main/context.ts` `sceneTrack` → `fixturesFor`/`orderFixtures`/
-`targetsForKind`, honouring the layer's group + order) and attached to the track —
+by the app layer (`main/services/SceneCompiler.ts` `sceneTrack` → `fixturesFor`/
+`orderFixtures`/`targetsForKind`, honouring the layer's group + order) and attached to the track —
 the engine stays fixture-agnostic. MATRIX layers instead use `matrixTargets`,
 which pairs each emitter's `[r,g,b]` tuple (`Fixture.emitterColorAddresses`) with
 its world position (`Fixture.emitterWorldPositions`) into `TrackLayer.targets` +
@@ -82,6 +89,15 @@ its world position (`Fixture.emitterWorldPositions`) into `TrackLayer.targets` +
 FX-rack presets persist with the project (`scenes:`… plus `palettes:*` / `presets:*`,
 stored in `main/services/presets.ts`).
 
+**Built-in palettes.** `presets.ts` ships a curated set of read-only
+`BUILTIN_PALETTES` (multi-stop gradients — Sunset, Lava, Magma, Ocean, Aurora,
+Forest, Tropical, Party, Synthwave, Viridis, …) so the COLOR / MATRIX palette
+picker is useful before any user palettes exist. They live *outside* the
+persistence `Store` (never renamed/removed/saved); `palettes:list` returns them
+ahead of the user's saved palettes (stable `builtin_<slug>` ids). `fxpalette.ts`
+groups them under **Built-in** vs **Saved** `<optgroup>`s; applying one copies its
+hex stops into the layer's `palette[]`, so the layer stays independent afterwards.
+
 ## Scene playback: fades, phase clock, tempo, transport
 
 The CONTROL **Scene Properties** panel (`renderer/views/fxpalette.ts`) edits how a
@@ -89,21 +105,20 @@ scene plays. The runtime model lives in the `SceneMixer`:
 
 - **Two clocks, one writer.** `process(universe, ctx)` runs once *per universe*
   per tick and is a pure reader (`opacity` + the track's phase). `update(deltaMs)`
-  runs **once per tick** (wired in `main/context.ts` off the engine `'tick'`) and
-  is the *only* writer of fade ramps and phase clocks — so multi-universe shows
-  never double-advance. Direct/headless use without `update()` falls back to
-  `ctx.now`, so existing examples animate unchanged.
+  runs **once per tick** (wired in `main/services/showRuntime.ts` off the engine
+  `'tick'`) and is the *only* writer of fade ramps and phase clocks, so
+  multi-universe shows never double-advance. Direct/headless use without `update()`
+  falls back to `ctx.now`.
 - **Per-track `playback` state** (`SceneMixer.playback`): fade ramp
   (from/target/elapsed/total + a `preDelayMs`), a `phaseMs` virtual clock,
   `paused`, and a pinned `manualStep`. Created lazily on first fade/transport.
 - **Fades.** `fadeTo(id, target, seconds, preDelayMs)` ramps opacity linearly;
-  `seconds === 0` (and no pre-delay) settles instantly — preserving the original
-  snap-recall for scenes with no fade. `recallScene` (context.ts) now crossfades:
-  siblings fade to 0 over their `fadeOut`, the target fades to its DIMMER `level`
-  over `fadeIn × fadeSpeed` after a `phaseIn` pre-delay. `isLive(id)` (opacity > 0
-  **or** fading toward a positive target) drives broadcast gating; when a fade-out
-  settles to 0, `consumeWentInactive()` triggers an `updateActiveUniverses()` so
-  the universe stops transmitting.
+  `seconds === 0` (no pre-delay) settles instantly (snap-recall). `recallScene`
+  (`SceneOrchestrator`) crossfades: siblings fade to 0 over their `fadeOut`, the
+  target fades to its DIMMER `level` over `fadeIn × fadeSpeed` after a `phaseIn`
+  pre-delay. `isLive(id)` (opacity > 0 **or** fading toward a positive target)
+  drives broadcast gating; when a fade-out settles to 0, `consumeWentInactive()`
+  triggers `updateActiveUniverses()` so the universe stops transmitting.
 - **Tempo.** `driveMode 'off'` → period `rateMs / speed`; `'bpm'` →
   `(60000 / bpm) / beatDiv`. The master `bpm` is owned by
   `main/services/Transport.ts`, pushed into the mixer, and persisted top-level.
@@ -119,9 +134,10 @@ scene plays. The runtime model lives in the `SceneMixer`:
   layer clocks do, so reading the base clock would read a stuck 0). Bounce doubles
   the cycle for the out-and-back. Surfaced in `SceneDTO` (`cycleMs`/`phaseMs`); the
   Banks tile draws an **active-scene timeline** from them — a live `MMmSSsCC`
-  timecode, a loop icon for periodic scenes, and a bottom playhead strip
-  (`phaseMs % cycleMs`), interpolated at the display refresh rate (rAF) and
-  re-anchored each poll. A plain static look falls back to its fade in+out time.
+  timecode, a loop icon, and a bottom playhead strip (`phaseMs % cycleMs`),
+  interpolated at the display refresh rate (rAF) and re-anchored each poll. The
+  timeline is shown **only for periodic scenes** (`cycleMs > 0`); a plain static
+  look is just static and shows no timecode or strip.
 
 Scene scalar params (`level`, `speed`, `spread`, `size`, fade times, `driveMode`,
 `beatDiv`, `startMode`, `direction`) persist with the project; the panel's setters
@@ -146,7 +162,7 @@ Loop,JumpTo,ReleaseAtEnd,ReleaseMode,Protect,Flash}`.
   and once `runMs ≥ count × sceneCycleMs(track)` the id is queued in `_completed`
   (drained by `consumeCompleted()`). `sceneCycleMs` = the chase's real-time cycle,
   else the first enabled FX layer's period (0 = nothing periodic → never completes).
-  `context.ts handleLoopComplete` reacts: `jumpTo` (`next`/`prev` in bank, or a
+  `SceneOrchestrator.handleLoopComplete` reacts: `jumpTo` (`next`/`prev` in bank, or a
   specific `sceneId`) recalls the target; otherwise `releaseAtEnd` releases the
   scene or pauses it on its last frame. `track.loopCount` (0 = forever) carries it.
 - **Release / Protect** (`releaseMode` + `protectFromRelease`, each `off`/`all`/
@@ -163,13 +179,22 @@ Loop,JumpTo,ReleaseAtEnd,ReleaseMode,Protect,Flash}`.
 A bank is an ordered group of scenes — a container, not a sequencer. Scenes are
 recalled individually; the column's `+` captures current output as a new scene in
 that bank. Recall goes through `recallScene` (release/protect scopes + broadcast
-refresh — default `bank` release keeps one active scene per bank), so recalling one
-scene releases the others in its bank.
+refresh); the default `bank` release keeps one active scene per bank.
 
 Right-clicking a bank tab (or a bank column header) opens a context menu to
 **Rename…** or **Delete** the bank (`lumox:banks:rename` / `lumox:banks:remove`).
 Deleting drops the bank's scenes from the engine + show; `ensureDefault()` recreates
 an empty bank if the last one is removed.
+
+**Layout.** Banks sit side by side; the row scrolls horizontally (the top dock row
+has a CSS min-height floor `.ws-top`). Each `.bank-col` is a CSS `column-wrap` flow
+of header, capture button, then scene cells: scenes fill top-to-bottom and **wrap
+into a new column to the right** once they fill the bank's height — no vertical
+scrollbar. The header being first, wrapped columns start at the **top** and the
+header never widens across them. Chromium only widens a column-wrap box for extra
+columns when its height is *definite*, so `banks.ts` pins each `.bank-col` to its
+resolved height (`pinColumnHeights`, re-run on every rebuild and on a
+`ResizeObserver`).
 
 ## Recalling vs editing a scene (CONTROL → Banks)
 
@@ -177,20 +202,46 @@ A scene cell has two click regions with distinct, decoupled jobs:
 
 - **Body** (wide left part) — activates / deactivates the scene (`recallScene`,
   toggle). Live playback only; it does not touch the edit target.
-- **Right colour strip** — selects the scene as the fader editor's EDIT target
-  (emits `SCENE_SELECTED`), without changing playback.
+- **Right colour strip** — selects the scene as the EDIT target for the fader
+  editor + Scene panel (emits `SCENE_SELECTED`), without changing playback.
+  **Clicking the already-selected scene's strip again deselects it** (emits
+  `SCENE_DESELECTED`) — clearing the edit target so both editors show their greyed
+  no-scene state. `SCENE_DESELECTED` is distinct from a `SCENE_SELECTED`-null,
+  which instead **re-resolves** the target to whatever scene stays active (used by
+  release / delete).
 
 So playback and the edit selection are independent: fire a scene from the body,
-pick what to edit with the strip.
+pick (or clear) what to edit with the strip.
 
 ## Fader editor — EDIT vs LIVE
 
-The CONTROL fader editor writes to one of two targets:
+The CONTROL fader editor is **gated on the live selection** (see
+[selection.md](selection.md)): it shows one strip per channel of the *selected*
+fixtures, grouped into one block per channel-config (a block's faders broadcast to
+every selected fixture of that type), in selection order. With nothing selected the
+strip area is unavailable (a prompt to pick fixtures); a group-bar tab is the quick
+"select this whole group" gesture. The GrandMaster + Blackout sit outside the grid
+and stay live regardless.
+
+It writes to one of two targets:
 
 - **EDIT** edits the recalled scene — `lumox:scenes:setChannel` maps a
   fixture-local channel to its absolute address and writes both `scene.values`
   and the live track (an active scene updates immediately). `null` clears the channel.
 - **LIVE** engages channels in the universe `programmer` buffer (manual output).
+
+### Channel presets (profile ranges)
+
+A channel that carries profile **capabilities** (gobo / colour-wheel / shutter /
+macro value ranges — see [fixtures.md](fixtures.md)) renders a column of **preset
+chips** beside its fader, Daslight-style. Each chip is
+the range's **colour swatch**, its **drawn-gobo thumbnail** (`goboSvg`), or a small
+**labelled chip** for everything else. Clicking a chip engages the channel and snaps
+it to the range's **mid value** (`data-v`); the chip that contains the live value is
+highlighted, the strip's readout shows that range's **label** (e.g. `Orange`), and a
+drawn gobo also replaces the round strip icon. Preset-bearing strips widen
+(`.fcol.has-presets`) to seat the chips next to a slim fader; plain channels keep the
+classic narrow strip. The fader still fine-tunes the raw 0–255 value.
 
 ### Engaged channels (the programmer)
 
@@ -234,33 +285,32 @@ dirty). Headless/engine use without the flag still captures every non-zero chann
 
 ## Broadcast gating
 
-The shell's broadcast output (`main/context.ts`) subscribes only to "live"
+The shell's broadcast output (`main/services/OutputPatchService.ts`) subscribes only to "live"
 universes — those with an active scene *or* live programmer output
 (`markLiveUniverse`). With nothing live it uses the `NO_UNIVERSE` sentinel rather
 than the empty "all" set.
 
 **Release linger.** A universe that just stopped being live is **not** dropped
 immediately — it lingers in the subscription for `RELEASE_LINGER_MS` (~1.2 s,
-`tickReleaseLinger`). Without this the universe is unsubscribed the instant a scene
-is released, *before* the mixed-down `0` frame is dispatched, so the nodes latch
-their last value and the fixtures stay lit. The linger keeps it transmitting long
-enough for the `0` (a dirty frame + a keep-alive) to reach the nodes, then drops
-it. This makes "deselect a scene → fixtures go dark" work like a continuously-
-outputting console; it also covers clearing the LIVE programmer.
+`tickReleaseLinger`). Otherwise it would be unsubscribed *before* the mixed-down
+`0` frame is dispatched, so the nodes would latch their last value and stay lit. The
+linger keeps it transmitting long enough for the `0` (a dirty frame + keep-alive) to
+reach the nodes, then drops it — so "deselect a scene → fixtures go dark" behaves
+like a continuously-outputting console; it also covers clearing the LIVE programmer.
 
-**Shutdown blackout.** The same latching problem applies on quit: closing a socket
-only *stops* transmission, leaving nodes on their last frame. So `shutdown()`
-(`main/index.ts`) stops the tick first, then calls `blackoutAllOutputs()`
-(`main/context.ts`) before `closeAll()`. That zeroes every universe and force-sends
-a full 0 frame to its output via `Output.blackout()`, which **bypasses** the
+**Shutdown blackout.** Same latching problem on quit: closing a socket only *stops*
+transmission, leaving nodes on their last frame. So `shutdown()` (`main/index.ts`)
+stops the tick first, then calls `blackoutAllOutputs()`
+(`main/services/OutputPatchService.ts`) before `closeAll()` — zeroing every universe
+and force-sending a full 0 frame via `Output.blackout()`, which **bypasses** the
 subscription / dirty / rate-cap gating (an idle, gated-off universe would otherwise
-never send the `0`). The frame is repeated a few times (`SHUTDOWN_BLACKOUT_FRAMES`,
+never send the `0`). The frame repeats a few times (`SHUTDOWN_BLACKOUT_FRAMES`,
 spaced by `SHUTDOWN_BLACKOUT_SPACING_MS`) because the WiFi/UDP link is lossy. Runs on
 every quit path (`before-quit`, `SIGINT`/`SIGTERM`).
 
 ## Notes / Gotchas
 
-- Scenes are a mix layer (SceneMixer); effects / group-effects run after.
+- Scenes are a mix layer (SceneMixer); Effects / GroupEffects run after.
 - SceneMixer blends scene-over-programmer **HTP** by default: a high LIVE value
   can mask a lower EDIT scene value on the same channel.
 - New output type: subclass `Output`, set static `TYPE`, register via
