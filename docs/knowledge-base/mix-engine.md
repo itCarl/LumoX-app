@@ -132,7 +132,9 @@ scene plays. The runtime model lives in the `SceneMixer`:
   first `process`), `to` is the incoming track's live, animating frame. So a
   channel that is full in **both** scenes stays full (no HTP dip on shared
   channels), and pan/colour interpolate cleanly. The outgoing tracks are held +
-  suppressed for the fade, then removed (signalling `consumeWentInactive()`). The
+  suppressed for the fade, then dropped to opacity 0 (signalling
+  `consumeWentInactive()`) — their tracks **persist**, since every scene keeps its
+  track so it stays recallable. The
   **incoming `fadeIn`** governs the crossfade duration (the released scene's
   `fadeOut` does not apply here); coexisting scenes in other banks are outside the
   `fromIds`/`toId` set and keep blending independently. A plain recall with no

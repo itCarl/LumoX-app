@@ -290,6 +290,9 @@ export class SceneMixer extends MixModule {
   fadeTo(id: string, target: number, seconds: number, preDelayMs = 0): void {
     const track = this.tracks.get(id);
     if (!track) return;
+    // A manual fade on a scene that is a live crossfade target overrides the
+    // crossfade: settle it first (its outgoing go to 0) and ramp from here.
+    if (this.transitions.has(id)) this._finalizeTransition(id);
     const pb = this._ensurePlayback(id);
     const ms = Math.max(0, (seconds || 0) * 1000);
     const delay = Math.max(0, preDelayMs || 0);
@@ -314,22 +317,34 @@ export class SceneMixer extends MixModule {
    * Start a dipless crossfade from a set of outgoing tracks to one incoming
    * track over `totalMs` (after an optional `preDelayMs`). The incoming track is
    * set live at `level` immediately and the outgoing tracks are held + suppressed
-   * (represented by a frozen snapshot) until the fade completes, then removed.
-   * Use this for recall-with-release; a plain fade-in/out keeps {@link fadeTo}.
+   * (represented by a frozen snapshot) until the fade completes, then dropped to
+   * opacity 0 (the tracks PERSIST — every scene keeps its track so it can be
+   * recalled again). Use this for recall-with-release; a plain fade-in/out keeps
+   * {@link fadeTo}.
    */
   startTransition(opts: { toId: string; level: number; fromIds: string[]; totalMs: number; preDelayMs?: number }): void {
     const target = this.tracks.get(opts.toId);
     if (!target) return;
     const level = clamp01(opts.level);
     // An outgoing scene that is itself mid-crossfade-in: settle that crossfade
-    // first (remove ITS outgoing), so we snapshot the scene's own look.
+    // first (zero ITS outgoing), so we snapshot the scene's own look.
     for (const fid of opts.fromIds) {
       if (this.transitions.has(fid)) this._finalizeTransition(fid);
     }
     // Re-recalling the same target replaces any in-flight crossfade into it.
     this.transitions.delete(opts.toId);
     const fromIds = opts.fromIds.filter((id) => id !== opts.toId && this.tracks.has(id));
+    // Hold each outgoing track at full while it is represented by the snapshot;
+    // cancel any opacity ramp it had so `update()` doesn't fight the crossfade.
+    for (const fid of fromIds) {
+      const t = this.tracks.get(fid);
+      if (t) t.opacity = 1;
+      const pb = this.playback.get(fid);
+      if (pb) pb.fading = false;
+    }
     target.opacity = level;
+    const pb = this.playback.get(opts.toId);
+    if (pb) pb.fading = false;   // the crossfade owns the incoming level now
     this.transitions.set(opts.toId, {
       toId: opts.toId, level, fromIds,
       from: {}, captured: new Set(),
@@ -337,13 +352,20 @@ export class SceneMixer extends MixModule {
     });
   }
 
-  /** Finish a transition now: drop its outgoing tracks (signalling inactivity). */
+  /**
+   * Finish a transition now: drop its outgoing tracks to opacity 0 (signalling
+   * inactivity for broadcast gating) WITHOUT removing them — scene tracks are
+   * permanent so every scene stays recallable. The incoming track keeps its level.
+   */
   private _finalizeTransition(toId: string): void {
     const tr = this.transitions.get(toId);
     if (!tr) return;
     for (const fid of tr.fromIds) {
-      if (this.tracks.delete(fid)) {
-        this.playback.delete(fid);
+      const t = this.tracks.get(fid);
+      if (t) {
+        t.opacity = 0;
+        const pb = this.playback.get(fid);
+        if (pb) pb.fading = false;
         this._wentInactive.add(fid);
       }
     }
