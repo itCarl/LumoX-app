@@ -66,7 +66,11 @@ Layer kinds (`src/mix/sceneFx.ts`):
   square/random) on **any attribute** (`attr` = channel-type id) mapped into
   `[min,max]`, with `duty` + `invert`; value also has a flat `staticValue`.
 - **chaser** (`renderChaserFx`) — a lit window walking the selection: `litCount`,
-  `gap`, `fade`, `level`/`bg`, on any `attr`.
+  `gap`, `fade`, `level`/`bg`, on any `attr`. The head is a **continuous** position
+  (not snapped to a fixture): a one-unit lead-in ramp brightens a fixture as the
+  head approaches and a one-unit far-edge ramp fades the tail out, so the comet
+  flows smoothly between fixtures (at an exact integer head it matches the classic
+  stepped look). `fade` stays purely the spatial tail dimming.
 - **matrix** (`renderMatrixFx`) — true **pixel-mapping**: colours each emitter
   from its 2D **world position** on the STAGE (not its sweep index). `pattern`
   (`wipe`/`radial`/`plasma`), `palette[]` (empty ⇒ rainbow), `saturation`, `fade`,
@@ -113,12 +117,27 @@ scene plays. The runtime model lives in the `SceneMixer`:
   (from/target/elapsed/total + a `preDelayMs`), a `phaseMs` virtual clock,
   `paused`, and a pinned `manualStep`. Created lazily on first fade/transport.
 - **Fades.** `fadeTo(id, target, seconds, preDelayMs)` ramps opacity linearly;
-  `seconds === 0` (no pre-delay) settles instantly (snap-recall). `recallScene`
-  (`SceneOrchestrator`) crossfades: siblings fade to 0 over their `fadeOut`, the
-  target fades to its DIMMER `level` over `fadeIn × fadeSpeed` after a `phaseIn`
-  pre-delay. `isLive(id)` (opacity > 0 **or** fading toward a positive target)
-  drives broadcast gating; when a fade-out settles to 0, `consumeWentInactive()`
-  triggers `updateActiveUniverses()` so the universe stops transmitting.
+  `seconds === 0` (no pre-delay) settles instantly (snap-recall). New scenes
+  default to a soft `fadeIn`/`fadeOut` of `DEFAULT_SCENE_FADE` (**0.4 s**,
+  `src/show/Scene.ts`). `isLive(id)` (opacity > 0 **or** fading toward a positive
+  target) drives broadcast gating; when a fade-out settles to 0,
+  `consumeWentInactive()` triggers `updateActiveUniverses()` so the universe stops
+  transmitting.
+- **Dipless crossfade.** When a recall **releases** other live scenes *and* the
+  incoming scene has a fade time, `recallScene` (`SceneOrchestrator`) joins them
+  with a **dipless** value-wise crossfade instead of two independent opacity ramps
+  (`startTransition`). A `Transition` mixes ONE interpolated source —
+  `lerp(from, to·level, f)` — into the normal priority/HTP stack: `from` is the
+  frozen combined look of the outgoing tracks (captured lazily per universe at the
+  first `process`), `to` is the incoming track's live, animating frame. So a
+  channel that is full in **both** scenes stays full (no HTP dip on shared
+  channels), and pan/colour interpolate cleanly. The outgoing tracks are held +
+  suppressed for the fade, then removed (signalling `consumeWentInactive()`). The
+  **incoming `fadeIn`** governs the crossfade duration (the released scene's
+  `fadeOut` does not apply here); coexisting scenes in other banks are outside the
+  `fromIds`/`toId` set and keep blending independently. A plain recall with no
+  released scene (or `fadeIn === 0`) just ramps opacity — already dipless on its
+  own.
 - **Tempo.** `driveMode 'off'` → period `rateMs / speed`; `'bpm'` →
   `(60000 / bpm) / beatDiv`. The master `bpm` is owned by
   `main/services/Transport.ts`, pushed into the mixer, and persisted top-level.

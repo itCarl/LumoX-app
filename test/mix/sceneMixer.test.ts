@@ -103,6 +103,53 @@ describe('SceneMixer — fades (update is the sole writer)', () => {
   });
 });
 
+describe('SceneMixer — dipless crossfade (startTransition)', () => {
+  it('does not dip a channel that is full in both the outgoing and incoming look', () => {
+    const mixer = new SceneMixer();
+    const u = new Universe(0);
+    // A: ch1 full, ch2 off (live). B: ch1 full, ch2 full (incoming).
+    mixer.addTrack({ id: 'A', opacity: 1, values: { 0: look({ 1: 255, 2: 0 }) } });
+    mixer.addTrack({ id: 'B', opacity: 0, values: { 0: look({ 1: 255, 2: 255 }) } });
+    mixer.startTransition({ toId: 'B', level: 1, fromIds: ['A'], totalMs: 1000 });
+
+    mixer.update(500); // half-way through the crossfade
+    mixer.process(u, ctx());
+    expect(u.getChannel(1)).toBe(255);   // shared full channel never dips
+    expect(u.getChannel(2)).toBe(127);   // 0 → 255 interpolated at the midpoint
+  });
+
+  it('leaves a coexisting scene outside the crossfade untouched', () => {
+    const mixer = new SceneMixer();
+    const u = new Universe(0);
+    mixer.addTrack({ id: 'A', opacity: 1, values: { 0: look({ 1: 255 }) } });
+    mixer.addTrack({ id: 'B', opacity: 0, values: { 0: look({ 1: 255 }) } });
+    mixer.addTrack({ id: 'C', opacity: 1, values: { 0: look({ 10: 200 }) } }); // other bank
+    mixer.startTransition({ toId: 'B', level: 1, fromIds: ['A'], totalMs: 1000 });
+
+    mixer.update(500);
+    mixer.process(u, ctx());
+    expect(u.getChannel(10)).toBe(200);  // C keeps running through the crossfade
+  });
+
+  it('drops the outgoing track and signals inactivity when the crossfade completes', () => {
+    const mixer = new SceneMixer();
+    const u = new Universe(0);
+    mixer.addTrack({ id: 'A', opacity: 1, values: { 0: look({ 2: 0 }) } });
+    mixer.addTrack({ id: 'B', opacity: 0, values: { 0: look({ 2: 255 }) } });
+    mixer.startTransition({ toId: 'B', level: 1, fromIds: ['A'], totalMs: 1000 });
+
+    mixer.process(u, ctx());  // capture the outgoing snapshot
+    mixer.update(1000);       // run the crossfade to completion
+    expect(mixer.tracks.has('A')).toBe(false);          // outgoing removed
+    expect(mixer.consumeWentInactive()).toContain('A'); // broadcast gating notified
+    expect(mixer.tracks.get('B')!.opacity).toBe(1);     // incoming live at its level
+
+    u.data.fill(0);
+    mixer.process(u, ctx());
+    expect(u.getChannel(2)).toBe(255);   // incoming fully in afterwards
+  });
+});
+
 describe('SceneMixer — counted loop completion', () => {
   it('signals once after running loopCount cycles', () => {
     const mixer = new SceneMixer();

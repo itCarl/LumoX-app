@@ -77,6 +77,32 @@ interface ScenePlayback {
   loopDone: boolean;
 }
 
+/**
+ * A dipless scene-to-scene crossfade. Unlike the opacity ramp (which HTP-blends
+ * two partially-faded looks and so dips on shared channels), a transition mixes
+ * ONE value-wise interpolated source — `lerp(from, to·level, f)` — into the
+ * normal priority/HTP stack. `from` is the frozen combined look of the outgoing
+ * (`fromIds`) tracks, captured lazily per universe at the first `process` after
+ * the start; `to` is the incoming (`toId`) track's live, animating frame. The
+ * outgoing tracks are SUPPRESSED from the normal blend for the duration (they are
+ * represented by the snapshot), then removed when the fade completes. Coexisting
+ * scenes outside `fromIds`/`toId` blend independently, so other banks keep running.
+ */
+interface Transition {
+  toId: string;
+  /** the incoming scene's DIMMER level the crossfade targets (0..1) */
+  level: number;
+  fromIds: string[];
+  /** captured outgoing look per universe id (frozen at start) */
+  from: Record<number, Uint8Array>;
+  /** universe ids whose `from` snapshot has been taken */
+  captured: Set<number>;
+  elapsedMs: number;
+  totalMs: number;
+  /** pre-delay before the crossfade ramp begins (holds the outgoing look) */
+  preDelayMs: number;
+}
+
 const clamp01 = (n: number): number => (n <= 0 ? 0 : n >= 1 ? 1 : n);
 
 /** Step index for a clock position, honouring playback direction. */
@@ -158,6 +184,8 @@ function effectiveNow(clockMs: number, periodMs: number, dir: SceneDirection): n
 export class SceneMixer extends MixModule {
   tracks: Map<string, SceneTrack>;
   playback: Map<string, ScenePlayback>;
+  /** active dipless crossfades, keyed by the incoming (`toId`) track id */
+  transitions: Map<string, Transition>;
   /** master tempo (BPM) used by tracks with `driveMode === 'bpm'` */
   bpm: number;
   /** composed layer output / single-FX frame (returned to the blend) */
@@ -165,10 +193,17 @@ export class SceneMixer extends MixModule {
   /** base look for a chase under an FX rack — kept separate so the chase
    *  crossfade doesn't alias `_scratch` while layers composite on top */
   _baseScratch: Uint8Array;
+  /** lerp output for a transition source (kept apart from `_scratch`, which the
+   *  incoming track's `_frame` writes to while a transition composites) */
+  private _transScratch: Uint8Array;
   /** channels owned by a higher priority tier this process() pass (mask) */
   private _claimed: Uint8Array;
   /** channels a tier wrote this pass, merged into `_claimed` after the tier */
   private _touched: Uint8Array;
+  /** outgoing track ids suppressed by an active transition (rebuilt per process) */
+  private _suppressed: Set<string>;
+  /** incoming track id → its transition (rebuilt per process) */
+  private _targetOf: Map<string, Transition>;
   /** ids whose fade-out just settled to 0 — drained by `consumeWentInactive()` */
   private _wentInactive: Set<string>;
   /** ids whose counted loop just finished — drained by `consumeCompleted()` */
@@ -178,11 +213,15 @@ export class SceneMixer extends MixModule {
     super({ name: 'Scene Mixer', ...config });
     this.tracks = new Map(); // trackId → track
     this.playback = new Map();
+    this.transitions = new Map();
     this.bpm = 120;
     this._scratch = new Uint8Array(TOTAL_CHANNELS);
     this._baseScratch = new Uint8Array(TOTAL_CHANNELS);
+    this._transScratch = new Uint8Array(TOTAL_CHANNELS);
     this._claimed = new Uint8Array(TOTAL_CHANNELS);
     this._touched = new Uint8Array(TOTAL_CHANNELS);
+    this._suppressed = new Set();
+    this._targetOf = new Map();
     this._wentInactive = new Set();
     this._completed = new Set();
   }
@@ -198,6 +237,12 @@ export class SceneMixer extends MixModule {
     this.playback.delete(id);
     this._wentInactive.delete(id);
     this._completed.delete(id);
+    // drop any transition this id is the target of; detach it as an outgoing source
+    this.transitions.delete(id);
+    for (const tr of this.transitions.values()) {
+      const i = tr.fromIds.indexOf(id);
+      if (i >= 0) tr.fromIds.splice(i, 1);
+    }
   }
 
   setOpacity(trackId: string, opacity: number): void {
@@ -208,6 +253,7 @@ export class SceneMixer extends MixModule {
   clear(): void {
     this.tracks.clear();
     this.playback.clear();
+    this.transitions.clear();
     this._wentInactive.clear();
     this._completed.clear();
   }
@@ -262,6 +308,46 @@ export class SceneMixer extends MixModule {
     pb.fadeElapsedMs = 0;
     pb.preDelayMs = delay;
     pb.fading = true;
+  }
+
+  /**
+   * Start a dipless crossfade from a set of outgoing tracks to one incoming
+   * track over `totalMs` (after an optional `preDelayMs`). The incoming track is
+   * set live at `level` immediately and the outgoing tracks are held + suppressed
+   * (represented by a frozen snapshot) until the fade completes, then removed.
+   * Use this for recall-with-release; a plain fade-in/out keeps {@link fadeTo}.
+   */
+  startTransition(opts: { toId: string; level: number; fromIds: string[]; totalMs: number; preDelayMs?: number }): void {
+    const target = this.tracks.get(opts.toId);
+    if (!target) return;
+    const level = clamp01(opts.level);
+    // An outgoing scene that is itself mid-crossfade-in: settle that crossfade
+    // first (remove ITS outgoing), so we snapshot the scene's own look.
+    for (const fid of opts.fromIds) {
+      if (this.transitions.has(fid)) this._finalizeTransition(fid);
+    }
+    // Re-recalling the same target replaces any in-flight crossfade into it.
+    this.transitions.delete(opts.toId);
+    const fromIds = opts.fromIds.filter((id) => id !== opts.toId && this.tracks.has(id));
+    target.opacity = level;
+    this.transitions.set(opts.toId, {
+      toId: opts.toId, level, fromIds,
+      from: {}, captured: new Set(),
+      elapsedMs: 0, totalMs: Math.max(0, opts.totalMs || 0), preDelayMs: Math.max(0, opts.preDelayMs || 0),
+    });
+  }
+
+  /** Finish a transition now: drop its outgoing tracks (signalling inactivity). */
+  private _finalizeTransition(toId: string): void {
+    const tr = this.transitions.get(toId);
+    if (!tr) return;
+    for (const fid of tr.fromIds) {
+      if (this.tracks.delete(fid)) {
+        this.playback.delete(fid);
+        this._wentInactive.add(fid);
+      }
+    }
+    this.transitions.delete(toId);
   }
 
   /** True while a track is visible or fading toward a visible target. */
@@ -492,6 +578,14 @@ export class SceneMixer extends MixModule {
         }
       }
     }
+
+    // advance dipless crossfades; when one completes, drop its outgoing tracks
+    // (the incoming track stays live at its level and blends normally after).
+    for (const [toId, tr] of this.transitions) {
+      if (tr.preDelayMs > 0) { tr.preDelayMs -= deltaMs; continue; }
+      tr.elapsedMs += deltaMs;
+      if (tr.elapsedMs >= tr.totalMs) this._finalizeTransition(toId);
+    }
   }
 
   process(universe: Universe, ctx: MixContext): void {
@@ -503,19 +597,75 @@ export class SceneMixer extends MixModule {
     const claimed = this._claimed;
     const touched = this._touched;
     claimed.fill(0);
+
+    // Resolve active crossfades: which tracks are suppressed outgoing sources,
+    // which are incoming targets, and freeze each outgoing look once per universe.
+    const suppressed = this._suppressed;
+    const targetOf = this._targetOf;
+    suppressed.clear();
+    targetOf.clear();
+    if (this.transitions.size) {
+      const uid = universe.id;
+      for (const tr of this.transitions.values()) {
+        targetOf.set(tr.toId, tr);
+        for (const fid of tr.fromIds) suppressed.add(fid);
+        if (!tr.captured.has(uid)) {
+          const snap = new Uint8Array(TOTAL_CHANNELS);
+          this._combineLook(tr.fromIds, universe, ctx, snap);
+          tr.from[uid] = snap;
+          tr.captured.add(uid);
+        }
+      }
+    }
+
     for (let tier = 2; tier >= 0; tier--) {
       touched.fill(0);
       let wrote = false;
       for (const t of this.tracks.values()) {
         if (t.opacity <= 0 || priorityRank(t.priority) !== tier) continue;
-        const src = this._frame(t, universe, ctx);
+        if (suppressed.has(t.id)) continue;   // represented by a transition snapshot
+        const tr = targetOf.get(t.id);
+        const src = tr ? this._transitionFrame(tr, t, universe, ctx) : this._frame(t, universe, ctx);
         if (!src) continue;
-        if (t.blend === 'ltp') blendMaskedLTP(universe.data, src, t.opacity, claimed, touched);
-        else                   blendMaskedHTP(universe.data, src, t.opacity, claimed, touched);
+        // a transition source already bakes the incoming level into the lerp.
+        const op = tr ? 1 : t.opacity;
+        if (t.blend === 'ltp') blendMaskedLTP(universe.data, src, op, claimed, touched);
+        else                   blendMaskedHTP(universe.data, src, op, claimed, touched);
         wrote = true;
       }
       if (wrote) for (let i = 0; i < claimed.length; i++) if (touched[i]) claimed[i] = 1;
     }
+  }
+
+  /** HTP-merge the outgoing tracks' current looks (× their opacity) into `out`. */
+  private _combineLook(ids: string[], universe: Universe, ctx: MixContext, out: Uint8Array): void {
+    out.fill(0);
+    for (const id of ids) {
+      const t = this.tracks.get(id);
+      if (!t || t.opacity <= 0) continue;
+      const src = this._frame(t, universe, ctx);
+      if (!src) continue;
+      const op = t.opacity >= 1 ? 1 : t.opacity;
+      for (let i = 0; i < out.length; i++) {
+        const v = (src[i] * op) | 0;
+        if (v > out[i]) out[i] = v;
+      }
+    }
+  }
+
+  /** The dipless crossfade source for `tr` this tick: lerp(from, to·level, f). */
+  private _transitionFrame(tr: Transition, target: SceneTrack, universe: Universe, ctx: MixContext): Uint8Array {
+    const from = tr.from[universe.id];
+    const to = this._frame(target, universe, ctx);
+    const f = tr.totalMs > 0 ? clamp01(tr.elapsedMs / tr.totalMs) : 1;
+    const level = clamp01(tr.level);
+    const out = this._transScratch;
+    for (let i = 0; i < out.length; i++) {
+      const va = from ? from[i] : 0;
+      const vb = to ? (to[i] * level) | 0 : 0;
+      out[i] = (va + (vb - va) * f) & 0xff;
+    }
+    return out;
   }
 
   /**

@@ -265,8 +265,16 @@ interface ChaserCfg {
 /**
  * CHASER FX — a lit window walking across the single-address `targets`. The
  * head advances one full ring per `periodMs`; `litCount` fixtures are lit at a
- * time (with `gap` dark fixtures between repeats), `fade` softens the tail,
- * `level`/`bg` set the lit/unlit values. Direction comes via a signed `now`.
+ * time (with `gap` dark fixtures between repeats), `fade` softens the spatial
+ * tail, `level`/`bg` set the lit/unlit values. Direction comes via a signed `now`.
+ *
+ * The head is a CONTINUOUS position (`headF`, not snapped to a fixture), so the
+ * comet flows smoothly between fixtures rather than stepping: each fixture's
+ * brightness is a continuous function of its sub-fixture distance to the head —
+ * a one-unit lead-in ramp brightens a fixture as the head approaches, and a
+ * one-unit far-edge ramp fades the tail out as it leaves the window. At an exact
+ * integer head position the look matches the classic stepped chaser. (`fade`
+ * stays purely the spatial tail dimming, independent of this temporal smoothing.)
  */
 export function renderChaserFx(
   buf: Uint8Array, targets: number[][], now: number, periodMs = 4000,
@@ -281,18 +289,20 @@ export function renderChaserFx(
   const bg = cfg?.bg ?? 0;
   // No gap ⇒ a single window of `litCount` walking the ring; gap ⇒ repeating windows.
   const span = gap > 0 ? litCount + gap : Math.max(litCount, n);
-  const head = Math.floor((now / Math.max(1, periodMs)) * n);
+  const headF = (now / Math.max(1, periodMs)) * n;   // continuous head position
   for (let i = 0; i < n; i++) {
     const [addr] = targets[i];
-    const d = (((i - head) % n) + n) % n;   // distance behind the head
-    const m = d % span;
-    let v = bg;
+    const back = (((headF - i) % n) + n) % n;   // continuous distance the head leads this fixture
+    const m = back % span;
+    let k = 0;
     if (m < litCount) {
-      const tail = litCount > 1 ? m / litCount : 0;   // 0 at head edge → 1 at window end
-      const k = fade > 0 ? 1 - tail * fade : 1;
-      v = bg + (level - bg) * k;
+      const tail = litCount > 1 ? m / litCount : 0;       // 0 at head edge → 1 at window end
+      const dim = fade > 0 ? 1 - tail * fade : 1;         // spatial tail (existing meaning)
+      k = dim * Math.min(1, litCount - m);                // far-edge anti-alias → smooth tail exit
+    } else if (m > span - 1) {
+      k = m - (span - 1);                                  // lead-in ramp → smooth head onset
     }
-    buf[addr - 1] = clamp8(v);
+    buf[addr - 1] = clamp8(bg + (level - bg) * k);
   }
 }
 

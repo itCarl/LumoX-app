@@ -5,7 +5,7 @@ import { test, expect, ipc } from './fixtures';
 test.describe('patch IPC', () => {
   test('list returns the seeded rig with addressing', async ({ page }) => {
     const fixtures = await ipc<any[]>(page, 'patch.list');
-    expect(fixtures.length).toBe(24);
+    expect(fixtures.length).toBe(18);
     for (const f of fixtures) {
       expect(f).toHaveProperty('id');
       expect(f).toHaveProperty('definitionId');
@@ -34,7 +34,7 @@ test.describe('patch IPC', () => {
     await ipc(page, 'patch.remove', id);
     list = await ipc<any[]>(page, 'patch.list');
     expect(list.find((f) => f.id === id)).toBeUndefined();
-    expect(list.length).toBe(24);
+    expect(list.length).toBe(18);
   });
 
   test('overlapping add is rejected', async ({ page }) => {

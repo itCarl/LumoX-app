@@ -3,6 +3,9 @@ import { TOTAL_CHANNELS } from '../core/Universe';
 /** Sparse channel values: { [universeId]: { [channel]: value } } (1-based). */
 export type SceneValues = Record<number, Record<number, number>>;
 
+/** Default scene fade in/out, seconds — a soft dipless crossfade on recall. */
+export const DEFAULT_SCENE_FADE = 0.4;
+
 /**
  * One chase step — a captured look plus its own timing:
  *   fadeMs — crossfade INTO this step from the previous one
@@ -349,7 +352,7 @@ export class Scene {
   flash: boolean;
 
   constructor({
-    id, name, values = {}, fadeIn = 0, fadeOut = 0, color,
+    id, name, values = {}, fadeIn = DEFAULT_SCENE_FADE, fadeOut = DEFAULT_SCENE_FADE, color,
     type = 'static', steps = [], rateMs = 500,
     level = 1, speed = 1, fadeSpeed = 1, phaseIn = 0, phaseOut = 0,
     driveMode = 'off', beatDiv = 1, startMode = 'restart', direction = 'forward',

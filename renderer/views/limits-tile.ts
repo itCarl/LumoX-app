@@ -14,6 +14,7 @@
 
 import { bus, EV } from '../lib/bus';
 import { html, mount, raw } from '../lib/dom';
+import { toggle as toggleSwitch } from '../lib/widgets';
 
 const { lumox } = window;
 
@@ -122,7 +123,7 @@ export async function makeLimitsTile(): Promise<{ tile: HTMLElement; refresh: ()
     // INVERT block — a row per reverse, each a pill toggle switch (the shared
     // `.sp-toggle`), aligned to the same control column as the value boxes.
     const togRow = (label: string, key: string, on: boolean, title: string) => `
-      <div class="lt-row"><span class="lt-row-lbl">${label}</span><button class="sp-toggle${on ? ' on' : ''}" data-tog="${key}" role="switch" aria-checked="${on}" title="${title}"><span class="sp-toggle-dot"></span></button></div>`;
+      <div class="lt-row"><span class="lt-row-lbl">${label}</span>${toggleSwitch({ on, dataset: { tog: key }, title })}</div>`;
     // The allowed window is a crop box: a dashed rectangle with square grab
     // handles at its corners (drag both axes) and edge midpoints (drag one).
     const corners = canPan && canTilt

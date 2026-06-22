@@ -14,6 +14,7 @@
 import { bus, EV } from '../lib/bus';
 import { html, mount, raw } from '../lib/dom';
 import { makeKnob } from '../lib/knob';
+import { toggle as toggleSwitch } from '../lib/widgets';
 import type { SceneInfo, FxLayerInfo, FxKind } from '../lumox';
 
 const { lumox } = window;
@@ -458,7 +459,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
   const slider = (field: string, min: number, max: number, step: number, val: number, fmt: (v: number) => string) =>
     html`<span class="fxe-slider"><span class="fxe-sval">${fmt(val)}</span><input type="range" data-cfg="${field}" min="${min}" max="${max}" step="${step}" value="${val}" /></span>`;
   const toggle = (field: string, on: boolean) =>
-    html`<button class="sp-toggle${on ? ' on' : ''}" data-cfgtoggle="${field}" role="switch" aria-checked="${on}"><span class="sp-toggle-dot"></span></button>`;
+    raw(toggleSwitch({ on, dataset: { cfgtoggle: field } }));
   const sel = (field: string, opts: [string, string][], selected: string, kind: 'cfg' | 'tim' = 'cfg') =>
     html`<select class="sp-select" data-${kind === 'cfg' ? 'cfg' : 'tim'}="${field}">${opts.map(([v, l]) => html`<option value="${v}" ${v === selected ? 'selected' : ''}>${l}</option>`)}</select>`;
   const pct = (v: number) => `${Math.round(v * 100)}%`;
@@ -637,7 +638,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     const advSeg = (field: string, opts: [string, string][], val: string) =>
       html`<span class="seg sp-seg">${opts.map(([v, l]) => html`<button class="seg-btn${v === val ? ' active' : ''}" data-adv="${field}" data-val="${v}">${l}</button>`)}</span>`;
     const advToggle = (field: string, on: boolean) =>
-      html`<button class="sp-toggle${on ? ' on' : ''}" data-advtoggle="${field}" role="switch" aria-checked="${on}"><span class="sp-toggle-dot"></span></button>`;
+      raw(toggleSwitch({ on, dataset: { advtoggle: field } }));
     const advScope = (field: string, val: string) =>
       html`<select class="sp-select" data-adv="${field}">${SCOPE_OPTS.map(([v, l]) => html`<option value="${v}" ${v === val ? 'selected' : ''}>${l}</option>`)}</select>`;
     const bankChecks = (field: string, selected: string[]) =>

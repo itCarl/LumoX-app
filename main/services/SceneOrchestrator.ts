@@ -84,24 +84,37 @@ function isProtected(target: Scene, targetBank: string | null, actorBank: string
 /**
  * Recall a scene on/off. On recall it releases every live scene its release mode
  * covers (respecting each target's protect-from-release — the default 'bank'
- * release reproduces "one active scene per bank"), crossfades the target toward
- * its DIMMER `level` over its fade time (instant when fade is 0), seeds the phase
- * clock per the scene's start mode, and refreshes the broadcast subscription.
+ * release reproduces "one active scene per bank"), seeds the phase clock per the
+ * scene's start mode, and refreshes the broadcast subscription.
+ *
+ * When the recall releases other scenes AND the incoming scene has a fade time,
+ * the two are joined by a **dipless crossfade** (value-wise interpolation from the
+ * outgoing combined look to the incoming look) so shared full channels don't dip;
+ * the incoming `fadeIn` governs the crossfade duration. A recall with no released
+ * scene (or no fade) just ramps the incoming opacity — already dipless on its own.
  */
 export function recallScene(id: string, on: boolean): void {
   const scene = show.scenes.get(id);
   if (on) {
     if (scene) {
       const actorBank = banks.bankOf(id)?.id ?? null;
+      const outgoing: string[] = [];
       for (const other of show.listScenes()) {
         if (other.id === id || !engine.scenes.isLive(other.id)) continue;
         const otherBank = banks.bankOf(other.id)?.id ?? null;
-        if (releases(scene, actorBank, other, otherBank)) {
-          engine.scenes.fadeTo(other.id, 0, fadeSeconds(other, 'out'), other.phaseOut);
-        }
+        if (releases(scene, actorBank, other, otherBank)) outgoing.push(other.id);
       }
       engine.scenes.resetPhase(id, scene.startMode);
-      engine.scenes.fadeTo(id, scene.level, fadeSeconds(scene, 'in'), scene.phaseIn);
+      const t = fadeSeconds(scene, 'in');
+      if (outgoing.length && t > 0) {
+        engine.scenes.startTransition({ toId: id, level: scene.level, fromIds: outgoing, totalMs: t * 1000, preDelayMs: scene.phaseIn });
+      } else {
+        for (const oid of outgoing) {
+          const o = show.scenes.get(oid);
+          engine.scenes.fadeTo(oid, 0, o ? fadeSeconds(o, 'out') : 0, o?.phaseOut ?? 0);
+        }
+        engine.scenes.fadeTo(id, scene.level, t, scene.phaseIn);
+      }
     } else {
       engine.scenes.fadeTo(id, 1, 0);
     }

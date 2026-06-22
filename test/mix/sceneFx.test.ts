@@ -77,4 +77,24 @@ describe('renderChaserFx', () => {
     const buf = frame();
     expect(() => renderChaserFx(buf, [], 0)).not.toThrow();
   });
+
+  it('at an integer head position it matches the classic stepped look', () => {
+    const buf = frame();
+    // period 3000, n 3 ⇒ headF = now/1000; now 1000 ⇒ headF = 1 (head on fixture 1)
+    renderChaserFx(buf, [[1], [2], [3]], 1000, 3000, { litCount: 1, gap: 0, fade: 0, level: 255, bg: 0 } as never);
+    expect([buf[0], buf[1], buf[2]]).toEqual([0, 255, 0]);
+  });
+
+  it('between fixtures the head flows continuously (no snap)', () => {
+    const buf = frame();
+    // headF = 0.5 ⇒ the comet sits half-way between fixture 0 and fixture 1
+    renderChaserFx(buf, [[1], [2], [3]], 500, 3000, { litCount: 1, gap: 0, fade: 0, level: 255, bg: 0 } as never);
+    // fixture 0 fading out, fixture 1 leading in — both ~half, neither full nor dark
+    expect(buf[0]).toBeGreaterThan(0);
+    expect(buf[0]).toBeLessThan(255);
+    expect(buf[1]).toBeGreaterThan(0);
+    expect(buf[1]).toBeLessThan(255);
+    expect(Math.abs(buf[0] - buf[1])).toBeLessThanOrEqual(1); // symmetric hand-off
+    expect(buf[2]).toBe(0);
+  });
 });

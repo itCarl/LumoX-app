@@ -125,6 +125,38 @@ If a new need genuinely isn't covered, add a token at `:root` (or scope one
 locally, as `.sceneprops-tile` scopes `--radius: 4px`) rather than a one-off
 literal.
 
+## Reuse the shared widgets — don't hand-roll controls
+
+Just as the tokens are the shared *style* vocabulary, the renderer has a shared
+*component* library in [renderer/lib/](../../../renderer/lib/). The same rule
+applies: **reuse it; never copy-paste a control's markup into a view.** A control
+hand-rolled in three views drifts into three slightly different controls — the
+exact AI-slop inconsistency the tokens exist to prevent.
+
+- **Primitives** — [lib/widgets.ts](../../../renderer/lib/widgets.ts): `button()`,
+  `input()`, `toggle()` (the `.sp-toggle` pill switch), `openMenu()` (the one
+  context-menu / dropdown). **Use these for every button, text input, on/off
+  switch, and menu** — do not re-emit their markup inline.
+- **Composite widgets** — `makeKnob()` ([lib/knob.ts](../../../renderer/lib/knob.ts)),
+  the colour picker, gobo picker, confirm dialog, dock layout, and the number
+  steppers (global, automatic) each live in their own `lib/` module.
+- **The render layer** — [lib/dom.ts](../../../renderer/lib/dom.ts): compose markup
+  with the `html\`\`` tagged template (auto-escaping), `mount()` for a re-render
+  view handle with **delegated** events, `node()`, and `raw()` to inject trusted
+  markup. This is the established pattern — **no UI framework** (React/Vue/Lit);
+  don't introduce one.
+
+**When you build a control that appears — or plausibly will appear — more than
+once, build it once as a `lib/` component, then route it.** The house style for a
+reusable control is a function that returns either a DOM node (with `on*`
+callbacks, like `button()`) or a trusted HTML **string** for template composition
+(like `toggle()`, which carries no own handler — callers pass a `data-*` attribute
+and bind one *delegated* listener on their container). Match whichever the call
+sites need; prefer the string + delegated-routing form for controls that live
+inside `html\`\`` lists that re-render. Extend `widgets.ts` (or add a focused
+`lib/` module) and migrate the existing copies onto it in the **same change** —
+leaving old hand-rolled copies behind violates rule #2 (no legacy).
+
 ## Lumox UI laws (non-negotiable taste)
 
 These come straight from the user's stated preferences — follow them by default:
@@ -180,9 +212,11 @@ strongest "AI-generated" tells in a tool like this. Respect
    brief to any AI, would I land here?* If yes — the card grid, the gradient, the
    stat card, the icon sidebar — change it and say why. Where Lumox already
    solves a similar surface, match that solution for consistency.
-3. **Build** by composing existing classes/tokens; extend the system rather than
-   forking it. Mind CSS specificity — type-based (`.section`) vs element-based
-   (`.cta`) selectors easily cancel each other's margins/paddings.
+3. **Build** by composing existing classes/tokens **and existing `lib/` widgets**
+   (see "Reuse the shared widgets" above); extend the system rather than forking
+   it, and factor any control you'd otherwise repeat into a `lib/` component. Mind
+   CSS specificity — type-based (`.section`) vs element-based (`.cta`) selectors
+   easily cancel each other's margins/paddings.
 4. **Look at it.** Use the **run-app** skill to launch and screenshot the real
    app, then critique the screenshot — a picture is worth 1000 tokens. Verify
    live feedback by dragging, not just static layout.

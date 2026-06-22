@@ -30,7 +30,7 @@ instantly from a **MIDI control surface** (see [midi.md](midi.md)):
 
 - **Banks** are your pages of go-to content. Group scenes by purpose so a whole
   category is one row away — the demo uses *Colors, Bars, Move, Position, Chase, FX,
-  Looks, Live, Beams*. On a grid controller, one bank maps to one row of pads.
+  Looks, Live*. On a grid controller, one bank maps to one row of pads.
 - **Scene pads** trigger/toggle a scene; **flash** scenes (`flash: true`) are
   momentary — held for hits (strobe, blinder, audience bump) and released on let-go.
 - **Group faders** (CC → `group:<id>:intensity`) ride the level of a fixture group
@@ -106,8 +106,9 @@ Dynamic content must lock to the music. Drive FX and chase speed from the master
   choruses) reads as intentional. Saturating everything all the time flattens energy.
 - **Always light the talent.** Keep an easy stage/face wash; spectacle behind a dark
   performer is a miss.
-- **Smooth transitions.** Use scene `fadeIn`/`fadeOut` and crossfades; snap only when
-  you want a hit.
+- **Smooth transitions.** Use scene `fadeIn`/`fadeOut` — recalling over a same-bank
+  scene runs a **dipless** crossfade (shared full channels don't sag); snap only when
+  you want a hit (`fadeIn` 0).
 - **React to song sections.** Build energy into choruses/drops, pull back for
   breakdowns/ballads — that is the whole point of busking over a fixed cue list.
 
@@ -123,7 +124,7 @@ Dynamic content must lock to the music. Drive FX and chase speed from the master
 
 The bundled dev demo (`resources/demo-show.lmx`, see
 [build-run.md](build-run.md)) is deliberately a busking-ready rig: type/zone groups,
-a *Colors* bank of palettes, *Move/Position/Beams* attribute banks, *Chase* and *FX*
+a *Colors* bank of palettes, *Move/Position* attribute banks, *Chase* and *FX*
 banks of dynamics, gig-ready *Looks*, and a *Live* bank of instant buttons (Full On,
 Blinder, Strobe All) — all mapped to a grid controller in [midi.md](midi.md). Open
 it and busk.

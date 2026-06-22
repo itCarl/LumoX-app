@@ -580,43 +580,36 @@ html, body {
   position: relative; flex: 1 1 auto; height: 100%; min-height: 160px; overflow: hidden;
   --cell: 24px;   /* px per world unit — driven by the JS zoom */
   --em: 15px;     /* emitter dot size — scales with zoom */
-  background-color: #0f0f0f;
+  --off: 0px;     /* world-origin offset (PAD * zoom) — aligns the grid to world units */
+  background-color: #0c0c0c;
 }
-/* the pannable content layer — sized in JS to the stage box + a margin on every
-   side, so the Hand tool has room to scroll when zoomed. Nodes, the stage box and
+/* the pannable content layer — sized in JS to the stage extent + a margin on every
+   side, so the Hand tool has room to scroll when zoomed. Nodes, the stage extent and
    selection overlays all live here so they pan together; min-100% fills the viewport.
-   It is a plain dark backdrop with NO grid of its own — only the stage box (.st-stage)
-   is ruled, so the grid stays bounded to the actual stage and never bleeds out into
-   the surrounding canvas. */
+   The faint graph-paper grid is painted HERE (not on a bounded box) so it reads as a
+   uniform texture filling the whole canvas and scrolling with the rig — never a ruled
+   card floating in a void. 1 cell = 1 world unit, so it scales with the zoom, and
+   --off aligns the lines to the world origin (and thus to fixture cell boundaries). */
 .st-world {
   position: absolute; top: 0; left: 0; min-width: 100%; min-height: 100%;
   background-color: #0c0c0c;
-}
-/* the fixed-size stage — a bordered, grid-ruled box; fixtures live inside it */
-.st-stage {
-  position: absolute; box-sizing: border-box;
-  background-color: #131313;
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.55);
   background-image:
-    linear-gradient(#1d1d1d 1px, transparent 1px),
-    linear-gradient(90deg, #1d1d1d 1px, transparent 1px);
-  background-size: var(--cell) var(--cell), var(--cell) var(--cell);   /* 1 cell = 1 world unit */
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  background-position: var(--off) var(--off);
 }
-/* zoomed out enough that the whole box is in view → drop only the drop-shadow so it
-   stops reading as a floating card. The subtle fill + border stay, marking the stage
-   region as a defined area on the surrounding grid (see .st-world). */
-.st-stage.flat {
-  box-shadow: none;
-}
-/* fine grid — adds a quarter-cell sub-grid for precise placement */
-.st-stage.fine {
+/* fine grid — adds a fainter quarter-cell sub-grid for precise placement. The class
+   rides the persistent .st-canvas (the world is rebuilt each render). */
+.st-canvas.fine .st-world {
   background-image:
-    linear-gradient(#242424 1px, transparent 1px),
-    linear-gradient(90deg, #242424 1px, transparent 1px),
-    linear-gradient(#161616 1px, transparent 1px),
-    linear-gradient(90deg, #161616 1px, transparent 1px);
-  background-size: var(--cell) var(--cell), var(--cell) var(--cell), calc(var(--cell) / 4) calc(var(--cell) / 4), calc(var(--cell) / 4) calc(var(--cell) / 4);
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size:
+    var(--cell) var(--cell), var(--cell) var(--cell),
+    calc(var(--cell) / 4) calc(var(--cell) / 4), calc(var(--cell) / 4) calc(var(--cell) / 4);
 }
 .st-node {
   position: absolute; box-sizing: border-box;

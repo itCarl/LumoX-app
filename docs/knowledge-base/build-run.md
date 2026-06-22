@@ -33,9 +33,9 @@ dependency — the engine falls back to a mock MIDI backend if it is absent. See
 [app.md](app.md).
 
 **Dev boot project.** In development (`!app.isPackaged`) the app opens a bundled
-**demo show** — a club rig of 24 fixtures with auto-groups and nine banks (Colors,
-Bars, Move, Position, Chase, FX, Looks, Live, Beams) covering every FX type and
-every moving-head channel — so there's something realistic to test against
+**demo show** — a club rig of 18 fixtures with auto-groups and eight banks (Colors,
+Bars, Move, Position, Chase, FX, Looks, Live) covering every FX type and a broad
+spread of moving-head channels — so there's something realistic to test against
 immediately. It is a real project file, `resources/demo-show.lmx`, loaded through
 the normal open path (`loadProjectFromPath` in `main/index.ts → bootShow`) and then
 detached to an untitled "Demo Show" so a stray Save can't clobber the bundled file.

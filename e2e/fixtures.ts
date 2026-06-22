@@ -3,7 +3,7 @@
 // Boots the REAL app (dist/main/index.cjs) through Playwright's Electron driver —
 // main process + headless engine + preload + renderer, exactly as `npm start` does.
 // Env mirrors the screenshot harness: LUMOX_SEED=1 forces the bundled demo show
-// (24 fixtures, auto-groups, 9 banks of scenes) so every view has real content;
+// (18 fixtures, auto-groups, 8 banks of scenes) so every view has real content;
 // LUMOX_DEV=1 enables the `window.lumox.dev.eval` bridge for engine introspection;
 // ELECTRON_RUN_AS_NODE must be unset or main/index.ts bails by design.
 //

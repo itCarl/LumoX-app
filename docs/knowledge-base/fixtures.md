@@ -174,12 +174,12 @@ directly so its picture matches the engine exactly).
   `{x,y}` normalised 0..1 on the `FixtureDefinition`) whose length matches the
   count defines the matrix shape; otherwise the cells lay out as a **single
   horizontal row** (the honest default for a bar/strip).
-- **Fixed stage box** — `STAGE_SIZE` (`{ width: 64, height: 36 }` world units, 16:9)
-  is the bounded 2D stage every fixture lives inside. The STAGE tile draws it as a
-  bordered, grid-ruled box; **only the box is ruled** — the surrounding canvas is a
-  plain dark backdrop with no grid of its own, so the grid stays bounded to the stage
-  and never bleeds out past the border. Zoom-out is capped so the whole box stays in
-  view. The view zooms/pans within it and **Fit** frames the fixtures (not the empty box).
+- **Fixed stage extent** — `STAGE_SIZE` (`{ width: 64, height: 36 }` world units, 16:9)
+  is the bounded 2D stage every fixture lives inside. The STAGE tile paints a uniform
+  faint graph-paper grid (1 cell = 1 world unit, scaling with zoom) across the whole
+  canvas — one continuous, borderless texture, not a ruled card; the stage extent has no
+  visual marker (drags still clamp to it). Zoom-out is capped so the whole extent stays in
+  view. The view zooms/pans within it and **Fit** frames the fixtures (not the empty extent).
 - **`Fixture.stageTransform`** — `{ x, y, rotation }`: the footprint's top-left in
   world units + degrees (about its centre). The **runtime + engine work in raw world
   units** (only relative positions matter to MATRIX FX, so absolute scale is free),

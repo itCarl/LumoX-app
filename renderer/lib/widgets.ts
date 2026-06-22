@@ -1,8 +1,11 @@
 // widgets.ts — shared UI widgets so tiles stop hand-rolling the same buttons,
-// inputs, and context menus. Three exports:
+// inputs, and context menus. Four exports:
 //
 //   button(opts)        a styled <button> (variants map to .lx-btn* in Tailwind)
 //   input(opts)         a styled <input> with onInput/onChange callbacks
+//   toggle(opts)        the `.sp-toggle` pill switch as an HTML string — built
+//                       for template composition + delegated routing (callers
+//                       pass the data-attribute that routes their click handler).
 //   openMenu(items,..)  the single context-menu / dropdown implementation that
 //                       replaces the three near-identical copies the tiles had.
 //
@@ -64,6 +67,34 @@ export function input(o: InputOpts): HTMLInputElement {
   if (o.onInput) el.addEventListener('input', (e) => o.onInput!(el.value, e));
   if (o.onChange) el.addEventListener('change', (e) => o.onChange!(el.value, e));
   return el;
+}
+
+// ---- toggle -------------------------------------------------------------
+export interface ToggleOpts {
+  /** On (true) / off (false) state. */
+  on: boolean;
+  /**
+   * data-* attributes for delegated routing, without the `data-` prefix —
+   * e.g. `{ cfgtoggle: field }` renders `data-cfgtoggle="…"`. The view binds
+   * one delegated click handler matching that attribute.
+   */
+  dataset?: Record<string, string>;
+  title?: string;
+  className?: string;
+}
+
+/**
+ * The pill toggle switch (`.sp-toggle`), returned as a trusted HTML string so it
+ * drops into both html`` templates (wrap in raw()) and plain string concatenation.
+ * It carries no own click handler — callers route via the data-attribute they pass.
+ */
+export function toggle(o: ToggleOpts): string {
+  const cls = ['sp-toggle', o.on && 'on', o.className].filter(Boolean).join(' ');
+  const ds = Object.entries(o.dataset ?? {})
+    .map(([k, v]) => ` data-${k}="${esc(v)}"`)
+    .join('');
+  const title = o.title ? ` title="${esc(o.title)}"` : '';
+  return `<button class="${cls}"${ds} role="switch" aria-checked="${o.on}"${title}><span class="sp-toggle-dot"></span></button>`;
 }
 
 // ---- menu ---------------------------------------------------------------

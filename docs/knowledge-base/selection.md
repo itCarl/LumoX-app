@@ -127,9 +127,11 @@ Grouping ops go through `lumox.groups.add` / `lumox.groups.setFixtures` and broa
 
 ## Stage arrangement (positions, not selection)
 
-**Fixed stage box.** Fixtures live inside a bounded **16:9 stage** (`STAGE_SIZE`,
-64×36 world units) drawn as a bordered, grid-ruled box; the view zooms/pans within it
-(**Fit** frames the fixtures, not the whole box) and drags are clamped to it. Newly
+**Fixed stage extent.** Fixtures live inside a bounded **16:9 stage** (`STAGE_SIZE`,
+64×36 world units). The canvas is a uniform faint graph-paper grid (1 cell = 1 world
+unit, scaling with zoom) filling the whole view as one continuous, borderless texture;
+the stage extent has no visual marker (drags still clamp to it in world units). The view
+zooms/pans within it (**Fit** frames the fixtures, not the whole extent). Newly
 added fixtures spawn **clustered at the stage centre**. Each fixture renders as its
 real emitter grid painted with **live mixed-output colour** (polled ~15 fps), framed
 by a thin **group-coloured footprint outline** drawn over the emitter dots so the

@@ -256,16 +256,13 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     // so a selection / live-colour re-render never yanks the pan back to the origin.
     // (fitAll / setZoom set scroll explicitly after they call render(), so they win.)
     const sl = canvas.scrollLeft, st = canvas.scrollTop;
-    // The fixed stage box (grid + border) drawn behind the fixtures; nodes/overlays
-    // sit on top. Both share the world's +off() margin frame. Only the box is ruled —
-    // the world layer is a plain dark backdrop with no grid, so the grid stays bounded
-    // to the actual stage and never bleeds out into the surrounding canvas. Once the
-    // whole box fits the viewport it would read as a floating shadowed card — so in
-    // that state (`.flat`) we drop just the drop-shadow, keeping the box's fill +
-    // border to mark the stage.
-    const vr = canvas.getBoundingClientRect();
-    const flat = STAGE_W * zoom <= vr.width && STAGE_H * zoom <= vr.height;
-    const stageRect = `<div class="st-stage${state.fine ? ' fine' : ''}${flat ? ' flat' : ''}" style="left:${o}px;top:${o}px;width:${STAGE_W * zoom}px;height:${STAGE_H * zoom}px"></div>`;
+    // The graph-paper grid is painted on the world backdrop (a uniform faint texture
+    // filling the whole canvas — see CSS), aligned to the world origin via --off and
+    // toggled to a finer sub-grid via the .fine class on the persistent canvas. The
+    // stage extent has NO visual marker — the grid is one continuous, borderless
+    // texture; fixtures still clamp to [0, STAGE] in world units (see onDrag).
+    canvas.style.setProperty('--off', `${o}px`);
+    canvas.classList.toggle('fine', state.fine);
     const nodesHtml = list.map((f) => {
       const p = state.pos.get(f.id) ?? { x: 0, y: 0, rot: 0 };
       const g = emitterGrid(f);
@@ -287,7 +284,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
         <div class="st-emitters">${emitters}</div>
       </div>`;
     }).join('');
-    world.innerHTML = stageRect + nodesHtml;
+    world.innerHTML = nodesHtml;
     sizeWorld();
     updateSelBox();
     canvas.scrollLeft = sl; canvas.scrollTop = st;   // restore the pan (see above)

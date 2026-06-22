@@ -7,7 +7,7 @@ test.describe('stage tile', () => {
 
   test('renders one node per patched fixture', async ({ page }) => {
     await expect(page.locator('.stage-tile')).toBeVisible();
-    await expect(page.locator('.st-node[data-fx]')).toHaveCount(24);
+    await expect(page.locator('.st-node[data-fx]')).toHaveCount(18);
   });
 
   test('clicking a node selects exactly that fixture', async ({ page }) => {
