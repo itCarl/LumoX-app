@@ -19,9 +19,9 @@ test.describe('live selection IPC', () => {
   });
 
   test('all / invert / clear', async ({ page }) => {
-    expect(await ipc<string[]>(page, 'selection.all')).toHaveLength(24);
+    expect(await ipc<string[]>(page, 'selection.all')).toHaveLength(ids.length);   // the whole rig
     await ipc(page, 'selection.set', [ids[0], ids[1]]);
-    expect(await ipc<string[]>(page, 'selection.invert')).toHaveLength(22);
+    expect(await ipc<string[]>(page, 'selection.invert')).toHaveLength(ids.length - 2);
     await ipc(page, 'selection.clear');
     expect(await ipc<string[]>(page, 'selection.get')).toHaveLength(0);
   });

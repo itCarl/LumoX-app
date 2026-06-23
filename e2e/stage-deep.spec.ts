@@ -13,15 +13,16 @@ test.describe('stage interactions', () => {
   });
 
   test('quick-select buttons drive the selection', async ({ page }) => {
+    const total = await ipc<any[]>(page, 'patch.list').then((f) => f.length);   // demo-show size
     await page.click('[data-sel="all"]');
-    await expect.poll(() => ipc<string[]>(page, 'selection.get').then((s) => s.length)).toBe(24);
+    await expect.poll(() => ipc<string[]>(page, 'selection.get').then((s) => s.length)).toBe(total);
 
     await page.click('[data-sel="none"]');
     await expect.poll(() => ipc<string[]>(page, 'selection.get').then((s) => s.length)).toBe(0);
 
     await page.locator('.st-node[data-fx]').first().click();
     await page.click('[data-sel="invert"]');
-    await expect.poll(() => ipc<string[]>(page, 'selection.get').then((s) => s.length)).toBe(23);
+    await expect.poll(() => ipc<string[]>(page, 'selection.get').then((s) => s.length)).toBe(total - 1);
   });
 
   test('zoom in / out / fit move the zoom slider', async ({ page }) => {

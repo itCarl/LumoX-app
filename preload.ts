@@ -63,12 +63,14 @@ contextBridge.exposeInMainWorld('lumox', {
       ipcRenderer.on('project:changed', (_e, info) => cb(info)),
   },
   // Generic dialog window (replaces in-app modals). `open` is used by views to
-  // pop a notice/confirmation and await the chosen button id; `spec`/`resolve`
-  // are the dialog page's own round-trip.
+  // pop a notice/confirmation and await the chosen button id (`open`) or a text
+  // prompt and await the entered string (`prompt`); `spec`/`resolve` are the
+  // dialog page's own round-trip (`resolve` carries any text value).
   dialog: {
     open:    (spec: unknown) => ipcRenderer.invoke('lumox:dialog:open', spec),
+    prompt:  (spec: unknown) => ipcRenderer.invoke('lumox:dialog:prompt', spec),
     spec:    () => ipcRenderer.invoke('lumox:dialog:spec'),
-    resolve: (id: string) => ipcRenderer.invoke('lumox:dialog:resolve', id),
+    resolve: (id: string, value?: string) => ipcRenderer.invoke('lumox:dialog:resolve', id, value),
   },
   // Generic panel window (Settings, group order): `open` pops the window; `spec`
   // is the panel page's own fetch of what to render.
@@ -131,6 +133,7 @@ contextBridge.exposeInMainWorld('lumox', {
   scenes: {
     list:    ()   => ipcRenderer.invoke('lumox:scenes:list'),
     values:  (id: string) => ipcRenderer.invoke('lumox:scenes:values', id),
+    monitor: (id: string, fixtureIds: string[]) => ipcRenderer.invoke('lumox:scenes:monitor', { id, fixtureIds }),
     capture: (bankId?: string, name?: string) => ipcRenderer.invoke('lumox:scenes:capture', { bankId, name }),
     recall:  (id: string, on: boolean) => ipcRenderer.invoke('lumox:scenes:recall', { id, on }),
     remove:  (id: string) => ipcRenderer.invoke('lumox:scenes:remove', id),

@@ -121,7 +121,7 @@ const docEl = document.querySelector('.tb-doc') as HTMLElement;
 let projectDirty = false;
 function applyProjectInfo(info: { name: string; path: string | null; dirty: boolean }) {
   projectDirty = info.dirty;
-  // Show the whole file name (e.g. `demo-show.lmx`); for an unsaved project with
+  // Show the whole file name (e.g. `demo-show-1.lmx`); for an unsaved project with
   // no path yet, append the `.lmx` extension to the display name so the titlebar
   // always carries the project-file extension.
   const label = info.path ? info.path.replace(/^.*[\\/]/, '') : `${info.name}.lmx`;

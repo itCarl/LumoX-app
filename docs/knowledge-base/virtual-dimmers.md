@@ -31,8 +31,11 @@ for free, and because the Art-Net/sACN encoders cap every frame at 512
   real channels).
 - **Qualification** — a fixture gets virtual dimmers when it has **no
   `isIntensity` channel at all** AND at least one RGB cluster. Detection is
-  whole-fixture; exposure is **per-cluster** via `Fixture.virtualDimmers()`
-  (built on `emitterColorAddresses()`, which lists one entry per cluster).
+  whole-fixture; exposure is **per-emitter cell** via `Fixture.virtualDimmers()`
+  (built on `emitterColorAddresses()`, one entry per cluster/head). A fixture whose
+  emitter **heads carry their own dimmer** channels is *not* virtual — each head's
+  real `dimmer` is used instead; mixed heads (some with a dimmer, some without) is
+  unsupported by design (any real intensity channel makes the whole fixture non-virtual).
 - **Default full (255)** — a virtual dimmer **rests at 100%**, so an RGB-only
   fixture shows its colour at full brightness with no extra step; the dimmer is an
   optional attenuator you ride down. To hold "rest at full" everywhere, the
@@ -49,10 +52,12 @@ for free, and because the Art-Net/sACN encoders cap every frame at 512
 
 - `Fixture.needsVirtualDimmer()` / `Fixture.virtualDimmers()` (`src/fixtures/Fixture.ts`)
   — detection + per-cluster resolution (`{ virtualAddr, r, g, b, w? }`).
-- `Fixture.set('intensity'|'intensity-master', v)` on a qualifying fixture writes
-  every cluster's level (whole-fixture intensity) into `Fixture.virtualLevels`;
-  `Fixture.apply()` flushes those into the programmer's virtual region — what lets
-  a **group dimmer** (`Group.setIntensity`) and master macros dim an RGB-only fixture.
+- `Fixture.set('intensity'|'intensity-master', v)` fans across **every** real
+  intensity channel first (so a fixture with one dimmer per head/cluster dims all
+  heads, not just the first); only when there's **no** real intensity channel does
+  it write every cluster's level into `Fixture.virtualLevels`, which `Fixture.apply()`
+  flushes into the programmer's virtual region — what lets a **group dimmer**
+  (`Group.setIntensity`) and master macros dim an RGB-only fixture.
 - `VirtualDimmer` mix module (`src/mix/modules/VirtualDimmer.ts`) — a post-mix
   stage that, per cluster, reads `data[virtualAddr]` and multiplies the cluster's
   composited R/G/B(/W) by `v/255`. It runs **after** compositing (Limits) and

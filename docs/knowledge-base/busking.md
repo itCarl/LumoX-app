@@ -82,7 +82,9 @@ conventions:
   overrides a `normal` base look while it is active.
 
 This is the conventional default, not an absolute law — but it is what makes
-"base + flashes + effects" behave predictably.
+"base + flashes + effects" behave predictably. How the engine actually implements
+the per-channel HTP/LTP split (the channel classification, the home-default
+interaction, live precedence): [htp-ltp.md](htp-ltp.md).
 
 ## Tempo & beat-sync
 
@@ -120,11 +122,13 @@ Dynamic content must lock to the music. Drive FX and chase speed from the master
 - Fixed-rate effects that drift off the beat instead of tempo-synced ones.
 - Burying key looks behind menus instead of on reachable pads/faders.
 
-## The demo show is a busking layout
+## The demo shows are busking layouts
 
-The bundled dev demo (`resources/demo-show.lmx`, see
-[build-run.md](build-run.md)) is deliberately a busking-ready rig: type/zone groups,
-a *Colors* bank of palettes, *Move/Position* attribute banks, *Chase* and *FX*
-banks of dynamics, gig-ready *Looks*, and a *Live* bank of instant buttons (Full On,
-Blinder, Strobe All) — all mapped to a grid controller in [midi.md](midi.md). Open
-it and busk.
+Two demos ship (see [build-run.md](build-run.md)). **`demo-show-0.lmx`** is the
+purpose-built busking showcase: type/zone groups, a *Colors* bank of palettes,
+*Move/Position* attribute banks, *Chase* and *FX* banks of dynamics, gig-ready
+*Looks*, and a *Live* bank of instant buttons (Full On, Blinder, Strobe All) — all
+mapped to a grid controller in [midi.md](midi.md). **`demo-show-1.lmx`** (which dev
+boots by default) is a real wedding rig ported from a QLC+ workspace — its
+path-named banks (Color, Movement, Gobo, Prism, …) are the same busking surface
+applied to an actual gig. Open either and busk.

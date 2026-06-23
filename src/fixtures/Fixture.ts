@@ -114,12 +114,14 @@ export class Fixture {
   get endAddress(): number   { return this.startAddress + this.channelCount - 1; }
 
   /**
-   * Number of light-emitting cells, derived from THIS mode's channel layout —
-   * colour clusters (a 9-LED bar's 9 R/G/B groups → 9), an explicit definition
-   * `emitterLayout`, or a declared `emitters` count; at least 1. Mode-dependent,
-   * so different modes of the same fixture can expose different cell counts.
+   * Number of light-emitting cells. Explicit head groups (`mode.emitters`) are
+   * authoritative — one cell per head with a complete R/G/B. Otherwise it is
+   * derived from THIS mode's channel layout: colour clusters (a 9-LED bar's 9
+   * R/G/B groups → 9), an explicit `emitterLayout`, or a declared `emitters`
+   * count; at least 1. Mode-dependent, so different modes expose different counts.
    */
   get emitterCount(): number {
+    if (this.mode.emitters?.length) return this.resolveHeads().length || 1;
     return resolveEmitterCount(this.mode.channels, this.definition.emitterLayout, this.definition.emitters);
   }
 
@@ -145,15 +147,18 @@ export class Fixture {
   }
 
   /**
-   * Write by channel-type id. Returns true if the type existed. For an RGB-only
-   * fixture, an `intensity`/`intensity-master` write with no real channel drives
-   * every virtual dimmer (whole-fixture intensity), so group/master dimmers work.
+   * Write by channel-type id. Returns true if the type existed. A whole-fixture
+   * intensity write (`intensity`/`intensity-master` — a group or master dimmer)
+   * fans across EVERY intensity channel, so a fixture with one dimmer per head
+   * dims all heads (not just the first) and a master-typed dimmer is hit too;
+   * with no real intensity channel it drives every virtual dimmer instead.
    */
   set(typeId: string, value: number): boolean {
-    const idx = this.mode.indexOfType(typeId);
-    if (!idx) {
-      if ((typeId === 'intensity' || typeId === 'intensity-master') && this.virtualLevels.length) {
-        const v = value & 0xff;
+    if (typeId === 'intensity' || typeId === 'intensity-master') {
+      const v = value & 0xff;
+      const idxs = this.mode.indicesWhere((c) => !!c.type?.isIntensity);
+      if (idxs.length) { for (const i of idxs) this.setChannel(i, v); return true; }
+      if (this.virtualLevels.length) {
         this.virtualLevels.fill(v);
         if (this.liveApply && this._universeRef) {
           for (const vd of this.virtualDimmers()) this._universeRef.setChannel(vd.virtualAddr, v);
@@ -162,6 +167,8 @@ export class Fixture {
       }
       return false;
     }
+    const idx = this.mode.indexOfType(typeId);
+    if (!idx) return false;
     this.setChannel(idx, value);
     return true;
   }
@@ -224,13 +231,42 @@ export class Fixture {
   }
 
   /**
-   * Per-emitter RGB(W) channel addresses (universe-absolute), one entry per
-   * emitter cell in mode order. Normally one colour cluster per cell; a fixture
-   * with a single cluster but several cells (one colour driving a whole shape)
-   * replicates that cluster across all cells. Index-aligned with
-   * {@link emitterWorldPositions}. Empty if the fixture has no colour mixing.
+   * Per-emitter RGB(W) + optional real dimmer channel addresses (universe-
+   * absolute), one entry per light cell in emitter order. With explicit head
+   * groups (`mode.emitters`) each head's roles are detected among ITS channels
+   * (by type, so non-contiguous groups work); otherwise colour clusters are
+   * zipped in mode order — a single cluster is replicated across every cell so
+   * one colour can drive a whole shape. `dimmer` is the head's own intensity
+   * channel when it has one. Index-aligned with {@link emitterWorldPositions}.
+   * Empty if the fixture mixes no colour.
    */
-  emitterColorAddresses(): { r: number; g: number; b: number; w?: number }[] {
+  emitterColorAddresses(): { r: number; g: number; b: number; w?: number; dimmer?: number }[] {
+    return this.resolveHeads();
+  }
+
+  /** Resolve the ordered colour cells — explicit head groups when present, else
+   *  the auto-zip of colour clusters. The single source both colour tuples and
+   *  cell count derive from, so they can never drift. */
+  private resolveHeads(): { r: number; g: number; b: number; w?: number; dimmer?: number }[] {
+    const groups = this.mode.emitters;
+    if (groups?.length) {
+      const chans = this.mode.channels;
+      const out: { r: number; g: number; b: number; w?: number; dimmer?: number }[] = [];
+      for (const g of groups) {
+        const find = (match: (c: NonNullable<(typeof chans)[number]>) => boolean): number => {
+          for (const i of g) { const c = chans[i - 1]; if (c && match(c)) return this.startAddress + i - 1; }
+          return 0;
+        };
+        const r = find((c) => c.typeId === 'red');
+        const gr = find((c) => c.typeId === 'green');
+        const b = find((c) => c.typeId === 'blue');
+        if (!r || !gr || !b) continue;   // a head needs a full R/G/B to be a colour cell
+        const w = find((c) => c.typeId === 'white');
+        const dimmer = find((c) => !!c.type?.isIntensity);
+        out.push({ r, g: gr, b, ...(w ? { w } : {}), ...(dimmer ? { dimmer } : {}) });
+      }
+      return out;
+    }
     const reds = this.addressesOf('red');
     const greens = this.addressesOf('green');
     const blues = this.addressesOf('blue');

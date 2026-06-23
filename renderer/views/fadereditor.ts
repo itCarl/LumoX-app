@@ -1,8 +1,8 @@
 // Fader Editor tile (CONTROL view, bottom-right) — the main area is one strip
 // per channel and shows every channel of the LIVE SELECTION (the fixtures picked
 // on the stage / patch grid; see selection.md). It is console-style **gated on
-// the selection**: with nothing selected the strip area is unavailable (a prompt
-// to pick fixtures) — faders only ever edit what you've selected. A group tab in
+// the selection**: with nothing selected the strip area is unavailable (a terse
+// "No fixtures selected" state note) — faders only ever edit what you've selected. A group tab in
 // the group bar is the quick "select this whole group" gesture.
 // When the selection mixes fixture types the strips are split into one block per
 // channel-config — its faders broadcast to every selected fixture of that type,
@@ -22,6 +22,13 @@
 //   EDIT — faders edit the recalled scene's stored values (the EDIT target,
 //          picked by recalling a scene in CONTROL → Banks). Because that scene
 //          is active, edits are visible live and persist with the project.
+//          The strips follow the live selection, but when nothing is selected
+//          they fall back to the recalled scene's OWN fixtures — so opening a
+//          scene always shows its faders without hijacking the selection. While
+//          that scene is live AND animating (a chase / movement), the strips
+//          MIRROR its live output (`lumox:scenes:monitor`), so the faders track
+//          the movement; static / inactive scenes show the editable stored values.
+//          HTP/LTP merge model: docs/knowledge-base/htp-ltp.md.
 //   LIVE — faders write straight to the live programmer (manual output). The
 //          touched universe is broadcast even with no scene active. The header
 //          shows how many channels are engaged and offers Clear (reset the
@@ -103,6 +110,7 @@ export async function makeFaderEditorTile() {
     vdimOpen: new Set<number>(),            // expanded per-cluster virtual-dimmer drawers (by channel index)
     colorPickers: new Map<number, ColorPicker>(),  // COLOR view: block index → mounted picker
     selectionIds: [] as string[],           // live ordered selection — the edit target (gates the strips)
+    sceneFixtureIds: [] as string[],        // EDIT fallback — the recalled scene's own fixtures (shown when nothing is selected)
     fixtures: [] as any[],
     blocks: [] as Block[],                  // current rendered blocks (event handlers resolve targets by index)
     editScene: null as SceneRef | null,    // scene being edited (EDIT mode)
@@ -111,6 +119,8 @@ export async function makeFaderEditorTile() {
     active: new Set<string>(),              // LIVE: engaged channels `${repId}:${ch}`
     bankId: null as string | null,          // Store target (active bank in CONTROL → Banks)
     progChannels: 0,                         // engaged channels in the live programmer
+    reflecting: false,                       // EDIT faders are mirroring a live animating scene
+    lastEditAt: 0,                           // perf.now() of the last fader drag — pauses live mirroring briefly
   };
 
   // ---- data loading ------------------------------------------------------
@@ -137,6 +147,11 @@ export async function makeFaderEditorTile() {
       const s = list.find((x) => x.active);
       state.editScene = s ? { id: s.id, name: s.name } : null;
     }
+    // The scene's own fixtures — the EDIT target when nothing is explicitly
+    // selected, so recalling a scene shows its faders without hijacking the
+    // live selection (the explicit strip gesture still selects them on stage).
+    const dto = state.editScene ? list.find((s) => s.id === state.editScene!.id) : null;
+    state.sceneFixtureIds = (dto?.fixtureIds as string[] | undefined) ?? [];
     await refreshSceneValues();
   }
 
@@ -147,11 +162,19 @@ export async function makeFaderEditorTile() {
     render();
   }
 
-  // The live selection resolved to fixture DTOs, in selection order. Stale ids
-  // (pruned by a patch change) drop out, so the strips always match the patch.
+  // Ids driving the strips. LIVE always follows the live selection; EDIT follows
+  // it too, but falls back to the recalled scene's own fixtures when nothing is
+  // selected — so opening a scene for editing always shows its faders.
+  function targetIds(): string[] {
+    if (state.mode === 'edit' && !state.selectionIds.length) return state.sceneFixtureIds;
+    return state.selectionIds;
+  }
+
+  // The edit target resolved to fixture DTOs, in order. Stale ids (pruned by a
+  // patch change) drop out, so the strips always match the patch.
   function selectionFixtures() {
     const byId = new Map<string, any>(state.fixtures.map((f) => [f.id, f]));
-    return state.selectionIds.map((id) => byId.get(id)).filter(Boolean);
+    return targetIds().map((id) => byId.get(id)).filter(Boolean);
   }
 
   // Split the selected fixtures into the blocks to render: one block per
@@ -245,22 +268,27 @@ export async function makeFaderEditorTile() {
     // Virtual dimmers rest at full and always output, so they read live (their
     // value, un-greyed) even when not explicitly engaged.
     const lit = on || !!c.isVirtual;
-    // Profile presets (gobo / colour / shutter / macro ranges) → a column of
-    // quick-value chips beside the fader (Daslight-style). The active range
-    // annotates the strip: its label as the readout, and — for a drawn gobo —
-    // its shape as the icon.
+    // Profile presets (gobo / colour / shutter / macro ranges) → quick-value
+    // chips beside the fader (gobos as a 2-column thumbnail grid, see below). The
+    // active range annotates the strip: its label as the readout, and — for a
+    // drawn gobo — its shape as the icon.
     const caps: any[] = Array.isArray(c.caps) ? c.caps : [];
     const cur = capAt(caps, v);
     const goboMarkup = lit && cur?.pattern ? goboSvg(cur.pattern, 18) : '';
+    // A strip whose presets carry drawn gobo icons lays them out as a 2-column
+    // thumbnail grid; a colour wheel's swatches lay out as a max 3-column grid
+    // (the open / rotation / scroll / macro ranges stay full-width text rows).
+    const goboGrid = caps.some((cap) => typeof cap.pattern === 'string');
+    const colorGrid = !goboGrid && caps.some((cap) => typeof cap.color === 'string');
     return html`
-      <div class="fcol${lit ? ' active' : ''}${caps.length ? ' has-presets' : ''}" data-ch="${c.index}"
+      <div class="fcol${lit ? ' active' : ''}${caps.length ? ' has-presets' : ''}${goboGrid ? ' is-gobo' : ''}${colorGrid ? ' is-color' : ''}" data-ch="${c.index}"
            data-midi="fixture:${rep.id}:${c.index}" data-midi-kind="range" data-midi-min="0" data-midi-max="255" data-midi-label="${rep.name} · ${c.name}">
         <div class="fc-n">${c.index}</div>
         <div class="fc-val" title="${cur ? cur.label : ''}">${lit ? (cur ? cur.label : v) : 'OFF'}</div>
         <div class="fc-body">
           <div class="fc-left">
             <span class="fc-icon${goboMarkup ? ' is-gobo' : ''}" title="${c.name}" style="${tint}">${raw(goboMarkup || channelIconHtml(c.typeId, c.group, c.color))}</span>
-            ${caps.length ? html`<div class="fc-chips">${presetChips(caps, v)}</div>` : ''}
+            ${caps.length ? html`<div class="fc-chips${goboGrid ? ' fc-chips--gobo' : colorGrid ? ' fc-chips--color' : ''}">${presetChips(caps, v)}</div>` : ''}
           </div>
           <input class="fc-fader" type="range" min="0" max="255" value="${v}" orient="vertical" />
         </div>
@@ -380,6 +408,48 @@ export async function makeFaderEditorTile() {
     if (valEl) valEl.textContent = String(v);
   }
 
+  // ---- live mirroring (EDIT faders follow an animating scene) ------------
+  // While the edit scene is live AND periodic (a chase / FX motion), poll the
+  // engine's mixed output for the target fixtures and drive the fader positions
+  // from it — so the strips visibly track the movement. Static (or inactive)
+  // scenes keep showing their editable stored values. A recent drag pauses it so
+  // the user isn't fought mid-grab.
+  function applyLiveValues(values: SceneValues) {
+    cols.el.querySelectorAll<HTMLElement>('.fe-block').forEach((blk) => {
+      const rep = state.blocks[Number(blk.dataset.block)]?.rep;
+      const uni = rep && values[rep.universeId];
+      if (!rep || !uni) return;
+      blk.querySelectorAll<HTMLElement>('.fcol').forEach((col) => {
+        const ch = Number(col.dataset.ch);
+        const v = uni[absOf(rep, ch)];
+        if (v != null) paintColumn(blk, ch, v);
+      });
+    });
+  }
+
+  let liveBusy = false;
+  async function liveTick() {
+    if (liveBusy) return;
+    const ids = targetIds();
+    if (state.mode !== 'edit' || !state.editScene || !ids.length) {
+      if (state.reflecting) { state.reflecting = false; render(); }
+      return;
+    }
+    liveBusy = true;
+    try {
+      const mon = await lumox.scenes.monitor(state.editScene.id, ids).catch(() => null);
+      const animating = !!mon && mon.active && mon.cycleMs > 0;
+      if (!animating) {
+        if (state.reflecting) { state.reflecting = false; render(); }   // restore stored display
+        return;
+      }
+      state.reflecting = true;
+      if (performance.now() - state.lastEditAt > 600) applyLiveValues(mon!.values);
+    } finally {
+      liveBusy = false;
+    }
+  }
+
   // Mount one picker per COLOR block, seeded from its current colour. Picker
   // drags write to the strips (onInput); strip drags push back via
   // `syncColorPicker` (setRgb never re-fires onInput, so there's no echo).
@@ -414,12 +484,11 @@ export async function makeFaderEditorTile() {
     updateHead();
     const fixtures = selectionFixtures();
     if (!fixtures.length) {
-      cols.set(html`<div class="muted pad">Select fixtures on the stage or patch grid to edit.</div>`);
+      cols.set(html`<div class="muted pad">No fixtures selected.</div>`);
       return;
     }
     const blocks = buildBlocks(fixtures);
     state.blocks = blocks;
-    const selName = fixtures.length === 1 ? fixtures[0].name : `${fixtures.length} fixtures`;
     const tabs = attrTabs();
 
     // A selected category drops blocks with no channels in it (so empty blocks
@@ -435,7 +504,6 @@ export async function makeFaderEditorTile() {
         ${tabs.map((t) => html`<button class="fe-attr${t.id === state.attr ? ' active' : ''}" data-attr="${t.id}">${t.label}</button>`)}
       </div>
       <div class="fe-main">
-        <div class="fe-gname">${selName.toUpperCase()}</div>
         <div class="fe-attr-body${single ? ' single' : ''}">
           ${shown.map(([b, i]) => html`
             <div class="fe-block" data-block="${i}">
@@ -549,6 +617,7 @@ export async function makeFaderEditorTile() {
     if (!col || !fixtures.length) return;
     const ch = Number(col.dataset.ch);
     const v = Number(fader.value);
+    state.lastEditAt = performance.now();   // pause live-mirroring so a drag isn't fought
     engage(fixtures, ch, v);
     // live-update this column without a full re-render (keeps the drag smooth)
     col.classList.add('active');
@@ -648,5 +717,7 @@ export async function makeFaderEditorTile() {
 
   try { state.selectionIds = await lumox.selection.get(); } catch { state.selectionIds = []; }
   await load();
+  // ~25 Hz live-mirror poll (idles cheaply unless an animating scene is open in EDIT).
+  window.setInterval(liveTick, 40);
   return { tile, refresh: load };
 }

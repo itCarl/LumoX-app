@@ -4,6 +4,7 @@
 // for those maps. Rebuild after any patch or limits change.
 
 import { engine, show } from '../context';
+import { TOTAL_CHANNELS } from '../../src/index';
 import type {
   Fixture, FixtureLimitTargets, AxisLimitTarget, LimitMap,
   VirtualDimmerMap, VirtualCluster,
@@ -76,8 +77,44 @@ export function rebuildVirtualDimmers(): void {
   engine.virtualDimmer.setMap(buildVirtualDimmerMap());
 }
 
-/** Re-resolve all per-fixture engine maps (limits + virtual dimmers) after a patch change. */
+// ---- HTP / LTP channel classification -----------------------------------
+// The SceneMixer blends intensity channels HTP and every other attribute
+// (pan/tilt/colour/gobo/beam…) LTP — the conventional console model (see
+// htp-ltp.md). The engine is fixture-agnostic, so the app resolves which
+// absolute addresses are LTP from the patch's channel groups. A fixture's
+// intensity / intensity-master channels stay HTP; everything else — including
+// its virtual dimmers — is LTP so a scene can pull it below the home default.
+
+function buildLtpMask(): Map<number, Uint8Array> {
+  const map = new Map<number, Uint8Array>();
+  const maskFor = (uni: number): Uint8Array => {
+    let m = map.get(uni);
+    if (!m) { m = new Uint8Array(TOTAL_CHANNELS); map.set(uni, m); }
+    return m;
+  };
+  for (const f of show.patch.list()) {
+    const intensity = new Set(f.intensityAddresses());
+    const m = maskFor(f.universeId);
+    for (let a = f.startAddress; a <= f.endAddress; a++) {
+      if (!intensity.has(a) && a >= 1 && a <= TOTAL_CHANNELS) m[a - 1] = 1;
+    }
+    // Virtual dimmers are synthetic intensity, but they rest seeded at full;
+    // LTP lets a scene drive them below that seed (HTP would pin them at 255).
+    for (const vd of f.virtualDimmers()) {
+      if (vd.virtualAddr >= 1 && vd.virtualAddr <= TOTAL_CHANNELS) m[vd.virtualAddr - 1] = 1;
+    }
+  }
+  return map;
+}
+
+/** Re-resolve the SceneMixer's HTP/LTP channel classification from the patch. */
+export function rebuildLtpMask(): void {
+  engine.scenes.setLtpMask(buildLtpMask());
+}
+
+/** Re-resolve all per-fixture engine maps (limits + virtual dimmers + HTP/LTP) after a patch change. */
 export function rebuildFixtureMaps(): void {
   rebuildLimits();
   rebuildVirtualDimmers();
+  rebuildLtpMask();
 }

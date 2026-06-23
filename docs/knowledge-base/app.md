@@ -142,7 +142,7 @@ Tiles (views):
 | `views/connection.ts` | CONNECTION — DMX output transport (Art-Net/sACN cards, target IP, refresh) + live status; full-page view on its own titlebar tab. See [connection.md](connection.md) |
 | `fixtureeditor-window.ts` | Fixture editor — standalone window (own taskbar entry) |
 | `midi-window.ts` | MIDI mapping — standalone window (own taskbar entry): connection status, **+ Add mapping** (click-to-assign), bindings table, live monitor. See [midi.md](midi.md) |
-| `dialog-window.ts` | Generic **dialog window** (`dialog.html`) — prompts/notices (unsaved-changes, missing fixtures, confirmations). Renders a spec from main, reports the clicked button id. See *Windows — no in-app modals* below |
+| `dialog-window.ts` | Generic **dialog window** (`dialog.html`) — button prompts/notices (unsaved-changes, missing fixtures, confirmations) **and text prompts** (rename a scene/bank/group, name a new preset/palette — native `window.prompt()` is unsupported in Electron). Renders a spec from main; reports the clicked button id (+ any typed text). See *Windows — no in-app modals* below |
 | `panel-window.ts` | Generic **panel window** (`panel.html`) — hosts the richer former modals (Settings, group fixture-order) as real windows |
 | `lib/midiassign.ts` | Main-window assign overlay — paints `[data-midi]` controls purple during assign mode and reports the picked target |
 
@@ -153,10 +153,15 @@ top-level window with its own taskbar entry (created **without** `parent`), so i
 can be picked from the taskbar / alt-tab. Two are generic and reusable:
 
 - **Dialog window** (`renderer/dialog.html` + `dialog-window.ts`, main:
-  `handlers/dialog.ts`) — button prompts + notices. `openDialog(spec)` (main) and
-  `lumox.dialog.open(spec)` (renderer) pop the window and resolve with the clicked
-  button id; the window's X / Esc resolve to the spec's `cancelId`. Used by the
-  unsaved-changes guard, the missing-fixtures notice, and `lib/confirm.ts`.
+  `handlers/dialog.ts`) — button prompts + notices, **or a single text field**.
+  `openDialog(spec)` / `lumox.dialog.open(spec)` resolve with the clicked button id;
+  the window's X / Esc resolve to the spec's `cancelId`. A spec with an `input` is a
+  **text prompt**: `openPrompt(spec)` / `lumox.dialog.prompt(spec)` resolve with the
+  entered string (or null when cancelled). The renderer helper `lib/prompt.ts`
+  `promptText()` wraps it for renames / naming — the replacement for the native
+  `window.prompt()`, which Electron does not support. Used by the unsaved-changes
+  guard, the missing-fixtures notice, `lib/confirm.ts`, and every rename/name flow
+  (scene/bank/group/preset/palette).
 - **Panel window** (`renderer/panel.html` + `panel-window.ts`, main:
   `handlers/panel.ts`) — hosts a richer panel chosen by `kind`. `lumox.panel.open({kind})`
   opens it; the page fetches its spec and mounts the matching body. Kinds:
@@ -180,13 +185,16 @@ under `userData`, so it survives restarts ([fixtures.md](fixtures.md)):
 - **Multiple channel modes** — a modes column (add / rename / delete, ≥ 1) each
   with its own ordered channel list. Matches the engine's `modes: FixtureMode[]`
   and the library tile's mode picker.
-- **Emitter layout** — a bottom-left canvas where light cells are positioned
-  (grid generator + free drag). Stored as `FixtureDefinition.emitterLayout`:
-  per-emitter normalized `{x,y}` (0..1), the physical layout **matrix effects
-  consume**. When present it is the source of truth for the emitter count;
-  otherwise the plain numeric `emitters` stands. The STAGE tile renders the real
-  layout when set. Coords are clamped/capped in the `FixtureDefinition`
-  constructor (defends the `library:add` path).
+- **Emitters** — a per-mode **list** of light cells (the QLC-style "head" model).
+  Each emitter is a group of channels shown as removable **chips** with a "+
+  channel" picker; the cell's colour/dimmer **role is auto-detected** from those
+  channels (`RGB`, `RGBW + Dim`, …) and shown beside the row. **+ Add emitter** and
+  **Auto-detect** (group the colour channels by order) seed/rebuild the list; the
+  groups reconcile when channels are added/removed. Saved as `FixtureMode.emitters`
+  (1-based channel indices). This is what `emitterColorAddresses`/`emitterCount`
+  resolve from ([fixtures.md](fixtures.md)). The editor no longer authors 2D
+  positions — the engine still consumes `FixtureDefinition.emitterLayout` for the
+  bundled matrix, but new head-grouped cells lay out as a single row.
 
 ## Build
 

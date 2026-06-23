@@ -84,9 +84,10 @@ Each layer's DMX target addresses (`TrackLayer.targets`) are derived from the pa
 by the app layer (`main/services/SceneCompiler.ts` `sceneTrack` → `fixturesFor`/
 `orderFixtures`/`targetsForKind`, honouring the layer's group + order) and attached to the track —
 the engine stays fixture-agnostic. MATRIX layers instead use `matrixTargets`,
-which pairs each emitter's `[r,g,b]` tuple (`Fixture.emitterColorAddresses`) with
-its world position (`Fixture.emitterWorldPositions`) into `TrackLayer.targets` +
-`TrackLayer.positions`. Rebuild a track after editing with
+which pairs each emitter's `[r,g,b(,w)]` tuple (`Fixture.emitterColorAddresses` —
+head-aware: explicit emitter/head groups when set, else zipped colour clusters)
+with its world position (`Fixture.emitterWorldPositions`) into the track's
+`targets` + `positions`. Rebuild a track after editing with
 `rebuildSceneTrack`. IPC: `scenes:setType`, `scenes:{add,remove,move}Step`,
 `scenes:setStepTiming`, `scenes:{add,remove,move}Layer`,
 `scenes:setLayer{Enabled,Target,Order,Timing,Config}`. Reusable colour palettes +
@@ -139,7 +140,12 @@ scene plays. The runtime model lives in the `SceneMixer`:
   `fadeOut` does not apply here); coexisting scenes in other banks are outside the
   `fromIds`/`toId` set and keep blending independently. A plain recall with no
   released scene (or `fadeIn === 0`) just ramps opacity — already dipless on its
-  own.
+  own. A crossfade does **not** ramp the outgoing track's opacity (the snapshot
+  represents it, so it stays pinned at 1 until completion), so `isLive` alone can't
+  tell the banks tile the release is still in flight — `isTransitioning(id)` (true
+  for the incoming target and every held outgoing source, surfaced as
+  `SceneDTO.transitioning`) is the poll signal that keeps the Banks tile refreshing
+  until the crossfade settles and the released scene's `active` highlight clears.
 - **Tempo.** `driveMode 'off'` → period `rateMs / speed`; `'bpm'` →
   `(60000 / bpm) / beatDiv`. The master `bpm` is owned by
   `main/services/Transport.ts`, pushed into the mixer, and persisted top-level.
@@ -174,9 +180,10 @@ Loop,JumpTo,ReleaseAtEnd,ReleaseMode,Protect,Flash}`.
 - **Priority** (`low`/`normal`/`high`). The `SceneMixer.process` composites by tier
   **high → low**: a tier "claims" every channel it writes (`_claimed` mask), and
   lower tiers can't touch claimed channels — so a high-priority scene overrides
-  lower ones on shared fixtures. Within a tier, tracks blend as before (HTP/LTP by
-  opacity). With all scenes at the default `normal`, one pass runs with nothing
-  claimed — identical to a flat blend. Carried on the track (`track.priority`).
+  lower ones on shared fixtures. Within a tier, tracks blend **per channel by
+  HTP/LTP** (intensity highest-takes-precedence, attributes latest-takes-precedence;
+  see [htp-ltp.md](htp-ltp.md)). With all scenes at the default `normal`, one pass
+  runs with nothing claimed. Carried on the track (`track.priority`).
 - **Loop / Jump** (`loop {mode:'always'|'count', count}`, `jumpTo`, `releaseAtEnd`).
   A counted loop runs N cycles then ends. The mixer counts in `update()`:
   `pb.runMs` accumulates live play time since recall (reset by `resetPhase`),
@@ -219,20 +226,25 @@ resolved height (`pinColumnHeights`, re-run on every rebuild and on a
 
 ## Recalling vs editing a scene (CONTROL → Banks)
 
-A scene cell has two click regions with distinct, decoupled jobs:
+A scene cell has two click regions with distinct jobs:
 
 - **Body** (wide left part) — activates / deactivates the scene (`recallScene`,
-  toggle). Live playback only; it does not touch the edit target.
+  toggle), and on activate makes it the EDIT target so the fader editor + Scene
+  panel **follow what is live** (emits `SCENE_SELECTED`). It does **not** change the
+  live **fixture selection** — firing scenes mid-show never disturbs what you are
+  programming (nor re-fans other selection-targeted FX).
 - **Right colour strip** — selects the scene as the EDIT target for the fader
-  editor + Scene panel (emits `SCENE_SELECTED`), without changing playback.
-  **Clicking the already-selected scene's strip again deselects it** (emits
-  `SCENE_DESELECTED`) — clearing the edit target so both editors show their greyed
-  no-scene state. `SCENE_DESELECTED` is distinct from a `SCENE_SELECTED`-null,
-  which instead **re-resolves** the target to whatever scene stays active (used by
-  release / delete).
+  editor + Scene panel (emits `SCENE_SELECTED`) **and** picks the scene's fixtures
+  as the live selection (emits `FIXTURE_SELECTED`) so they're ready to edit, without
+  changing playback. **Clicking the already-selected scene's strip again deselects
+  it** (emits `SCENE_DESELECTED`) — clearing the edit target so both editors show
+  their greyed no-scene state. `SCENE_DESELECTED` is distinct from a
+  `SCENE_SELECTED`-null, which instead **re-resolves** the target to whatever scene
+  stays active (used by release / delete).
 
-So playback and the edit selection are independent: fire a scene from the body,
-pick (or clear) what to edit with the strip.
+So the body fires-and-follows (playback + edit target, selection untouched) while
+the strip is the explicit "edit this scene's fixtures" gesture — the only one that
+changes the live fixture selection.
 
 ## Fader editor — EDIT vs LIVE
 
@@ -240,7 +252,7 @@ The CONTROL fader editor is **gated on the live selection** (see
 [selection.md](selection.md)): it shows one strip per channel of the *selected*
 fixtures, grouped into one block per channel-config (a block's faders broadcast to
 every selected fixture of that type), in selection order. With nothing selected the
-strip area is unavailable (a prompt to pick fixtures); a group-bar tab is the quick
+strip area is unavailable (a terse "No fixtures selected" state note); a group-bar tab is the quick
 "select this whole group" gesture. The GrandMaster + Blackout sit outside the grid
 and stay live regardless.
 
@@ -255,12 +267,15 @@ It writes to one of two targets:
 
 A channel that carries profile **capabilities** (gobo / colour-wheel / shutter /
 macro value ranges — see [fixtures.md](fixtures.md)) renders a column of **preset
-chips** beside its fader, Daslight-style. Each chip is
+chips** beside its fader. Each chip is
 the range's **colour swatch**, its **drawn-gobo thumbnail** (`goboSvg`), or a small
 **labelled chip** for everything else. Clicking a chip engages the channel and snaps
 it to the range's **mid value** (`data-v`); the chip that contains the live value is
 highlighted, the strip's readout shows that range's **label** (e.g. `Orange`), and a
-drawn gobo also replaces the round strip icon. Preset-bearing strips widen
+drawn gobo also replaces the round strip icon. A **gobo** strip lays its thumbnails
+out as an aligned **2-column** grid (`.fc-chips--gobo`) and a **colour-wheel** strip
+its swatches as a matching **2-column** grid (`.fc-chips--color`); non-icon
+ranges stay full-width text rows. Preset-bearing strips widen
 (`.fcol.has-presets`) to seat the chips next to a slim fader; plain channels keep the
 classic narrow strip. The fader still fine-tunes the raw 0–255 value.
 
@@ -277,8 +292,10 @@ and an **engaged mask** (`Universe.engaged`). Only channels you actually move ar
   the mask untouched.
 - This matters because `Fixture.apply` flushes a fixture's **default** channel
   values into the programmer at patch/load time (`handlers/patch.ts`,
-  `ProjectService`). Those defaults are not engaged, so they are never captured or
-  counted — only the faders you moved are.
+  `ProjectService`) — e.g. pan/tilt home at `128`. Those defaults are not engaged,
+  so they are never captured or counted (only the faders you moved are) **and** a
+  scene's LTP attribute write overrides them (a non-engaged channel isn't owned by
+  the manual layer). See [htp-ltp.md](htp-ltp.md).
 
 ### Programmer → Store (scene creation)
 
@@ -332,8 +349,11 @@ every quit path (`before-quit`, `SIGINT`/`SIGTERM`).
 ## Notes / Gotchas
 
 - Scenes are a mix layer (SceneMixer); Effects / GroupEffects run after.
-- SceneMixer blends scene-over-programmer **HTP** by default: a high LIVE value
-  can mask a lower EDIT scene value on the same channel.
+- SceneMixer blends **per channel by HTP/LTP** — intensity highest-takes-precedence,
+  every attribute (pan/tilt/colour/gobo/beam…) latest-takes-precedence — so a scene
+  replaces a fixture's home default on attributes instead of being masked by it. The
+  app supplies the channel classification from the patch (`SceneMixer.setLtpMask`);
+  live-engaged programmer channels still win. Full model: [htp-ltp.md](htp-ltp.md).
 - New output type: subclass `Output`, set static `TYPE`, register via
   `OutputManager.registerType` (see `src/index.ts`).
 - Best engine-API reference: `examples/`. See also [app.md](app.md).

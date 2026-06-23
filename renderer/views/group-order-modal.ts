@@ -54,7 +54,6 @@ export async function buildGroupOrderBody(groupId: string): Promise<HTMLElement>
       <li class="ord-row" draggable="true" data-i="${i}">
         <span class="ord-handle"><i class="fa-solid fa-grip-vertical"></i></span>
         <span class="ord-idx">${i + 1}</span>
-        <span class="ord-dot" style="background:${esc(f.color || '#6b6b6b')}"></span>
         <span class="ord-name">${esc(f.name)}</span>
         <span class="ord-addr">@${f.startAddress}</span>
       </li>`).join('');

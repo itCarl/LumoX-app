@@ -34,6 +34,7 @@ referenced here.
 | [docs/knowledge-base/app.md](docs/knowledge-base/app.md) | Electron app — engine/shell split, modular IPC, renderer, build |
 | [docs/knowledge-base/reactivity.md](docs/knowledge-base/reactivity.md) | Renderer reactivity — `@preact/signals-core` (`signal`/`effect`/`computed`), shared `store.ts`, signals vs. event bus |
 | [docs/knowledge-base/mix-engine.md](docs/knowledge-base/mix-engine.md) | Engine tick loop, MixPipeline, universe buffers, scenes/groups/banks |
+| [docs/knowledge-base/htp-ltp.md](docs/knowledge-base/htp-ltp.md) | HTP/LTP merge model — intensity HTP, attributes LTP; per-channel blend, app-supplied LTP mask + per-track set mask, home-default override, live precedence, faders mirror live movement |
 | [docs/knowledge-base/fixtures.md](docs/knowledge-base/fixtures.md) | Fixture model + channel-type taxonomy, JSON import, validation, library (built-in + Custom user profiles) |
 | [docs/knowledge-base/selection.md](docs/knowledge-base/selection.md) | Live ordered selection — the programming target driving FX fan/phase, index badges, `lumox:selection:*` IPC, FX `selection` target |
 | [docs/knowledge-base/limits.md](docs/knowledge-base/limits.md) | Per-fixture output limits — dimmer cap, pan/tilt range + invert, swap; `Limits` post-mix stage, `lumox:fixtures:setLimits` IPC, Limits tile |

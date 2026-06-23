@@ -1,0 +1,2768 @@
+{
+  "format": "lumox-project",
+  "version": 1,
+  "name": "Demo Show 1",
+  "library": [],
+  "patch": [
+    {
+      "id": "fx_0",
+      "name": "9x4W LED BAR (36 Watt) [1]",
+      "definitionId": "NoName/9x4W LED BAR (36 Watt)",
+      "modeId": "8ch",
+      "universeId": 0,
+      "startAddress": 2,
+      "stageTransform": {
+        "x": 0.443,
+        "y": 0.55,
+        "rotation": 0
+      }
+    },
+    {
+      "id": "fx_1",
+      "name": "9x4W LED BAR (36 Watt) [2]",
+      "definitionId": "NoName/9x4W LED BAR (36 Watt)",
+      "modeId": "8ch",
+      "universeId": 0,
+      "startAddress": 10,
+      "stageTransform": {
+        "x": 0.583,
+        "y": 0.55,
+        "rotation": 0
+      }
+    },
+    {
+      "id": "fx_2",
+      "name": "Derby [3]",
+      "definitionId": "NoName/Derby",
+      "modeId": "7ch",
+      "universeId": 0,
+      "startAddress": 42,
+      "stageTransform": {
+        "x": 0.513,
+        "y": 0.49,
+        "rotation": 0
+      }
+    },
+    {
+      "id": "fx_3",
+      "name": "200w mini Beam Spot Moving Head [4]",
+      "definitionId": "NoName/200W mini Beam Spot Moving Head",
+      "modeId": "12ch",
+      "universeId": 0,
+      "startAddress": 18,
+      "stageTransform": {
+        "x": 0.423,
+        "y": 0.33,
+        "rotation": 0
+      }
+    },
+    {
+      "id": "fx_4",
+      "name": "200w mini Beam Spot Moving Head [5]",
+      "definitionId": "NoName/200W mini Beam Spot Moving Head",
+      "modeId": "12ch",
+      "universeId": 0,
+      "startAddress": 30,
+      "stageTransform": {
+        "x": 0.603,
+        "y": 0.33,
+        "rotation": 0
+      }
+    },
+    {
+      "id": "fx_11",
+      "name": "AFH-600 [12]",
+      "definitionId": "Stairville/AFH-600",
+      "modeId": "1ch",
+      "universeId": 0,
+      "startAddress": 50,
+      "stageTransform": {
+        "x": 0.313,
+        "y": 0.67,
+        "rotation": 0
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "grp_0",
+      "name": "Led Bars",
+      "color": "#3b82e0",
+      "fixtureIds": [
+        "fx_1",
+        "fx_0"
+      ]
+    },
+    {
+      "id": "grp_1",
+      "name": "MH Beam Spots",
+      "color": "#e0564b",
+      "fixtureIds": [
+        "fx_3",
+        "fx_4"
+      ]
+    },
+    {
+      "id": "grp_3",
+      "name": "all Uni1",
+      "color": "#4be08a",
+      "fixtureIds": [
+        "fx_3",
+        "fx_0",
+        "fx_1",
+        "fx_4",
+        "fx_2"
+      ]
+    }
+  ],
+  "selections": [],
+  "scenes": [
+    {
+      "id": "scene_0",
+      "name": "red",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 255,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "11": 255,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 10,
+          "36": 0,
+          "37": 10
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_1",
+      "name": "green",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 0,
+          "4": 255,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "11": 0,
+          "12": 255,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 40,
+          "36": 0,
+          "37": 40
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_2",
+      "name": "blue",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 0,
+          "4": 0,
+          "5": 255,
+          "6": 0,
+          "7": 0,
+          "11": 0,
+          "12": 0,
+          "13": 255,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 50,
+          "36": 0,
+          "37": 50
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_3",
+      "name": "strobe fast",
+      "color": "#e0a23b",
+      "values": {
+        "0": {
+          "2": 255,
+          "7": 245,
+          "10": 255,
+          "15": 225,
+          "23": 255,
+          "24": 239,
+          "35": 255,
+          "36": 242
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_4",
+      "name": "R G",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 0,
+          "4": 255,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "11": 255,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 40,
+          "36": 0,
+          "37": 10
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_5",
+      "name": "G B",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 0,
+          "4": 0,
+          "5": 255,
+          "6": 0,
+          "7": 0,
+          "11": 0,
+          "12": 255,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 50,
+          "36": 0,
+          "37": 40
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_6",
+      "name": "R B",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 0,
+          "4": 0,
+          "5": 255,
+          "6": 0,
+          "7": 0,
+          "11": 255,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 50,
+          "36": 0,
+          "37": 10
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_7",
+      "name": "amber",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 255,
+          "4": 90,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "11": 255,
+          "12": 90,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 20,
+          "36": 0,
+          "37": 20
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_8",
+      "name": "New Scene",
+      "color": "#7a8290",
+      "values": {},
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_9",
+      "name": "all LED BARS",
+      "color": "#7a8290",
+      "values": {},
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_10",
+      "name": "MH left full white",
+      "color": "#e0814b",
+      "values": {
+        "0": {
+          "23": 255,
+          "25": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_11",
+      "name": "MH right full white",
+      "color": "#e0814b",
+      "values": {
+        "0": {
+          "35": 255,
+          "37": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_12",
+      "name": "LedBar left full white",
+      "color": "#e0814b",
+      "values": {
+        "0": {
+          "2": 255,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 255,
+          "7": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_13",
+      "name": "LedBar right full white",
+      "color": "#e0814b",
+      "values": {
+        "0": {
+          "10": 255,
+          "11": 0,
+          "12": 0,
+          "13": 0,
+          "14": 255
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_14",
+      "name": "all White",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 255,
+          "4": 255,
+          "5": 255,
+          "6": 255,
+          "7": 0,
+          "11": 255,
+          "12": 255,
+          "13": 255,
+          "14": 255,
+          "15": 0,
+          "24": 0,
+          "25": 0,
+          "36": 0,
+          "37": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_15",
+      "name": "PI YE",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 255,
+          "4": 100,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "11": 255,
+          "12": 40,
+          "13": 255,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 20,
+          "36": 0,
+          "37": 60
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_17",
+      "name": "Blackout (tap)",
+      "color": "#e0c14b",
+      "values": {
+        "0": {
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "10": 0,
+          "11": 0,
+          "12": 0,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "23": 0,
+          "24": 0,
+          "35": 0,
+          "36": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_18",
+      "name": "random white",
+      "color": "#e0c14b",
+      "values": {
+        "0": {}
+      },
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "type": "chase",
+      "steps": [
+        {
+          "values": {
+            "0": {
+              "23": 255,
+              "25": 0
+            }
+          },
+          "waitMs": 750,
+          "fadeMs": 250
+        },
+        {
+          "values": {
+            "0": {
+              "2": 255,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 255,
+              "7": 0
+            }
+          },
+          "waitMs": 750,
+          "fadeMs": 250
+        },
+        {
+          "values": {
+            "0": {
+              "10": 255,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 255
+            }
+          },
+          "waitMs": 750,
+          "fadeMs": 250
+        },
+        {
+          "values": {
+            "0": {
+              "35": 255,
+              "37": 0
+            }
+          },
+          "waitMs": 750,
+          "fadeMs": 250
+        }
+      ],
+      "rateMs": 70,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_19",
+      "name": "Strobe fast white",
+      "color": "#e0c14b",
+      "values": {
+        "0": {
+          "2": 255,
+          "3": 255,
+          "4": 255,
+          "5": 255,
+          "6": 255,
+          "7": 238,
+          "10": 255,
+          "11": 255,
+          "12": 255,
+          "13": 255,
+          "14": 255,
+          "15": 219,
+          "23": 255,
+          "24": 238,
+          "25": 0,
+          "35": 255,
+          "36": 245,
+          "37": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_20",
+      "name": "New Scene",
+      "color": "#7a8290",
+      "values": {},
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_21",
+      "name": "Derby Movement",
+      "color": "#7a8290",
+      "values": {
+        "0": {
+          "47": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_22",
+      "name": "Derby Red and Green",
+      "color": "#7a8290",
+      "values": {
+        "0": {
+          "43": 255,
+          "44": 255
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_23",
+      "name": "G OR",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 0,
+          "4": 255,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "11": 255,
+          "12": 100,
+          "13": 0,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 40,
+          "36": 0,
+          "37": 20
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_24",
+      "name": "YE B",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 255,
+          "4": 255,
+          "5": 0,
+          "6": 0,
+          "11": 0,
+          "12": 0,
+          "13": 255,
+          "14": 0,
+          "25": 30,
+          "37": 50
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_27",
+      "name": "New Scene",
+      "color": "#7a8290",
+      "values": {},
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_28",
+      "name": "Prism On",
+      "color": "#8a6bff",
+      "values": {
+        "0": {
+          "27": 130,
+          "39": 130
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_29",
+      "name": "Prism Off",
+      "color": "#8a6bff",
+      "values": {
+        "0": {
+          "27": 0,
+          "39": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_30",
+      "name": "Prism Slow",
+      "color": "#8a6bff",
+      "values": {
+        "0": {
+          "27": 137,
+          "39": 137
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_31",
+      "name": "Prism Fast",
+      "color": "#8a6bff",
+      "values": {
+        "0": {
+          "27": 200,
+          "39": 200
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_32",
+      "name": "Gobo Circle",
+      "color": "#3bb0e0",
+      "values": {
+        "0": {
+          "26": 0,
+          "38": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_33",
+      "name": "Gobo Triangle Circle",
+      "color": "#3bb0e0",
+      "values": {
+        "0": {
+          "26": 11,
+          "38": 11
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_34",
+      "name": "Gobo 3x",
+      "color": "#3bb0e0",
+      "values": {
+        "0": {
+          "26": 46,
+          "38": 46
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_36",
+      "name": "MH down position",
+      "color": "#4be08a",
+      "values": {
+        "0": {
+          "18": 170,
+          "19": 0,
+          "20": 100,
+          "21": 0,
+          "23": 255,
+          "30": 170,
+          "31": 0,
+          "32": 100,
+          "33": 0,
+          "35": 255
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_37",
+      "name": "MH SweepUp",
+      "color": "#4be08a",
+      "values": {
+        "0": {}
+      },
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "type": "chase",
+      "steps": [
+        {
+          "values": {
+            "0": {
+              "18": 170,
+              "19": 0,
+              "20": 100,
+              "21": 0,
+              "23": 255,
+              "30": 170,
+              "31": 0,
+              "32": 100,
+              "33": 0,
+              "35": 255
+            }
+          },
+          "waitMs": 0,
+          "fadeMs": 200
+        },
+        {
+          "values": {
+            "0": {
+              "18": 170,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "23": 255,
+              "30": 170,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "35": 255
+            }
+          },
+          "waitMs": 0,
+          "fadeMs": 1500
+        },
+        {
+          "values": {
+            "0": {
+              "18": 170,
+              "19": 0,
+              "20": 0,
+              "21": 0,
+              "23": 0,
+              "30": 170,
+              "31": 0,
+              "32": 0,
+              "33": 0,
+              "35": 0
+            }
+          },
+          "waitMs": 200,
+          "fadeMs": 0
+        },
+        {
+          "values": {
+            "0": {
+              "18": 170,
+              "19": 0,
+              "20": 100,
+              "21": 0,
+              "23": 0,
+              "30": 170,
+              "31": 0,
+              "32": 100,
+              "33": 0,
+              "35": 0
+            }
+          },
+          "waitMs": 1000,
+          "fadeMs": 0
+        }
+      ],
+      "rateMs": 70,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_38",
+      "name": "MH up position",
+      "color": "#4be08a",
+      "values": {
+        "0": {
+          "18": 170,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "23": 255,
+          "30": 170,
+          "31": 0,
+          "32": 0,
+          "33": 0,
+          "35": 255
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_39",
+      "name": "MH Blackout",
+      "color": "#7a8290",
+      "values": {
+        "0": {
+          "23": 0,
+          "35": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_40",
+      "name": "MH down position dark",
+      "color": "#4be08a",
+      "values": {
+        "0": {
+          "18": 170,
+          "19": 0,
+          "20": 100,
+          "21": 0,
+          "23": 0,
+          "30": 170,
+          "31": 0,
+          "32": 100,
+          "33": 0,
+          "35": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_41",
+      "name": "MH up position dark",
+      "color": "#4be08a",
+      "values": {
+        "0": {
+          "18": 170,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "23": 0,
+          "30": 170,
+          "31": 0,
+          "32": 0,
+          "33": 0,
+          "35": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_42",
+      "name": "Gobo Triangle",
+      "color": "#3bb0e0",
+      "values": {
+        "0": {
+          "26": 31,
+          "38": 31
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_43",
+      "name": "all Uni1",
+      "color": "#7a8290",
+      "values": {
+        "0": {
+          "3": 0,
+          "4": 0,
+          "5": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_44",
+      "name": "B OR",
+      "color": "#e0564b",
+      "values": {
+        "0": {
+          "3": 255,
+          "4": 100,
+          "5": 0,
+          "6": 0,
+          "7": 0,
+          "11": 0,
+          "12": 0,
+          "13": 255,
+          "14": 0,
+          "15": 0,
+          "24": 0,
+          "25": 20,
+          "36": 0,
+          "37": 50
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_46",
+      "name": "Derby red",
+      "color": "#c04bd6",
+      "values": {
+        "0": {
+          "43": 255
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_49",
+      "name": "Chaser Bar white",
+      "color": "#e0c14b",
+      "values": {
+        "0": {
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 255
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_52",
+      "name": "all Uni1",
+      "color": "#7a8290",
+      "values": {
+        "0": {
+          "2": 0,
+          "10": 0,
+          "23": 0,
+          "35": 0,
+          "42": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_53",
+      "name": "Derby Green",
+      "color": "#c04bd6",
+      "values": {
+        "0": {
+          "44": 255
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_54",
+      "name": "Gobo x",
+      "color": "#3bb0e0",
+      "values": {
+        "0": {
+          "26": 61,
+          "38": 61
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_55",
+      "name": "Gobo small circle",
+      "color": "#3bb0e0",
+      "values": {
+        "0": {
+          "26": 70,
+          "38": 70
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_56",
+      "name": "MH Heart right",
+      "color": "#4be08a",
+      "values": {
+        "0": {
+          "18": 205,
+          "19": 0,
+          "20": 68,
+          "21": 0,
+          "30": 192,
+          "31": 0,
+          "32": 92,
+          "33": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_57",
+      "name": "strobe slow",
+      "color": "#e0a23b",
+      "values": {
+        "0": {
+          "2": 255,
+          "7": 26,
+          "10": 255,
+          "15": 45,
+          "23": 255,
+          "24": 32,
+          "35": 255,
+          "36": 38
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_58",
+      "name": "Full On",
+      "color": "#e0a23b",
+      "values": {
+        "0": {
+          "2": 255,
+          "10": 255,
+          "23": 255,
+          "35": 255,
+          "42": 255
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_59",
+      "name": "MH pos Front",
+      "color": "#4be08a",
+      "values": {
+        "0": {
+          "18": 170,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "30": 170,
+          "31": 0,
+          "32": 0,
+          "33": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_60",
+      "name": "MH Heart",
+      "color": "#7a8290",
+      "values": {
+        "0": {
+          "18": 164,
+          "19": 147,
+          "20": 61,
+          "21": 179,
+          "22": 0,
+          "30": 176,
+          "31": 0,
+          "32": 63,
+          "33": 173,
+          "34": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_61",
+      "name": "MH Heart left",
+      "color": "#4be08a",
+      "values": {
+        "0": {
+          "18": 166,
+          "19": 0,
+          "20": 51,
+          "21": 0,
+          "30": 157,
+          "31": 0,
+          "32": 47,
+          "33": 0
+        }
+      },
+      "fadeIn": 0.4,
+      "fadeOut": 0.4,
+      "type": "static",
+      "steps": [],
+      "rateMs": 500,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_62",
+      "name": "Chaser MH Heart",
+      "color": "#4be08a",
+      "values": {
+        "0": {}
+      },
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "type": "chase",
+      "steps": [
+        {
+          "values": {
+            "0": {
+              "18": 205,
+              "19": 0,
+              "20": 68,
+              "21": 0,
+              "30": 192,
+              "31": 0,
+              "32": 92,
+              "33": 0
+            }
+          },
+          "waitMs": 500,
+          "fadeMs": 1000
+        },
+        {
+          "values": {
+            "0": {
+              "18": 166,
+              "19": 0,
+              "20": 51,
+              "21": 0,
+              "30": 157,
+              "31": 0,
+              "32": 47,
+              "33": 0
+            }
+          },
+          "waitMs": 500,
+          "fadeMs": 1000
+        }
+      ],
+      "rateMs": 70,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    },
+    {
+      "id": "scene_65",
+      "name": "random sparkle",
+      "color": "#e0c14b",
+      "values": {
+        "0": {}
+      },
+      "fadeIn": 0,
+      "fadeOut": 0,
+      "type": "chase",
+      "steps": [
+        {
+          "values": {
+            "0": {
+              "23": 255,
+              "25": 0
+            }
+          },
+          "waitMs": 200,
+          "fadeMs": 0
+        },
+        {
+          "values": {
+            "0": {
+              "2": 255,
+              "3": 0,
+              "4": 0,
+              "5": 0,
+              "6": 255,
+              "7": 0
+            }
+          },
+          "waitMs": 200,
+          "fadeMs": 0
+        },
+        {
+          "values": {
+            "0": {
+              "10": 255,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "14": 255
+            }
+          },
+          "waitMs": 200,
+          "fadeMs": 0
+        },
+        {
+          "values": {
+            "0": {
+              "35": 255,
+              "37": 0
+            }
+          },
+          "waitMs": 200,
+          "fadeMs": 0
+        }
+      ],
+      "rateMs": 70,
+      "level": 1,
+      "speed": 1,
+      "fadeSpeed": 1,
+      "phaseIn": 0,
+      "phaseOut": 0,
+      "driveMode": "off",
+      "beatDiv": 1,
+      "startMode": "restart",
+      "direction": "forward",
+      "layers": [],
+      "priority": "normal",
+      "loop": {
+        "mode": "always",
+        "count": 1
+      },
+      "jumpTo": null,
+      "releaseAtEnd": true,
+      "releaseMode": "bank",
+      "releaseBanks": [],
+      "protectFromRelease": "off",
+      "protectBanks": [],
+      "flash": false
+    }
+  ],
+  "banks": [
+    {
+      "id": "bank_1",
+      "name": "Color",
+      "sceneIds": [
+        "scene_0",
+        "scene_1",
+        "scene_2",
+        "scene_4",
+        "scene_5",
+        "scene_6",
+        "scene_7",
+        "scene_14",
+        "scene_15",
+        "scene_23",
+        "scene_24",
+        "scene_44"
+      ]
+    },
+    {
+      "id": "bank_2",
+      "name": "Dimmer",
+      "sceneIds": [
+        "scene_3",
+        "scene_57",
+        "scene_58"
+      ]
+    },
+    {
+      "id": "bank_3",
+      "name": "Movement",
+      "sceneIds": [
+        "scene_36",
+        "scene_37",
+        "scene_38",
+        "scene_40",
+        "scene_41",
+        "scene_56",
+        "scene_59",
+        "scene_61",
+        "scene_62"
+      ]
+    },
+    {
+      "id": "bank_4",
+      "name": "Gobo",
+      "sceneIds": [
+        "scene_32",
+        "scene_33",
+        "scene_34",
+        "scene_42",
+        "scene_54",
+        "scene_55"
+      ]
+    },
+    {
+      "id": "bank_5",
+      "name": "Prism",
+      "sceneIds": [
+        "scene_28",
+        "scene_29",
+        "scene_30",
+        "scene_31"
+      ]
+    },
+    {
+      "id": "bank_6",
+      "name": "Derby",
+      "sceneIds": [
+        "scene_46",
+        "scene_53"
+      ]
+    },
+    {
+      "id": "bank_7",
+      "name": "FX",
+      "sceneIds": [
+        "scene_17",
+        "scene_18",
+        "scene_19",
+        "scene_49",
+        "scene_65"
+      ]
+    },
+    {
+      "id": "bank_8",
+      "name": "FX extra",
+      "sceneIds": [
+        "scene_10",
+        "scene_11",
+        "scene_12",
+        "scene_13"
+      ]
+    },
+    {
+      "id": "bank_9",
+      "name": "Misc",
+      "sceneIds": [
+        "scene_8",
+        "scene_9",
+        "scene_20",
+        "scene_21",
+        "scene_22",
+        "scene_27",
+        "scene_39",
+        "scene_43",
+        "scene_52",
+        "scene_60"
+      ]
+    }
+  ],
+  "devices": [
+    {
+      "universeId": 0,
+      "protocol": "artnet",
+      "host": "255.255.255.255",
+      "frameMode": "standard",
+      "maxRateHz": 40,
+      "enabled": true
+    },
+    {
+      "universeId": 1,
+      "protocol": "artnet",
+      "host": "255.255.255.255",
+      "frameMode": "standard",
+      "maxRateHz": 40,
+      "enabled": true
+    }
+  ],
+  "palettes": [],
+  "presets": [],
+  "bpm": 150,
+  "midiBindings": [],
+  "audioBindings": []
+}

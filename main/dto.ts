@@ -49,7 +49,7 @@ export interface CapabilityDTO {
   label: string;
   kind: string;            // 'range' | 'color' | 'gobo' | 'shutter' | 'effect'
   color: string | null;    // hex for colour presets, else null
-  pattern: string | null;  // drawn mono gobo bitmask ("g16:…") for gobo presets, else null
+  pattern: string | null;  // drawn mono gobo bitmask ("g32:…") for gobo presets, else null
 }
 
 export interface ChannelDTO {
@@ -81,6 +81,10 @@ export interface FixtureDTO {
   type: string;
   emitters: number;
   emitterLayout: EmitterCellDTO[] | null;
+  /** Explicit emitter/head groups (1-based LOCAL channel indices), or null when
+   *  the emitters are auto-derived. The stage groups channels by these to find
+   *  each cell's colour. */
+  heads: number[][] | null;
   modeId: string;
   modeName: string;
   configKey: string;
@@ -154,6 +158,10 @@ export interface SceneDTO {
   color: string;
   opacity: number;
   active: boolean;
+  /** runtime: part of an in-flight dipless crossfade (incoming target or a held
+   *  outgoing source) — the banks tile keeps polling while this is true so a
+   *  released scene's `active` highlight clears when the crossfade settles */
+  transitioning: boolean;
   /** base look — a fixed capture ('static') or a step list ('chase') */
   type: 'static' | 'chase';
   /** chase: number of captured steps */

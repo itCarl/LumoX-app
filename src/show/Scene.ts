@@ -272,6 +272,10 @@ export interface MixerTrack {
   opacity: number;
   blend: SceneBlend;
   values: Record<number, Uint8Array>;
+  /** per-universe footprint mask (1 where this scene drives a channel — base
+   *  look, any chase step, or an FX layer target). Lets the SceneMixer apply an
+   *  LTP attribute channel even at value 0, instead of leaving the home default. */
+  setMask?: Record<number, Uint8Array>;
   type?: SceneType;
   /** FX rack — effect layers composited over the base look (bottom→top) */
   layers?: TrackLayer[];
@@ -456,14 +460,16 @@ export class Scene {
    *   engine.scenes.addTrack(scene.toMixerTrack({ blend: 'ltp' }));
    */
   toMixerTrack({ blend = 'htp', opacity = 0 }: MixerTrackOptions = {}): MixerTrack {
+    const setMask = maskOf(this.values);
     const track: MixerTrack = {
       id: this.id, sceneId: this.id, opacity, blend,
-      values: densify(this.values), type: this.type,
+      values: densify(this.values), setMask, type: this.type,
       priority: this.priority,
       loopCount: this.loop.mode === 'count' ? this.loop.count : 0,
     };
     if (this.type === 'chase') {
       track.stepValues = this.steps.map((s) => densify(s.values));
+      this.steps.forEach((s) => orMaskInto(setMask, maskOf(s.values)));
       track.stepTimings = this.steps.map((s) => ({ fadeMs: s.fadeMs, waitMs: s.waitMs }));
       track.rateMs = this.rateMs;
       track.speed = this.speed;
@@ -506,6 +512,28 @@ function densify(values: SceneValues): Record<number, Uint8Array> {
     dense[+uniId] = buf;
   }
   return dense;
+}
+
+/** Sparse SceneValues → dense per-universe footprint mask (1 where a channel is
+ *  set, value included — so an explicit 0 still counts as driven). */
+function maskOf(values: SceneValues): Record<number, Uint8Array> {
+  const mask: Record<number, Uint8Array> = {};
+  for (const [uniId, channels] of Object.entries(values)) {
+    const buf = new Uint8Array(TOTAL_CHANNELS);
+    for (const ch of Object.keys(channels)) buf[(+ch) - 1] = 1;
+    mask[+uniId] = buf;
+  }
+  return mask;
+}
+
+/** OR `src` masks into `dst` per universe, allocating buffers as needed. */
+function orMaskInto(dst: Record<number, Uint8Array>, src: Record<number, Uint8Array>): void {
+  for (const [uniId, buf] of Object.entries(src)) {
+    const u = +uniId;
+    let d = dst[u];
+    if (!d) { d = new Uint8Array(TOTAL_CHANNELS); dst[u] = d; }
+    for (let i = 0; i < buf.length; i++) if (buf[i]) d[i] = 1;
+  }
 }
 
 function perUniverseAddrs(fixtures: SceneFixture[]): Map<number, Set<number>> {

@@ -43,6 +43,72 @@ describe('SceneMixer — static blend', () => {
   });
 });
 
+describe('SceneMixer — HTP / LTP per channel', () => {
+  // ch1 = LTP (attribute, e.g. tilt); ch2 = HTP (intensity). 1-based addrs.
+  const ltp = (): Map<number, Uint8Array> => {
+    const m = new Uint8Array(TOTAL_CHANNELS);
+    m[0] = 1;               // channel 1 is an attribute (LTP)
+    return new Map([[0, m]]);
+  };
+  const mask = (...chs: number[]): Record<number, Uint8Array> => {
+    const b = new Uint8Array(TOTAL_CHANNELS);
+    for (const c of chs) b[c - 1] = 1;
+    return { 0: b };
+  };
+
+  it('an LTP attribute scene overrides a higher home/base value (not HTP-maxed)', () => {
+    const mixer = new SceneMixer();
+    mixer.setLtpMask(ltp());
+    const u = new Universe(0);
+    u.data[0] = 128;        // home default (e.g. tilt centre) sitting in the frame
+    // scene drives ch1 to 100 — BELOW the home default; LTP must still apply it.
+    mixer.addTrack({ id: 's', opacity: 1, values: { 0: look({ 1: 100 }) }, setMask: mask(1) });
+    mixer.process(u, ctx());
+    expect(u.getChannel(1)).toBe(100);
+  });
+
+  it('an LTP attribute applies even at value 0 (footprint mask), clearing the home default', () => {
+    const mixer = new SceneMixer();
+    mixer.setLtpMask(ltp());
+    const u = new Universe(0);
+    u.data[0] = 128;
+    mixer.addTrack({ id: 's', opacity: 1, values: { 0: look({ 1: 0 }) }, setMask: mask(1) });
+    mixer.process(u, ctx());
+    expect(u.getChannel(1)).toBe(0);   // explicit 0 wins over home — the head fully tilts
+  });
+
+  it('an HTP intensity channel still takes the highest', () => {
+    const mixer = new SceneMixer();
+    mixer.setLtpMask(ltp());            // ch2 is NOT in the LTP mask → HTP
+    const u = new Universe(0);
+    u.data[1] = 200;                    // a brighter contributor already present
+    mixer.addTrack({ id: 's', opacity: 1, values: { 0: look({ 2: 100 }) }, setMask: mask(2) });
+    mixer.process(u, ctx());
+    expect(u.getChannel(2)).toBe(200);  // HTP keeps the higher value
+  });
+
+  it('a live-engaged attribute channel is not overridden by a scene', () => {
+    const mixer = new SceneMixer();
+    mixer.setLtpMask(ltp());
+    const u = new Universe(0);
+    u.engage(1, 42);                    // manual LIVE control owns ch1
+    u.data[0] = 42;                     // BaseLayer copies the engaged programmer value into the frame
+    mixer.addTrack({ id: 's', opacity: 1, values: { 0: look({ 1: 100 }) }, setMask: mask(1) });
+    mixer.process(u, ctx());
+    expect(u.getChannel(1)).toBe(42);   // the live value holds
+  });
+
+  it('an unset LTP channel keeps the home default (scene does not touch it)', () => {
+    const mixer = new SceneMixer();
+    mixer.setLtpMask(ltp());
+    const u = new Universe(0);
+    u.data[0] = 128;                    // home default
+    mixer.addTrack({ id: 's', opacity: 1, values: { 0: look({ 2: 255 }) }, setMask: mask(2) });
+    mixer.process(u, ctx());
+    expect(u.getChannel(1)).toBe(128);  // ch1 not in the scene footprint → untouched
+  });
+});
+
 describe('SceneMixer — priority tiers', () => {
   it('a high-priority scene claims its channels from lower tiers', () => {
     const mixer = new SceneMixer();
@@ -148,6 +214,26 @@ describe('SceneMixer — dipless crossfade (startTransition)', () => {
     u.data.fill(0);
     mixer.process(u, ctx());
     expect(u.getChannel(2)).toBe(255);   // incoming fully in afterwards
+  });
+
+  it('reports the in-flight crossfade for both the held source and the incoming target, then clears', () => {
+    const mixer = new SceneMixer();
+    mixer.addTrack({ id: 'A', opacity: 1, values: { 0: look({ 1: 255 }) } });
+    mixer.addTrack({ id: 'B', opacity: 0, values: { 0: look({ 1: 200 }) } });
+    mixer.startTransition({ toId: 'B', level: 1, fromIds: ['A'], totalMs: 1000 });
+
+    // During the crossfade the outgoing source's opacity is HELD at 1 (no ramp),
+    // so isTransitioning is the only signal the release is still in flight — the
+    // banks tile polls on it to clear the released scene's `active` highlight.
+    expect(mixer.isTransitioning('A')).toBe(true);   // held outgoing source
+    expect(mixer.isTransitioning('B')).toBe(true);   // incoming target
+    expect(mixer.isLive('A')).toBe(true);            // still contributing (opacity held)
+
+    mixer.update(1000);                              // run to completion
+    expect(mixer.isTransitioning('A')).toBe(false);
+    expect(mixer.isTransitioning('B')).toBe(false);
+    expect(mixer.isLive('A')).toBe(false);           // released — only B stays live
+    expect(mixer.isLive('B')).toBe(true);
   });
 
   it('a scene crossfaded out stays recallable (can be the target of a later crossfade)', () => {

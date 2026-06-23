@@ -24,6 +24,11 @@ export interface SceneTrack {
   values: { [universeId: number]: Uint8Array };
   /** playback type — default 'static' (a fixed look) */
   type?: SceneTrackType;
+  /** per-universe footprint mask: 1 where the scene drives a channel (base look,
+   *  any chase step, or an FX layer target). Attribute (LTP) channels are applied
+   *  wherever this mask is set — even at value 0 — instead of keeping the home
+   *  default. Absent → fall back to "non-zero source channel is driven". */
+  setMask?: { [universeId: number]: Uint8Array };
   /** chase: dense look per step, keyed by universe id */
   stepValues?: { [universeId: number]: Uint8Array }[];
   /** chase: per-step { fadeMs, waitMs } timing, parallel to stepValues */
@@ -95,6 +100,9 @@ interface Transition {
   fromIds: string[];
   /** captured outgoing look per universe id (frozen at start) */
   from: Record<number, Uint8Array>;
+  /** union footprint mask (outgoing ∪ incoming) per universe — which channels
+   *  the crossfade drives, so attribute (LTP) channels apply even at value 0 */
+  setMask: Record<number, Uint8Array>;
   /** universe ids whose `from` snapshot has been taken */
   captured: Set<number>;
   elapsedMs: number;
@@ -188,6 +196,11 @@ export class SceneMixer extends MixModule {
   transitions: Map<string, Transition>;
   /** master tempo (BPM) used by tracks with `driveMode === 'bpm'` */
   bpm: number;
+  /** per-universe channel classification: 1 = LTP (attribute — pan/tilt/colour/
+   *  gobo/beam…), 0/absent = HTP (intensity / unclassified). Supplied by the app
+   *  from the patch (the engine stays fixture-agnostic). Without it every channel
+   *  blends HTP, preserving the headless / unit-test default. */
+  ltpMask: Map<number, Uint8Array>;
   /** composed layer output / single-FX frame (returned to the blend) */
   _scratch: Uint8Array;
   /** base look for a chase under an FX rack — kept separate so the chase
@@ -215,6 +228,7 @@ export class SceneMixer extends MixModule {
     this.playback = new Map();
     this.transitions = new Map();
     this.bpm = 120;
+    this.ltpMask = new Map();
     this._scratch = new Uint8Array(TOTAL_CHANNELS);
     this._baseScratch = new Uint8Array(TOTAL_CHANNELS);
     this._transScratch = new Uint8Array(TOTAL_CHANNELS);
@@ -261,6 +275,13 @@ export class SceneMixer extends MixModule {
   setBpm(bpm: number): void {
     if (Number.isFinite(bpm)) this.bpm = Math.max(20, Math.min(300, bpm));
   }
+
+  /**
+   * Replace the per-universe HTP/LTP channel classification (app, on patch
+   * change). `mask[universeId][addr-1] === 1` marks an LTP (attribute) channel;
+   * anything else blends HTP. See [htp-ltp.md] for the model.
+   */
+  setLtpMask(mask: Map<number, Uint8Array>): void { this.ltpMask = mask; }
 
   /** Free-run / beat-synced cycle period for a track, in ms. */
   effectivePeriod(t: SceneTrack): number {
@@ -347,7 +368,7 @@ export class SceneMixer extends MixModule {
     if (pb) pb.fading = false;   // the crossfade owns the incoming level now
     this.transitions.set(opts.toId, {
       toId: opts.toId, level, fromIds,
-      from: {}, captured: new Set(),
+      from: {}, setMask: {}, captured: new Set(),
       elapsedMs: 0, totalMs: Math.max(0, opts.totalMs || 0), preDelayMs: Math.max(0, opts.preDelayMs || 0),
     });
   }
@@ -379,6 +400,18 @@ export class SceneMixer extends MixModule {
     if (t.opacity > 0) return true;
     const pb = this.playback.get(id);
     return !!pb && pb.fading && pb.fadeTarget > 0;
+  }
+
+  /**
+   * True while `id` is part of an active dipless crossfade — either the incoming
+   * target or one of the held outgoing sources. A crossfade does NOT ramp the
+   * outgoing track's opacity (the snapshot represents it), so the only way for a
+   * UI to know the release is still in flight is to ask here.
+   */
+  isTransitioning(id: string): boolean {
+    if (this.transitions.has(id)) return true;
+    for (const tr of this.transitions.values()) if (tr.fromIds.includes(id)) return true;
+    return false;
   }
 
   /** Drain the set of tracks whose fade-out just reached 0 this update. */
@@ -635,11 +668,19 @@ export class SceneMixer extends MixModule {
           const snap = new Uint8Array(TOTAL_CHANNELS);
           this._combineLook(tr.fromIds, universe, ctx, snap);
           tr.from[uid] = snap;
+          // union footprint: every channel either side of the crossfade drives,
+          // so a position lerping toward 0 still moves (LTP) rather than holding home
+          const m = new Uint8Array(TOTAL_CHANNELS);
+          for (const fid of tr.fromIds) orInto(m, this.tracks.get(fid)?.setMask?.[uid]);
+          orInto(m, this.tracks.get(tr.toId)?.setMask?.[uid]);
+          tr.setMask[uid] = m;
           tr.captured.add(uid);
         }
       }
     }
 
+    const ltp = this.ltpMask.get(universe.id);
+    const engaged = universe.engaged;
     for (let tier = 2; tier >= 0; tier--) {
       touched.fill(0);
       let wrote = false;
@@ -651,8 +692,8 @@ export class SceneMixer extends MixModule {
         if (!src) continue;
         // a transition source already bakes the incoming level into the lerp.
         const op = tr ? 1 : t.opacity;
-        if (t.blend === 'ltp') blendMaskedLTP(universe.data, src, op, claimed, touched);
-        else                   blendMaskedHTP(universe.data, src, op, claimed, touched);
+        const setMask = tr ? tr.setMask[universe.id] : t.setMask?.[universe.id];
+        blendTrack(universe.data, src, op, claimed, touched, ltp, setMask, engaged);
         wrote = true;
       }
       if (wrote) for (let i = 0; i < claimed.length; i++) if (touched[i]) claimed[i] = 1;
@@ -767,29 +808,49 @@ export class SceneMixer extends MixModule {
   }
 }
 
-/**
- * HTP-blend `src` into `dst` (max, scaled by opacity), but skip channels already
- * `claimed` by a higher priority tier and record every channel this source writes
- * into `touched` (so the caller can claim them for lower tiers).
- */
-function blendMaskedHTP(dst: Uint8Array, src: Uint8Array, opacity: number, claimed: Uint8Array, touched: Uint8Array): void {
-  const op = opacity <= 0 ? 0 : opacity >= 1 ? 1 : opacity;
-  for (let i = 0; i < dst.length && i < src.length; i++) {
-    if (claimed[i]) continue;
-    if (src[i] > 0) touched[i] = 1;
-    const s = (src[i] * op) | 0;
-    if (s > dst[i]) dst[i] = s;
-  }
+/** OR a per-universe mask buffer into `dst` (no-op when `src` is absent). */
+function orInto(dst: Uint8Array, src: Uint8Array | undefined): void {
+  if (!src) return;
+  for (let i = 0; i < dst.length && i < src.length; i++) if (src[i]) dst[i] = 1;
 }
 
-/** LTP variant of {@link blendMaskedHTP} (crossfade) — skips claimed, marks touched. */
-function blendMaskedLTP(dst: Uint8Array, src: Uint8Array, opacity: number, claimed: Uint8Array, touched: Uint8Array): void {
+/**
+ * Blend one scene track's frame `src` into `dst`, per channel, by HTP/LTP class
+ * (see htp-ltp.md). Channels already `claimed` by a higher priority tier are
+ * skipped; every channel this source contributes is recorded in `touched` so the
+ * caller can claim it for the lower tiers.
+ *
+ *   - **HTP** (intensity / unclassified — `ltp[i]` unset): highest takes
+ *     precedence — `dst = max(dst, src·opacity)`. A lower value never pulls a
+ *     brighter contributor down, and the home default (0 for intensity) is the floor.
+ *   - **LTP** (attribute — `ltp[i]` set): latest takes precedence — the track
+ *     REPLACES the channel (crossfaded by opacity) wherever it actually drives it
+ *     (`setMask`, so even an explicit 0 applies), EXCEPT a live-engaged programmer
+ *     channel, which the manual layer owns and a scene must not override.
+ */
+function blendTrack(
+  dst: Uint8Array, src: Uint8Array, opacity: number,
+  claimed: Uint8Array, touched: Uint8Array,
+  ltp: Uint8Array | undefined, setMask: Uint8Array | undefined, engaged: Uint8Array,
+): void {
   const op = opacity <= 0 ? 0 : opacity >= 1 ? 1 : opacity;
   if (op <= 0) return;
+  const inv = 1 - op;
   for (let i = 0; i < dst.length && i < src.length; i++) {
     if (claimed[i]) continue;
-    if (src[i] > 0) touched[i] = 1;
-    dst[i] = (src[i] * op + dst[i] * (1 - op)) | 0;
+    if (ltp && ltp[i]) {
+      // attribute → LTP replace (the home default / lower scene is overwritten),
+      // but never clobber a channel the live programmer is actively holding.
+      const driven = setMask ? !!setMask[i] : src[i] !== 0;
+      if (!driven || engaged[i]) continue;
+      dst[i] = (src[i] * op + dst[i] * inv) | 0;
+      touched[i] = 1;
+    } else {
+      // intensity / unclassified → HTP max.
+      if (src[i] > 0) touched[i] = 1;
+      const s = (src[i] * op) | 0;
+      if (s > dst[i]) dst[i] = s;
+    }
   }
 }
 

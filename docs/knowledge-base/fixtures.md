@@ -65,14 +65,29 @@ labelled chip — and annotates the strip with the active range's label (a drawn
 also replaces the strip icon). See [mix-engine.md](mix-engine.md#channel-presets-profile-ranges).
 
 **Drawn gobo icons.** A `GoboCapability.pattern` is a hand-drawn mono icon — a
-`GOBO_GRID × GOBO_GRID` (16×16) on/off bitmask encoded `"g16:"+base64` by the pure,
+`GOBO_GRID × GOBO_GRID` (32×32) on/off bitmask encoded `"g32:"+base64` by the pure,
 dependency-free [`src/fixtures/goboPattern.ts`](../../src/fixtures/goboPattern.ts)
 (`encodeGobo`/`decodeGobo`, bundled into the renderer like `emitterGeometry.ts`). The
 editor's **Paint** button opens a click-and-drag grid ([`renderer/lib/goboPaint.ts`](../../renderer/lib/goboPaint.ts));
 [`renderer/lib/gobo.ts`](../../renderer/lib/gobo.ts) `goboSvg()` renders a pattern to a
 circle-masked SVG. On the **GOBO fader strip** the icon becomes the drawn gobo of the
 range the fader is currently on — updated live as you drag — so the selected gobo is
-recognisable at a glance instead of a generic glyph.
+recognisable at a glance instead of a generic glyph. The strip lays its drawn slots
+out as an aligned **2-column thumbnail grid** (`.fc-chips--gobo`); the open / rotation
+/ shake ranges stay full-width text rows. A **colour-wheel** strip lays its swatches
+out the same way — an aligned **2-column grid** (`.fc-chips--color`, same cell size);
+its non-colour ranges (open / scroll / macro) likewise stay full-width text rows.
+
+**Bundled moving-head gobo icons.** Every bundled **Moving Head** profile's gobo-wheel
+slots ship with drawn `pattern` icons, authored offline by
+[`tools/gen-gobo-patterns.ts`](../../tools/gen-gobo-patterns.ts) (run `npm run gen-gobo`;
+`--dry`/`--check`). It classifies each gobo label to a motif from
+[`tools/gobo-shapes.ts`](../../tools/gobo-shapes.ts) — the real shape when a label names
+one (circle, triangle, star, flower, …), else a fixed number-indexed motif so every
+numbered slot gets a distinct, consistent icon library-wide. Dynamic ranges
+(rotation / rainbow / scroll / shake / stop) and the open slot get no icon. The tool
+splices the field format-preserving and is authoritative — re-running overwrites in
+place and converges to the current motifs/format (new fixtures included).
 
 ### Import (`importers/`)
 
@@ -162,18 +177,31 @@ shared by the engine **and** the browser renderer (it has only type imports, so
 it bundles into the renderer without pulling Node code; the STAGE tile imports it
 directly so its picture matches the engine exactly).
 
-- **Emitter count is derived from the channel layout** — `resolveEmitterCount`
-  counts the mode's repeating R/G/B clusters (`colorClusterCount`), so a PAR is 1
-  cell, a 4-segment bar 4, a 9-LED bar 9, a 5×5 matrix 25 — no explicit count
-  needed. It's the max of clusters, an explicit `emitterLayout` length, and any
-  declared `emitters` (≥1). Because it reads the *mode's* channels,
-  `Fixture.emitterCount` is per-instance (different modes expose different counts)
-  and is what `FixtureDTO.emitters` carries (not the raw definition field).
+- **Emitter cells = channel groups (heads).** A mode can name its light cells
+  explicitly via `FixtureMode.emitters` — each an array of **1-based channel
+  indices** forming one cell. The cell's R/G/B/W and its own dimmer are detected
+  **among those channels by type** (so non-contiguous picks work). The fixture
+  editor authors these (a per-mode emitter **list** of channel chips + an
+  *Auto-detect* button), the QLC-style "head" model. `Fixture.emitterColorAddresses()`
+  (`{r,g,b,w?,dimmer?}`, universe-absolute) and `emitterCount` both derive from one
+  private `resolveHeads()`, so colour tuples and cell count can never drift; a head
+  without a complete R/G/B is dropped.
+- **Auto-derived when no groups** — without explicit `mode.emitters`,
+  `resolveEmitterCount` counts the mode's repeating R/G/B clusters
+  (`colorClusterCount`), so a PAR is 1 cell, a 4-segment bar 4, a 9-LED bar 9, a
+  5×5 matrix 25 — no explicit count needed (max of clusters, an `emitterLayout`
+  length, and any declared `emitters`, ≥1), and `emitterColorAddresses` zips the
+  clusters in mode order. **Precedence:** head count when `mode.emitters` is set,
+  else this derivation. Per-instance (reads the *mode's* channels) and surfaced as
+  `FixtureDTO.emitters`; the groups themselves ride `FixtureDTO.heads` (local
+  indices) so the stage groups identically to the engine.
 - **World space** — one emitter cell = 1 world unit; a fixture's footprint is
   `cols × rows` cells (`emitterGrid`). A positioned `emitterLayout` (per-emitter
   `{x,y}` normalised 0..1 on the `FixtureDefinition`) whose length matches the
   count defines the matrix shape; otherwise the cells lay out as a **single
-  horizontal row** (the honest default for a bar/strip).
+  horizontal row** (the honest default for a bar/strip). The engine still consumes
+  `emitterLayout` (the bundled 5×5 matrix uses it), but the editor no longer
+  authors 2D positions — head-grouped cells lay out as a row.
 - **Fixed stage extent** — `STAGE_SIZE` (`{ width: 64, height: 36 }` world units, 16:9)
   is the bounded 2D stage every fixture lives inside. The STAGE tile paints a uniform
   faint graph-paper grid (1 cell = 1 world unit, scaling with zoom) across the whole
@@ -192,9 +220,9 @@ directly so its picture matches the engine exactly).
   real coordinates.
 - **Per-emitter accessors** — `Fixture.emitterWorldPositions()` (2D positions,
   rotation applied) and `Fixture.emitterColorAddresses()` (per-emitter
-  `[r,g,b(,w)]` DMX addresses, by zipping each colour type in mode order). A
-  single-colour fixture yields one cell; a matrix yields one per emitter. These
-  are index-aligned — the pair MATRIX FX consumes (see
+  `{r,g,b,w?,dimmer?}` DMX addresses — head groups when set, else zipped colour
+  clusters). A single-colour fixture yields one cell; a matrix yields one per
+  emitter. These are index-aligned — the pair MATRIX FX consumes (see
   [mix-engine.md](mix-engine.md)). The bundled `Generic/LED Matrix RGB 5×5 75ch`
   profile is a ready pixel-map example.
 - **Virtual dimmers** — `Fixture.needsVirtualDimmer()` / `Fixture.virtualDimmers()`.

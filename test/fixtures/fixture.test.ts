@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Universe, DMX_CHANNELS } from '../../src/index';
+import { Universe, DMX_CHANNELS, FixtureMode } from '../../src/index';
 import { makeFixture } from '../helpers/defs';
 
 describe('Fixture — addressing', () => {
@@ -112,5 +112,81 @@ describe('Fixture — emitter colour addresses', () => {
     expect(fx.emitterColorAddresses()).toEqual([
       { r: 1, g: 2, b: 3 }, { r: 4, g: 5, b: 6 },
     ]);
+  });
+});
+
+describe('Fixture — emitter heads (explicit channel groups)', () => {
+  it('detects each head colour by type, not position (non-contiguous groups)', () => {
+    const fx = makeFixture(
+      ['intensity', 'red', 'green', 'blue', 'white', 'red', 'green', 'blue'],
+      { startAddress: 1, modeEmitters: [[2, 4, 3, 5], [8, 6, 7]] },   // shuffled within each head
+    );
+    expect(fx.emitterCount).toBe(2);
+    expect(fx.emitterColorAddresses()).toEqual([
+      { r: 2, g: 3, b: 4, w: 5 },
+      { r: 6, g: 7, b: 8 },
+    ]);
+  });
+
+  it('a head with its own intensity exposes a dimmer and needs no virtual dimmer', () => {
+    const fx = makeFixture(
+      ['intensity', 'red', 'green', 'blue', 'intensity', 'red', 'green', 'blue'],
+      { startAddress: 1, modeEmitters: [[1, 2, 3, 4], [5, 6, 7, 8]] },
+    );
+    expect(fx.emitterColorAddresses()).toEqual([
+      { r: 2, g: 3, b: 4, dimmer: 1 },
+      { r: 6, g: 7, b: 8, dimmer: 5 },
+    ]);
+    expect(fx.needsVirtualDimmer()).toBe(false);
+    expect(fx.virtualDimmers()).toEqual([]);
+  });
+
+  it('a whole-fixture intensity write fans across every head dimmer (not just the first)', () => {
+    const fx = makeFixture(
+      ['intensity', 'red', 'green', 'blue', 'intensity', 'red', 'green', 'blue'],
+      { startAddress: 1, modeEmitters: [[1, 2, 3, 4], [5, 6, 7, 8]] },
+    );
+    expect(fx.set('intensity', 200)).toBe(true);
+    expect(fx.values[0]).toBe(200);   // head 1 dimmer (ch 1)
+    expect(fx.values[4]).toBe(200);   // head 2 dimmer (ch 5)
+  });
+
+  it('a no-dimmer multi-head fixture makes one virtual dimmer per head', () => {
+    const fx = makeFixture(
+      ['red', 'green', 'blue', 'red', 'green', 'blue'],
+      { startAddress: 1, modeEmitters: [[1, 2, 3], [4, 5, 6]] },
+    );
+    expect(fx.needsVirtualDimmer()).toBe(true);
+    expect(fx.virtualDimmers()).toEqual([
+      { virtualAddr: DMX_CHANNELS + 1, r: 1, g: 2, b: 3 },
+      { virtualAddr: DMX_CHANNELS + 4, r: 4, g: 5, b: 6 },
+    ]);
+  });
+
+  it('drops a head with incomplete RGB so count + colours stay aligned', () => {
+    const fx = makeFixture(
+      ['red', 'green', 'blue', 'red', 'green'],   // 2nd group lacks blue
+      { startAddress: 1, modeEmitters: [[1, 2, 3], [4, 5]] },
+    );
+    expect(fx.emitterCount).toBe(1);
+    expect(fx.emitterColorAddresses()).toEqual([{ r: 1, g: 2, b: 3 }]);
+  });
+});
+
+describe('FixtureMode — emitter groups', () => {
+  it('round-trips emitters and sanitizes out-of-range / dup / empty groups', () => {
+    const m = new FixtureMode({
+      name: 'x',
+      channels: [{ typeId: 'red' }, { typeId: 'green' }, { typeId: 'blue' }],
+      emitters: [[1, 2, 3], [1, 9, 0], [], [2, 2]],   // drop 9/0 (out of range), the empty group, dedupe 2
+    });
+    expect(m.emitters).toEqual([[1, 2, 3], [1], [2]]);
+    expect(FixtureMode.fromJSON(m.toJSON()).emitters).toEqual([[1, 2, 3], [1], [2]]);
+  });
+
+  it('omits emitters from JSON when none survive sanitization', () => {
+    const m = new FixtureMode({ name: 'x', channels: [{ typeId: 'red' }] });
+    expect(m.emitters).toBeUndefined();
+    expect('emitters' in m.toJSON()).toBe(false);
   });
 });

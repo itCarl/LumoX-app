@@ -151,12 +151,11 @@ export async function makePatchGridTile() {
       while (ch <= CHANNELS && cellFx[ch] === f && pos(ch).row === row) ch++;
       const runLen = ch - runStart;
       const isHead = f.startAddress === runStart;   // first segment carries the name
-      const c = f.color || '#4ba6e0';
       const hl = highlightGroup !== 'all' && f.groupId === highlightGroup ? ' hl' : '';
       const si = selected.has(f.id) ? selOrder.indexOf(f.id) : -1;
       const sel = si >= 0 ? ' sel' : '';
       html += `<div class="cell fx${isHead ? ' fx-head' : ' fx-cont'}${hl}${sel}" draggable="true"
-        style="grid-row:${row};grid-column:${col}/span ${runLen};--fx:${c}"
+        style="grid-row:${row};grid-column:${col}/span ${runLen}"
         data-ch="${runStart}" data-fx="${f.id}" data-start="${f.startAddress}"
         title="${esc(f.name)} · ${f.startAddress}–${f.endAddress} (${f.channelCount}ch) · ${esc(f.groupName ?? '')}">
         ${isHead && si >= 0 ? `<span class="pg-idx">${si + 1}</span>` : ''}
@@ -183,7 +182,7 @@ export async function makePatchGridTile() {
     const candidates = groups.filter((g) => !g.fixtureIds.includes(fxId));
 
     openMenu([
-      { header: fx.name, color: fx.color },
+      { header: fx.name },
       { sub: 'Add to group' },
       ...(candidates.length
         ? candidates.map((g) => {
@@ -361,7 +360,7 @@ export async function makePatchGridTile() {
       render();
     }));
 
-  bus.on(EV.GROUPS_CHANGED, reload);   // recolor when group membership/colour changes
+  bus.on(EV.GROUPS_CHANGED, reload);   // refresh group highlight / names when membership changes
   bus.on(EV.DRAG_START, (d) => { dragSpan = d?.span ?? 1; dragMoveId = d?.moveId ?? null; });
   bus.on(EV.DRAG_END, () => { dragSpan = 0; dragMoveId = null; clearGhost(); });
   effect(() => { highlightGroup = activeGroup.value; if (viewMode === 'grid') renderGrid(); });

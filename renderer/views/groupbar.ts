@@ -7,6 +7,7 @@ import { bus, EV } from '../lib/bus';
 import { activeGroup } from '../lib/store';
 import { html, mount } from '../lib/dom';
 import { openMenu } from '../lib/widgets';
+import { promptText } from '../lib/prompt';
 import { openGroupOrderModal } from './group-order-modal';
 
 const { lumox } = window;
@@ -70,8 +71,8 @@ export async function makeGroupBarTile(): Promise<{ tile: HTMLElement; refresh: 
       {
         label: 'Rename…',
         onClick: async () => {
-          const n = prompt('Group name', g.name);
-          if (n && n.trim()) { await lumox.groups.rename(g.id, n.trim()); bus.emit(EV.GROUPS_CHANGED); }
+          const n = await promptText({ title: 'Rename group', value: g.name });
+          if (n) { await lumox.groups.rename(g.id, n); bus.emit(EV.GROUPS_CHANGED); }
         },
       },
       {

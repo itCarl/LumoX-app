@@ -83,7 +83,7 @@ export class GoboCapability extends Capability {
   constructor(opts: GoboCapabilityOptions) {
     super(opts);
     this.image = opts.image ?? null;     // path or resource id
-    this.pattern = opts.pattern ?? null; // drawn mono bitmask ("g16:…")
+    this.pattern = opts.pattern ?? null; // drawn mono bitmask ("g32:…")
     this.shake = !!opts.shake;
   }
   toJSON(): CapabilityJSON { return { ...super.toJSON(), image: this.image, pattern: this.pattern, shake: this.shake }; }

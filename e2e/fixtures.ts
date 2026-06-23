@@ -3,7 +3,7 @@
 // Boots the REAL app (dist/main/index.cjs) through Playwright's Electron driver —
 // main process + headless engine + preload + renderer, exactly as `npm start` does.
 // Env mirrors the screenshot harness: LUMOX_SEED=1 forces the bundled demo show
-// (18 fixtures, auto-groups, 8 banks of scenes) so every view has real content;
+// (12 fixtures, 4 auto-groups, 9 banks / 55 scenes) so every view has real content;
 // LUMOX_DEV=1 enables the `window.lumox.dev.eval` bridge for engine introspection;
 // ELECTRON_RUN_AS_NODE must be unset or main/index.ts bails by design.
 //
@@ -16,8 +16,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const APP_ROOT = path.dirname(fileURLToPath(import.meta.url)).replace(/[\\/]e2e$/, '');
-
-export const VIEWPORT = { width: 1920, height: 1080 };
 
 type Fixtures = {
   electronApp: ElectronApplication;
@@ -94,8 +92,9 @@ export async function resetState(electronApp: ElectronApplication, page: Page): 
 }
 
 export const test = base.extend<Record<string, never>, Fixtures>({
-  // One Electron app per worker (= per spec file, since workers: 1). Forcing the
-  // window to a 1920×1080 content box satisfies the fixed-resolution requirement.
+  // One Electron app per worker (= per spec file, since workers: 1). Run the
+  // window MAXIMIZED, matching how the app is used (and so screenshots reflect the
+  // real layout), rather than pinning a fixed box.
   electronApp: [
     // Playwright parses this signature for fixture deps — it MUST be a destructure.
     // eslint-disable-next-line no-empty-pattern
@@ -106,10 +105,10 @@ export const test = base.extend<Record<string, never>, Fixtures>({
       const electronApp = await electron.launch({ args: ['.'], cwd: APP_ROOT, env });
 
       const win = await electronApp.firstWindow();
-      // The app maximizes on boot; pin a deterministic 1920×1080 content box.
+      // Run maximized, as the app does in normal use.
       await electronApp.evaluate(({ BrowserWindow }) => {
         const w = BrowserWindow.getAllWindows()[0];
-        if (w) { w.unmaximize(); w.setContentSize(1920, 1080); }
+        if (w && !w.isMaximized()) w.maximize();
       });
       await win.waitForSelector('.gb-tile', { state: 'attached', timeout: 30_000 });
       await win.waitForSelector('.workspace', { state: 'visible' });

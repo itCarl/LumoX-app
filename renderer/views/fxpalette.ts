@@ -15,6 +15,7 @@ import { bus, EV } from '../lib/bus';
 import { html, mount, raw } from '../lib/dom';
 import { makeKnob } from '../lib/knob';
 import { toggle as toggleSwitch } from '../lib/widgets';
+import { promptText } from '../lib/prompt';
 import type { SceneInfo, FxLayerInfo, FxKind } from '../lumox';
 
 const { lumox } = window;
@@ -312,10 +313,11 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     </div>`;
 
   // No-scene state — keep the FX-rack skeleton visible but greyed + inert (no
-  // layout shift / no hidden UI), with a prompt, instead of collapsing the panel.
+  // layout shift / no hidden UI) instead of collapsing the panel. The greyed
+  // skeleton + "No scene selected" reports the state; no how-to prompt (the
+  // selection gesture lives on the Banks scene strip, explained on hover there).
   function renderEmpty() {
     content.set(html`
-      <div class="sp-note">Select a scene in CONTROL → Banks to edit its FX rack.</div>
       <div class="sp-ghost">
         <div class="fxrack"><div class="sp-empty">No scene selected</div></div>
         ${addBar()}
@@ -822,8 +824,8 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
       case 'lup': apply(lumox.scenes.moveLayer(id, lid, -1), true); break;
       case 'ldown': apply(lumox.scenes.moveLayer(id, lid, +1), true); break;
       case 'ldel': apply(lumox.scenes.removeLayer(id, lid), true); break;
-      case 'preset-save': { const n = prompt('Preset name', s.name); if (n?.trim()) lumox.presets.saveRack(id, n.trim()).then(async () => { await reloadLib(); render(); }).catch(() => {}); break; }
-      case 'pal-save': { const l = layer(); if (l?.color || l?.matrix) { const n = prompt('Palette name', 'Palette'); if (n?.trim()) lumox.palettes.add(n.trim(), readPalette()).then(async () => { await reloadLib(); render(); }).catch(() => {}); } break; }
+      case 'preset-save': { void (async () => { const n = await promptText({ title: 'Name preset', value: s.name }); if (n) { await lumox.presets.saveRack(id, n).catch(() => {}); await reloadLib(); render(); } })(); break; }
+      case 'pal-save': { const l = layer(); if (l?.color || l?.matrix) void (async () => { const n = await promptText({ title: 'Name palette', value: 'Palette' }); if (n) { await lumox.palettes.add(n, readPalette()).catch(() => {}); await reloadLib(); render(); } })(); break; }
       case 'cfx-add': { const l = layer(); if (l?.color || l?.matrix) apply(lumox.scenes.setLayerConfig(id, l.id, { palette: [...readPalette(), '#ffffff'] })); break; }
       case 'cfx-del': { const l = layer(); if (l?.color || l?.matrix) { const p = readPalette(); p.splice(Number(t.dataset.i), 1); apply(lumox.scenes.setLayerConfig(id, l.id, { palette: p })); } break; }
       case 'addstep': lumox.scenes.addStep(id).then(() => { emitUpdated(id); refetch(); }).catch(() => {}); break;
@@ -993,11 +995,11 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
 
   renameBtn.addEventListener('click', renameScene);
 
-  function renameScene() {
+  async function renameScene() {
     const s = state.scene; if (!s) return;
-    const n = prompt('Scene name', s.name);
-    if (!n || !n.trim()) return;
-    lumox.scenes.rename(s.id, n.trim()).then(() => { if (state.scene) state.scene.name = n.trim(); emitUpdated(s.id); render(); }).catch(() => {});
+    const n = await promptText({ title: 'Rename scene', value: s.name });
+    if (!n) return;
+    lumox.scenes.rename(s.id, n).then(() => { if (state.scene) state.scene.name = n; emitUpdated(s.id); render(); }).catch(() => {});
   }
 
   recallBtn.addEventListener('click', async () => {

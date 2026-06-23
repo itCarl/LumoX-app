@@ -54,7 +54,7 @@ and on/off, plus a live transmit indicator. It is stored **in the project**
 - **Seeding / persistence** — `newProject` opens no outputs (the show is empty); each
   one is created on demand as fixtures are patched, from the global DMX defaults
   (`dmxProtocol`/`broadcastHost`/`maxRateHz` in settings, now just defaults). A project
-  load (including the dev demo show, `resources/demo-show.lmx`) applies the saved
+  load (including the dev demo show, `resources/demo-show-1.lmx`) applies the saved
   `devices` patch (or seeds defaults if the project carries none), in both cases
   **filtered to universes that have a fixture patched** — stale `devices` entries for
   empty universes are dropped, so only in-use universes open a socket.

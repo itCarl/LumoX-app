@@ -7,6 +7,7 @@
 
 import { show } from '../context';
 import { getSelection } from './SelectionService';
+import { TOTAL_CHANNELS } from '../../src/index';
 import type { Scene } from '../../src/index';
 import type { Fixture, FxTargetSel, FxOrder, FxKind, Vec2 } from '../../src/index';
 import type { MixerTrack } from '../../src/show/Scene';
@@ -104,6 +105,7 @@ function matrixTargets(fxs: Fixture[]): { targets: Record<number, number[][]>; p
 export function sceneTrack(scene: Scene, opacity = 0): MixerTrack {
   const track = scene.toMixerTrack({ blend: 'htp', opacity });
   if (track.layers) {
+    const setMask = (track.setMask ??= {});
     scene.layers.forEach((L, i) => {
       const tl = track.layers![i];
       if (!tl) return;
@@ -119,7 +121,20 @@ export function sceneTrack(scene: Scene, opacity = 0): MixerTrack {
         tl.targets = targets;
         tl.beamIds = ids;
       }
+      // An enabled layer drives its target addresses — fold them into the
+      // scene's footprint so the SceneMixer LTP-applies them (even at value 0).
+      if (tl.enabled) markTargets(setMask, tl.targets);
     });
   }
   return track;
+}
+
+/** Flag every target address (per universe) in the footprint mask. */
+function markTargets(setMask: Record<number, Uint8Array>, targets?: Record<number, number[][]>): void {
+  if (!targets) return;
+  for (const [uniId, tuples] of Object.entries(targets)) {
+    let buf = setMask[+uniId];
+    if (!buf) { buf = new Uint8Array(TOTAL_CHANNELS); setMask[+uniId] = buf; }
+    for (const tuple of tuples) for (const addr of tuple) if (addr >= 1 && addr <= buf.length) buf[addr - 1] = 1;
+  }
 }

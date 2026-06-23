@@ -16,9 +16,10 @@ multi-window flows work.
 Electron renders in its **bundled Chromium only** — the renderer can't run in a
 plain browser because it depends on the `window.lumox` bridge the preload injects.
 So there is **no Firefox/Chrome cross-browser matrix**; the one "browser" is
-Electron's Chromium. The window is pinned to a **1920×1080** content box.
+Electron's Chromium. The window runs **maximized** (as in normal use), not pinned
+to a fixed box, so screenshots reflect the real layout.
 
-Coverage is **two layers** (~126 tests):
+Coverage is **two layers** (~130 tests):
 
 1. **DOM** — every view + secondary window boots and its real controls work (clicks,
    drags, selects, mode toggles), asserting on stable selectors.
@@ -38,10 +39,10 @@ Coverage is **two layers** (~126 tests):
 - **`e2e/fixtures.ts`** is the shared harness (a `test.extend`):
   - **`electronApp`** (worker-scoped) launches the app once via
     `electron.launch({ args: ['.'] })` with `LUMOX_SEED=1` (force the bundled demo
-    show — 24 fixtures, auto-groups, 9 banks / 55 scenes) and `LUMOX_DEV=1` (enable
+    show — 12 fixtures, 4 auto-groups, 9 banks / 55 scenes) and `LUMOX_DEV=1` (enable
     the `window.lumox.dev.eval` main-process bridge); `ELECTRON_RUN_AS_NODE` is
-    stripped (it makes `main/index.ts` bail by design). Pins content size to
-    1920×1080; teardown calls `app.exit(0)` to bypass the unsaved-changes close guard.
+    stripped (it makes `main/index.ts` bail by design). Runs the window maximized;
+    teardown calls `app.exit(0)` to bypass the unsaved-changes close guard.
   - **`page`** (test-scoped) returns the main renderer window and runs `resetState`:
     destroy child windows, **reload the renderer** (so view-local DOM state never
     leaks between tests; engine/show state survives the reload), clear the live
@@ -62,6 +63,7 @@ Coverage is **two layers** (~126 tests):
   | `setup-limits.spec.ts` | Limits tile — ghost vs. selected, name/count label, Clear |
   | `groupbar.spec.ts` | Groups strip — All selects the rig, group tabs select their fixtures |
   | `control-banks.spec.ts` | Banks — scene cells, toggle live, bank switch, select-for-edit |
+  | `selection-scene-deep.spec.ts` | Text-prompt dialog (typed value / cancel→null), scene rename via the context-menu prompt, scene-strip select → fixtures + fader target + stage badges, group tab → fixtures |
   | `control-sceneprops.spec.ts` · `sceneprops-deep.spec.ts` | Scene props / FX rack — title, rail pages, add every FX kind, expand/collapse, base STATIC/CHASE |
   | `control-fadereditor.spec.ts` · `fadereditor-deep.spec.ts` | Fader editor — EDIT/LIVE, programmer engage via fader drag, attribute sidebar, GrandMaster, Clear, Blackout |
   | `connection.spec.ts` · `connection-deep.spec.ts` | Connection — output rows, Art-Net/sACN → IP state, enable/mode/rate, audio section + binding add, discovery |

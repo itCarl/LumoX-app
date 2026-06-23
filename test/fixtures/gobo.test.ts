@@ -11,7 +11,7 @@ describe('gobo pattern codec', () => {
   });
 
   it('encodes the prefixed wire format', () => {
-    expect(encodeGobo(new Array(CELLS).fill(false)).startsWith('g16:')).toBe(true);
+    expect(encodeGobo(new Array(CELLS).fill(false)).startsWith('g32:')).toBe(true);
   });
 
   it('preserves the four corner cells (boundary packing)', () => {
@@ -30,7 +30,7 @@ describe('gobo pattern codec', () => {
 
   it('isGoboPattern recognises a well-formed string only', () => {
     expect(isGoboPattern(encodeGobo([true]))).toBe(true);
-    expect(isGoboPattern('g16:')).toBe(false); // prefix but no payload
+    expect(isGoboPattern('g32:')).toBe(false); // prefix but no payload
     expect(isGoboPattern(123)).toBe(false);
     expect(isGoboPattern('plain')).toBe(false);
   });

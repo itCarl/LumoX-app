@@ -17,6 +17,7 @@ Knowledge Base table. Every markdown in this folder MUST appear in both tables.
 | [app.md](app.md) | Electron app — engine/shell split, modular IPC, renderer, build |
 | [reactivity.md](reactivity.md) | Renderer reactivity — `@preact/signals-core`, shared `store.ts`, signals vs. event bus |
 | [mix-engine.md](mix-engine.md) | Engine tick loop, MixPipeline, universe buffers, scenes/groups/banks |
+| [htp-ltp.md](htp-ltp.md) | HTP/LTP merge model — intensity HTP, attributes LTP; per-channel blend, LTP mask + set mask, home-default override, faders mirror live movement |
 | [fixtures.md](fixtures.md) | Fixture model + channel-type taxonomy, JSON import, validation, library (built-in + Custom) |
 | [selection.md](selection.md) | Live ordered selection — FX fan/phase target, index badges, `lumox:selection:*` IPC |
 | [limits.md](limits.md) | Per-fixture output limits — dimmer cap, pan/tilt range/invert, swap; `Limits` stage, `lumox:fixtures:setLimits` |

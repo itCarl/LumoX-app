@@ -271,8 +271,8 @@ export async function makeConnectionView(): Promise<HTMLElement> {
       const msg = degraded
         ? 'Another Art-Net application is using UDP port 6454.'
         : scanning ? 'Searching for Art-Net nodes on the network…'
-        : scanned ? 'No nodes found — press Scan to try again.'
-        : 'Press Scan to search for Art-Net nodes on the network.';
+        : scanned ? 'No nodes found.'
+        : 'No nodes discovered yet.';
       discEl.replaceChildren(node(html`<div class="cx-disc-empty">${msg}</div>`));
       return;
     }

@@ -29,8 +29,9 @@ export function fixtureJSON(fx: Fixture): FixtureDTO {
     definitionId: fx.definition.id,
     model: fx.definition.model ?? '',
     type: fx.definition.type,
-    emitters: fx.emitterCount,   // derived from THIS mode's channel layout (colour clusters)
+    emitters: fx.emitterCount,   // emitter cells — head groups when set, else colour clusters
     emitterLayout: fx.definition.emitterLayout ?? null,
+    heads: fx.mode.emitters ?? null,   // explicit emitter→channel groups (local indices)
     modeId: fx.mode.id,
     modeName: fx.mode.name,
     configKey: configKey(fx),
@@ -53,7 +54,7 @@ export function fixtureJSON(fx: Fixture): FixtureDTO {
         caps: (c?.capabilities ?? []).map((cap) => ({
           min: cap.min, max: cap.max, label: cap.label, kind: cap.kind,
           color: typeof cap.color === 'string' ? cap.color : null,
-          // Drawn mono gobo icon (g16:… bitmask) — lets the GOBO fader strip show
+          // Drawn mono gobo icon (g32:… bitmask) — lets the GOBO fader strip show
           // the selected gobo's shape instead of a generic glyph.
           pattern: typeof cap.pattern === 'string' ? cap.pattern : null,
         })),
@@ -155,6 +156,7 @@ export function sceneJSON(s: Scene): SceneDTO {
   const tl = engine.scenes.sceneTimeline(s.id);   // live cycle + phase of the primary motion
   return {
     id: s.id, name: s.name, color: s.color ?? '#e0564b', opacity, active: engine.scenes.isLive(s.id),
+    transitioning: engine.scenes.isTransitioning(s.id),
     type: s.type, stepCount: s.steps.length,
     steps: s.steps.map((st) => ({ fadeMs: st.fadeMs, waitMs: st.waitMs })),
     layers: s.layers.map((l, i) => layerJSON(l, layerBeams(track, i), layerBeamFixtureIds(track, i))),

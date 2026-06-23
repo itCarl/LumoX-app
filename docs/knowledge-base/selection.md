@@ -78,10 +78,14 @@ subscribe to the same `EV.FIXTURE_SELECTED` bus and seed from `lumox.selection.g
 - **Fader editor** (`views/fadereditor.ts`, CONTROL) — console-style **gated on the
   selection**: it shows one strip per channel of the selected fixtures (one block per
   channel-config, broadcasting to every selected fixture of that type, in selection
-  order). With nothing selected the strip area is unavailable. A **group-bar tab click
-  selects that group's fixtures** ("All" → the whole rig via `lumox.selection.all`), so
-  a group tab is the quick "edit this whole group" gesture while still highlighting the
-  group (`activeGroup`) on the stage/grid. See [mix-engine.md](mix-engine.md#fader-editor--edit-vs-live).
+  order). With nothing selected the strip area is unavailable — **except** in EDIT
+  mode, where it falls back to the recalled scene's OWN fixtures, so opening a scene
+  always shows its faders without the recall having to hijack the live selection.
+  While that scene is live and animating the strips mirror its live output (see
+  [htp-ltp.md](htp-ltp.md)). A **group-bar tab click selects that group's fixtures**
+  ("All" → the whole rig via `lumox.selection.all`), so a group tab is the quick
+  "edit this whole group" gesture while still highlighting the group (`activeGroup`)
+  on the stage/grid. See [mix-engine.md](mix-engine.md#fader-editor--edit-vs-live).
 - **Limits tile** (`views/limits-tile.ts`, SETUP) — edits the selection's output
   limits; see [limits.md](limits.md).
 
@@ -134,8 +138,25 @@ the stage extent has no visual marker (drags still clamp to it in world units). 
 zooms/pans within it (**Fit** frames the fixtures, not the whole extent). Newly
 added fixtures spawn **clustered at the stage centre**. Each fixture renders as its
 real emitter grid painted with **live mixed-output colour** (polled ~15 fps), framed
-by a thin **group-coloured footprint outline** drawn over the emitter dots so the
-fixture stays distinct even when lit bright, plus its index badge when selected.
+by a thin **neutral footprint outline** drawn over the emitter dots so the fixture
+stays distinct even when lit bright. Fixtures carry **no colour identity** — they're
+told apart by a persistent **number badge** (`.st-num`, top-left corner) giving the
+fixture's 1-based order in the patch (first-to-last added); the centred index badge is
+the live selection order, shown only when selected. Colour comes from each emitter's
+RGB channels; a fixture with **no RGB but a colour
+wheel** (most beam/spot moving heads) instead takes its colour from the **live wheel
+slot** (`buildPlan` resolves the wheel channel's value to the active colour cap's hex,
+scaled by the master dimmer), so colour-wheel movers show their projected colour
+rather than the flat neutral off-tint.
+Fixtures with a **gobo wheel** (moving heads / scanners) also overlay the **drawn
+pattern of the live gobo slot** centred on the footprint whenever a non-open slot is
+selected, so the rig's beam break-up reads on the stage; the overlay clears on the
+open slot. The same poll resolves it — the gobo channel's live DMX value picks the
+active capability range (`buildPlan` finds the wheel as the channel carrying a drawn
+`pattern`; `goboSvg`/`hasGobo` from `lib/gobo.ts` render it, matching the GOBO fader
+strip), and the DOM is only swapped when the pattern changes. A toolbar **gobo toggle**
+(the disc button in the header, `data-view="gobos"`, **off by default**) shows / hides
+this overlay — a view option (`state.showGobos`), applied in both SETUP and CONTROL.
 Selection clicks repaint only that overlay (`paintSelection` — the `.sel` class,
 badges and the box), never the geometry, so picking a fixture doesn't re-tear the
 emitter dots and flash the rig. Placements persist

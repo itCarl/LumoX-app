@@ -6,15 +6,15 @@
  * shape survives save/load and can be drawn next to its value range (fixture
  * editor) and on the live GOBO fader strip.
  *
- * Wire format: `"g16:" + base64(bytes)` where `bytes` packs the grid row-major,
- * MSB-first (cell 0 = bit 7 of byte 0). 16×16 = 256 cells = 32 bytes ≈ 44 base64
- * chars. Pure + dependency-free (type-only), so it bundles into the renderer.
+ * Wire format: `"g32:" + base64(bytes)` where `bytes` packs the grid row-major,
+ * MSB-first (cell 0 = bit 7 of byte 0). 32×32 = 1024 cells = 128 bytes ≈ 172
+ * base64 chars. Pure + dependency-free (type-only), so it bundles into the renderer.
  */
 
-export const GOBO_GRID = 16;
+export const GOBO_GRID = 32;
 const CELLS = GOBO_GRID * GOBO_GRID;
 const BYTES = CELLS / 8;
-const PREFIX = 'g16:';
+const PREFIX = 'g32:';
 
 // base64 without Node's Buffer / browser atob (works in engine + renderer).
 const B64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';

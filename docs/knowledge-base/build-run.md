@@ -33,23 +33,33 @@ dependency — the engine falls back to a mock MIDI backend if it is absent. See
 [app.md](app.md).
 
 **Dev boot project.** In development (`!app.isPackaged`) the app opens a bundled
-**demo show** — a club rig of 18 fixtures with auto-groups and eight banks (Colors,
-Bars, Move, Position, Chase, FX, Looks, Live) covering every FX type and a broad
-spread of moving-head channels — so there's something realistic to test against
-immediately. It is a real project file, `resources/demo-show.lmx`, loaded through
-the normal open path (`loadProjectFromPath` in `main/index.ts → bootShow`) and then
-detached to an untitled "Demo Show" so a stray Save can't clobber the bundled file.
-Packaged builds start blank. Override with `LUMOX_SEED=1` (force demo) or
-`LUMOX_SEED=0` (force blank).
+**demo show** so there's something realistic to test against immediately. Two ship
+under `resources/`:
 
-## Editing the demo show
+- **`demo-show-0.lmx`** ("Demo Show 0") — a synthetic club rig of 18 fixtures with
+  auto-groups and eight banks (Colors, Bars, Move, Position, Chase, FX, Looks, Live)
+  covering every FX type and a broad spread of moving-head channels, plus a MIDI
+  grid mapping (the busking showcase — see [busking.md](busking.md)).
+- **`demo-show-1.lmx`** ("Demo Show 1") — a real wedding rig ported from a QLC+
+  workspace: 12 fixtures across two universes (NoName LED bars / Derby / beam-spot
+  movers + Stairville LED bars + an AFH-600 hazer), four groups, and 55 scenes
+  (51 static + 4 chases) organised into nine path banks (Color, Dimmer, Movement,
+  Gobo, Prism, Derby, FX, FX extra, Misc). The source's dynamic functions (6 EFX,
+  2 RGBMatrix) have no faithful FX-rack equivalent and were not converted.
 
-`resources/demo-show.lmx` is a **hand-maintained** project file — edit the JSON
-directly, then `npm run shot` (build + screenshot) to eyeball the result. It uses
-the normal project format ([app.md](app.md)): top-level `patch` / `groups` /
-`scenes` / `banks` / `midiBindings`, with scene `values` keyed
+Dev seeds **Demo Show 1**, loaded through the normal open path (`loadProjectFromPath`
+in `main/index.ts → bootShow`) and detached to an untitled project so a stray Save
+can't clobber the bundled file. Packaged builds start blank. Override with
+`LUMOX_SEED=1` (force demo) or `LUMOX_SEED=0` (force blank).
+
+## Editing the demo shows
+
+The `resources/demo-show-*.lmx` files are **hand-maintained** project files — edit
+the JSON directly, then `npm run shot` (build + screenshot) to eyeball the result.
+They use the normal project format ([app.md](app.md)): top-level `patch` / `groups`
+/ `scenes` / `banks` / `midiBindings`, with scene `values` keyed
 `{ "<universe>": { "<dmxAddress>": <0–255> } }` (1-based absolute addresses).
-Channel offsets within a fixture mirror its profile in `fixtures/Generic/*.lumox.json`.
+Channel offsets within a fixture mirror its profile in `fixtures/<Vendor>/*.lumox.json`.
 
 ## Dev verification loop (no human at the window)
 

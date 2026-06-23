@@ -1,8 +1,9 @@
 // Fixture Editor window — standalone page (its own taskbar window). Authors a
 // user fixture definition (vendor is fixed to "Custom"): model/type, one or more
-// channel modes (each an ordered channel list), and a physical emitter layout (positioned
-// light cells, consumed later by matrix effects). Saves into the library via
-// window.lumox.
+// channel modes (each an ordered channel list), and — per mode — its emitters
+// (light cells, each a group of channels whose colour/dimmer roles are detected
+// automatically), consumed by the stage + matrix effects. Saves into the library
+// via window.lumox.
 
 import { esc } from './lib/html';
 import { button } from './lib/widgets';
@@ -14,7 +15,6 @@ import { openGoboPaint } from './lib/goboPaint';
 const { lumox } = window;
 
 const FIXTURE_TYPES = ['PAR', 'LED Bar', 'Moving Head', 'Strobe', 'Dimmer', 'Laser', 'Smoke', 'Scanner', 'Other'];
-const GRID_MARGIN = 0.1;   // inset generated grids from the canvas edge (0..1)
 
 // Capability kinds the editor can author (the registered Capability subclasses).
 const CAP_KINDS = ['range', 'color', 'gobo', 'shutter', 'effect'] as const;
@@ -35,8 +35,9 @@ interface Cap {
   rateHz?: number | null;  // shutter
 }
 interface Ch { name: string; typeId: string; defaultValue?: number; capabilities: Cap[]; }
-interface Mode { name: string; channels: Ch[]; }
-interface Emitter { x: number; y: number; }   // normalized 0..1
+// `emitters` = light cells: each an array of 1-based channel indices (the channels
+// driving that cell). Undefined until first shown (then auto-detected from colour).
+interface Mode { name: string; channels: Ch[]; emitters?: number[][]; }
 
 // Default capability kind for a new range, inferred from the channel's type group.
 function defaultKind(typeId: string, group?: string): CapKind {
@@ -97,6 +98,7 @@ const root = document.getElementById('fe-root') as HTMLElement;
         defaultValue: c.defaultValue ?? undefined,
         capabilities: (c.capabilities ?? []).map((cap: any) => ({ ...cap })) as Cap[],
       })),
+      emitters: Array.isArray(m.emitters) ? m.emitters.map((g: any) => [...g]) : undefined,
     }));
   const state = {
     modes: (target ? loadModes(target.def) : [{ name: 'Default', channels: [
@@ -107,7 +109,6 @@ const root = document.getElementById('fe-root') as HTMLElement;
     ] }]) as Mode[],
     active: 0,
     expanded: new Set<number>(),   // channel rows whose value-range editor is open
-    emitters: (target?.def.emitterLayout ?? []) as Emitter[],
   };
 
   root.innerHTML = `
@@ -137,17 +138,13 @@ const root = document.getElementById('fe-root') as HTMLElement;
 
     <div class="fe-emitters">
       <div class="fe-col-head"><span>EMITTERS</span><span id="fe-em-count" class="fe-em-count"></span></div>
-      <div class="fe-emitter-wrap">
-        <div id="fe-em-canvas" class="fe-emitter-canvas"></div>
-        <div class="fe-emitter-tools">
-          <label class="frow"><span>Rows</span><input id="fe-em-rows" type="number" min="1" max="64" value="2" /></label>
-          <label class="frow"><span>Cols</span><input id="fe-em-cols" type="number" min="1" max="64" value="4" /></label>
-          <div class="fe-em-btns">
-            <button id="fe-em-gen" class="btn-add-ch">Generate grid</button>
-            <button id="fe-em-clear" class="fe-mode-add">Clear</button>
-          </div>
-          <p class="fe-em-hint">Drag cells to position them. The layout is used for matrix effects.</p>
+      <div id="fe-em-list" class="fe-em-list"></div>
+      <div class="fe-em-foot">
+        <div class="fe-em-actions">
+          <button id="fe-em-add" class="btn-add-ch">+ Add emitter</button>
+          <button id="fe-em-auto" class="fe-mode-add" title="Group the colour channels into emitters automatically">Auto-detect</button>
         </div>
+        <p class="fe-em-hint">An emitter is one light cell (a stage dot / matrix pixel). Pack the channels that drive it — colour &amp; dimmer roles are detected automatically.</p>
       </div>
     </div>
 
@@ -160,9 +157,11 @@ const root = document.getElementById('fe-root') as HTMLElement;
   const chWrap = $('#fe-channels');
   const modesWrap = $('#fe-modes');
   const modeNameEl = $('#fe-mode-name') as HTMLInputElement;
-  const canvas = $('#fe-em-canvas');
+  const emList = $('#fe-em-list');
   const emCountEl = $('#fe-em-count');
   const typeSel = $('#fe-type') as HTMLSelectElement;
+  // A channel type is a dimmer when its group is intensity (matches the engine's isIntensity).
+  const isIntensityType = (typeId?: string): boolean => !!typeId && typeMeta.get(typeId)?.group === 'intensity';
 
   // Pre-fill the meta fields when editing an existing fixture.
   if (target) {
@@ -292,8 +291,10 @@ const root = document.getElementById('fe-root') as HTMLElement;
       const idx = Number((del.closest('.fe-ch-item') as HTMLElement).dataset.i);
       syncChannels();
       state.modes[state.active].channels.splice(idx, 1);
+      reconcileEmitters(idx + 1);   // drop/shift the removed channel in the emitter groups
       state.expanded.clear();   // indices shift — collapse all to stay in sync
       renderChannels();
+      renderEmitters();
       return;
     }
 
@@ -412,6 +413,11 @@ const root = document.getElementById('fe-root') as HTMLElement;
     syncChannels();
     state.modes[state.active].channels.push({ name: '', typeId: 'intensity', capabilities: [] });
     renderChannels();
+    renderEmitters();   // the new channel becomes pickable in the emitter rows
+  });
+  // A channel's type change can flip an emitter's detected role / icon — refresh.
+  chWrap.addEventListener('change', (e) => {
+    if ((e.target as HTMLElement).closest('.fe-ch-type')) { syncChannels(); renderEmitters(); }
   });
 
   // ---- modes -----------------------------------------------------------
@@ -433,6 +439,7 @@ const root = document.getElementById('fe-root') as HTMLElement;
     state.active = i;
     renderModes();
     renderChannels();
+    renderEmitters();
   }
 
   modesWrap.addEventListener('click', (e) => {
@@ -449,6 +456,7 @@ const root = document.getElementById('fe-root') as HTMLElement;
       else if (state.active > i) state.active--;
       renderModes();
       renderChannels();
+      renderEmitters();
       return;
     }
     selectMode(i);
@@ -460,6 +468,7 @@ const root = document.getElementById('fe-root') as HTMLElement;
     state.active = state.modes.length - 1;
     renderModes();
     renderChannels();
+    renderEmitters();
   });
 
   modeNameEl.addEventListener('input', () => {
@@ -469,50 +478,105 @@ const root = document.getElementById('fe-root') as HTMLElement;
     if (lbl) lbl.textContent = modeNameEl.value || 'Mode';
   });
 
-  // ---- emitter layout --------------------------------------------------
-  function renderEmitters() {
-    canvas.innerHTML = state.emitters.map((p, i) =>
-      `<i class="fe-em" data-i="${i}" style="left:${(p.x * 100).toFixed(2)}%;top:${(p.y * 100).toFixed(2)}%"></i>`).join('');
-    emCountEl.textContent = state.emitters.length ? `${state.emitters.length} cell${state.emitters.length === 1 ? '' : 's'}` : 'none';
+  // ---- emitters (active mode) ------------------------------------------
+  // An emitter is a light cell = a group of channels. Roles (R/G/B/W, dimmer) are
+  // detected from the channels in the group, so non-contiguous picks work.
+  const activeEmitters = (): number[][] => {
+    const m = state.modes[state.active];
+    if (m.emitters === undefined) m.emitters = autoDetectEmitters(m.channels);   // materialise on first show
+    return m.emitters;
+  };
+
+  // Group the active mode's colour channels into emitters by order (the zero-config
+  // default the engine also uses): the k-th red/green/blue(/white), plus a per-cell
+  // dimmer when there's exactly one intensity channel per cluster.
+  function autoDetectEmitters(channels: Ch[]): number[][] {
+    const idxOf = (tid: string) => channels.flatMap((c, i) => (c.typeId === tid ? [i + 1] : []));
+    const reds = idxOf('red'), greens = idxOf('green'), blues = idxOf('blue'), whites = idxOf('white');
+    const dims = channels.flatMap((c, i) => (isIntensityType(c.typeId) ? [i + 1] : []));
+    const ncol = Math.min(reds.length, greens.length, blues.length);
+    if (!ncol) return [];
+    const perCellDim = dims.length === ncol;
+    const out: number[][] = [];
+    for (let k = 0; k < ncol; k++) {
+      const g = [reds[k], greens[k], blues[k]];
+      if (whites.length === ncol) g.push(whites[k]);
+      if (perCellDim) g.push(dims[k]);
+      out.push(g.sort((a, b) => a - b));
+    }
+    return out;
   }
 
-  $('#fe-em-gen').addEventListener('click', () => {
-    const rows = Math.max(1, Math.min(64, Number(($('#fe-em-rows') as HTMLInputElement).value) || 1));
-    const cols = Math.max(1, Math.min(64, Number(($('#fe-em-cols') as HTMLInputElement).value) || 1));
-    const span = 1 - 2 * GRID_MARGIN;
-    const at = (n: number, count: number) => count > 1 ? GRID_MARGIN + (n / (count - 1)) * span : 0.5;
-    const cells: Emitter[] = [];
-    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) cells.push({ x: at(c, cols), y: at(r, rows) });
-    state.emitters = cells;
+  // The detected role of one emitter (matches the engine's head resolution).
+  function emitterRole(group: number[], channels: Ch[]): string {
+    const has = (tid: string) => group.some((i) => channels[i - 1]?.typeId === tid);
+    if (!(has('red') && has('green') && has('blue'))) return 'no colour';
+    const dim = group.some((i) => isIntensityType(channels[i - 1]?.typeId));
+    return (has('white') ? 'RGBW' : 'RGB') + (dim ? ' + Dim' : '');
+  }
+
+  function renderEmitters() {
+    const channels = state.modes[state.active].channels;
+    const emitters = activeEmitters();
+    emCountEl.textContent = emitters.length ? `${emitters.length} cell${emitters.length === 1 ? '' : 's'}` : 'none';
+    emList.innerHTML = emitters.map((group, ei) => {
+      const chips = group.map((ci) => {
+        const c = channels[ci - 1];
+        return `<span class="fe-em-chip" data-ci="${ci}" title="${esc(c?.name || '')}">
+          <span class="fe-em-chip-ico">${iconFor(c?.typeId ?? '')}</span><span class="fe-em-chip-n">${ci}</span>
+          <button class="fe-em-chip-x" title="Remove channel">×</button></span>`;
+      }).join('');
+      const opts = channels.map((c, i) =>
+        group.includes(i + 1) ? '' : `<option value="${i + 1}">${i + 1} · ${esc(c.name || c.typeId)}</option>`).join('');
+      const role = emitterRole(group, channels);
+      return `<div class="fe-em-row" data-ei="${ei}">
+        <span class="fe-em-n">${ei + 1}</span>
+        <div class="fe-em-chips">${chips}<select class="fe-em-pick" title="Add a channel"><option value="">+ channel</option>${opts}</select></div>
+        <span class="fe-em-role${role === 'no colour' ? ' warn' : ''}">${role}</span>
+        <button class="fe-em-del" title="Remove emitter"><i class="fa-solid fa-xmark"></i></button>
+      </div>`;
+    }).join('') || '<div class="fe-em-empty">No emitters. Add channels with colour, or “+ Add emitter”.</div>';
+  }
+
+  // Delegated emitter-list events (the list is rebuilt every render).
+  emList.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    const row = t.closest('.fe-em-row') as HTMLElement | null;
+    if (!row) return;
+    const ei = Number(row.dataset.ei);
+    const emitters = activeEmitters();
+    if (t.closest('.fe-em-del')) { emitters.splice(ei, 1); renderEmitters(); return; }
+    const chipX = t.closest('.fe-em-chip-x') as HTMLElement | null;
+    if (chipX) {
+      const ci = Number((chipX.closest('.fe-em-chip') as HTMLElement).dataset.ci);
+      emitters[ei] = emitters[ei].filter((i) => i !== ci);
+      if (!emitters[ei].length) emitters.splice(ei, 1);
+      renderEmitters();
+    }
+  });
+  emList.addEventListener('change', (e) => {
+    const sel = (e.target as HTMLElement).closest('.fe-em-pick') as HTMLSelectElement | null;
+    if (!sel || !sel.value) return;
+    const ei = Number((sel.closest('.fe-em-row') as HTMLElement).dataset.ei);
+    const ci = Number(sel.value);
+    const emitters = activeEmitters();
+    if (!emitters[ei].includes(ci)) emitters[ei] = [...emitters[ei], ci].sort((a, b) => a - b);
     renderEmitters();
   });
-  $('#fe-em-clear').addEventListener('click', () => { state.emitters = []; renderEmitters(); });
-
-  // Drag a cell within the canvas; store clamped normalized coords.
-  const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
-  let dragIdx = -1;
-  canvas.addEventListener('mousedown', (e) => {
-    const dot = (e.target as HTMLElement).closest('.fe-em') as HTMLElement | null;
-    if (!dot) return;
-    e.preventDefault();
-    dragIdx = Number(dot.dataset.i);
-    document.addEventListener('mousemove', onDrag);
-    document.addEventListener('mouseup', endDrag);
+  $('#fe-em-add').addEventListener('click', () => { activeEmitters().push([]); renderEmitters(); });
+  $('#fe-em-auto').addEventListener('click', () => {
+    state.modes[state.active].emitters = autoDetectEmitters(state.modes[state.active].channels);
+    renderEmitters();
   });
-  function onDrag(e: MouseEvent) {
-    if (dragIdx < 0) return;
-    const rect = canvas.getBoundingClientRect();
-    const p = state.emitters[dragIdx];
-    if (!p) return;
-    p.x = clamp01((e.clientX - rect.left) / rect.width);
-    p.y = clamp01((e.clientY - rect.top) / rect.height);
-    const dot = canvas.querySelector(`.fe-em[data-i="${dragIdx}"]`) as HTMLElement | null;
-    if (dot) { dot.style.left = `${(p.x * 100).toFixed(2)}%`; dot.style.top = `${(p.y * 100).toFixed(2)}%`; }
-  }
-  function endDrag() {
-    dragIdx = -1;
-    document.removeEventListener('mousemove', onDrag);
-    document.removeEventListener('mouseup', endDrag);
+
+  // Drop channel indices an emitter referenced once that channel is removed, and
+  // shift indices above the removed slot down by one (keeps groups valid).
+  function reconcileEmitters(removed: number) {
+    const m = state.modes[state.active];
+    if (!m.emitters) return;
+    m.emitters = m.emitters
+      .map((g) => g.filter((i) => i !== removed).map((i) => (i > removed ? i - 1 : i)))
+      .filter((g) => g.length);
   }
 
   // ---- save ------------------------------------------------------------
@@ -520,9 +584,13 @@ const root = document.getElementById('fe-root') as HTMLElement;
     const msg = $('#fe-msg');
     msg.textContent = '';
     syncChannels();
-    const modes = state.modes.map((m) => ({
-      name: m.name.trim() || 'Default',
-      channels: m.channels
+    const modes = state.modes.map((m) => {
+      // Channels with no type are dropped on save, which renumbers the rest — so
+      // remap each emitter's 1-based indices onto the saved (filtered) channels.
+      const remap = new Map<number, number>();
+      let n = 0;
+      m.channels.forEach((c, i) => { if (c.typeId) remap.set(i + 1, ++n); });
+      const channels = m.channels
         .filter((c) => c.typeId)
         .map((c) => {
           const ch: Record<string, unknown> = { name: c.name.trim() || c.typeId, typeId: c.typeId };
@@ -530,18 +598,21 @@ const root = document.getElementById('fe-root') as HTMLElement;
           const caps = c.capabilities.filter((cap) => cap.max >= cap.min).map(capToJSON);
           if (caps.length) ch.capabilities = caps;
           return ch;
-        }),
-    })).filter((m) => m.channels.length);
+        });
+      const emitters = (m.emitters ?? [])
+        .map((g) => g.map((i) => remap.get(i)).filter((i): i is number => i != null))
+        .filter((g) => g.length);
+      return { name: m.name.trim() || 'Default', channels, ...(emitters.length ? { emitters } : {}) };
+    }).filter((m) => m.channels.length);
 
     // Vendor is forced to "Custom" by the main process — user fixtures always
-    // live in the Custom library; real vendor profiles ship bundled.
+    // live in the Custom library; real vendor profiles ship bundled. Emitter cells
+    // (count + colour) come from each mode's `emitters` groups.
     const def: Record<string, unknown> = {
       model: ($('#fe-model') as HTMLInputElement).value.trim(),
       type: ($('#fe-type') as HTMLSelectElement).value,
-      emitters: state.emitters.length || 1,
       modes,
     };
-    if (state.emitters.length) def.emitterLayout = state.emitters;
 
     // Pan/tilt travel (degrees) — only authored for movers; feeds the Limits editor.
     if (movesAround(typeSel.value)) {

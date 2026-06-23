@@ -414,13 +414,14 @@ html, body {
 }
 .cell-num { opacity: 0.4; }
 
-/* connected fixture bar — spans its channels as one block, group colour */
+/* connected fixture bar — spans its channels as one block; neutral for every
+   fixture (the patch grid is about addressing, not colour identity) */
 .cell.fx {
-  background: color-mix(in srgb, var(--fx, #4ba6e0) 78%, #000);
-  border-color: var(--fx, #4ba6e0); color: #fff;
+  background: #3a3a3a;
+  border-color: #555; color: var(--fg);
   align-items: center; cursor: grab; padding: 0;
 }
-.cell.fx.hov { background: color-mix(in srgb, var(--fx, #4ba6e0) 75%, #fff); box-shadow: inset 0 0 0 1px #fff; z-index: 2; }
+.cell.fx.hov { background: #454545; box-shadow: inset 0 0 0 1px #fff; z-index: 2; }
 .cell.fx.dragging { opacity: 0.45; }
 .cell.fx .cell-num { position: absolute; top: 0; left: 0; opacity: 0.6; font-size: 8px; }
 .cell-fx {
@@ -618,11 +619,11 @@ html, body {
   transform-origin: center center;
 }
 /* footprint frame — drawn ABOVE the emitter dots (which fill edge-to-edge and
-   would otherwise hide the node's own edge), so each fixture stays outlined in
-   its group colour even when its emitters are lit bright */
+   would otherwise hide the node's own edge), so each fixture stays outlined even
+   when its emitters are lit bright. Neutral for every fixture (no colour identity). */
 .st-node::after {
   content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  border: 1px solid color-mix(in srgb, var(--fx, #6b6b6b) 60%, #000);
+  border: 1px solid #555;
   border-radius: 2px;
 }
 /* emitter field fills the whole footprint — no internal padding, so dots sit
@@ -631,10 +632,18 @@ html, body {
 .st-em {
   position: absolute; width: var(--em, 10px); height: var(--em, 10px); transform: translate(-50%, -50%);
   border-radius: 1px;
-  /* default tint before the first live-colour poll paints it */
-  background: color-mix(in srgb, var(--fx, #6b6b6b) 22%, #111);
+  /* neutral default tint before the first live-colour poll paints it */
+  background: color-mix(in srgb, #6b6b6b 22%, #111);
   box-shadow: inset 0 0 2px rgba(255,255,255,.12);
   transition: background 70ms linear, box-shadow 70ms linear;   /* smooth live colour */
+}
+/* persistent fixture number — the fixture's 1-based order in the patch (first-to-
+   last added). The neutral identity that replaces per-fixture colour; sits in the
+   top-left corner, always visible, dim. Distinct from the centred selection badge. */
+.st-num {
+  position: absolute; top: 1px; left: 2px; z-index: 3; pointer-events: none;
+  font-size: 8px; font-weight: 700; line-height: 1; color: #fff; opacity: 0.75;
+  text-shadow: 0 0 2px #000, 0 0 3px #000;   /* readable over any lit emitter colour */
 }
 /* selection is shown by the centred order badge alone — no per-fixture outline */
 /* selection-order badge — the fixture's 1-based index in the live selection;
@@ -646,6 +655,16 @@ html, body {
   color: #fff; font-size: 11px; font-weight: 700; line-height: 1; pointer-events: none;
   text-shadow: 0 0 2px #000, 0 0 3px #000;   /* readable over any lit emitter colour */
 }
+/* live gobo overlay — the drawn pattern of the active (non-open) gobo slot,
+   centred over the fixture footprint so a moving head / scanner shows its beam
+   break-up on the stage. Sits above the lit emitters, below the selection badge;
+   click-through. Empty (open slot) renders nothing. */
+.st-gobo {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 84%; aspect-ratio: 1; z-index: 2; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.st-gobo .gobo-svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 0 1px #000); }
 .st-node.hl { box-shadow: 0 0 0 2px #fff; }
 .st-node.dim { opacity: 0.35; }
 .st-node:active { cursor: grabbing; }
@@ -792,6 +811,13 @@ html, body {
 .dlg-msg b { color: var(--accent); font-weight: 600; }
 .dlg-detail { margin: 0; line-height: 1.4; color: var(--fg-dim); }
 .dlg-list { margin: 10px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; color: var(--fg-dim); }
+/* text-prompt field (rename / name a new item) */
+.dlg-input {
+  width: 100%; margin-top: 2px; padding: 9px 11px; font-size: 14px;
+  color: var(--fg); background: var(--bg-3); border: 1px solid var(--border);
+  border-radius: var(--radius); outline: none;
+}
+.dlg-input:focus { border-color: var(--accent); }
 .dlg-foot {
   flex: 0 0 auto; display: flex; justify-content: flex-end; gap: 8px;
   padding: 12px 16px; border-top: 1px solid var(--border); background: var(--bg-2);
@@ -897,24 +923,27 @@ html, body {
 .gp-tools { display: flex; gap: 6px; margin-top: auto; }
 .gp-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); }
 
-/* emitters: bottom-left placement canvas + tools */
+/* emitters: a list of light cells, each a group of channels (roles auto-detected) */
 .fe-emitters { flex: 0 0 auto; margin-top: 16px; }
 .fe-em-count { color: var(--fg-dim); letter-spacing: 0; }
-.fe-emitter-wrap { display: flex; gap: 16px; align-items: stretch; }
-.fe-emitter-canvas {
-  position: relative; flex: 1 1 auto; height: 150px;
-  background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
-}
-.fe-em {
-  position: absolute; width: 12px; height: 12px; border-radius: 50%;
-  background: var(--accent); border: 1px solid #0006; transform: translate(-50%, -50%);
-  cursor: grab;
-}
-.fe-em:active { cursor: grabbing; }
-.fe-emitter-tools { flex: 0 0 188px; display: flex; flex-direction: column; }
-.fe-emitter-tools .frow input { width: 64px; }
-.fe-em-btns { display: flex; gap: 8px; margin-top: 2px; }
-.fe-em-hint { margin-top: 10px; font-size: 11px; color: var(--fg-dim); line-height: 1.4; }
+.fe-em-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.fe-em-empty { padding: 14px; text-align: center; color: var(--fg-dim); font-size: 12px; background: var(--bg-2); border-radius: var(--radius); }
+.fe-em-row { display: flex; align-items: center; gap: 8px; padding: 6px 8px; background: var(--bg-2); border-radius: var(--radius); }
+.fe-em-n { flex: 0 0 18px; text-align: center; color: var(--fg-dim); font-size: 12px; font-variant-numeric: tabular-nums; }
+.fe-em-chips { flex: 1 1 auto; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; min-width: 0; }
+.fe-em-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 3px 2px 6px; background: var(--bg-4); border-radius: var(--radius); font-size: 12px; }
+.fe-em-chip-ico { display: inline-flex; width: 12px; justify-content: center; color: var(--fg-dim); font-size: 10px; }
+.fe-em-chip-n { font-variant-numeric: tabular-nums; }
+.fe-em-chip-x { background: none; border: none; color: var(--fg-dim); cursor: pointer; font-size: 13px; line-height: 1; padding: 0 2px; }
+.fe-em-chip-x:hover { color: var(--fg); }
+.fe-em-pick { background: var(--bg-3); border: 1px solid var(--border); border-radius: var(--radius); color: var(--fg-dim); font-size: 11px; padding: 2px 4px; cursor: pointer; }
+.fe-em-role { flex: 0 0 auto; font-size: 10px; letter-spacing: 0.06em; color: var(--fg-dim); }
+.fe-em-role.warn { color: #e0a23d; }
+.fe-em-del { background: none; border: none; color: var(--fg-dim); cursor: pointer; padding: 2px 4px; }
+.fe-em-del:hover { color: #e0564b; }
+.fe-em-foot { display: flex; align-items: flex-start; gap: 16px; margin-top: 10px; }
+.fe-em-actions { flex: 0 0 auto; display: flex; gap: 8px; }
+.fe-em-hint { margin: 0; font-size: 11px; color: var(--fg-dim); line-height: 1.4; }
 
 .fe-msg { color: #e0564b; font-size: 12px; flex: 1; }
 
@@ -1241,14 +1270,9 @@ html, body {
 
 /* ---- CONTROL: fader editor (bottom-right) ----------------------------- */
 .fader-tile { display: flex; flex-direction: column; }
-/* Flat head — no divider line (separated from the body by fill), and the
-   right-most action sits flush to the window edge (no trailing padding) so its
-   fill connects with the surface instead of floating in a gap. */
-.fader-head { gap: 12px; padding-right: 0; border-bottom: none; }
-.fader-head > :last-child { margin-right: 0; }
-/* the flush right-edge action loses its right rounding + border so its fill
-   meets the window edge instead of leaving a rounded notch */
-.fe-prog > .fe-btn:last-child { border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none; }
+/* Flat head — no divider line (separated from the body by fill). The right-most
+   action keeps a trailing gap from the window edge so it floats clear of it. */
+.fader-head { gap: 12px; border-bottom: none; }
 /* The EDIT/LIVE span also matches .fe-mode (a bordered mode-row box) — undo that
    and render a compact CONNECTED segmented toggle (base .seg-btn shared borders
    + rounded ends), not two separate padded pills. */
@@ -1262,9 +1286,7 @@ html, body {
 .fader-head .seg-btn[data-mode="live"].active { background: #e23b3b; color: #fff; border-color: #e23b3b; }
 
 /* EDIT-mode target label */
-/* the head drops its right padding so the LIVE action bleeds to the edge; the
-   EDIT target is text, so give it its own right gap back */
-.fe-target { margin-left: auto; padding-right: 10px; font-size: 11px; color: var(--fg); letter-spacing: 0.04em; }
+.fe-target { margin-left: auto; font-size: 11px; color: var(--fg); letter-spacing: 0.04em; }
 .fe-target.muted { color: var(--fg-dim); }
 
 /* LIVE-mode programmer toolbar (status + Clear / Store) */
@@ -1298,22 +1320,23 @@ html, body {
 .fe-bo:hover { border-color: var(--accent); }
 .fe-bo.on { background: #e23b3b; color: #fff; border-color: #e23b3b; }
 
-/* left sidebar — attribute categories (DIMMER / COLOR / … / FADER) */
+/* left sidebar — attribute categories (DIMMER / COLOR / … / FADER). A flush rail:
+   no divider border and no right gutter, so the active tab's fill runs straight
+   into the strip area on the right. */
 .fe-side {
   flex: 0 0 96px; display: flex; flex-direction: column; gap: 2px;
-  padding: 8px 6px; background: var(--bg-2); border-right: 1px solid var(--border); overflow-y: auto;
+  padding: 8px 0 8px 6px; background: var(--bg-2); overflow-y: auto;
 }
 .fe-attr {
   text-align: left; background: transparent; border: none; cursor: pointer;
   color: var(--fg-dim); font-size: 11px; letter-spacing: 0.08em;
-  padding: 7px 10px; border-radius: var(--radius);
+  padding: 7px 10px; border-radius: var(--radius) 0 0 var(--radius);
 }
 .fe-attr:hover { color: var(--fg); background: var(--bg-3); }
-.fe-attr.active { color: var(--fg); background: var(--bg-3); box-shadow: inset 2px 0 0 var(--accent); }
+.fe-attr.active { color: var(--fg); background: var(--bg-3); }
 
-/* main area — group name over a horizontally-scrolling row of channel strips */
+/* main area — a horizontally-scrolling row of channel strips */
 .fe-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; padding: 6px 10px; min-height: 0; }
-.fe-gname { flex: 0 0 auto; font-size: 10px; letter-spacing: 0.14em; color: var(--fg-dim); text-align: center; padding: 2px 0 8px; }
 .fe-attr-body { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; overflow: auto; }
 
 /* fixture-type blocks — each wraps a label + its own strip row. A
@@ -1412,9 +1435,11 @@ html, body {
 .fc-body .fc-fader { flex: 0 0 24px; }
 /* left column: swatch pinned to the top, preset chips stacked beneath it. */
 .fc-left { flex: 0 0 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; overflow: hidden; }
-/* preset channels widen to hold the swatch + chip column (gobo / colour / shutter ranges) */
-.fcol.has-presets { flex: 0 0 112px; }
-.fcol.has-presets .fc-val { max-width: 108px; }
+/* preset channels widen to hold the swatch + chip column (gobo / colour / shutter
+   ranges). One uniform width for every preset strip — sized to the 2-column gobo /
+   colour grid (the widest content); label-only strips match it and truncate. */
+.fcol.has-presets { flex: 0 0 88px; min-width: 0; }   /* min-width:0 so a long label can't push the strip past the basis */
+.fcol.has-presets .fc-val { max-width: 84px; }
 .fcol.has-presets .fc-left { flex: 1 1 auto; }
 .fc-chips {
   flex: 1 1 auto; min-height: 0; width: 100%; display: flex; flex-flow: row wrap; align-content: flex-start;
@@ -1434,6 +1459,22 @@ html, body {
   padding: 3px 5px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .fc-chip.lbl.on { color: var(--accent); }
+
+/* GOBO + COLOUR strips: lay the drawn / colour slots out as an aligned 2-column
+   thumbnail grid (compact + glanceable, identical cell size for both); open /
+   rotation / shake / scroll / macro ranges stay full-width text rows. The strip
+   width is the shared `.fcol.has-presets` width above. */
+.fc-chips--gobo,
+.fc-chips--color {
+  display: grid; grid-template-columns: repeat(2, 26px); gap: 4px; justify-content: center;
+  align-content: start; justify-items: stretch;
+}
+.fc-chips--gobo .fc-chip.gobo,
+.fc-chips--color .fc-chip.sw { width: 26px; height: 26px; aspect-ratio: 1; padding: 0; }
+.fc-chips--gobo .fc-chip.gobo { padding: 2px; }
+.fc-chips--gobo .fc-chip.gobo .gobo-svg { width: 100%; height: 100%; }
+.fc-chips--gobo .fc-chip.lbl,
+.fc-chips--color .fc-chip.lbl { grid-column: 1 / -1; }
 
 /* slim rounded vertical fader — fills the strip body height */
 .fc-fader { -webkit-appearance: none; appearance: none; writing-mode: vertical-lr; direction: rtl; width: 24px; min-height: 90px; background: transparent; cursor: pointer; }
@@ -1843,7 +1884,6 @@ input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
 .ord-row.dragging { opacity: 0.5; box-shadow: 0 0 0 1px var(--accent); }
 .ord-handle { color: var(--fg-dim); }
 .ord-idx { min-width: 16px; text-align: right; color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
-.ord-dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
 .ord-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ord-addr { color: var(--fg-dim); font-variant-numeric: tabular-nums; }
 

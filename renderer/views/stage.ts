@@ -18,6 +18,7 @@ import { esc } from '../lib/html';
 import { openMenu, closeMenu, type MenuItem } from '../lib/widgets';
 import { onShortcut } from '../lib/keys';
 import { emitterGrid, emitterLocalPositions, STAGE_SIZE } from '../../src/fixtures/emitterGeometry';
+import { goboSvg, hasGobo } from '../lib/gobo';
 
 const { lumox } = window;
 const STAGE_W = STAGE_SIZE.width, STAGE_H = STAGE_SIZE.height;   // fixed stage extent (world units)
@@ -37,7 +38,38 @@ interface Dim { w: number; h: number; }                  // footprint in px (for
 // `master` is the fixture-wide dimmer (used for the off-emitter tint); each cell
 // also carries its own `m` dimmer address (per-segment bars/matrices), falling
 // back to the fixture master. 0 = no dimmer governs it (treated as full).
-interface ColorPlan { uid: number; groupColor: string; master: number; cells: ({ r: number; g: number; b: number; m: number } | null)[]; }
+// `gobo` (when the fixture has a gobo wheel) maps the wheel's DMX address to its
+// authored slots, so the stage can overlay the live gobo's drawn pattern on the
+// footprint whenever a non-open slot is selected (moving heads / scanners).
+// `wheel` (a colour wheel, for fixtures with NO RGB) maps the wheel's DMX address
+// to its colour stops, so colour-wheel movers show their live projected colour
+// (scaled by the master dimmer) instead of falling back to the flat group tint.
+interface GoboPlan { addr: number; caps: { min: number; max: number; pattern: string | null }[]; }
+interface WheelStop { min: number; max: number; r: number; g: number; b: number; }
+interface ColorWheelPlan { addr: number; stops: WheelStop[]; }
+interface ColorPlan { uid: number; master: number; cells: ({ r: number; g: number; b: number; m: number } | null)[]; gobo: GoboPlan | null; wheel: ColorWheelPlan | null; }
+// Neutral grey an unlit emitter falls back to — fixtures carry no colour identity
+// (they're told apart by their number badge), so the off-tint is uniform.
+const OFF_TINT = '#6b6b6b';
+
+// Parse a "#rrggbb" hex (the only form profile colour caps use) to RGB bytes.
+function parseHex(hex: string): [number, number, number] | null {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return null;
+  const n = parseInt(m[1], 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+// The colour stop a wheel value lands on, or the nearest one (so the colour-scroll
+// effect ranges between stops still read as a plausible colour rather than blank).
+function wheelStop(wheel: ColorWheelPlan, v: number): WheelStop | null {
+  let best: WheelStop | null = null, bestD = Infinity;
+  for (const s of wheel.stops) {
+    if (v >= s.min && v <= s.max) return s;
+    const d = Math.abs((s.min + s.max) / 2 - v);
+    if (d < bestD) { bestD = d; best = s; }
+  }
+  return best;
+}
 
 export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () => Promise<void>; setMode: (tab: string) => void }> {
   const tile = document.createElement('section');
@@ -58,6 +90,9 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
         <button data-act="reset-stage" title="Reset stage — re-centre all fixtures & clear rotation"><i class="fa-solid fa-arrows-to-dot"></i></button>
       </span>
       <div class="st-tools">
+        <span class="st-grp st-view" title="View">
+          <button data-view="gobos" title="Show active gobos on fixtures"><i class="fa-solid fa-compact-disc"></i></button>
+        </span>
         <span class="st-grp st-zoom" title="Zoom">
           <button data-zoom="out" title="Zoom out (mouse wheel)"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
           <input type="range" class="st-zslider" min="0" max="1000" step="1" value="500" title="Zoom — double-click to reset" />
@@ -130,6 +165,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     selected: new Set<string>(),
     saved: [] as { id: string; name: string; fixtureIds: string[] }[],   // named selections
     fine: false,                   // fine snap grid (always snaps; this just halves the step)
+    showGobos: false,              // overlay each fixture's live active gobo on its footprint (off by default)
     tool: 'select' as 'select' | 'rect' | 'lasso' | 'pan',   // active canvas interaction mode
     // The stage is shared between tabs: SETUP positions fixtures (move/rotate/resize/
     // arrange), CONTROL is selection-only — you pick fixtures to program, never move
@@ -219,30 +255,63 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   }
 
   // Per-fixture live-colour plan: map each emitter (in geometry order) to its
-  // RGB DMX addresses (universe-absolute) plus the dimmer that governs it. A
-  // single-colour fixture lights every dot from its one RGB set; a bar/matrix
-  // with one *real* dimmer per segment (`intens.length === ncol`) dims each
-  // segment from its own — otherwise a lone dimmer is the shared fixture master.
+  // RGB DMX addresses (universe-absolute) plus the dimmer that governs it. With
+  // explicit head groups (`f.heads`) each cell's roles are detected among that
+  // head's channels (so the picture matches the engine's head-aware mixing).
+  // Otherwise a single-colour fixture lights every dot from its one RGB set; a
+  // bar/matrix with one *real* dimmer per segment (`intens.length === ncol`)
+  // dims each segment from its own — otherwise a lone dimmer is the shared master.
   // VIRTUAL dimmers are excluded: they live in the virtual region (not the wire
   // buffer this reads) and the engine has already scaled the cluster's wire RGB
   // by them, so treating one as a master would double-apply and (worse) read a
   // bogus wire address — which left RGB-only bars/PARs dark or partly lit.
   function buildPlan(f: any): ColorPlan {
     const isDimmer = (c: any) => c.isIntensity && !c.isVirtual;
-    const localOf = (tid: string): number[] => (f.channels as any[]).filter((c) => c.typeId === tid).map((c) => c.index);
-    const reds = localOf('red'), greens = localOf('green'), blues = localOf('blue');
-    const intens = (f.channels as any[]).filter(isDimmer).map((c) => c.index);
-    const ncol = Math.min(reds.length, greens.length, blues.length);
-    const perCell = intens.length === ncol && ncol > 0;   // one dimmer per colour cluster
     const abs = (i: number) => f.startAddress + i - 1;
-    const fixtureMaster = intens.length ? abs(intens[0]) : 0;
-    const g = emitterGrid(f);
+    const chans = f.channels as any[];
+    const intensAll = chans.filter(isDimmer).map((c) => c.index);
+    const fixtureMaster = intensAll.length ? abs(intensAll[0]) : 0;   // off-tint + fallback dimmer
     const cells: ({ r: number; g: number; b: number; m: number } | null)[] = [];
-    for (let k = 0; k < g.n; k++) {
-      const j = k < ncol ? k : (ncol === 1 ? 0 : -1);
-      cells.push(j >= 0 ? { r: abs(reds[j]), g: abs(greens[j]), b: abs(blues[j]), m: perCell ? abs(intens[j]) : fixtureMaster } : null);
+
+    const heads = f.heads as number[][] | null | undefined;
+    if (heads?.length) {
+      // One cell per head with a complete R/G/B (matches Fixture.resolveHeads); a
+      // head's own intensity channel dims it, else the fixture master does.
+      const byIndex = new Map<number, any>(chans.map((c) => [c.index, c]));
+      for (const group of heads) {
+        const role = (tid: string) => group.find((i) => byIndex.get(i)?.typeId === tid);
+        const r = role('red'), gr = role('green'), b = role('blue');
+        if (!r || !gr || !b) continue;
+        const dim = group.find((i) => { const c = byIndex.get(i); return c && isDimmer(c); });
+        cells.push({ r: abs(r), g: abs(gr), b: abs(b), m: dim ? abs(dim) : fixtureMaster });
+      }
+    } else {
+      const localOf = (tid: string): number[] => chans.filter((c) => c.typeId === tid).map((c) => c.index);
+      const reds = localOf('red'), greens = localOf('green'), blues = localOf('blue');
+      const ncol = Math.min(reds.length, greens.length, blues.length);
+      const perCell = intensAll.length === ncol && ncol > 0;   // one dimmer per colour cluster
+      const g = emitterGrid(f);
+      for (let k = 0; k < g.n; k++) {
+        const j = k < ncol ? k : (ncol === 1 ? 0 : -1);
+        cells.push(j >= 0 ? { r: abs(reds[j]), g: abs(greens[j]), b: abs(blues[j]), m: perCell ? abs(intensAll[j]) : fixtureMaster } : null);
+      }
     }
-    return { uid: f.universeId, groupColor: f.color || '#6b6b6b', master: fixtureMaster, cells };
+    // Gobo wheel: the first channel whose presets carry a drawn pattern (an "Open"
+    // slot has a null pattern, so a channel with ANY drawn slot is the gobo wheel).
+    const goboChan = chans.find((c) => Array.isArray(c.caps) && c.caps.some((cap: any) => typeof cap.pattern === 'string'));
+    const gobo: GoboPlan | null = goboChan ? { addr: abs(goboChan.index), caps: goboChan.caps } : null;
+    // Colour wheel: the channel whose presets carry colour swatches (a colour-wheel
+    // fixture has no RGB channels, so without this its emitter would only ever show
+    // the group tint). Only used to paint cells that have no RGB source of their own.
+    const wheelChan = chans.find((c) => Array.isArray(c.caps) && c.caps.some((cap: any) => typeof cap.color === 'string'));
+    let wheel: ColorWheelPlan | null = null;
+    if (wheelChan) {
+      const stops = (wheelChan.caps as any[])
+        .map((cap) => { const rgb = typeof cap.color === 'string' ? parseHex(cap.color) : null; return rgb ? { min: cap.min, max: cap.max, r: rgb[0], g: rgb[1], b: rgb[2] } : null; })
+        .filter(Boolean) as WheelStop[];
+      if (stops.length) wheel = { addr: abs(wheelChan.index), stops };
+    }
+    return { uid: f.universeId, master: fixtureMaster, cells, gobo, wheel };
   }
 
   // ---- render -----------------------------------------------------------
@@ -263,7 +332,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
     // texture; fixtures still clamp to [0, STAGE] in world units (see onDrag).
     canvas.style.setProperty('--off', `${o}px`);
     canvas.classList.toggle('fine', state.fine);
-    const nodesHtml = list.map((f) => {
+    const nodesHtml = list.map((f, idx) => {
       const p = state.pos.get(f.id) ?? { x: 0, y: 0, rot: 0 };
       const g = emitterGrid(f);
       const w = g.width * zoom, h = g.height * zoom;
@@ -277,11 +346,16 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
       // both positioned layouts and plain grids).
       const emitters = emitterLocalPositions(f).map((c) =>
         `<i class="st-em" style="left:${(c.x / g.width * 100).toFixed(1)}%;top:${(c.y / g.height * 100).toFixed(1)}%"></i>`).join('');
+      // Fixtures read identically (neutral) — they're told apart by a persistent
+      // number badge (their 1-based order in the patch, i.e. first-to-last added),
+      // shown in the corner. The centred badge is the live selection order.
       return `<div class="st-node${sel}${hl}${dim}" data-fx="${f.id}"
-        style="left:${p.x * zoom + o}px;top:${p.y * zoom + o}px;width:${w}px;height:${h}px;transform:rotate(${p.rot}deg);--fx:${esc(f.color || '#6b6b6b')}"
-        title="${esc(f.name)} · @${f.startAddress} · ${g.n} emitter${g.n === 1 ? '' : 's'}">
+        style="left:${p.x * zoom + o}px;top:${p.y * zoom + o}px;width:${w}px;height:${h}px;transform:rotate(${p.rot}deg)"
+        title="#${idx + 1} · ${esc(f.name)} · @${f.startAddress} · ${g.n} emitter${g.n === 1 ? '' : 's'}">
+        <span class="st-num">${idx + 1}</span>
         ${si >= 0 ? `<span class="st-idx">${si + 1}</span>` : ''}
         <div class="st-emitters">${emitters}</div>
+        <div class="st-gobo"></div>
       </div>`;
     }).join('');
     world.innerHTML = nodesHtml;
@@ -534,17 +608,37 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
         if (cell) {
           const cm = cell.m ? (data[cell.m - 1] ?? 0) / 255 : 1;   // this segment's own dimmer
           r = (data[cell.r - 1] ?? 0) * cm; g = (data[cell.g - 1] ?? 0) * cm; b = (data[cell.b - 1] ?? 0) * cm;
+        } else if (plan.wheel) {
+          // No RGB source — colour the emitter from the colour wheel × master dimmer.
+          const stop = wheelStop(plan.wheel, data[plan.wheel.addr - 1] ?? 0);
+          if (stop) { r = stop.r * m; g = stop.g * m; b = stop.b * m; }
         }
         const lum = Math.max(r, g, b);
         if (lum < 6) {
           if (cell) { dot.style.background = '#141414'; dot.style.boxShadow = 'inset 0 0 2px rgba(255,255,255,.12)'; }
-          else { dot.style.background = `color-mix(in srgb, ${plan.groupColor} ${plan.master ? Math.round(m * 70) : 22}%, #111)`; dot.style.boxShadow = 'inset 0 0 2px rgba(255,255,255,.12)'; }
+          else { dot.style.background = `color-mix(in srgb, ${OFF_TINT} ${plan.master ? Math.round(m * 70) : 22}%, #111)`; dot.style.boxShadow = 'inset 0 0 2px rgba(255,255,255,.12)'; }
         } else {
           const c = `rgb(${r | 0},${g | 0},${b | 0})`;
           dot.style.background = c;
           dot.style.boxShadow = `0 0 ${Math.min(11, 3 + lum / 28).toFixed(1)}px ${c}`;
         }
       });
+      // Live gobo: overlay the selected slot's drawn pattern when a non-open gobo is
+      // active. Only swap the DOM when the pattern actually changes (per-frame poll).
+      const gel = node.querySelector('.st-gobo') as HTMLElement | null;
+      if (gel) {
+        let pat = '';
+        if (plan.gobo && state.showGobos) {
+          const gv = data[plan.gobo.addr - 1] ?? 0;
+          const cur = plan.gobo.caps.find((cap) => gv >= cap.min && gv <= cap.max);
+          if (cur?.pattern && hasGobo(cur.pattern)) pat = cur.pattern;
+        }
+        if (gel.dataset.pat !== pat) {
+          gel.dataset.pat = pat;
+          gel.innerHTML = pat ? goboSvg(pat, 64) : '';
+          gel.classList.toggle('on', !!pat);
+        }
+      }
     });
   }
   async function pollColors() {
@@ -1067,6 +1161,15 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   const fineBtn = tile.querySelector('[data-act="fine"]') as HTMLElement;
   fineBtn.addEventListener('click', () => { state.fine = !state.fine; fineBtn.classList.toggle('active', state.fine); render(); });
 
+  // Toggle the live-gobo overlay on/off (a view option, not an edit). Repaint from
+  // the last poll frame so it appears / clears immediately, not on the next tick.
+  const goboBtn = tile.querySelector('[data-view="gobos"]') as HTMLElement;
+  goboBtn.addEventListener('click', () => {
+    state.showGobos = !state.showGobos;
+    goboBtn.classList.toggle('active', state.showGobos);
+    paintNodes(lastData);
+  });
+
   // ---- grouping & saved selections (driven from the context menu) -------
   // A group may only hold fixtures that share one channel configuration; this is
   // the config common to the whole selection, or null if it's empty / spans configs.
@@ -1181,7 +1284,7 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
             <button class="st-sv-name" title="Recall — double-click to rename">${esc(s.name)}<span class="st-sv-n">${s.fixtureIds.length}</span></button>
             <button class="st-sv-del" title="Delete"><i class="fa-solid fa-xmark"></i></button>
           </div>`).join('')
-      : `<div class="st-sv-empty">Select fixtures, then Save.</div>`;
+      : `<div class="st-sv-empty">No saved selections.</div>`;
   }
   async function loadSaved() { try { state.saved = await lumox.selections.list(); } catch { state.saved = []; } renderSavedPop(); }
   function startRenameSaved(id: string) {
@@ -1273,11 +1376,14 @@ export async function makeStageTile(): Promise<{ tile: HTMLElement; refresh: () 
   bus.on(EV.PATCH_CHANGED, reload);
   bus.on(EV.GROUPS_CHANGED, reload);
   effect(() => { state.highlight = activeGroup.value; render(); });
-  // mirror a selection made elsewhere (the patch grid) — ignore our own echo.
+  // mirror a selection made elsewhere (patch grid / group tab / scene-select /
+  // saved recall) — ignore our own echo. A selection change touches no geometry,
+  // so repaint just the overlay (badges + box), never rebuilding the emitter dots
+  // (a full render() flashes the rig — the same reason local clicks use paintSelection).
   bus.on(EV.FIXTURE_SELECTED, (d: { ids: string[]; src: string }) => {
     if (!d || d.src === 'stage') return;
     state.selected = new Set(d.ids);
-    render();
+    paintSelection();
   });
 
   // Switch the stage's role with the active tab: SETUP positions fixtures, CONTROL

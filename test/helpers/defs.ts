@@ -12,6 +12,8 @@ export interface DefOpts {
   type?: string;
   modeName?: string;
   emitters?: number;
+  /** Explicit emitter/head groups (1-based channel indices) for the mode. */
+  modeEmitters?: number[][];
   emitterLayout?: EmitterCell[] | null;
 }
 
@@ -21,6 +23,7 @@ export function makeDef(typeIds: (string | null)[], opts: DefOpts = {}): Fixture
   const mode = new FixtureMode({
     name: opts.modeName ?? `${typeIds.length}ch`,
     channels: typeIds.map((t) => (t ? { typeId: t } : null)),
+    emitters: opts.modeEmitters,
   });
   return new FixtureDefinition({
     manufacturer: opts.manufacturer ?? 'Test',

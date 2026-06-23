@@ -230,6 +230,7 @@ export interface DialogSpec {
   message: string;
   detail?: string;
   list?: string[];
+  input?: { value?: string; placeholder?: string };   // present → a single text field (rename / name prompt)
   buttons: DialogButton[];
   cancelId: string;
   width?: number;
@@ -292,8 +293,9 @@ export interface LumoxApi {
   };
   dialog: {
     open(spec: DialogSpec): Promise<string>;
+    prompt(spec: DialogSpec): Promise<string | null>;
     spec(): Promise<DialogSpec | null>;
-    resolve(id: string): Promise<void>;
+    resolve(id: string, value?: string): Promise<void>;
   };
   panel: {
     open(spec: { kind: 'settings' | 'group-order'; title: string; arg?: unknown; width?: number; height?: number }): Promise<void>;
@@ -351,6 +353,7 @@ export interface LumoxApi {
   scenes: {
     list(): Promise<any[]>;
     values(id: string): Promise<Record<number, Record<number, number>>>;
+    monitor(id: string, fixtureIds: string[]): Promise<{ active: boolean; cycleMs: number; values: Record<number, Record<number, number>> }>;
     capture(bankId?: string, name?: string): Promise<any>;
     recall(id: string, on: boolean): Promise<any>;
     remove(id: string): Promise<any>;

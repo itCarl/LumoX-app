@@ -7,7 +7,8 @@ test.describe('stage tile', () => {
 
   test('renders one node per patched fixture', async ({ page }) => {
     await expect(page.locator('.stage-tile')).toBeVisible();
-    await expect(page.locator('.st-node[data-fx]')).toHaveCount(18);
+    const n = await page.evaluate(() => (window as any).lumox.patch.list().then((f: unknown[]) => f.length));
+    await expect(page.locator('.st-node[data-fx]')).toHaveCount(n);
   });
 
   test('clicking a node selects exactly that fixture', async ({ page }) => {

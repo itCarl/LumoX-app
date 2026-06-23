@@ -12,9 +12,12 @@ test.describe('groups bar', () => {
   });
 
   test('the All tab selects the whole rig', async ({ page }) => {
+    // The whole rig = every patched fixture (demo-show size, not a fixed constant).
+    const patched = await page.evaluate(() => (window as any).lumox.patch.list().then((f: unknown[]) => f.length));
+    expect(patched).toBeGreaterThan(0);
     await page.click('.gb-tab[data-grp="all"]');
     await expect(page.locator('.gb-tab[data-grp="all"]')).toHaveClass(/active/);
-    await expect.poll(() => page.evaluate(() => (window as any).lumox.selection.get().then((s: string[]) => s.length))).toBe(24);
+    await expect.poll(() => page.evaluate(() => (window as any).lumox.selection.get().then((s: string[]) => s.length))).toBe(patched);
   });
 
   test('a group tab selects exactly that group', async ({ page }) => {

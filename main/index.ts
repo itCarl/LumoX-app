@@ -83,9 +83,12 @@ async function bootShow(): Promise<void> {
   await loadUserLibrary();
 
   // Boot project: reopen the last project when enabled in Settings; otherwise in
-  // development open the bundled demo show (resources/demo-show.lmx — a filled rig
-  // with banks + scenes of every FX type) for quick testing, while packaged builds
-  // start blank. Override with LUMOX_SEED=1 (force demo) / LUMOX_SEED=0 (force blank).
+  // development open a bundled demo show for quick testing, while packaged builds
+  // start blank. Two demos ship under resources/: `demo-show-0.lmx` (a synthetic
+  // rig with banks + scenes of every FX type) and `demo-show-1.lmx` (a real
+  // wedding rig ported from a QLC+ workspace — 12 fixtures, groups, static scenes
+  // + chases). Dev seeds Demo Show 1. Override with LUMOX_SEED=1 (force demo) /
+  // LUMOX_SEED=0 (force blank).
   let restored = false;
   const last = getSetting('lastProjectPath');
   if (getSetting('reopenLastProject') && last) {
@@ -96,8 +99,8 @@ async function bootShow(): Promise<void> {
     const seed = process.env.LUMOX_SEED === '1' || (process.env.LUMOX_SEED !== '0' && !app.isPackaged);
     if (seed) {
       try {
-        await loadProjectFromPath(path.join(APP_ROOT, 'resources', 'demo-show.lmx'));
-        setProject('Demo Show', null);   // scratch copy — a stray Save won't clobber the bundled file
+        await loadProjectFromPath(path.join(APP_ROOT, 'resources', 'demo-show-1.lmx'));
+        setProject('Demo Show 1', null);   // scratch copy — a stray Save won't clobber the bundled file
       } catch (err) {
         console.error('[show] demo show load failed:', (err as Error).message);
         newProject();

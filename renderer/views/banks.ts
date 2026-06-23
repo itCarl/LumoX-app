@@ -8,6 +8,7 @@
 import { mount, html, raw } from '../lib/dom';
 import { openMenu, type MenuItem } from '../lib/widgets';
 import { onShortcut } from '../lib/keys';
+import { promptText } from '../lib/prompt';
 import { bus, EV } from '../lib/bus';
 
 const { lumox } = window;
@@ -161,11 +162,14 @@ export async function makeBanksTile() {
     syncRaf();
   }
 
-  // Poll while a scene is mid-fade or an active scene is periodic. Coarse (250ms);
-  // the rAF loop below interpolates the timeline smoothly between polls.
+  // Poll while a scene is mid-fade, mid-crossfade, or an active scene is periodic.
+  // A dipless crossfade holds the outgoing scene's opacity (no ramp to detect), so
+  // it must be polled explicitly via `transitioning` — otherwise the released
+  // scene's `active` highlight never clears when the crossfade settles. Coarse
+  // (250ms); the rAF loop below interpolates the timeline smoothly between polls.
   function syncPolling() {
     const need = banks.some((b) => b.scenes.some((s: any) =>
-      s.active && (s.cycleMs > 0 || Math.abs((s.opacity ?? 0) - (s.level ?? 1)) > 0.02)));
+      s.transitioning || (s.active && (s.cycleMs > 0 || Math.abs((s.opacity ?? 0) - (s.level ?? 1)) > 0.02))));
     if (need && pollTimer == null) pollTimer = window.setInterval(poll, 250);
     else if (!need && pollTimer != null) { clearInterval(pollTimer); pollTimer = null; }
   }
@@ -230,8 +234,11 @@ export async function makeBanksTile() {
 
   cols.on('click', '.bk-cap', async (_e, t) => { await lumox.scenes.capture(t.dataset.bank as string); reload(); });
 
-  // Body (wide rectangle) activates / deactivates the scene (live playback), and
-  // activating also selects it as the fader-editor EDIT target. The right strip
+  // Body (wide rectangle) activates / deactivates the scene (live playback) and,
+  // on activate, makes it the fader-editor EDIT target so the editor FOLLOWS what
+  // is live — but it does NOT touch the live fixture selection (firing scenes mid-
+  // show must never disturb what you're programming, nor re-fan other selection-FX;
+  // the right strip is the explicit "select this scene's fixtures"). The strip
   // selects for editing, so skip clicks that originate there. Flash scenes are
   // driven by pointerdown/up (play while held), so skip them here too.
   cols.on('click', '.scene-cell', async (e, t) => {
@@ -241,7 +248,7 @@ export async function makeBanksTile() {
     if ((s as any)?.flash) return;
     const on = !s?.active;
     t.classList.toggle('active', on);    // optimistic — instant feedback before the round-trip
-    if (on) selectScene(id);             // activating a scene also picks it for editing
+    if (on) selectScene(id, false);      // follow as edit target, but keep the selection
     await lumox.scenes.recall(id, on);
     reload();
   });
@@ -272,7 +279,10 @@ export async function makeBanksTile() {
 
   // Mark a scene as the EDIT target: patch the highlight in place (selection isn't
   // structural, so no rebuild) and broadcast so the fader editor loads it.
-  function selectScene(id: string) {
+  // `selectFixtures` (the strip gesture) also picks the scene's fixtures as the live
+  // selection so they're ready to edit; activating-to-follow passes false to leave
+  // the current selection untouched.
+  function selectScene(id: string, selectFixtures = true) {
     selected = id;
     cols.el.querySelectorAll('.scene-cell.selected').forEach((c) => c.classList.remove('selected'));
     cols.el.querySelector(`.scene-cell[data-scene="${id}"]`)?.classList.add('selected');
@@ -280,6 +290,7 @@ export async function makeBanksTile() {
     // Auto-select the scene's fixtures on the stage so they're ready to edit (and
     // become the live target for any selection-driven FX). The stage adopts this
     // via the FIXTURE_SELECTED bridge; skip when the scene drives nothing.
+    if (!selectFixtures) return;
     const fids = (findScene(id) as any)?.fixtureIds as string[] | undefined;
     if (fids?.length) bus.emit(EV.FIXTURE_SELECTED, { ids: fids, src: 'banks' });
   }
@@ -303,10 +314,10 @@ export async function makeBanksTile() {
     reload();
   }
   async function renameScene(sceneId: string) {
-    const n = prompt('Scene name', findScene(sceneId)?.name ?? '');
-    if (!n || !n.trim()) return;
-    await lumox.scenes.rename(sceneId, n.trim());
-    if (findScene(sceneId)?.active) bus.emit(EV.SCENE_SELECTED, { id: sceneId, name: n.trim() });
+    const n = await promptText({ title: 'Rename scene', value: findScene(sceneId)?.name ?? '' });
+    if (!n) return;
+    await lumox.scenes.rename(sceneId, n);
+    if (findScene(sceneId)?.active) bus.emit(EV.SCENE_SELECTED, { id: sceneId, name: n });
     reload();
   }
   async function duplicateScene(sceneId: string) {
@@ -314,9 +325,9 @@ export async function makeBanksTile() {
     reload();
   }
   async function renameBank(bankId: string) {
-    const n = prompt('Bank name', banks.find((b) => b.id === bankId)?.name ?? '');
-    if (!n || !n.trim()) return;
-    await lumox.banks.rename(bankId, n.trim());
+    const n = await promptText({ title: 'Rename bank', value: banks.find((b) => b.id === bankId)?.name ?? '' });
+    if (!n) return;
+    await lumox.banks.rename(bankId, n);
     reload();
   }
 
