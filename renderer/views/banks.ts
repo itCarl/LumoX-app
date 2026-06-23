@@ -198,9 +198,17 @@ export async function makeBanksTile() {
     else if (!live && rafId != null) { cancelAnimationFrame(rafId); rafId = null; }
   }
 
+  // Scroll the columns area so the given bank's column is in view (all banks'
+  // columns render side-by-side, so picking a tab should bring its column over).
+  function scrollBankIntoView(id: string | null): void {
+    if (!id) return;
+    cols.el.querySelector(`.bank-col[data-bank="${id}"]`)
+      ?.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+  }
+
   // ---- delegated events (bound once; survive every reload) --------------
-  tabs.on('click', '#bk-add', async () => { const b = await lumox.banks.add(); active = b.id; reload(); });
-  tabs.on('click', '.bk-tab[data-bank]', (_e, t) => { active = t.dataset.bank as string; reload(); });
+  tabs.on('click', '#bk-add', async () => { const b = await lumox.banks.add(); active = b.id; await reload(); scrollBankIntoView(active); });
+  tabs.on('click', '.bk-tab[data-bank]', async (_e, t) => { active = t.dataset.bank as string; await reload(); scrollBankIntoView(active); });
   tabs.on('contextmenu', '.bk-tab[data-bank]', (e, t) => {
     e.preventDefault();
     showBankMenu(e as MouseEvent, t.dataset.bank as string);
