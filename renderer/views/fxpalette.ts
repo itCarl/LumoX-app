@@ -1,12 +1,16 @@
 // Scene panel (CONTROL view, top-right). Reflects the scene clicked in the Banks
 // tile. The narrow column is decluttered with a right-hand icon rail that switches
 // between full-width pages:
-//   • Base    — base look STATIC / CHASE + (chase) the steps list.
-//   • FX Rack — an inline collapsible STACK of FX layers (console-style): every
-//               layer is a block with a header row (caret / enable / icon+name /
-//               target / reorder / delete); clicking the header expands ONE layer
-//               in place to reveal its editor (target, sweep order, kind config +
-//               live preview, timing) — a single-expand accordion, no separate page.
+//   • FX Rack — the scene's content. A scene is a STATIC base look by default
+//               (its stored values, edited on the fader bank); everything else is
+//               just an FX layer added on top. The rack is an inline collapsible
+//               STACK of those FX layers (console-style): every layer is a block
+//               with a header row (caret / enable / icon+name / target / reorder /
+//               delete); clicking the header expands ONE layer in place to reveal
+//               its editor (target, sweep order, kind config + live preview,
+//               timing) — a single-expand accordion. The bottom bar adds layers;
+//               its leftmost STEPS toggle switches the base look from static to a
+//               timed cue sequence (the steps list then leads the rack).
 //   • Scene   — scene-level: DIMMER, chase transport/tempo, fade timing.
 //   • Advanced— priority, loop + jump-to, release/protect scopes, flash.
 // The header carries the scene name, a rename pencil, live status and recall.
@@ -61,7 +65,9 @@ function fmtBeat(b: number): string { return b >= 1 ? `${r2(b)}` : `1/${Math.rou
 
 // Pages of the Scene panel, switched via the right-hand rail. Inside `rack`, one
 // layer is expanded inline (tracked by `state.layerId`); no separate layer page.
-type View = 'base' | 'rack' | 'scene' | 'adv';
+// The base look is not a page — it lives in the rack (static by default; the
+// STEPS toggle turns it into a cue sequence).
+type View = 'rack' | 'scene' | 'adv';
 
 // ---- FX preview diagrams (canvas 2D) -----------------------------------
 // Drawn in a 120-unit design space scaled by `s` to the canvas's CSS size, so
@@ -185,7 +191,6 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     <div class="sp-main">
       <div class="tile-body sp-content" id="sp-content"></div>
       <nav class="sp-rail" id="sp-rail">
-        <button class="sp-railbtn" data-nav="base" title="Base look"><i class="fa-solid fa-fill-drip"></i><span>Base</span></button>
         <button class="sp-railbtn" data-nav="rack" title="FX Rack"><i class="fa-solid fa-layer-group"></i><span>FX</span></button>
         <button class="sp-railbtn" data-nav="scene" title="Scene settings"><i class="fa-solid fa-gauge-high"></i><span>Scene</span></button>
         <button class="sp-railbtn" data-nav="adv" title="Advanced"><i class="fa-solid fa-gear"></i><span>Adv</span></button>
@@ -275,7 +280,6 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     updateRail(s);
 
     if (!s) renderEmpty();
-    else if (state.view === 'base') renderBase(s);
     else if (state.view === 'scene') renderScene(s);
     else if (state.view === 'adv') renderAdvanced(s);
     else renderRack(s);
@@ -298,8 +302,15 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
   // Shared by the rack page and the no-scene skeleton so the two states keep the
   // same shape (no layout shift). The icon strip is the console-style "add a layer"
   // toolbar — one tight row instead of a wrapping grid of labelled buttons.
-  const addBar = () => html`
-    <div class="fxrack-add" role="group" aria-label="Add FX layer">
+  // Scene-content bar: the base-look type (STEPS toggle) on the left, then the
+  // FX-layer add buttons. STATIC is the implicit default (no button — it's just
+  // the scene's stored values); STEPS turns the base into a timed cue sequence.
+  const addBar = (s: SceneInfo | null) => html`
+    <div class="fxrack-add" role="group" aria-label="Scene content">
+      <button class="fxadd-btn fxadd-steps${s?.type === 'chase' ? ' on' : ''}" data-act="basetype"
+        title="${s?.type === 'chase' ? 'Steps base — click to return to a static base look' : 'Steps — sequence the base look as timed cues'}"
+        aria-label="Toggle Steps base" aria-pressed="${s?.type === 'chase' ? 'true' : 'false'}"><i class="fa-solid fa-list-ol"></i></button>
+      <span class="fxadd-sep" aria-hidden="true"></span>
       <span class="fxadd-lbl">ADD</span>
       ${KINDS.map((k) => html`<button class="fxadd-btn" data-act="addlayer" data-kind="${k.kind}" title="Add ${k.label} FX" aria-label="Add ${k.label} FX">${raw(k.icon)}</button>`)}
     </div>`;
@@ -320,35 +331,29 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     content.set(html`
       <div class="sp-ghost">
         <div class="fxrack"><div class="sp-empty">No scene selected</div></div>
-        ${addBar()}
+        ${addBar(null)}
         ${presetFoot(false)}
       </div>`);
   }
 
-  // ---- base page (STATIC / CHASE + steps) ---------------------------------
-  function renderBase(s: SceneInfo) {
-    content.set(html`
-      <div class="fxe-row">
-        <span class="sp-lbl">Base look</span>
-        <span class="seg sp-seg">
-          <button class="seg-btn${s.type === 'static' ? ' active' : ''}" data-act="base" data-val="static">STATIC</button>
-          <button class="seg-btn${s.type === 'chase' ? ' active' : ''}" data-act="base" data-val="chase">CHASE</button>
-        </span>
-      </div>
-      ${s.type === 'chase'
-        ? stepsBlock(s)
-        : html`<div class="sp-note">Static holds one look. Switch to Chase to step through captured cues.</div>`}`);
-  }
-
-  // ---- FX rack page (inline collapsible layer stack + add + presets) ------
+  // ---- FX rack page — the scene's content --------------------------------
+  // A scene is a STATIC base look by default (its stored values, set on the fader
+  // bank); the rack lists the FX layers stacked on top. The STEPS toggle (add bar)
+  // swaps the static base for a timed cue sequence, which then leads the rack.
   function renderRack(s: SceneInfo) {
+    const chase = s.type === 'chase';
+    const emptyNote = chase
+      ? 'No FX layers — the scene plays its captured steps. Add an effect to layer motion on top.'
+      : 'No FX layers — the scene plays its static base look. Stack an effect on top, or switch the base to Steps below.';
     content.set(html`
       <div class="fxrack">
+        ${chase ? stepsBlock(s) : ''}
+        ${chase ? html`<div class="fxrack-hdr">FX</div>` : ''}
         ${s.layers.length
           ? s.layers.map((l) => layerBlock(l))
-          : html`<div class="sp-empty">No FX layers. Add one below — they stack over the base look.</div>`}
+          : html`<div class="sp-empty">${emptyNote}</div>`}
       </div>
-      ${addBar()}
+      ${addBar(s)}
       ${presetFoot(s.layers.length > 0)}`);
     // Mount the one expanded layer's knobs + preview (only it renders a body).
     const l = layer();
@@ -817,7 +822,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     const act = t.dataset.act as string;
     const val = t.dataset.val as string | undefined;
     switch (act) {
-      case 'base': apply(lumox.scenes.setType(id, val as string), true); break;
+      case 'basetype': apply(lumox.scenes.setType(id, s.type === 'chase' ? 'static' : 'chase'), true); break;
       case 'addlayer': apply(lumox.scenes.addLayer(id, t.dataset.kind as FxKind), true); break;
       case 'open': state.layerId = state.layerId === lid ? null : lid; render(); break;   // accordion toggle (keep scroll)
       case 'enable': { const l = s.layers.find((x) => x.id === lid); if (l) apply(lumox.scenes.setLayerEnabled(id, lid, !l.enabled), true); break; }

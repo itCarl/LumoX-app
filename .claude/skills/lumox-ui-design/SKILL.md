@@ -172,10 +172,11 @@ These come straight from the user's stated preferences — follow them by defaul
 4. **Drill-down / rail navigation over nesting.** For a busy panel in a narrow
    column, avoid "containers within containers", many tabs, and inline
    accordions. Prefer **one full-width thing at a time**: a persistent compact
-   icon rail to switch top-level sections (the Scene panel's Base/FX/Scene/Advanced
-   rail is the reference). **Exception — the FX rack** (inside the Scene panel's FX
-   page) is a deliberate **single-expand inline accordion**: every layer is a
-   collapsible block, click a header to expand one in place. This matches the
+   icon rail to switch top-level sections (the Scene panel's FX/Scene/Advanced
+   rail is the reference). **Exception — the FX rack** (the Scene panel's FX
+   page) is a deliberate **single-expand inline accordion**: a scene is a static
+   base look by default and every FX stacked on top is a collapsible block, click a
+   header to expand one in place (its STEPS toggle swaps the base for a cue sequence). This matches the
    console FX-stack convention where seeing the whole stack at a glance and editing
    without losing your place outweighs the one-thing-at-a-time rule. Use this
    pattern only where that same "see-all-while-editing-one" need genuinely applies;

@@ -1125,6 +1125,12 @@ html, body {
 .fxadd-btn:hover:not(:disabled) { color: var(--accent); background: var(--bg-4); }
 .fxadd-btn:focus-visible { outline: 1px solid var(--accent); color: var(--fg); }
 .fxadd-btn:disabled { opacity: 0.5; cursor: default; }
+/* STEPS = the base-look type (not an FX) — a fixed-width toggle pinned left of the
+   ADD group, lit with the accent when the base is a step sequence (chase). */
+.fxadd-steps { flex: 0 0 auto; width: 30px; }
+.fxadd-steps.on { color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--bg-3)); }
+.fxadd-steps.on:hover:not(:disabled) { color: var(--accent); background: color-mix(in srgb, var(--accent) 30%, var(--bg-3)); }
+.fxadd-sep { flex: 0 0 auto; width: 1px; align-self: stretch; margin: 3px 2px; background: var(--border); }
 
 /* preset footer — apply + save folded into one compact row (no section header) */
 .fxrack-foot { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
