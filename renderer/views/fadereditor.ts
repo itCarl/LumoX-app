@@ -24,15 +24,16 @@
 //          is active, edits are visible live and persist with the project.
 //          The strips follow the live selection, but when nothing is selected
 //          they fall back to the recalled scene's OWN fixtures — so opening a
-//          scene always shows its faders without hijacking the selection. While
-//          that scene is live AND animating (a chase / movement), the strips
-//          MIRROR its live output (`lumox:scenes:monitor`), so the faders track
-//          the movement; static / inactive scenes show the editable stored values.
-//          HTP/LTP merge model: docs/knowledge-base/htp-ltp.md.
+//          scene always shows its faders without hijacking the selection. EDIT
+//          strips stay on the stored values (they do NOT animate) so a moving
+//          scene's values stay grabbable. HTP/LTP merge: docs/knowledge-base/htp-ltp.md.
 //   LIVE — faders write straight to the live programmer (manual output). The
 //          touched universe is broadcast even with no scene active. The header
 //          shows how many channels are engaged and offers Clear (reset the
 //          programmer) and Store (capture it as a new scene in the active bank).
+//          LIVE is also a live output MONITOR: while a scene is animating it
+//          mirrors the mixed output onto the strips (knob + readout) so the
+//          faders track movement (`lumox:scenes:monitor`); a recent drag pauses it.
 // Either way writes apply to every selected fixture.
 
 import { bus, EV } from '../lib/bus';
@@ -408,12 +409,22 @@ export async function makeFaderEditorTile() {
     if (valEl) valEl.textContent = String(v);
   }
 
-  // ---- live mirroring (EDIT faders follow an animating scene) ------------
-  // While the edit scene is live AND periodic (a chase / FX motion), poll the
-  // engine's mixed output for the target fixtures and drive the fader positions
-  // from it — so the strips visibly track the movement. Static (or inactive)
-  // scenes keep showing their editable stored values. A recent drag pauses it so
-  // the user isn't fought mid-grab.
+  // ---- live mirroring (LIVE faders follow an animating scene) ------------
+  // LIVE mode is a live output monitor: while ANY scene is live and periodic (a
+  // chase / FX motion), poll the engine's mixed output for the selected fixtures
+  // and drive the fader positions from it — so the strips visibly track the
+  // movement. EDIT mode never mirrors (its strips stay on the editable stored
+  // values). A recent drag pauses it so the user isn't fought mid-grab. The
+  // engaged dots are left untouched (mirroring only moves the knob + readout).
+  function paintLive(blk: HTMLElement, ch: number, v: number) {
+    const col = blk.querySelector<HTMLElement>(`.fcol[data-ch="${ch}"]`);
+    if (!col) return;
+    col.classList.add('active');   // lit so the moving value reads (engaged dot left as-is)
+    const fader = col.querySelector('.fc-fader') as HTMLInputElement | null;
+    if (fader) fader.value = String(v);
+    const valEl = col.querySelector('.fc-val') as HTMLElement | null;
+    if (valEl) valEl.textContent = String(v);
+  }
   function applyLiveValues(values: SceneValues) {
     cols.el.querySelectorAll<HTMLElement>('.fe-block').forEach((blk) => {
       const rep = state.blocks[Number(blk.dataset.block)]?.rep;
@@ -422,7 +433,7 @@ export async function makeFaderEditorTile() {
       blk.querySelectorAll<HTMLElement>('.fcol').forEach((col) => {
         const ch = Number(col.dataset.ch);
         const v = uni[absOf(rep, ch)];
-        if (v != null) paintColumn(blk, ch, v);
+        if (v != null) paintLive(blk, ch, v);
       });
     });
   }
@@ -431,16 +442,17 @@ export async function makeFaderEditorTile() {
   async function liveTick() {
     if (liveBusy) return;
     const ids = targetIds();
-    if (state.mode !== 'edit' || !state.editScene || !ids.length) {
+    if (state.mode !== 'live' || !ids.length) {
       if (state.reflecting) { state.reflecting = false; render(); }
       return;
     }
     liveBusy = true;
     try {
-      const mon = await lumox.scenes.monitor(state.editScene.id, ids).catch(() => null);
+      // id null → "is ANY live scene animating"; values are the live mixed output.
+      const mon = await lumox.scenes.monitor(null, ids).catch(() => null);
       const animating = !!mon && mon.active && mon.cycleMs > 0;
       if (!animating) {
-        if (state.reflecting) { state.reflecting = false; render(); }   // restore stored display
+        if (state.reflecting) { state.reflecting = false; render(); }   // restore programmer display
         return;
       }
       state.reflecting = true;

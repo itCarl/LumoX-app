@@ -85,26 +85,36 @@ export function registerSceneHandlers(): void {
   // The fader editor reads these to populate faders in EDIT mode.
   ipcMain.handle('lumox:scenes:values', (_e, id) => show.scenes.get(id)?.values ?? {});
 
-  // Live monitor for the fader editor — whether the scene is live, its cycle
-  // length, and the current MIXED OUTPUT for the given fixtures (post-mix `data`,
-  // keyed { [universeId]: { [absChannel]: value } }). Lets the faders animate to
-  // reflect a playing chase / movement scene. Values are only sampled while live.
+  // Live monitor for the fader editor's LIVE output view — whether a scene is
+  // animating, its cycle length, and the current MIXED OUTPUT for the given
+  // fixtures (post-mix `data`, keyed { [universeId]: { [absChannel]: value } }).
+  // Lets the LIVE faders track a playing chase / movement scene. With `id` given
+  // it reports that scene; with `id` null it reports whether ANY live scene is
+  // periodic (the LIVE monitor isn't tied to one scene).
   ipcMain.handle('lumox:scenes:monitor', (_e, { id, fixtureIds }) => {
-    const active = engine.scenes.isLive(id);
-    const tl = engine.scenes.sceneTimeline(id);
-    const values: Record<number, Record<number, number>> = {};
-    if (active) {
-      for (const fid of (fixtureIds ?? []) as string[]) {
-        const fx = show.patch.get(fid);
-        if (!fx) continue;
-        const u = engine.universes.get(fx.universeId);
-        if (!u) continue;
-        const uni = (values[fx.universeId] ??= {});
-        for (let a = fx.startAddress; a <= fx.endAddress; a++) uni[a] = u.data[a - 1] ?? 0;
-        for (const vd of fx.virtualDimmers()) uni[vd.virtualAddr] = u.data[vd.virtualAddr - 1] ?? 0;
+    let active = false;
+    let cycleMs = 0;
+    if (id) {
+      active = engine.scenes.isLive(id);
+      cycleMs = engine.scenes.sceneTimeline(id).cycleMs;
+    } else {
+      for (const tid of engine.scenes.tracks.keys()) {
+        if (!engine.scenes.isLive(tid)) continue;
+        const c = engine.scenes.sceneTimeline(tid).cycleMs;
+        if (c > 0) { active = true; cycleMs = c; break; }
       }
     }
-    return { active, cycleMs: tl.cycleMs, values };
+    const values: Record<number, Record<number, number>> = {};
+    for (const fid of (fixtureIds ?? []) as string[]) {
+      const fx = show.patch.get(fid);
+      if (!fx) continue;
+      const u = engine.universes.get(fx.universeId);
+      if (!u) continue;
+      const uni = (values[fx.universeId] ??= {});
+      for (let a = fx.startAddress; a <= fx.endAddress; a++) uni[a] = u.data[a - 1] ?? 0;
+      for (const vd of fx.virtualDimmers()) uni[vd.virtualAddr] = u.data[vd.virtualAddr - 1] ?? 0;
+    }
+    return { active, cycleMs, values };
   });
 
   // Edit a single channel of a scene (fader editor EDIT mode). `channel` is

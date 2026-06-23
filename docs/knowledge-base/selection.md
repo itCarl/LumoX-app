@@ -81,7 +81,8 @@ subscribe to the same `EV.FIXTURE_SELECTED` bus and seed from `lumox.selection.g
   order). With nothing selected the strip area is unavailable — **except** in EDIT
   mode, where it falls back to the recalled scene's OWN fixtures, so opening a scene
   always shows its faders without the recall having to hijack the live selection.
-  While that scene is live and animating the strips mirror its live output (see
+  EDIT strips stay on the stored values; **LIVE** mode instead mirrors the live
+  mixed output while a scene animates, so the faders track movement (see
   [htp-ltp.md](htp-ltp.md)). A **group-bar tab click selects that group's fixtures**
   ("All" → the whole rig via `lumox.selection.all`), so a group tab is the quick
   "edit this whole group" gesture while still highlighting the group (`activeGroup`)

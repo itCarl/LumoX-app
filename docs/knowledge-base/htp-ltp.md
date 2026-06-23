@@ -102,15 +102,15 @@ snapping back to the home default. Channels full in both looks don't dip (the
 crossfade is value-wise, not opacity-wise) — see [mix-engine.md](mix-engine.md) →
 dipless crossfade.
 
-## Faders mirror live movement
+## Faders mirror live movement (LIVE mode)
 
 Because attributes are LTP, a recalled chase / movement scene drives its real
-pan/tilt output as it plays. The fader editor's EDIT mode mirrors that: while the
-edit scene is **live and periodic**, it polls the mixed output
-(`lumox:scenes:monitor`) for the target fixtures and drives the strip positions
-from it, so the faders visibly track the sweep. Static (or inactive) scenes keep
-showing their editable stored values. See [selection.md](selection.md) /
-[mix-engine.md](mix-engine.md).
+pan/tilt output as it plays. The fader editor's **LIVE** mode is a live output
+monitor: while any scene is **live and periodic**, it polls the mixed output
+(`lumox:scenes:monitor`) for the selected fixtures and drives the strip positions
+from it, so the faders visibly track the sweep. **EDIT** mode never animates — its
+strips stay on the editable stored values so a moving scene's values stay
+grabbable. See [selection.md](selection.md) / [mix-engine.md](mix-engine.md).
 
 ## Quick reference
 

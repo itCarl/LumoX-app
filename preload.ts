@@ -133,7 +133,7 @@ contextBridge.exposeInMainWorld('lumox', {
   scenes: {
     list:    ()   => ipcRenderer.invoke('lumox:scenes:list'),
     values:  (id: string) => ipcRenderer.invoke('lumox:scenes:values', id),
-    monitor: (id: string, fixtureIds: string[]) => ipcRenderer.invoke('lumox:scenes:monitor', { id, fixtureIds }),
+    monitor: (id: string | null, fixtureIds: string[]) => ipcRenderer.invoke('lumox:scenes:monitor', { id, fixtureIds }),
     capture: (bankId?: string, name?: string) => ipcRenderer.invoke('lumox:scenes:capture', { bankId, name }),
     recall:  (id: string, on: boolean) => ipcRenderer.invoke('lumox:scenes:recall', { id, on }),
     remove:  (id: string) => ipcRenderer.invoke('lumox:scenes:remove', id),

@@ -353,7 +353,7 @@ export interface LumoxApi {
   scenes: {
     list(): Promise<any[]>;
     values(id: string): Promise<Record<number, Record<number, number>>>;
-    monitor(id: string, fixtureIds: string[]): Promise<{ active: boolean; cycleMs: number; values: Record<number, Record<number, number>> }>;
+    monitor(id: string | null, fixtureIds: string[]): Promise<{ active: boolean; cycleMs: number; values: Record<number, Record<number, number>> }>;
     capture(bankId?: string, name?: string): Promise<any>;
     recall(id: string, on: boolean): Promise<any>;
     remove(id: string): Promise<any>;
