@@ -1108,29 +1108,21 @@ html, body {
 .fxrack-hdr { font-size: 10px; letter-spacing: 0.14em; color: var(--fg-dim); margin: 16px 0 8px; }
 .fxrack { display: flex; flex-direction: column; gap: 4px; }
 
-/* add-layer palette bar — one tight grouped row of icon buttons (console-style),
-   not a wrapping grid of labelled buttons; names live in the tooltips */
-.fxrack-add {
-  display: flex; align-items: center; gap: 4px;
-  margin-top: 8px; padding: 4px; background: var(--bg-2); border-radius: var(--radius);
+/* add-layer palette — a 2-column grid of labelled buttons (console-style pick-an-
+   effect grid). STEPS (base toggle) leads, then one cell per FX kind. */
+.fxrack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 8px; }
+.fxgrid-btn {
+  min-height: 52px; display: flex; align-items: center; justify-content: center; text-align: center;
+  background: var(--bg-2); border: none; border-radius: var(--radius);
+  color: var(--fg-dim); font-size: 11px; letter-spacing: 0.08em; cursor: pointer; padding: 8px 6px;
+  transition: background 0.12s, color 0.12s;
 }
-.fxadd-lbl { flex: 0 0 auto; font-size: 9px; letter-spacing: 0.12em; color: var(--fg-dim); padding: 0 3px; }
-.fxadd-btn {
-  flex: 1 1 0; min-width: 0; height: 26px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--bg-3); border: none; border-radius: var(--radius);
-  color: var(--fg-dim); cursor: pointer; padding: 0;
-}
-.fxadd-btn i { font-size: 12px; }
-.fxadd-btn:hover:not(:disabled) { color: var(--accent); background: var(--bg-4); }
-.fxadd-btn:focus-visible { outline: 1px solid var(--accent); color: var(--fg); }
-.fxadd-btn:disabled { opacity: 0.5; cursor: default; }
-/* STEPS = the base-look type (not an FX) — a fixed-width toggle pinned left of the
-   ADD group, lit with the accent when the base is a step sequence (chase). */
-.fxadd-steps { flex: 0 0 auto; width: 30px; }
-.fxadd-steps.on { color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--bg-3)); }
-.fxadd-steps.on:hover:not(:disabled) { color: var(--accent); background: color-mix(in srgb, var(--accent) 30%, var(--bg-3)); }
-.fxadd-sep { flex: 0 0 auto; width: 1px; align-self: stretch; margin: 3px 2px; background: var(--border); }
+.fxgrid-btn:hover:not(:disabled) { color: var(--accent); background: var(--bg-3); }
+.fxgrid-btn:focus-visible { outline: 1px solid var(--accent); color: var(--fg); }
+.fxgrid-btn:disabled { opacity: 0.5; cursor: default; }
+/* STEPS = the base-look type (not an FX) — lit with the accent when the base is a step sequence (chase). */
+.fxgrid-steps.on { color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--bg-2)); }
+.fxgrid-steps.on:hover:not(:disabled) { color: var(--accent); background: color-mix(in srgb, var(--accent) 28%, var(--bg-2)); }
 
 /* preset footer — apply + save folded into one compact row (no section header) */
 .fxrack-foot { display: flex; align-items: center; gap: 6px; margin-top: 6px; }
