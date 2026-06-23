@@ -63,33 +63,35 @@ export interface MoveFxConfig {
   centerY: number;        // 0..255 — tilt home (default 128)
   phaseShape: number;     // 0..360 — path rotation (deg)
 }
-/** CURVE FX config — a waveform mapped into [min,max] on the target attribute. */
+/** One armed feature an attribute-driving FX modulates: a channel-type id and its
+ *  output window [min,max] (for a chaser, min = unlit/bg, max = lit/level). A
+ *  value-driving FX (CURVE / VALUE / CHASER) drives a LIST of these. */
+export interface FxFeature {
+  attr: string;           // channel-type id to drive (e.g. 'intensity', 'pan', 'zoom')
+  min: number;            // 0..255 output floor (chaser: unlit/bg value)
+  max: number;            // 0..255 output ceiling (chaser: lit/level value)
+}
+/** CURVE FX config — a waveform mapped into each armed feature's [min,max]. */
 export interface CurveFxConfig {
   waveform: CurveWave;
-  attr: string;           // channel-type id to drive (default 'intensity')
-  min: number;            // 0..255 output floor
-  max: number;            // 0..255 output ceiling
   duty: number;           // 0..1 — square-wave duty cycle
   invert: boolean;        // flip the waveform
+  features: FxFeature[];  // attributes driven (each with its own range)
 }
 /** CHASER FX config — a lit window walking across the selection. */
 export interface ChaserFxConfig {
-  attr: string;           // channel-type id lit in the window (default 'intensity')
   litCount: number;       // fixtures lit at once (>= 1)
   gap: number;            // dark fixtures between lit ones (>= 0)
   fade: number;           // 0..1 — tail softness
-  level: number;          // 0..255 — lit value
-  bg: number;             // 0..255 — unlit value
+  features: FxFeature[];  // attributes lit in the window (min = unlit, max = lit)
 }
-/** VALUE FX config — a generalised waveform on an arbitrary attribute. */
+/** VALUE FX config — a generalised waveform on the armed features. */
 export interface ValueFxConfig {
-  attr: string;           // channel-type id to drive (default 'intensity')
   waveform: CurveWave;
-  min: number;            // 0..255
-  max: number;            // 0..255
   duty: number;           // 0..1
   invert: boolean;
   staticValue: number | null;  // when set (0..255), hold a flat value instead of animating
+  features: FxFeature[];  // attributes driven (each with its own range)
 }
 /**
  * MATRIX FX config — a per-emitter colour field driven by each emitter's 2D
@@ -108,9 +110,11 @@ export interface MatrixFxConfig {
 
 export const DEFAULT_COLOR_FX: ColorFxConfig = { palette: [], grayscale: false, colorWidth: 1, angle: 0, saturation: 1, fade: 1, randomize: false };
 export const DEFAULT_MOVE_FX: MoveFxConfig = { shape: 'circle', symmetry: false, sizeX: 1, sizeY: 1, centerX: 128, centerY: 128, phaseShape: 0 };
-export const DEFAULT_CURVE_FX: CurveFxConfig = { waveform: 'sine', attr: 'intensity', min: 0, max: 255, duty: 0.5, invert: false };
-export const DEFAULT_CHASER_FX: ChaserFxConfig = { attr: 'intensity', litCount: 1, gap: 0, fade: 0, level: 255, bg: 0 };
-export const DEFAULT_VALUE_FX: ValueFxConfig = { attr: 'intensity', waveform: 'sine', min: 0, max: 255, duty: 0.5, invert: false, staticValue: null };
+/** A freshly-added value-driving FX arms one intensity feature at full range. */
+const defaultFeatures = (): FxFeature[] => [{ attr: 'intensity', min: 0, max: 255 }];
+export const DEFAULT_CURVE_FX: CurveFxConfig = { waveform: 'sine', duty: 0.5, invert: false, features: defaultFeatures() };
+export const DEFAULT_CHASER_FX: ChaserFxConfig = { litCount: 1, gap: 0, fade: 0, features: defaultFeatures() };
+export const DEFAULT_VALUE_FX: ValueFxConfig = { waveform: 'sine', duty: 0.5, invert: false, staticValue: null, features: defaultFeatures() };
 export const DEFAULT_MATRIX_FX: MatrixFxConfig = { pattern: 'wipe', palette: [], saturation: 1, fade: 1, angle: 0, scale: 1 };
 
 /**
@@ -490,9 +494,9 @@ function toTrackLayer(l: FxLayer): TrackLayer {
     direction: l.direction, size: l.size, spread: l.spread,
     color: l.color ? { ...l.color, palette: [...l.color.palette] } : undefined,
     move: l.move ? { ...l.move } : undefined,
-    curve: l.curve ? { ...l.curve } : undefined,
-    chaser: l.chaser ? { ...l.chaser } : undefined,
-    value: l.value ? { ...l.value } : undefined,
+    curve: l.curve ? { ...l.curve, features: l.curve.features.map((f) => ({ ...f })) } : undefined,
+    chaser: l.chaser ? { ...l.chaser, features: l.chaser.features.map((f) => ({ ...f })) } : undefined,
+    value: l.value ? { ...l.value, features: l.value.features.map((f) => ({ ...f })) } : undefined,
     matrix: l.matrix ? { ...l.matrix, palette: [...l.matrix.palette] } : undefined,
   };
 }
@@ -586,11 +590,21 @@ export function defaultFxLayer(kind: FxKind): FxLayer {
   };
   if (kind === 'color') l.color = { ...DEFAULT_COLOR_FX, palette: [] };
   else if (kind === 'move') l.move = { ...DEFAULT_MOVE_FX };
-  else if (kind === 'curve') l.curve = { ...DEFAULT_CURVE_FX };
-  else if (kind === 'chaser') l.chaser = { ...DEFAULT_CHASER_FX };
-  else if (kind === 'value') l.value = { ...DEFAULT_VALUE_FX };
+  else if (kind === 'curve') l.curve = { ...DEFAULT_CURVE_FX, features: defaultFeatures() };
+  else if (kind === 'chaser') l.chaser = { ...DEFAULT_CHASER_FX, features: defaultFeatures() };
+  else if (kind === 'value') l.value = { ...DEFAULT_VALUE_FX, features: defaultFeatures() };
   else if (kind === 'matrix') l.matrix = { ...DEFAULT_MATRIX_FX, palette: [] };
   return l;
+}
+
+/** Coerce a loose features array into well-formed {attr,min,max} entries (defaults
+ *  to one intensity feature when empty/absent). */
+function normFeatures(raw: unknown): FxFeature[] {
+  const arr = Array.isArray(raw) ? raw : [];
+  const out = arr
+    .filter((f): f is Partial<FxFeature> => !!f && typeof (f as FxFeature).attr === 'string')
+    .map((f) => ({ attr: String(f.attr), min: clampNum(f.min as number, 0, 255, 0), max: clampNum(f.max as number, 0, 255, 255) }));
+  return out.length ? out : defaultFeatures();
 }
 
 /** Coerce a persisted/loose layer into a well-formed FxLayer (fills defaults). */
@@ -609,9 +623,9 @@ export function normalizeLayer(raw: Partial<FxLayer> & { kind: FxKind }): FxLaye
   if (raw.spread != null) l.spread = raw.spread;
   if (raw.kind === 'color' && raw.color) l.color = { ...DEFAULT_COLOR_FX, ...raw.color, palette: [...(raw.color.palette ?? [])] };
   else if (raw.kind === 'move' && raw.move) l.move = { ...DEFAULT_MOVE_FX, ...raw.move };
-  else if (raw.kind === 'curve' && raw.curve) l.curve = { ...DEFAULT_CURVE_FX, ...raw.curve };
-  else if (raw.kind === 'chaser' && raw.chaser) l.chaser = { ...DEFAULT_CHASER_FX, ...raw.chaser };
-  else if (raw.kind === 'value' && raw.value) l.value = { ...DEFAULT_VALUE_FX, ...raw.value };
+  else if (raw.kind === 'curve' && raw.curve) l.curve = { ...DEFAULT_CURVE_FX, ...raw.curve, features: normFeatures(raw.curve.features) };
+  else if (raw.kind === 'chaser' && raw.chaser) l.chaser = { ...DEFAULT_CHASER_FX, ...raw.chaser, features: normFeatures(raw.chaser.features) };
+  else if (raw.kind === 'value' && raw.value) l.value = { ...DEFAULT_VALUE_FX, ...raw.value, features: normFeatures(raw.value.features) };
   else if (raw.kind === 'matrix' && raw.matrix) l.matrix = { ...DEFAULT_MATRIX_FX, ...raw.matrix, palette: [...(raw.matrix.palette ?? [])] };
   return l;
 }

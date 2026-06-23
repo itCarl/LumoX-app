@@ -464,12 +464,38 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
   const deg = (v: number) => `${Math.round(v)}°`;
   const int = (v: number) => `${Math.round(v)}`;
 
-  function attrSelect(selected: string) {
+  // Display name of an attribute (channel-type) id.
+  const attrName = (id: string): string => state.attrs.find((t) => t.id === id)?.name ?? id;
+
+  // Grouped attribute picker for ARMING a feature — a placeholder + every channel
+  // type not already armed (selecting one arms it on the layer).
+  function armSelect(armed: Set<string>) {
     const byGroup = new Map<string, { id: string; name: string }[]>();
-    for (const t of state.attrs) { const arr = byGroup.get(t.group) ?? []; arr.push(t); byGroup.set(t.group, arr); }
+    for (const t of state.attrs) { if (armed.has(t.id)) continue; const arr = byGroup.get(t.group) ?? []; arr.push(t); byGroup.set(t.group, arr); }
     const groups = [...byGroup].map(([g, ts]) =>
-      `<optgroup label="${g}">${ts.map((t) => `<option value="${t.id}" ${t.id === selected ? 'selected' : ''}>${t.name}</option>`).join('')}</optgroup>`).join('');
-    return html`<select class="sp-select" data-cfg="attr">${raw(groups)}</select>`;
+      `<optgroup label="${g}">${ts.map((t) => `<option value="${t.id}">${t.name}</option>`).join('')}</optgroup>`).join('');
+    return html`<select class="sp-select" data-armattr>${raw(`<option value="">Arm feature…</option>${groups}`)}</select>`;
+  }
+
+  // The Features list for a value-driving layer — one armed attribute per block
+  // (name + remove, then its output-window sliders), plus the arm picker. Shared by
+  // CURVE / VALUE (lo/hi = Min/Max) and CHASER (lo/hi = Off/On).
+  function featuresBlock(features: { attr: string; min: number; max: number }[], loLabel = 'Min', hiLabel = 'Max') {
+    const armed = new Set(features.map((f) => f.attr));
+    const frange = (attr: string, bound: 'min' | 'max', val: number) =>
+      html`<span class="fxe-slider"><span class="fxe-sval">${val}</span><input type="range" data-frange="${attr}" data-fbound="${bound}" min="0" max="255" step="1" value="${val}" /></span>`;
+    return html`
+      <div class="fxrack-hdr">FEATURES</div>
+      ${features.length
+        ? features.map((f) => html`
+            <div class="fxfeat">
+              <div class="fxfeat-hd"><span class="fxfeat-name">${attrName(f.attr)}</span>
+                <button class="stp-mini stp-del" data-act="unarm" data-attr="${f.attr}" title="Remove feature">${raw(ICON.trash)}</button></div>
+              ${row(loLabel, frange(f.attr, 'min', f.min))}
+              ${row(hiLabel, frange(f.attr, 'max', f.max))}
+            </div>`)
+        : html`<div class="sp-note">No features armed. Pick one below, or click an FX badge on a fader strip.</div>`}
+      ${row('Arm', armSelect(armed))}`;
   }
 
   // The "Apply palette…" picker, split into a read-only Built-in group (curated
@@ -526,23 +552,19 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     if ((l.kind === 'curve' && l.curve) || (l.kind === 'value' && l.value)) {
       const c = (l.curve ?? l.value)!;
       return html`
-        ${row('Attribute', attrSelect(c.attr))}
         ${row('Waveform', sel('waveform', ['sine', 'triangle', 'sawtooth', 'square', 'random'].map((o) => [o, o[0].toUpperCase() + o.slice(1)] as [string, string]), c.waveform))}
         <div class="fxe-shape fxe-wave"><canvas class="fxe-canvas"></canvas></div>
-        ${row('Min', slider('min', 0, 255, 1, c.min, int))}
-        ${row('Max', slider('max', 0, 255, 1, c.max, int))}
         ${row('Duty', slider('duty', 0, 1, 0.01, c.duty, pct))}
-        ${row('Invert', toggle('invert', c.invert))}`;
+        ${row('Invert', toggle('invert', c.invert))}
+        ${featuresBlock(c.features)}`;
     }
     if (l.kind === 'chaser' && l.chaser) {
       const c = l.chaser;
       return html`
-        ${row('Attribute', attrSelect(c.attr))}
         ${row('Lit count', slider('litCount', 1, 32, 1, c.litCount, int))}
         ${row('Gap', slider('gap', 0, 32, 1, c.gap, int))}
         ${row('Fade', slider('fade', 0, 1, 0.01, c.fade, pct))}
-        ${row('On level', slider('level', 0, 255, 1, c.level, int))}
-        ${row('Off level', slider('bg', 0, 255, 1, c.bg, int))}`;
+        ${featuresBlock(c.features, 'Off', 'On')}`;
     }
     if (l.kind === 'matrix' && l.matrix) {
       const m = l.matrix;
@@ -787,7 +809,8 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
       drawShape(ctx, w, h, selv('shape', l.move.shape), num('sizeX', 1), num('sizeY', 1), num('phaseShape', 0), labels, l.spread, cyc * TAU, col);
     } else if ((l.kind === 'curve' && l.curve) || (l.kind === 'value' && l.value)) {
       const c = (l.curve ?? l.value)!;
-      drawWave(ctx, w, h, selv('waveform', c.waveform), num('duty', 0.5), tog('invert'), num('min', 0), num('max', 255), labels, l.spread, cyc, col);
+      const f0 = c.features[0];   // preview scales to the first armed feature's window
+      drawWave(ctx, w, h, selv('waveform', c.waveform), num('duty', 0.5), tog('invert'), f0?.min ?? 0, f0?.max ?? 255, labels, l.spread, cyc, col);
     }
   }
 
@@ -815,6 +838,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     switch (act) {
       case 'basetype': apply(lumox.scenes.setType(id, s.type === 'chase' ? 'static' : 'chase'), true); break;
       case 'addlayer': apply(lumox.scenes.addLayer(id, t.dataset.kind as FxKind), true); break;
+      case 'unarm': if (state.layerId) apply(lumox.scenes.unarmFeature(id, state.layerId, t.dataset.attr as string)); break;
       case 'open': state.layerId = state.layerId === lid ? null : lid; render(); break;   // accordion toggle (keep scroll)
       case 'enable': { const l = s.layers.find((x) => x.id === lid); if (l) apply(lumox.scenes.setLayerEnabled(id, lid, !l.enabled), true); break; }
       case 'lup': apply(lumox.scenes.moveLayer(id, lid, -1), true); break;
@@ -895,6 +919,28 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     const f = (t as HTMLElement).dataset.cfgtoggle as string;
     const cur = (l.color as any)?.[f] ?? (l.move as any)?.[f] ?? (l.curve as any)?.[f] ?? (l.value as any)?.[f] ?? false;
     apply(lumox.scenes.setLayerConfig(s.id, l.id, { [f]: !cur }));
+  });
+
+  // arm a feature on the expanded value-driving layer (in-panel picker)
+  content.on('change', '[data-armattr]', (_e, t) => {
+    const s = state.scene, l = layer(); if (!s || !l) return;
+    const attr = (t as HTMLSelectElement).value;
+    if (attr) apply(lumox.scenes.armFeature(s.id, l.id, attr));
+  });
+  // feature output window: live readout on input, commit on change
+  content.on('input', '[data-frange]', (_e, t) => {
+    const inp = t as HTMLInputElement;
+    const sval = inp.parentElement?.querySelector('.fxe-sval');
+    if (sval) sval.textContent = inp.value;
+    redrawPreview();
+  });
+  content.on('change', '[data-frange]', (_e, t) => {
+    const s = state.scene, l = layer(); if (!s || !l) return;
+    const inp = t as HTMLInputElement;
+    const attr = inp.dataset.frange as string;
+    const min = inp.dataset.fbound === 'min' ? Number(inp.value) : null;
+    const max = inp.dataset.fbound === 'max' ? Number(inp.value) : null;
+    apply(lumox.scenes.setFeatureRange(s.id, l.id, attr, min, max));
   });
 
   // a hex swatch changed → push the whole palette

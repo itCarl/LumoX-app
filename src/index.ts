@@ -49,7 +49,7 @@ export {
 } from './show/Scene';
 export type {
   SceneType, SceneValues, ChaseStep,
-  ColorFxConfig, MoveFxConfig, CurveFxConfig, ChaserFxConfig, ValueFxConfig,
+  ColorFxConfig, MoveFxConfig, CurveFxConfig, ChaserFxConfig, ValueFxConfig, FxFeature,
   MoveShape, CurveWave,
   FxKind, FxTargetSel, FxOrder, FxLayer, TrackLayer, MixerTrack,
 } from './show/Scene';

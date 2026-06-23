@@ -402,6 +402,15 @@ export class SceneMixer extends MixModule {
     return !!pb && pb.fading && pb.fadeTarget > 0;
   }
 
+  /** True while a track's opacity is ramping (fading in OR out). Distinct from
+   *  {@link isLive}: a fade-out is still fading after it stops being live. A UI
+   *  must keep polling while this holds so the `active` highlight clears exactly
+   *  when a fade-out reaches zero (the resting opacity == level test can't see a
+   *  fade-out, which starts at level and moves away from it). */
+  isFading(id: string): boolean {
+    return this.playback.get(id)?.fading ?? false;
+  }
+
   /**
    * True while `id` is part of an active dipless crossfade — either the incoming
    * target or one of the held outgoing sources. A crossfade does NOT ramp the

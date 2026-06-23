@@ -5,7 +5,7 @@
 
 import { ipcMain } from 'electron';
 import { Scene, DMX_CHANNELS, TOTAL_CHANNELS, chaseStep, ChannelTypeRegistry } from '../../src/index';
-import type { SceneType, FxKind, FxOrder, FxLayer } from '../../src/index';
+import type { SceneType, FxKind, FxOrder, FxLayer, FxFeature } from '../../src/index';
 import { engine, show, banks } from '../context';
 import { updateActiveUniverses } from '../services/OutputPatchService';
 import { sceneTrack } from '../services/SceneCompiler';
@@ -51,9 +51,6 @@ function applyLayerConfig(L: FxLayer, p: Record<string, unknown>): void {
   } else if ((L.kind === 'curve' && L.curve) || (L.kind === 'value' && L.value)) {
     const c = (L.curve ?? L.value)!;
     if (typeof p.waveform === 'string' && WAVES.includes(p.waveform)) c.waveform = p.waveform as typeof c.waveform;
-    if (typeof p.attr === 'string' && ChannelTypeRegistry.has(p.attr)) c.attr = p.attr;
-    if (p.min != null) c.min = clampNum(Math.round(num(p.min)), 0, 255);
-    if (p.max != null) c.max = clampNum(Math.round(num(p.max)), 0, 255);
     if (p.duty != null) c.duty = clamp01(num(p.duty));
     if (typeof p.invert === 'boolean') c.invert = p.invert;
     if (L.kind === 'value' && L.value && 'staticValue' in p) {
@@ -61,12 +58,9 @@ function applyLayerConfig(L: FxLayer, p: Record<string, unknown>): void {
     }
   } else if (L.kind === 'chaser' && L.chaser) {
     const c = L.chaser;
-    if (typeof p.attr === 'string' && ChannelTypeRegistry.has(p.attr)) c.attr = p.attr;
     if (p.litCount != null) c.litCount = clampNum(Math.round(num(p.litCount)), 1, 512);
     if (p.gap != null) c.gap = clampNum(Math.round(num(p.gap)), 0, 512);
     if (p.fade != null) c.fade = clamp01(num(p.fade));
-    if (p.level != null) c.level = clampNum(Math.round(num(p.level)), 0, 255);
-    if (p.bg != null) c.bg = clampNum(Math.round(num(p.bg)), 0, 255);
   } else if (L.kind === 'matrix' && L.matrix) {
     const m = L.matrix;
     if (typeof p.pattern === 'string' && MATRIX_PATTERNS.includes(p.pattern)) m.pattern = p.pattern as typeof m.pattern;
@@ -454,6 +448,43 @@ export function registerSceneHandlers(): void {
     const L = s?.getLayer(layerId);
     if (!s || !L) return null;
     applyLayerConfig(L, patch);
+    rebuildSceneTrack(s);
+    return sceneJSON(s);
+  });
+
+  // ---- Feature arming (CURVE / VALUE / CHASER drive a list of features) ----
+  // A feature = an attribute the FX modulates, with its own output window [min,max].
+  // The fader-panel FX badge arms/un-arms; the FX editor's Features list sets ranges.
+  const layerFeatures = (L: FxLayer): FxFeature[] | null =>
+    L.curve?.features ?? L.value?.features ?? L.chaser?.features ?? null;
+
+  ipcMain.handle('lumox:scenes:armFeature', (_e, { id, layerId, attr }) => {
+    const s = show.scenes.get(id);
+    const feats = s?.getLayer(layerId) ? layerFeatures(s.getLayer(layerId)!) : null;
+    if (!s || !feats) return s ? sceneJSON(s) : null;
+    if (typeof attr === 'string' && ChannelTypeRegistry.has(attr) && !feats.some((f) => f.attr === attr)) {
+      feats.push({ attr, min: 0, max: 255 });
+      rebuildSceneTrack(s);
+    }
+    return sceneJSON(s);
+  });
+
+  ipcMain.handle('lumox:scenes:unarmFeature', (_e, { id, layerId, attr }) => {
+    const s = show.scenes.get(id);
+    const feats = s?.getLayer(layerId) ? layerFeatures(s.getLayer(layerId)!) : null;
+    if (!s || !feats) return s ? sceneJSON(s) : null;
+    const i = feats.findIndex((f) => f.attr === attr);
+    if (i >= 0) { feats.splice(i, 1); rebuildSceneTrack(s); }
+    return sceneJSON(s);
+  });
+
+  ipcMain.handle('lumox:scenes:setFeatureRange', (_e, { id, layerId, attr, min, max }) => {
+    const s = show.scenes.get(id);
+    const feats = s?.getLayer(layerId) ? layerFeatures(s.getLayer(layerId)!) : null;
+    const f = feats?.find((x) => x.attr === attr);
+    if (!s || !f) return s ? sceneJSON(s) : null;
+    if (min != null) f.min = clampNum(Math.round(Number(min)), 0, 255);
+    if (max != null) f.max = clampNum(Math.round(Number(max)), 0, 255);
     rebuildSceneTrack(s);
     return sceneJSON(s);
   });

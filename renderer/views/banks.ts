@@ -163,13 +163,14 @@ export async function makeBanksTile() {
   }
 
   // Poll while a scene is mid-fade, mid-crossfade, or an active scene is periodic.
-  // A dipless crossfade holds the outgoing scene's opacity (no ramp to detect), so
-  // it must be polled explicitly via `transitioning` — otherwise the released
-  // scene's `active` highlight never clears when the crossfade settles. Coarse
-  // (250ms); the rAF loop below interpolates the timeline smoothly between polls.
+  // `fading` covers a plain opacity ramp in EITHER direction — a fade-out starts at
+  // `level` and moves toward 0, so an `opacity != level` test can't see it and the
+  // `active` highlight would never clear. A dipless crossfade holds the outgoing
+  // opacity (no ramp to detect), so it must be polled explicitly via `transitioning`.
+  // Coarse (250ms); the rAF loop below interpolates the timeline smoothly between polls.
   function syncPolling() {
     const need = banks.some((b) => b.scenes.some((s: any) =>
-      s.transitioning || (s.active && (s.cycleMs > 0 || Math.abs((s.opacity ?? 0) - (s.level ?? 1)) > 0.02))));
+      s.transitioning || s.fading || (s.active && s.cycleMs > 0)));
     if (need && pollTimer == null) pollTimer = window.setInterval(poll, 250);
     else if (!need && pollTimer != null) { clearInterval(pollTimer); pollTimer = null; }
   }
@@ -246,7 +247,10 @@ export async function makeBanksTile() {
     const id = t.dataset.scene as string;
     const s = findScene(id);
     if ((s as any)?.flash) return;
-    const on = !s?.active;
+    // Toggle off the LIVE DOM class, not the `banks` snapshot — the latter only
+    // refreshes on reload(), so a rapid second click would read stale state and
+    // re-activate instead of toggling off.
+    const on = !t.classList.contains('active');
     t.classList.toggle('active', on);    // optimistic — instant feedback before the round-trip
     if (on) selectScene(id, false);      // follow as edit target, but keep the selection
     await lumox.scenes.recall(id, on);

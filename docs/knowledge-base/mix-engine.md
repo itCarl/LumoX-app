@@ -63,10 +63,14 @@ Layer kinds (`src/mix/sceneFx.ts`):
 - **move** (`renderMoveFx`) — pan/tilt path (`shape`: circle/figure8/line/square),
   `symmetry`, `sizeX`/`sizeY`, `centerX`/`centerY`, `phaseShape` (path rotation).
 - **curve** / **value** (`renderWaveFx`) — a waveform (sine/triangle/sawtooth/
-  square/random) on **any attribute** (`attr` = channel-type id) mapped into
-  `[min,max]`, with `duty` + `invert`; value also has a flat `staticValue`.
+  square/random) driving a **list of armed features** (`features: {attr,min,max}[]`):
+  each beam's wave is mapped into every feature's own `[min,max]`, so one layer can
+  drive several attributes at once. `duty` + `invert` shape it; value also has a flat
+  `staticValue`. Features are armed from the fader panel's **FX badge** or the FX
+  editor's **Features list** (see [feature arming](#feature-arming-fx-badge)).
 - **chaser** (`renderChaserFx`) — a lit window walking the selection: `litCount`,
-  `gap`, `fade`, `level`/`bg`, on any `attr`. The head is a **continuous** position
+  `gap`, `fade`, over a **list of armed features** (`features` — per feature `min` =
+  unlit, `max` = lit). The head is a **continuous** position
   (not snapped to a fixture): a one-unit lead-in ramp brightens a fixture as the
   head approaches and a one-unit far-edge ramp fades the tail out, so the comet
   flows smoothly between fixtures (at an exact integer head it matches the classic
@@ -93,6 +97,23 @@ with its world position (`Fixture.emitterWorldPositions`) into the track's
 `scenes:setLayer{Enabled,Target,Order,Timing,Config}`. Reusable colour palettes +
 FX-rack presets persist with the project (`scenes:`… plus `palettes:*` / `presets:*`,
 stored in `main/services/presets.ts`).
+
+### Feature arming (FX badge)
+
+A value-driving layer (**curve / value / chaser**) drives a **list of armed
+features** — `config.features: { attr, min, max }[]` — instead of one attribute.
+The compiler builds, per beam, a target tuple of one address per feature (aligned
+to `features`, `0` where the fixture lacks that attr); the renderer maps the
+waveform / chase window into each feature's own `[min,max]`. So one layer can sweep
+e.g. dimmer **and** zoom at once, each with its own range. A lone `intensity`
+feature on an RGB-only fixture still fans across its virtual dimmers.
+
+Arm from two places (both call the same IPC): the **FX badge** on a fader-panel
+feature control (`renderer/views/fadereditor.ts`, when a value-driving layer is the
+arming target) or the FX editor's **Features list** (`fxpalette.ts`). IPC:
+`scenes:armFeature {id,layerId,attr}`, `scenes:unarmFeature`,
+`scenes:setFeatureRange {id,layerId,attr,min,max}` — each mutates the layer's
+`features` and `rebuildSceneTrack`s. Concept origin: [feature-arming plan](../plans/feature-arming.md).
 
 **Built-in palettes.** `presets.ts` ships a curated set of read-only
 `BUILTIN_PALETTES` (multi-stop gradients — Sunset, Lava, Magma, Ocean, Aurora,
@@ -146,6 +167,11 @@ scene plays. The runtime model lives in the `SceneMixer`:
   for the incoming target and every held outgoing source, surfaced as
   `SceneDTO.transitioning`) is the poll signal that keeps the Banks tile refreshing
   until the crossfade settles and the released scene's `active` highlight clears.
+  A **plain** opacity ramp has the same problem in the fade-out direction: it starts
+  at `level` and moves *away* toward 0, so an "opacity ≠ resting level" heuristic
+  can't see it and the `active` highlight would never clear when the scene reaches
+  0. `isFading(id)` (true while a track's opacity is ramping in either direction,
+  surfaced as `SceneDTO.fading`) is the matching poll signal for that case.
 - **Tempo.** `driveMode 'off'` → period `rateMs / speed`; `'bpm'` →
   `(60000 / bpm) / beatDiv`. The master `bpm` is owned by
   `main/services/Transport.ts`, pushed into the mixer, and persisted top-level.

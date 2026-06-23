@@ -216,50 +216,60 @@ function waveValue(wave: CurveWave, theta: number, i: number, duty = 0.5): numbe
   }
 }
 
-/** Shared config shape for CURVE / VALUE layers (a waveform mapped to [min,max]). */
+/** One armed feature's output window (a slice of the FX config's `features`). */
+interface FeatureRange { min: number; max: number; }
+/** Shared config shape for CURVE / VALUE layers — a waveform mapped into each
+ *  armed feature's [min,max]. */
 interface WaveCfg {
   waveform: CurveWave;
-  min: number;
-  max: number;
   duty: number;
   invert: boolean;
   staticValue?: number | null;
+  features: FeatureRange[];
 }
 
 /**
- * WAVE FX (CURVE / VALUE layers) — a waveform mapped into [min,max] on the
- * single-address `targets`. `duty` shapes the square wave, `invert` flips it,
+ * WAVE FX (CURVE / VALUE layers) — a waveform driving each beam's armed features.
+ * Per beam `targets[i]` is one address per feature (aligned to `cfg.features`,
+ * `0` = the fixture lacks that attr → skipped); the wave is mapped into each
+ * feature's own [min,max]. `duty` shapes the square wave, `invert` flips it,
  * `spreadDeg` travels the wave along the rig. A non-null `staticValue` holds a
- * flat level (no animation).
+ * flat level on every armed address (no animation).
  */
 export function renderWaveFx(
   buf: Uint8Array, targets: number[][], now: number, periodMs = 4000, spreadDeg = 30,
   cfg?: WaveCfg,
 ): void {
   const wave = cfg?.waveform ?? 'sine';
-  const min = cfg?.min ?? 0;
-  const max = cfg?.max ?? 255;
   const duty = cfg?.duty ?? 0.5;
   const invert = cfg?.invert ?? false;
   const flat = cfg?.staticValue;
+  const feats = cfg?.features ?? [];
   const base = (TAU * now) / Math.max(1, periodMs);
   for (let i = 0; i < targets.length; i++) {
-    const [addr] = targets[i];
-    if (flat != null) { buf[addr - 1] = clamp8(flat); continue; }
+    const tuple = targets[i];
+    if (flat != null) {
+      for (let j = 0; j < tuple.length; j++) if (tuple[j] > 0) buf[tuple[j] - 1] = clamp8(flat);
+      continue;
+    }
     const ph = (i * spreadDeg * Math.PI) / 180;
     let w = waveValue(wave, base + ph, i, duty);
     if (invert) w = 1 - w;
-    buf[addr - 1] = clamp8(min + (max - min) * w);
+    for (let j = 0; j < tuple.length && j < feats.length; j++) {
+      const addr = tuple[j];
+      if (addr <= 0) continue;
+      const f = feats[j];
+      buf[addr - 1] = clamp8(f.min + (f.max - f.min) * w);
+    }
   }
 }
 
-/** Shared config shape for the CHASER layer. */
+/** Shared config shape for the CHASER layer (per-feature min=unlit, max=lit). */
 interface ChaserCfg {
   litCount: number;
   gap: number;
   fade: number;
-  level: number;
-  bg: number;
+  features: FeatureRange[];
 }
 
 /**
@@ -285,13 +295,12 @@ export function renderChaserFx(
   const litCount = Math.max(1, Math.round(cfg?.litCount ?? 1));
   const gap = Math.max(0, Math.round(cfg?.gap ?? 0));
   const fade = clamp01(cfg?.fade ?? 0);
-  const level = cfg?.level ?? 255;
-  const bg = cfg?.bg ?? 0;
+  const feats = cfg?.features ?? [];
   // No gap ⇒ a single window of `litCount` walking the ring; gap ⇒ repeating windows.
   const span = gap > 0 ? litCount + gap : Math.max(litCount, n);
   const headF = (now / Math.max(1, periodMs)) * n;   // continuous head position
   for (let i = 0; i < n; i++) {
-    const [addr] = targets[i];
+    const tuple = targets[i];
     const back = (((headF - i) % n) + n) % n;   // continuous distance the head leads this fixture
     const m = back % span;
     let k = 0;
@@ -302,7 +311,13 @@ export function renderChaserFx(
     } else if (m > span - 1) {
       k = m - (span - 1);                                  // lead-in ramp → smooth head onset
     }
-    buf[addr - 1] = clamp8(bg + (level - bg) * k);
+    // each armed feature: unlit (min) → lit (max) by the window weight k
+    for (let j = 0; j < tuple.length && j < feats.length; j++) {
+      const addr = tuple[j];
+      if (addr <= 0) continue;
+      const f = feats[j];
+      buf[addr - 1] = clamp8(f.min + (f.max - f.min) * k);
+    }
   }
 }
 

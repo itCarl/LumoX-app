@@ -99,9 +99,9 @@ function layerJSON(l: FxLayer, beams: number, beamFixtureIds: string[]): FxLayer
     direction: l.direction, size: l.size, spread: l.spread, beams, beamFixtureIds,
     color: l.color ? { ...l.color, palette: [...l.color.palette] } : undefined,
     move: l.move ? { ...l.move } : undefined,
-    curve: l.curve ? { ...l.curve } : undefined,
-    chaser: l.chaser ? { ...l.chaser } : undefined,
-    value: l.value ? { ...l.value } : undefined,
+    curve: l.curve ? { ...l.curve, features: l.curve.features.map((f) => ({ ...f })) } : undefined,
+    chaser: l.chaser ? { ...l.chaser, features: l.chaser.features.map((f) => ({ ...f })) } : undefined,
+    value: l.value ? { ...l.value, features: l.value.features.map((f) => ({ ...f })) } : undefined,
     matrix: l.matrix ? { ...l.matrix, palette: [...l.matrix.palette] } : undefined,
   };
 }
@@ -157,6 +157,7 @@ export function sceneJSON(s: Scene): SceneDTO {
   return {
     id: s.id, name: s.name, color: s.color ?? '#e0564b', opacity, active: engine.scenes.isLive(s.id),
     transitioning: engine.scenes.isTransitioning(s.id),
+    fading: engine.scenes.isFading(s.id),
     type: s.type, stepCount: s.steps.length,
     steps: s.steps.map((st) => ({ fadeMs: st.fadeMs, waitMs: st.waitMs })),
     layers: s.layers.map((l, i) => layerJSON(l, layerBeams(track, i), layerBeamFixtureIds(track, i))),

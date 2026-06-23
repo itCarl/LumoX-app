@@ -9,7 +9,7 @@ import { show } from '../context';
 import { getSelection } from './SelectionService';
 import { TOTAL_CHANNELS } from '../../src/index';
 import type { Scene } from '../../src/index';
-import type { Fixture, FxTargetSel, FxOrder, FxKind, Vec2 } from '../../src/index';
+import type { Fixture, FxTargetSel, FxOrder, FxKind, FxFeature, Vec2 } from '../../src/index';
 import type { MixerTrack } from '../../src/show/Scene';
 
 /** Fixtures an FX layer targets — the rig (patch order), a group (membership
@@ -39,10 +39,20 @@ function orderFixtures(fxs: Fixture[], order: FxOrder): Fixture[] {
   return idx.map((i) => fxs[i]);
 }
 
+/** Resolve a fixture's address for an attribute (intensity falls back to the
+ *  master dimmer), or 0 when the fixture lacks it. */
+function attrAddr(f: Fixture, attr: string): number {
+  return f.addressOf(attr) || (attr === 'intensity' ? f.addressOf('intensity-master') : 0);
+}
+
 /** Per-universe DMX target addresses for a layer kind, over `fxs` (in order),
  *  plus the fixture id behind each target tuple (index-aligned with `targets`,
- *  per universe) so the UI can label each preview beam with its fixture. */
-function targetsForKind(kind: FxKind, attr: string, fxs: Fixture[]): { targets: Record<number, number[][]>; ids: Record<number, string[]> } {
+ *  per universe) so the UI can label each preview beam with its fixture.
+ *
+ *  COLOR → `[r,g,b]`, MOVE → `[pan,tilt]`. CURVE / VALUE / CHASER drive a LIST of
+ *  armed `features`: each beam's tuple is one address per feature (aligned to
+ *  `features`, `0` where the fixture lacks that attr → the renderer skips it). */
+function targetsForKind(kind: FxKind, features: FxFeature[], fxs: Fixture[]): { targets: Record<number, number[][]>; ids: Record<number, string[]> } {
   const targets: Record<number, number[][]> = {};
   const ids: Record<number, string[]> = {};
   const push = (f: Fixture, tuple: number[]): void => {
@@ -56,15 +66,14 @@ function targetsForKind(kind: FxKind, attr: string, fxs: Fixture[]): { targets: 
     } else if (kind === 'move') {
       const pan = f.addressOf('pan'), tilt = f.addressOf('tilt');
       if (pan && tilt) push(f, [pan, tilt]);
+    } else if (features.length === 1 && features[0].attr === 'intensity' && !attrAddr(f, 'intensity') && f.needsVirtualDimmer()) {
+      // a lone intensity feature on an RGB-only fixture fans across its virtual
+      // dimmers (one beam per colour cluster) — preserves the single-attr bar behaviour
+      for (const vd of f.virtualDimmers()) push(f, [vd.virtualAddr]);
     } else {
-      // curve / value / chaser → one attribute address. Intensity falls back to
-      // the master dimmer, then (RGB-only fixtures) one target per virtual dimmer
-      // so an intensity FX can fan across a bar's colour clusters.
-      const a = f.addressOf(attr) || (attr === 'intensity' ? f.addressOf('intensity-master') : 0);
-      if (a) push(f, [a]);
-      else if (attr === 'intensity' && f.needsVirtualDimmer()) {
-        for (const vd of f.virtualDimmers()) push(f, [vd.virtualAddr]);
-      }
+      // one address per armed feature, aligned to `features`
+      const tuple = features.map((ft) => attrAddr(f, ft.attr));
+      if (tuple.some((a) => a > 0)) push(f, tuple);
     }
   }
   return { targets, ids };
@@ -116,8 +125,8 @@ export function sceneTrack(scene: Scene, opacity = 0): MixerTrack {
         tl.positions = positions;
         tl.beamIds = ids;
       } else {
-        const attr = L.curve?.attr ?? L.value?.attr ?? L.chaser?.attr ?? 'intensity';
-        const { targets, ids } = targetsForKind(L.kind, attr, fxs);
+        const features = L.curve?.features ?? L.value?.features ?? L.chaser?.features ?? [];
+        const { targets, ids } = targetsForKind(L.kind, features, fxs);
         tl.targets = targets;
         tl.beamIds = ids;
       }

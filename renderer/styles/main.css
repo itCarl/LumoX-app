@@ -423,7 +423,10 @@ html, body {
 }
 .cell.fx.hov { background: #454545; box-shadow: inset 0 0 0 1px #fff; z-index: 2; }
 .cell.fx.dragging { opacity: 0.45; }
-.cell.fx .cell-num { position: absolute; top: 0; left: 0; opacity: 0.6; font-size: 8px; }
+/* fixture address — left edge, vertically centred, shown as "N." ahead of the
+   (still cell-centred) name */
+.cell.fx .cell-num { position: absolute; left: 4px; top: 50%; transform: translateY(-50%); opacity: 0.6; font-size: 9px; }
+.cell.fx .cell-num::after { content: '.'; }
 .cell-fx {
   flex: 1; text-align: center;
   font-size: 11px; color: #fff; font-weight: 600;
@@ -1123,6 +1126,11 @@ html, body {
 /* STEPS = the base-look type (not an FX) — lit with the accent when the base is a step sequence (chase). */
 .fxgrid-steps.on { color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--bg-2)); }
 .fxgrid-steps.on:hover:not(:disabled) { color: var(--accent); background: color-mix(in srgb, var(--accent) 28%, var(--bg-2)); }
+
+/* armed-feature blocks inside a value-driving FX layer editor (CURVE/VALUE/CHASER) */
+.fxfeat { background: var(--bg-2); border-radius: var(--radius); padding: 6px 8px; margin-bottom: 4px; }
+.fxfeat-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.fxfeat-name { font-size: 11px; color: var(--fg); letter-spacing: 0.02em; }
 
 /* preset footer — apply + save folded into one compact row (no section header) */
 .fxrack-foot { display: flex; align-items: center; gap: 6px; margin-top: 6px; }

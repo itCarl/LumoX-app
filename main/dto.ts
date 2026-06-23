@@ -120,6 +120,8 @@ export interface SelectionDTO {
 }
 
 export type FxKindDTO = 'color' | 'move' | 'curve' | 'chaser' | 'value' | 'matrix';
+/** One armed feature of a value-driving FX layer: attribute + output window. */
+export interface FxFeatureDTO { attr: string; min: number; max: number; }
 export type FxOrderDTO = 'patch' | 'reverse' | 'mirror' | 'random';
 export type FxWaveDTO = 'sine' | 'triangle' | 'sawtooth' | 'square' | 'random';
 export type MatrixPatternDTO = 'wipe' | 'radial' | 'plasma';
@@ -146,9 +148,9 @@ export interface FxLayerDTO {
   beamFixtureIds: string[];
   color?: { palette: string[]; grayscale: boolean; colorWidth: number; angle: number; saturation: number; fade: number; randomize: boolean };
   move?: { shape: 'circle' | 'figure8' | 'line' | 'square'; symmetry: boolean; sizeX: number; sizeY: number; centerX: number; centerY: number; phaseShape: number };
-  curve?: { waveform: FxWaveDTO; attr: string; min: number; max: number; duty: number; invert: boolean };
-  chaser?: { attr: string; litCount: number; gap: number; fade: number; level: number; bg: number };
-  value?: { attr: string; waveform: FxWaveDTO; min: number; max: number; duty: number; invert: boolean; staticValue: number | null };
+  curve?: { waveform: FxWaveDTO; duty: number; invert: boolean; features: FxFeatureDTO[] };
+  chaser?: { litCount: number; gap: number; fade: number; features: FxFeatureDTO[] };
+  value?: { waveform: FxWaveDTO; duty: number; invert: boolean; staticValue: number | null; features: FxFeatureDTO[] };
   matrix?: { pattern: MatrixPatternDTO; palette: string[]; saturation: number; fade: number; angle: number; scale: number };
 }
 
@@ -162,6 +164,9 @@ export interface SceneDTO {
    *  outgoing source) — the banks tile keeps polling while this is true so a
    *  released scene's `active` highlight clears when the crossfade settles */
   transitioning: boolean;
+  /** runtime: opacity is ramping (fading in OR out) — the banks tile polls while
+   *  this is true so a fade-out's `active` highlight clears the moment it hits 0 */
+  fading: boolean;
   /** base look — a fixed capture ('static') or a step list ('chase') */
   type: 'static' | 'chase';
   /** chase: number of captured steps */

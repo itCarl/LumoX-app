@@ -71,6 +71,9 @@ export interface AppSettings {
   audioBands: number;
 }
 
+/** One armed feature of a value-driving FX layer: attribute + output window. */
+export interface FxFeature { attr: string; min: number; max: number; }
+
 /** One effect layer in a scene's FX rack. Mirrors FxLayerDTO. */
 export interface FxLayerInfo {
   id: string;
@@ -90,9 +93,9 @@ export interface FxLayerInfo {
   beamFixtureIds: string[];
   color?: { palette: string[]; grayscale: boolean; colorWidth: number; angle: number; saturation: number; fade: number; randomize: boolean };
   move?: { shape: 'circle' | 'figure8' | 'line' | 'square'; symmetry: boolean; sizeX: number; sizeY: number; centerX: number; centerY: number; phaseShape: number };
-  curve?: { waveform: FxWave; attr: string; min: number; max: number; duty: number; invert: boolean };
-  chaser?: { attr: string; litCount: number; gap: number; fade: number; level: number; bg: number };
-  value?: { attr: string; waveform: FxWave; min: number; max: number; duty: number; invert: boolean; staticValue: number | null };
+  curve?: { waveform: FxWave; duty: number; invert: boolean; features: FxFeature[] };
+  chaser?: { litCount: number; gap: number; fade: number; features: FxFeature[] };
+  value?: { waveform: FxWave; duty: number; invert: boolean; staticValue: number | null; features: FxFeature[] };
   matrix?: { pattern: MatrixPattern; palette: string[]; saturation: number; fade: number; angle: number; scale: number };
 }
 
@@ -394,6 +397,9 @@ export interface LumoxApi {
     setLayerOrder(id: string, layerId: string, order: FxOrder): Promise<SceneInfo | null>;
     setLayerTiming(id: string, layerId: string, opts: { rateMs?: number; speed?: number; driveMode?: 'off' | 'bpm'; beatDiv?: number; direction?: 'forward' | 'backward' | 'bounce'; size?: number; spread?: number }): Promise<SceneInfo | null>;
     setLayerConfig(id: string, layerId: string, cfg: Record<string, unknown>): Promise<SceneInfo | null>;
+    armFeature(id: string, layerId: string, attr: string): Promise<SceneInfo | null>;
+    unarmFeature(id: string, layerId: string, attr: string): Promise<SceneInfo | null>;
+    setFeatureRange(id: string, layerId: string, attr: string, min: number | null, max: number | null): Promise<SceneInfo | null>;
     transport(id: string, action: 'pause' | 'resume' | 'next' | 'prev' | 'toStart' | 'toEnd'): Promise<SceneInfo | null>;
     /** Live playhead of one FX layer (null when the scene isn't live). */
     layerPhase(id: string, layerId: string): Promise<{ phaseMs: number; periodMs: number; paused: boolean } | null>;

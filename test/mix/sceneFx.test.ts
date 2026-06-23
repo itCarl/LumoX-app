@@ -44,32 +44,44 @@ describe('renderMoveFx', () => {
   });
 });
 
+// One armed intensity feature spanning the full 0..255 window (the common case).
+const full = (extra: object = {}) => ({ waveform: 'sine', duty: 0.5, invert: false, features: [{ attr: 'intensity', min: 0, max: 255 }], ...extra }) as never;
+
 describe('renderWaveFx', () => {
   it('a sine wave at t=0 sits at the mid-point of [min,max]', () => {
     const buf = frame();
-    renderWaveFx(buf, [[1]], 0);
+    renderWaveFx(buf, [[1]], 0, 4000, 30, full());
     expect(buf[0]).toBe(128); // (sin0+1)/2 = 0.5 → 127.5 → 128
   });
 
   it('a non-null staticValue holds a flat level (no animation)', () => {
     const buf = frame();
-    renderWaveFx(buf, [[1]], 9999, 4000, 30, { waveform: 'sine', min: 0, max: 255, duty: 0.5, invert: false, staticValue: 200 } as never);
+    renderWaveFx(buf, [[1]], 9999, 4000, 30, full({ staticValue: 200 }));
     expect(buf[0]).toBe(200);
   });
 
   it('invert flips the waveform', () => {
     const a = frame(), b = frame();
-    const cfg = (invert: boolean) => ({ waveform: 'sawtooth', min: 0, max: 255, duty: 0.5, invert }) as never;
-    renderWaveFx(a, [[1]], 1000, 4000, 0, cfg(false));
-    renderWaveFx(b, [[1]], 1000, 4000, 0, cfg(true));
+    renderWaveFx(a, [[1]], 1000, 4000, 0, full({ waveform: 'sawtooth', invert: false }));
+    renderWaveFx(b, [[1]], 1000, 4000, 0, full({ waveform: 'sawtooth', invert: true }));
     expect(a[0] + b[0]).toBe(255);
+  });
+
+  it('drives multiple armed features, each mapped to its own range', () => {
+    const buf = frame();
+    // two features, addresses 1 & 2, ranges [0,255] and [50,150]; sine at t=0 → 0.5
+    renderWaveFx(buf, [[1, 2]], 0, 4000, 30,
+      { waveform: 'sine', duty: 0.5, invert: false, features: [{ attr: 'intensity', min: 0, max: 255 }, { attr: 'zoom', min: 50, max: 150 }] } as never);
+    expect(buf[0]).toBe(128);   // 0 + 0.5×255
+    expect(buf[1]).toBe(100);   // 50 + 0.5×(150-50)
   });
 });
 
 describe('renderChaserFx', () => {
+  const chase = (extra: object = {}) => ({ litCount: 1, gap: 0, fade: 0, features: [{ attr: 'intensity', min: 0, max: 255 }], ...extra }) as never;
   it('lights the head fixture at t=0 and leaves the rest at background', () => {
     const buf = frame();
-    renderChaserFx(buf, [[1], [2], [3]], 0, 4000, { litCount: 1, gap: 0, fade: 0, level: 255, bg: 0 } as never);
+    renderChaserFx(buf, [[1], [2], [3]], 0, 4000, chase());
     expect([buf[0], buf[1], buf[2]]).toEqual([255, 0, 0]);
   });
 
@@ -81,14 +93,14 @@ describe('renderChaserFx', () => {
   it('at an integer head position it matches the classic stepped look', () => {
     const buf = frame();
     // period 3000, n 3 ⇒ headF = now/1000; now 1000 ⇒ headF = 1 (head on fixture 1)
-    renderChaserFx(buf, [[1], [2], [3]], 1000, 3000, { litCount: 1, gap: 0, fade: 0, level: 255, bg: 0 } as never);
+    renderChaserFx(buf, [[1], [2], [3]], 1000, 3000, chase());
     expect([buf[0], buf[1], buf[2]]).toEqual([0, 255, 0]);
   });
 
   it('between fixtures the head flows continuously (no snap)', () => {
     const buf = frame();
     // headF = 0.5 ⇒ the comet sits half-way between fixture 0 and fixture 1
-    renderChaserFx(buf, [[1], [2], [3]], 500, 3000, { litCount: 1, gap: 0, fade: 0, level: 255, bg: 0 } as never);
+    renderChaserFx(buf, [[1], [2], [3]], 500, 3000, chase());
     // fixture 0 fading out, fixture 1 leading in — both ~half, neither full nor dark
     expect(buf[0]).toBeGreaterThan(0);
     expect(buf[0]).toBeLessThan(255);
