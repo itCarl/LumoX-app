@@ -122,7 +122,7 @@ export function registerSceneHandlers(): void {
   // RGB-only fixture's virtual dimmer the editor passes an explicit `absChannel`
   // (a virtual-region address) instead. A null `value` removes the channel
   // (disengage). Mirrored into the live track so an active scene updates immediately.
-  ipcMain.handle('lumox:scenes:setChannel', (_e, { id, fixtureId, channel, value, absChannel }) => {
+  ipcMain.handle('lumox:scenes:setChannel', (_e, { id, fixtureId, channel, value, absChannel, blind }) => {
     const s = show.scenes.get(id);
     const fx = show.patch.get(fixtureId);
     if (!s || !fx) return;
@@ -135,7 +135,9 @@ export function registerSceneHandlers(): void {
       if (abs < 1 || abs > DMX_CHANNELS) return;
     }
 
-    const track = engine.scenes.tracks.get(id);
+    // BLIND edits the stored look only — skip the live-track mirror so the rig keeps
+    // its current output; the edits apply when the editor commits (`scenes:commit`).
+    const track = blind ? undefined : engine.scenes.tracks.get(id);
     if (value == null) {
       const uni = s.values[fx.universeId];
       if (uni) { delete uni[abs]; if (!Object.keys(uni).length) delete s.values[fx.universeId]; }
@@ -145,7 +147,14 @@ export function registerSceneHandlers(): void {
       s.setValue(fx.universeId, abs, v);
       if (track) (track.values[fx.universeId] ??= new Uint8Array(TOTAL_CHANNELS))[abs - 1] = v;
     }
-    updateActiveUniverses();
+    if (!blind) updateActiveUniverses();
+  });
+
+  // Commit staged BLIND edits to live output: rebuild the scene's mixer track from
+  // its (now-edited) stored values, preserving opacity + playback.
+  ipcMain.handle('lumox:scenes:commit', (_e, id) => {
+    const s = show.scenes.get(id);
+    if (s) { rebuildSceneTrack(s); updateActiveUniverses(); }
   });
 
   ipcMain.handle('lumox:scenes:capture', (_e, { name, bankId } = {}) => {

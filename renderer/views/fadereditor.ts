@@ -18,7 +18,11 @@
 // Moving a fader auto-engages its channel (green dot); clicking the dot toggles
 // the channel — engage it at 0 when off, release it when on.
 //
-// Two write targets, toggled by the EDIT / LIVE segment:
+// A compact quick-ops group sits next to the mode toggle (acts on the current
+// target fixtures in whatever mode): Beam On (intensity full) · Beam Off
+// (intensity 0) · Center Beam (pan/tilt home) · Reset (release every channel).
+//
+// Three write targets, toggled by the EDIT / BLIND / LIVE segment:
 //   EDIT — faders edit the recalled scene's stored values (the EDIT target,
 //          picked by recalling a scene in CONTROL → Banks). Because that scene
 //          is active, edits are visible live and persist with the project.
@@ -27,6 +31,10 @@
 //          scene always shows its faders without hijacking the selection. EDIT
 //          strips stay on the stored values (they do NOT animate) so a moving
 //          scene's values stay grabbable. HTP/LTP merge: docs/knowledge-base/htp-ltp.md.
+//   BLIND — same as EDIT (writes the scene's stored values) but the live rig is
+//          NOT updated: writes skip the live-track mirror, so output is frozen
+//          while you program. Switching out of BLIND commits the staged edits
+//          (`lumox:scenes:commit` rebuilds the track) so they take effect at once.
 //   LIVE — faders write straight to the live programmer (manual output). The
 //          touched universe is broadcast even with no scene active. The header
 //          shows how many channels are engaged and offers Clear (reset the
@@ -47,7 +55,7 @@ const { lumox } = window;
 // RGB-primary colour channels the picker drives, by channel-type id → component.
 const RGB_PRIMARY: Record<string, 'r' | 'g' | 'b'> = { red: 'r', green: 'g', blue: 'b' };
 
-type Mode = 'edit' | 'live';
+type Mode = 'edit' | 'blind' | 'live';
 interface SceneRef { id: string; name: string }
 type SceneValues = Record<number, Record<number, number>>;
 
@@ -73,7 +81,14 @@ export async function makeFaderEditorTile() {
     <div class="tile-head fader-head">
       <span class="seg fe-mode">
         <button class="seg-btn active" data-mode="edit">EDIT</button>
+        <button class="seg-btn" data-mode="blind" title="Blind — edit the scene without sending to live output">BLIND</button>
         <button class="seg-btn" data-mode="live">LIVE</button>
+      </span>
+      <span class="fe-quick" role="group" aria-label="Quick beam ops">
+        <button class="fe-qbtn" data-qop="on" title="Beam On — selection to full intensity"><i class="fa-solid fa-lightbulb"></i></button>
+        <button class="fe-qbtn" data-qop="off" title="Beam Off — selection intensity to zero"><i class="fa-solid fa-power-off"></i></button>
+        <button class="fe-qbtn" data-qop="center" title="Center Beam — pan/tilt to centre"><i class="fa-solid fa-crosshairs"></i></button>
+        <button class="fe-qbtn" data-qop="reset" title="Reset — release every channel of the selection"><i class="fa-solid fa-rotate-left"></i></button>
       </span>
       <span class="fe-target" id="fe-target">EDIT: Scene</span>
       <span class="fe-prog" id="fe-prog" hidden>
@@ -167,7 +182,7 @@ export async function makeFaderEditorTile() {
   // it too, but falls back to the recalled scene's own fixtures when nothing is
   // selected — so opening a scene for editing always shows its faders.
   function targetIds(): string[] {
-    if (state.mode === 'edit' && !state.selectionIds.length) return state.sceneFixtureIds;
+    if (state.mode !== 'live' && !state.selectionIds.length) return state.sceneFixtureIds;
     return state.selectionIds;
   }
 
@@ -202,7 +217,7 @@ export async function makeFaderEditorTile() {
 
   // ---- per-channel state (engaged + value) for the representative fixture --
   function cellState(rep: any, ch: number): { on: boolean; v: number } {
-    if (state.mode === 'edit') {
+    if (state.mode !== 'live') {   // EDIT or BLIND both show/edit the scene's stored values
       const chans = state.sceneValues[rep.universeId];
       const abs = absOf(rep, ch);
       const has = !!chans && Object.prototype.hasOwnProperty.call(chans, abs);
@@ -239,7 +254,10 @@ export async function makeFaderEditorTile() {
   function writeScene(fixtures: any[], ch: number, value: number | null) {
     const id = state.editScene?.id;
     if (!id) return;
-    for (const f of fixtures) lumox.scenes.setChannel(id, f.id, ch, value, chanOf(f, ch)?.absAddress);
+    // BLIND writes the stored value only — main skips the live-track mirror, so the
+    // rig keeps its current output until the edits are committed (mode switch away).
+    const blind = state.mode === 'blind';
+    for (const f of fixtures) lumox.scenes.setChannel(id, f.id, ch, value, chanOf(f, ch)?.absAddress, blind);
     const rep = fixtures[0];
     const abs = absOf(rep, ch);
     const chans = (state.sceneValues[rep.universeId] ??= {});
@@ -249,8 +267,32 @@ export async function makeFaderEditorTile() {
 
   // engage (or, in LIVE, just remember) the channel and write its value
   function engage(fixtures: any[], ch: number, value: number) {
-    if (state.mode === 'edit') writeScene(fixtures, ch, value);
+    if (state.mode !== 'live') writeScene(fixtures, ch, value);   // EDIT + BLIND target the scene
     else { state.active.add(`${fixtures[0].id}:${ch}`); writeLive(fixtures, ch, value); }
+  }
+
+  // ---- quick beam ops (act on the current target fixtures) ---------------
+  const isIntensity = (c: any): boolean => c.group === 'intensity';
+  const isPan = (c: any): boolean => c.typeId === 'pan' || c.typeId === 'tilt';
+  const isPanFine = (c: any): boolean => c.typeId === 'pan-fine' || c.typeId === 'tilt-fine';
+  // Off/On drive intensity; Center homes pan/tilt (coarse 128, fine 0); Reset releases
+  // every channel. Each respects the active mode (scene write in EDIT/BLIND, programmer in LIVE).
+  function quickOp(kind: 'on' | 'off' | 'center' | 'reset') {
+    const fixtures = selectionFixtures();
+    if (!fixtures.length) return;
+    const release = (f: any, ch: number) => {
+      if (state.mode === 'live') { state.active.delete(`${f.id}:${ch}`); releaseLive([f], ch); }
+      else writeScene([f], ch, null);
+    };
+    for (const f of fixtures) for (const c of f.channels) {
+      if (kind === 'reset') { release(f, c.index); continue; }
+      if (kind === 'on' && isIntensity(c)) engage([f], c.index, 255);
+      else if (kind === 'off' && isIntensity(c)) engage([f], c.index, 0);
+      else if (kind === 'center' && isPan(c)) engage([f], c.index, 128);
+      else if (kind === 'center' && isPanFine(c)) engage([f], c.index, 0);
+    }
+    render();
+    if (state.mode === 'live') refreshProgrammer();
   }
 
   // The full fixed category bar, always shown regardless of the selected
@@ -537,8 +579,10 @@ export async function makeFaderEditorTile() {
     prog.hidden = !live;
     if (!live) {
       const dim = !state.editScene;
-      target.textContent = state.editScene ? `EDIT: ${state.editScene.name}` : 'EDIT: no scene';
+      const pfx = state.mode === 'blind' ? 'BLIND' : 'EDIT';
+      target.textContent = state.editScene ? `${pfx}: ${state.editScene.name}` : `${pfx}: no scene`;
       target.classList.toggle('muted', dim);
+      target.classList.toggle('fe-blindtag', state.mode === 'blind');
       return;
     }
     const n = state.progChannels;
@@ -556,15 +600,20 @@ export async function makeFaderEditorTile() {
   // ---- mode switch -------------------------------------------------------
   async function setMode(m: Mode) {
     if (m === state.mode) return;
+    const wasBlind = state.mode === 'blind';
     state.mode = m;
     head.querySelectorAll('.fe-mode .seg-btn').forEach((b) =>
       b.classList.toggle('active', (b as HTMLElement).dataset.mode === m));
-    if (m === 'edit') await refreshSceneValues();
-    else await refreshProgrammer();
+    // Leaving BLIND commits the staged edits to live output (main rebuilds the track).
+    if (wasBlind && state.editScene) await lumox.scenes.commit(state.editScene.id).catch(() => {});
+    if (m === 'live') await refreshProgrammer();
+    else await refreshSceneValues();
     render();
   }
   head.querySelectorAll('.fe-mode .seg-btn').forEach((b) =>
     b.addEventListener('click', () => setMode((b as HTMLElement).dataset.mode as Mode)));
+  head.querySelectorAll('.fe-quick .fe-qbtn').forEach((b) =>
+    b.addEventListener('click', () => quickOp((b as HTMLElement).dataset.qop as 'on' | 'off' | 'center' | 'reset')));
 
   // Resolve the fixtures a strip writes to from its enclosing block (falls back to
   // the whole selection if, somehow, the strip is outside a block).

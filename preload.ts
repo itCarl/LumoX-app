@@ -141,8 +141,9 @@ contextBridge.exposeInMainWorld('lumox', {
     update:  (id: string) => ipcRenderer.invoke('lumox:scenes:update', id),
     merge:   (id: string) => ipcRenderer.invoke('lumox:scenes:merge', id),
     setColor: (id: string, color: string) => ipcRenderer.invoke('lumox:scenes:setColor', { id, color }),
-    setChannel: (id: string, fixtureId: string, channel: number, value: number | null, absChannel?: number) =>
-      ipcRenderer.invoke('lumox:scenes:setChannel', { id, fixtureId, channel, value, absChannel }),
+    setChannel: (id: string, fixtureId: string, channel: number, value: number | null, absChannel?: number, blind?: boolean) =>
+      ipcRenderer.invoke('lumox:scenes:setChannel', { id, fixtureId, channel, value, absChannel, blind }),
+    commit:  (id: string) => ipcRenderer.invoke('lumox:scenes:commit', id),
     setType: (id: string, type: string) => ipcRenderer.invoke('lumox:scenes:setType', { id, type }),
     setRate: (id: string, rateMs: number) => ipcRenderer.invoke('lumox:scenes:setRate', { id, rateMs }),
     addStep: (id: string) => ipcRenderer.invoke('lumox:scenes:addStep', id),

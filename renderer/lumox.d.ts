@@ -361,7 +361,8 @@ export interface LumoxApi {
     update(id: string): Promise<any>;
     merge(id: string): Promise<void>;
     setColor(id: string, color: string): Promise<any>;
-    setChannel(id: string, fixtureId: string, channel: number, value: number | null, absChannel?: number): Promise<any>;
+    setChannel(id: string, fixtureId: string, channel: number, value: number | null, absChannel?: number, blind?: boolean): Promise<any>;
+    commit(id: string): Promise<any>;
     setType(id: string, type: string): Promise<any>;
     setRate(id: string, rateMs: number): Promise<any>;
     addStep(id: string): Promise<number>;

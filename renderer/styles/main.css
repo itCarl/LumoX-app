@@ -1289,11 +1289,20 @@ html, body {
 }
 .fader-head .seg-btn:hover:not(.active) { color: var(--fg); }
 .fader-head .seg-btn[data-mode="edit"].active { background: #2f7bf6; color: #fff; border-color: #2f7bf6; }
+.fader-head .seg-btn[data-mode="blind"].active { background: #e8a33d; color: #1a1a1a; border-color: #e8a33d; }
 .fader-head .seg-btn[data-mode="live"].active { background: #e23b3b; color: #fff; border-color: #e23b3b; }
+
+/* quick beam ops — a compact icon group beside the mode toggle (off/on/center/reset) */
+.fe-quick { display: inline-flex; align-items: center; gap: 2px; }
+.fe-qbtn { width: 26px; height: 24px; display: inline-flex; align-items: center; justify-content: center; background: var(--bg-3); border: none; border-radius: var(--radius); color: var(--fg-dim); cursor: pointer; }
+.fe-qbtn i { font-size: 12px; }
+.fe-qbtn:hover { color: var(--accent); background: var(--bg-4); }
+.fe-qbtn:focus-visible { outline: 1px solid var(--accent); color: var(--fg); }
 
 /* EDIT-mode target label */
 .fe-target { margin-left: auto; font-size: 11px; color: var(--fg); letter-spacing: 0.04em; }
 .fe-target.muted { color: var(--fg-dim); }
+.fe-target.fe-blindtag { color: #e8a33d; }
 
 /* LIVE-mode programmer toolbar (status + Clear / Store) */
 .fe-prog { margin-left: auto; display: flex; align-items: center; gap: 10px; }
