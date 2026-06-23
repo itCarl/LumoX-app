@@ -137,6 +137,7 @@ export async function makeFaderEditorTile() {
     progChannels: 0,                         // engaged channels in the live programmer
     reflecting: false,                       // EDIT faders are mirroring a live animating scene
     lastEditAt: 0,                           // perf.now() of the last fader drag — pauses live mirroring briefly
+    fxArm: null as { sceneId: string; layerId: string; armed: Set<string> } | null,  // value-driving FX open for feature arming
   };
 
   // ---- data loading ------------------------------------------------------
@@ -323,9 +324,17 @@ export async function makeFaderEditorTile() {
     // (the open / rotation / scroll / macro ranges stay full-width text rows).
     const goboGrid = caps.some((cap) => typeof cap.pattern === 'string');
     const colorGrid = !goboGrid && caps.some((cap) => typeof cap.color === 'string');
+    // FX-arm badge: shown while a value-driving FX layer is open (state.fxArm),
+    // on every strip with a channel-type. Lit when that attribute is armed. A
+    // master dimmer is armed via the canonical 'intensity' feature (the FX resolves
+    // 'intensity' → intensity-master), so normalise it for the match + the arm.
+    const armAttr = c.typeId === 'intensity-master' ? 'intensity' : c.typeId;
+    const armable = !!state.fxArm && !!armAttr;
+    const armed = armable && state.fxArm!.armed.has(armAttr);
     return html`
       <div class="fcol${lit ? ' active' : ''}${caps.length ? ' has-presets' : ''}${goboGrid ? ' is-gobo' : ''}${colorGrid ? ' is-color' : ''}" data-ch="${c.index}"
            data-midi="fixture:${rep.id}:${c.index}" data-midi-kind="range" data-midi-min="0" data-midi-max="255" data-midi-label="${rep.name} · ${c.name}">
+        ${armable ? html`<button class="fc-fxbadge${armed ? ' on' : ''}" data-fxarm="${armAttr}" title="${armed ? 'Un-arm' : 'Arm'} ${c.name} for the FX">FX</button>` : ''}
         <div class="fc-n">${c.index}</div>
         <div class="fc-val" title="${cur ? cur.label : ''}">${lit ? (cur ? cur.label : v) : 'OFF'}</div>
         <div class="fc-body">
@@ -643,6 +652,19 @@ export async function makeFaderEditorTile() {
 
   // dot click toggles the channel: engage it at 0 when off, release it when on
   // (release forces 0 / drops it from the scene).
+  // FX badge → arm / un-arm this strip's attribute on the open value-driving FX
+  // layer (the Scene panel's expanded curve/value/chaser). Optimistic toggle, then
+  // SCENE_UPDATED lets the Scene panel re-broadcast the authoritative armed set.
+  cols.on('click', '.fc-fxbadge', (_e, t) => {
+    const a = state.fxArm; if (!a) return;
+    const attr = (t as HTMLElement).dataset.fxarm as string;
+    const armed = a.armed.has(attr);
+    if (armed) { a.armed.delete(attr); lumox.scenes.unarmFeature(a.sceneId, a.layerId, attr).catch(() => {}); }
+    else { a.armed.add(attr); lumox.scenes.armFeature(a.sceneId, a.layerId, attr).catch(() => {}); }
+    bus.emit(EV.SCENE_UPDATED, a.sceneId);
+    render();
+  });
+
   cols.on('click', '.fc-dot', (_e, t) => {
     const col = t.closest('.fcol') as HTMLElement | null;
     const fixtures = blockFixtures(t);
@@ -770,6 +792,11 @@ export async function makeFaderEditorTile() {
 
   bus.on(EV.BANK_SELECTED, (id: string | null) => { state.bankId = id; });
   // The live selection (stage / patch grid / group bar / main) is the edit target.
+  // A value-driving FX layer opened/closed for arming → show/hide the FX badges.
+  bus.on(EV.FX_ARM, (d: { sceneId: string; layerId: string; armed: string[] } | null) => {
+    state.fxArm = d ? { sceneId: d.sceneId, layerId: d.layerId, armed: new Set(d.armed) } : null;
+    render();
+  });
   bus.on(EV.FIXTURE_SELECTED, (d: { ids: string[] } | null) => { state.selectionIds = d?.ids ?? []; render(); });
   bus.on(EV.PATCH_CHANGED, load);
   bus.on(EV.SCENE_SELECTED, async (sel: SceneRef | null) => { await resolveEditScene(sel); render(); });

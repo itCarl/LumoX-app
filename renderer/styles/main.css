@@ -1421,9 +1421,20 @@ html, body {
   font: inherit; font-size: 11px; padding: 4px 8px; cursor: pointer; }
 .cpick-save button:hover { background: var(--bg-4); }
 .fcol {
+  position: relative;
   flex: 0 0 50px; display: flex; flex-direction: column; align-items: center; gap: 5px;
   padding: 4px 1px; min-height: 0;
 }
+/* FX-arm badge — top-right of the strip while a value-driving FX layer is open
+   for arming; amber when this attribute is armed for the FX. */
+.fc-fxbadge {
+  position: absolute; top: 1px; right: 1px; z-index: 2;
+  font-size: 8px; font-weight: 700; letter-spacing: 0.03em; line-height: 1;
+  padding: 2px 3px; border: none; border-radius: 3px;
+  background: var(--bg-4); color: var(--fg-dim); cursor: pointer;
+}
+.fc-fxbadge:hover { color: var(--fg); }
+.fc-fxbadge.on { background: #e8a33d; color: #1a1a1a; }
 /* engage indicator + release control: a rounded rectangle below the fader */
 .fc-dot { width: 18px; height: 9px; border-radius: 3px; background: var(--bg-4); cursor: pointer; transition: background 0.12s, box-shadow 0.12s; }
 .fc-dot.on { background: #2fd14a; box-shadow: 0 0 7px #2fd14a; }

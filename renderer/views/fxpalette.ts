@@ -285,6 +285,15 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
     else if (state.view === 'adv') renderAdvanced(s);
     else renderRack(s);
     content.el.scrollTop = scrollTop;
+    broadcastArm(s);
+  }
+
+  // Tell the fader editor whether a value-driving layer is open for arming, so it
+  // can show FX badges on the strips. Null whenever nothing armable is expanded.
+  function broadcastArm(s: SceneInfo | null): void {
+    const l = s && state.view === 'rack' ? layer() : null;
+    const cfg = l && (l.curve ?? l.value ?? l.chaser);
+    bus.emit(EV.FX_ARM, cfg ? { sceneId: s!.id, layerId: l!.id, armed: cfg.features.map((f) => f.attr) } : null);
   }
 
   // ---- right-hand section rail -------------------------------------------

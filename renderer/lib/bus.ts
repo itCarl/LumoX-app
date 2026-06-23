@@ -25,4 +25,8 @@ export const EV = {
   SCENE_UPDATED: 'scene-updated',     // a scene's content/params changed (detail = sceneId)
   BANK_SELECTED: 'bank-selected',     // active bank tab changed (detail = bankId | null)
   TEMPO_CHANGED: 'tempo-changed',     // master BPM changed anywhere (detail = bpm number)
+  // A value-driving FX layer (curve/value/chaser) is open for feature arming —
+  // the fader editor shows an FX badge on each strip to arm/un-arm that attribute.
+  // detail = { sceneId, layerId, armed: string[] } | null (null = nothing armable open)
+  FX_ARM: 'fx-arm',
 };
