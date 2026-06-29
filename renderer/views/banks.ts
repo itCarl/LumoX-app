@@ -89,7 +89,7 @@ export async function makeBanksTile() {
         <button class="bank-col-head" data-bank="${b.id}" title="Compact / expand scenes"><span>${b.name}</span><span class="bk-chev"><i class="fa-solid fa-chevron-down"></i></span></button>
         <button class="bk-cap" data-bank="${b.id}" title="Capture current output as a scene">${raw(ICON.plus)}</button>
         ${b.scenes.map((s: any) => html`
-          <div class="scene-cell${s.active ? ' active' : ''}${s.id === selected ? ' selected' : ''}" data-scene="${s.id}" data-midi="scene:${s.id}" data-midi-kind="trigger" data-midi-label="Scene: ${s.name}" style="--sc:${bankColor(i)}">
+          <div class="scene-cell${s.active ? ' active' : ''}${s.id === selected ? ' selected' : ''}" data-scene="${s.id}" data-midi="scene:${s.id}" style="--sc:${bankColor(i)}">
             <div class="sc-box">
               <div class="sc-level" style="height:${Math.round(s.opacity * 100)}%"></div>
               <div class="sc-info">

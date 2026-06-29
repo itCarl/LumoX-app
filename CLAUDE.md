@@ -83,8 +83,9 @@ Forward-looking design plans for features **not yet built** live in
 truth for shipped behaviour). For what's left to build, start at the backlog summary:
 
 - [docs/plans/backlog-summary.md](docs/plans/backlog-summary.md) — the live **to-do**:
-  outstanding features only (Input mapping active; Matrix/strip, Stand-alone export,
-  Touch/remote parked) + a roster of shipped ones pointing at the knowledge base.
+  outstanding features only (Input mapping shipped in full; Matrix/strip the natural
+  next pick; Stand-alone export, Touch/remote parked) + a roster of shipped ones
+  pointing at the knowledge base.
   Specs for the remaining work in
   [feature-backlog.md](docs/plans/feature-backlog.md); MIDI slices in
   [midi-control-surface.md](docs/plans/midi-control-surface.md) +

@@ -1,11 +1,13 @@
 // MidiService — the app-layer MIDI control surface. Owns the MidiManager, the
 // connected device's input/output ports, the click-to-assign "learn" flow, the
-// list of bindings, and the executor dispatch.
+// list of bindings, and the dispatch onto the Action registry (midiActions.ts).
 //
 // Guiding rule (see docs/knowledge-base/midi.md): a MIDI message never knows what
-// a scene is — it resolves to a Target and runs the SAME engine path the UI uses
-// (`recallScene`, `grandMaster`, `blackout`, group intensity). So hardware
-// behaves exactly like clicking: correct fades, one-active-per-bank, live gating.
+// a scene is — it carries an Action reference (`{ key, params }`) and runs the
+// SAME engine path the UI uses (`recallScene`, `grandMaster`, `blackout`, …). So
+// hardware behaves exactly like clicking: correct fades, one-active-per-bank, live
+// gating. This service owns NONE of those operations — the registry does; the
+// service only matches incoming messages to bindings and routes them there.
 //
 // Devices are PLUGGABLE: everything controller-specific (port match, LED palette,
 // LED animation protocol) lives in a `MidiDeviceProfile` (main/midi/profiles/).
@@ -18,27 +20,16 @@ import { EventEmitter } from 'node:events';
 import type { MidiManager } from '../../src/midi/MidiManager';
 import type { MidiInput } from '../../src/midi/MidiInput';
 import type { MidiOutput } from '../../src/midi/MidiOutput';
-import { engine, show } from '../context';
-import { recallScene } from './SceneOrchestrator';
-import { markLiveUniverse } from './OutputPatchService';
 import { midiManager } from './midi-backend';
-import { transport } from './Transport';
 import { selectDevice } from '../midi/profiles';
 import type { MidiDeviceProfile, MidiCapabilities, LedMode } from '../midi/profiles';
+import {
+  type MidiActionRef, type MidiActionKind,
+  actionInfo, actionKind, actionResolves, actionDescribe, actionActive,
+  runTrigger, applyRange, cleanupBinding, parseDescriptor,
+} from './midiActions';
 
-export type MidiTargetKind = 'trigger' | 'range';
-
-/** What a Lumox control IS — a stable, persistable handle plus UI metadata.
- *  Keys: "scene:<id>", "group:<id>:intensity" (range), "group:<id>:flash" (trigger),
- *  "fixture:<id>:<localCh>" (range), "master" (range), "blackout" (trigger),
- *  "bpm-tap" (trigger). */
-export interface MidiTarget {
-  key: string;
-  label: string;               // human label for the mappings table
-  kind: MidiTargetKind;        // button-like vs continuous
-  min?: number;                // range bounds (range targets)
-  max?: number;
-}
+export type { MidiActionRef, MidiActionKind };
 
 /** What the hardware sends. */
 export interface MidiTrigger {
@@ -49,22 +40,26 @@ export interface MidiTrigger {
 
 /** Per-binding behaviour tweaks, editable in the mappings table. */
 export interface MidiBindingOptions {
-  mode?: 'toggle' | 'flash';   // trigger targets
-  invert?: boolean;            // range targets
-  min?: number;                // range override (else target.min)
+  mode?: 'toggle' | 'flash';   // trigger actions
+  invert?: boolean;            // range actions (absolute)
+  relative?: boolean;          // range actions — treat CC as a signed encoder delta
+  min?: number;                // range override (else the action's default)
   max?: number;
-  // LED feedback (note/pad bindings) — standard per-assignment feedback, but
-  // richer to match the APC MK2: a colour + how the pad behaves while ACTIVE.
-  ledColor?: string;                       // MK2 palette name (see LED_VELOCITY)
+  // LED feedback (note/pad bindings) — a colour + how the pad behaves while ACTIVE.
+  ledColor?: string;                       // device palette name
   ledMode?: 'solid' | 'blink' | 'fade';    // active-state animation
 }
 
+/** Persisted binding — references an action; no cached label (computed live). */
 export interface MidiBinding {
   id: string;
   trigger: MidiTrigger;
-  target: MidiTarget;
+  action: MidiActionRef;
   options: MidiBindingOptions;
 }
+
+/** Binding as the renderer sees it: + the registry-computed label & kind. */
+export interface MidiBindingView extends MidiBinding { label: string; kind: MidiActionKind; }
 
 export interface MidiStatus {
   connected: boolean;
@@ -84,7 +79,7 @@ const newId = (): string => `mb_${Math.random().toString(36).slice(2, 9)}`;
 /**
  * Events (consumed by handlers/midi.ts → broadcast to windows):
  *   'status'         MidiStatus
- *   'bindings'       MidiBinding[]            (UI refresh only)
+ *   'bindings'       MidiBindingView[]        (UI refresh only)
  *   'assign-mode'    { active: boolean }      (→ main window overlay)
  *   'awaiting-input' { waiting, label? }      (→ MIDI window banner)
  *   'message'        MidiMonitorMessage       (live monitor)
@@ -99,17 +94,15 @@ export class MidiService extends EventEmitter {
   private profile: MidiDeviceProfile | null = null;   // the matched device plugin
 
   private bindings: MidiBinding[] = [];
-  // Candidate targets for the clicked control (one or more — e.g. a group tab
+  // Candidate actions for the clicked control (one or more — e.g. a group tab
   // offers both intensity[range] and flash[trigger]); learn() resolves which one
   // to bind from the message type (CC → range, note → trigger).
-  private pendingTargets: MidiTarget[] = [];
+  private pendingRefs: MidiActionRef[] = [];
   private assignMode = false;
 
   private lit = new Map<number, string>();           // note → last LED "velocity,channel" sent
   private ledTimer: ReturnType<typeof setInterval> | null = null;
-  private taps: number[] = [];                        // recent tap-tempo timestamps (bpm-tap target)
-  private flashed = new Map<string, { uid: number; addr: number }[]>();  // binding id → engaged flash addrs
-  private feedbackValue = new Map<string, number>();  // range binding id → last driven value (0..1)
+  private feedbackValue = new Map<string, number>();  // range binding id → last value (0..1); also the relative accumulator
 
   // Uses the app's single shared MidiManager by default (one backend / one MIDI
   // clock across the app); an explicit manager can be injected for tests.
@@ -178,7 +171,7 @@ export class MidiService extends EventEmitter {
   private onNote(note: number, velocity: number, channel: number): void {
     this.emit('message', { type: 'note', channel, number: note, value: velocity } as MidiMonitorMessage);
     const on = velocity > 0;
-    if (this.pendingTargets.length) { if (on) this.learn({ type: 'note', channel, number: note }); return; }
+    if (this.pendingRefs.length) { if (on) this.learn({ type: 'note', channel, number: note }); return; }
     for (const b of this.bindings) {
       if (b.trigger.type === 'note' && b.trigger.number === note && b.trigger.channel === channel) {
         this.dispatchTrigger(b, on);
@@ -188,7 +181,7 @@ export class MidiService extends EventEmitter {
 
   private onCC(controller: number, value: number, channel: number): void {
     this.emit('message', { type: 'cc', channel, number: controller, value } as MidiMonitorMessage);
-    if (this.pendingTargets.length) { this.learn({ type: 'cc', channel, number: controller }); return; }
+    if (this.pendingRefs.length) { this.learn({ type: 'cc', channel, number: controller }); return; }
     for (const b of this.bindings) {
       if (b.trigger.type === 'cc' && b.trigger.number === controller && b.trigger.channel === channel) {
         this.dispatchRange(b, value);
@@ -196,131 +189,53 @@ export class MidiService extends EventEmitter {
     }
   }
 
-  // ---- executor dispatch (route through the same paths the UI uses) -------
+  // ---- executor dispatch (route through the Action registry) -------------
   private dispatchTrigger(b: MidiBinding, on: boolean): void {
-    const mode = b.options.mode ?? 'toggle';
-    const key = b.target.key;
-    if (key.startsWith('scene:')) {
-      const id = key.slice('scene:'.length);
-      if (mode === 'flash') recallScene(id, on);
-      else if (on) recallScene(id, !engine.scenes.isLive(id));
-    } else if (key === 'blackout') {
-      if (mode === 'flash') engine.blackout.set(on);
-      else if (on) engine.blackout.toggle();
-    } else if (key === 'bpm-tap') {
-      if (on) this.tap();
-    } else if (key.startsWith('group:') && key.endsWith(':flash')) {
-      this.groupFlash(b.id, key.slice('group:'.length, key.length - ':flash'.length), on, mode);
-    }
+    runTrigger(b.action, on, b.options.mode ?? 'toggle', b.id);
     this.refreshLeds();
   }
 
   private dispatchRange(b: MidiBinding, raw: number): void {
-    const min = b.options.min ?? b.target.min ?? 0;
-    const max = b.options.max ?? b.target.max ?? 1;
-    const norm = (b.options.invert ? 127 - raw : raw) / 127;
-    const out = min + norm * (max - min);
-    this.feedbackValue.set(b.id, norm);   // mirror the fader's effective position in the UI
-    const key = b.target.key;
-    if (key === 'master') {
-      engine.grandMaster.setValue(out);
-    } else if (key.startsWith('group:') && key.endsWith(':intensity')) {
-      const gid = key.slice('group:'.length, key.length - ':intensity'.length);
-      const g = show.groups.get(gid);
-      if (g) {
-        g.setIntensity(show.patch, Math.round(out));
-        g.apply(show.patch, engine.universes);
-        for (const fx of g.fixtures(show.patch)) markLiveUniverse(fx.universeId);
-      }
-    } else if (key.startsWith('fixture:')) {
-      // "fixture:<id>:<localCh>" → engage that channel in the live programmer
-      // (the same path the fader editor's LIVE strips use).
-      const rest = key.slice('fixture:'.length);
-      const sep = rest.lastIndexOf(':');
-      const fx = show.patch.get(rest.slice(0, sep));
-      const ch = Number(rest.slice(sep + 1));
-      // Real channels are 1..channelCount; faders above that index are this
-      // fixture's virtual dimmers, addressed in the virtual region.
-      let abs = 0;
-      if (fx) {
-        if (ch >= 1 && ch <= fx.channelCount) abs = fx.startAddress + ch - 1;
-        else abs = fx.virtualDimmers()[ch - fx.channelCount - 1]?.virtualAddr ?? 0;
-      }
-      if (fx && abs) {
-        const u = engine.universes.get(fx.universeId);
-        if (u) { u.engage(abs, Math.max(0, Math.min(255, Math.round(out)))); markLiveUniverse(fx.universeId); }
-      }
-    }
-    this.emitFeedback();
-  }
-
-  // ---- tap tempo + group flash (new trigger targets) ---------------------
-  /** Average recent tap gaps → master BPM (only while the tempo source is manual;
-   *  an external clock owns the tempo otherwise). Mirrors the title-bar TAP. */
-  private tap(): void {
-    if (transport.getSource() !== 'manual') return;
-    const now = Date.now();
-    if (this.taps.length && now - this.taps[this.taps.length - 1] > 2000) this.taps = [];   // >2 s pause → fresh
-    this.taps.push(now);
-    if (this.taps.length > 6) this.taps.shift();
-    if (this.taps.length < 2) return;
-    let sum = 0;
-    for (let i = 1; i < this.taps.length; i++) sum += this.taps[i] - this.taps[i - 1];
-    transport.setBpm(Math.round(60000 / (sum / (this.taps.length - 1))));
-  }
-
-  /** Universe-absolute intensity addresses of a group's member fixtures. */
-  private groupIntensityAddrs(gid: string): { uid: number; addr: number }[] {
-    const g = show.groups.get(gid);
-    if (!g) return [];
-    const out: { uid: number; addr: number }[] = [];
-    for (const fx of g.fixtures(show.patch)) {
-      const addr = fx.addressOf('intensity') || fx.addressOf('intensity-master');
-      if (addr) out.push({ uid: fx.universeId, addr });
-    }
-    return out;
-  }
-
-  /** Momentary "flash group to full": engage every member's intensity to 255 while
-   *  held (flash) / latched (toggle), release on the way out (back to scene/base). */
-  private groupFlash(bindingId: string, gid: string, on: boolean, mode: 'toggle' | 'flash'): void {
-    const lit = this.flashed.has(bindingId);
-    const wantOn = mode === 'flash' ? on : (on ? !lit : lit);   // toggle flips only on press; flash follows hold
-    if (wantOn === lit) return;
-    if (wantOn) {
-      const addrs = this.groupIntensityAddrs(gid);
-      for (const { uid, addr } of addrs) engine.universes.get(uid)?.engage(addr, 255);
-      this.flashed.set(bindingId, addrs);
-      for (const uid of new Set(addrs.map((a) => a.uid))) markLiveUniverse(uid);
+    const def = actionInfo(b.action.key);
+    const min = b.options.min ?? def?.min ?? 0;
+    const max = b.options.max ?? def?.max ?? 1;
+    let norm: number;
+    if (b.options.relative) {
+      // Signed two's-complement encoder delta: 1..63 = +1..+63, 65..127 = -63..-1.
+      // Accumulate from the last value so a knob walks the range up/down.
+      const delta = (raw < 64 ? raw : raw - 128) / 127;
+      norm = clamp01((this.feedbackValue.get(b.id) ?? 0.5) + delta);
     } else {
-      const addrs = this.flashed.get(bindingId) ?? [];
-      for (const { uid, addr } of addrs) engine.universes.get(uid)?.release(addr);
-      this.flashed.delete(bindingId);
-      for (const uid of new Set(addrs.map((a) => a.uid))) markLiveUniverse(uid);
+      norm = (b.options.invert ? 127 - raw : raw) / 127;
     }
+    this.feedbackValue.set(b.id, norm);   // mirror the effective position in the UI / seed the accumulator
+    applyRange(b.action, min + norm * (max - min));
+    this.emitFeedback();
   }
 
   // ---- click-to-assign (learn) flow --------------------------------------
   beginAssign(): void {
     this.assignMode = true;
-    this.pendingTargets = [];
+    this.pendingRefs = [];
     this.emit('assign-mode', { active: true });
     this.emit('awaiting-input', { waiting: false });
   }
 
   /** A Lumox control was clicked in the main window — now wait for a MIDI message.
-   *  Accepts one or more candidate targets; learn() picks by the message type. */
-  pickTarget(targets: MidiTarget | MidiTarget[]): void {
+   *  Accepts one or more `data-midi` descriptors; learn() picks by message type. */
+  pickTarget(descriptors: string | string[]): void {
     if (!this.assignMode) return;
-    const list = (Array.isArray(targets) ? targets : [targets]).filter((t) => t?.key);
+    const list = (Array.isArray(descriptors) ? descriptors : [descriptors])
+      .map((d) => parseDescriptor(d))
+      .filter((r): r is MidiActionRef => !!r);
     if (!list.length) return;
-    this.pendingTargets = list;
-    this.emit('awaiting-input', { waiting: true, label: list.map((t) => t.label).join(' / ') });
+    this.pendingRefs = list;
+    this.emit('awaiting-input', { waiting: true, label: list.map((r) => actionDescribe(r)).join(' / ') });
   }
 
   cancelAssign(): void {
     this.assignMode = false;
-    this.pendingTargets = [];
+    this.pendingRefs = [];
     this.emit('awaiting-input', { waiting: false });
     this.emit('assign-mode', { active: false });
   }
@@ -328,11 +243,11 @@ export class MidiService extends EventEmitter {
   /** The first MIDI message after a target was picked — create the binding. A CC
    *  binds the range candidate, a note the trigger candidate (else the first). */
   private learn(trigger: MidiTrigger): void {
-    const cands = this.pendingTargets;
+    const cands = this.pendingRefs;
     if (!cands.length) return;
-    const wantKind: MidiTargetKind = trigger.type === 'cc' ? 'range' : 'trigger';
-    const target = cands.find((t) => t.kind === wantKind) ?? cands[0];
-    this.pendingTargets = [];
+    const wantKind: MidiActionKind = trigger.type === 'cc' ? 'range' : 'trigger';
+    const action = cands.find((r) => actionKind(r.key) === wantKind) ?? cands[0];
+    this.pendingRefs = [];
     this.assignMode = false;
     // Replace any binding already on this control (one trigger → one action).
     this.bindings = this.bindings.filter(
@@ -341,8 +256,8 @@ export class MidiService extends EventEmitter {
     this.bindings.push({
       id: newId(),
       trigger,
-      target,
-      options: target.kind === 'range' ? {} : { mode: 'toggle' },
+      action,
+      options: actionKind(action.key) === 'range' ? {} : { mode: 'toggle' },
     });
     this.emit('assign-mode', { active: false });
     this.emit('awaiting-input', { waiting: false });
@@ -360,73 +275,66 @@ export class MidiService extends EventEmitter {
   }
 
   removeBinding(id: string): void {
-    const before = this.bindings.length;
-    this.bindings = this.bindings.filter((b) => b.id !== id);
-    if (this.flashed.has(id)) this.groupFlash(id, '', false, 'flash');   // release a held flash
-    if (this.bindings.length !== before) { this.emitBindings(); this.refreshLeds(true); }
+    const b = this.bindings.find((x) => x.id === id);
+    if (!b) return;
+    cleanupBinding(b.action, id);                      // release a held flash etc.
+    this.feedbackValue.delete(id);
+    this.bindings = this.bindings.filter((x) => x.id !== id);
+    this.emitBindings();
+    this.refreshLeds(true);
   }
 
   // ---- persistence (project file) ----------------------------------------
+  /** Persist shape — pure binding, no computed label (stored in the project). */
   listBindings(): MidiBinding[] {
-    return this.bindings.map((b) => ({ ...b, trigger: { ...b.trigger }, target: { ...b.target }, options: { ...b.options } }));
+    return this.bindings.map((b) => ({
+      id: b.id,
+      trigger: { ...b.trigger },
+      action: { key: b.action.key, params: { ...b.action.params } },
+      options: { ...b.options },
+    }));
   }
 
-  /** Restore bindings from a project, dropping any whose target no longer resolves. */
+  /** Renderer shape — adds the registry-computed live label + kind per row. */
+  bindingViews(): MidiBindingView[] {
+    return this.listBindings().map((b) => ({
+      ...b,
+      label: actionDescribe(b.action),
+      kind: actionKind(b.action.key) ?? 'trigger',
+    }));
+  }
+
+  /** Restore bindings from a project, dropping any whose action no longer resolves. */
   loadBindings(arr: unknown): void {
     const list = Array.isArray(arr) ? arr : [];
     this.bindings = list
-      .filter((b): b is MidiBinding => this.isBinding(b) && this.targetResolves(b.target.key))
+      .filter((b): b is MidiBinding => this.isBinding(b) && actionResolves(b.action))
       .map((b) => ({
         id: b.id || newId(),
         trigger: { type: b.trigger.type, channel: b.trigger.channel | 0, number: b.trigger.number | 0 },
-        target: { key: b.target.key, label: b.target.label, kind: b.target.kind, min: b.target.min, max: b.target.max },
+        action: { key: b.action.key, params: { ...b.action.params } },
         options: b.options ?? {},
       }));
+    this.feedbackValue.clear();
     this.emitBindings();
     this.refreshLeds(true);
   }
 
   private isBinding(b: any): b is MidiBinding {
     return !!b && b.trigger && (b.trigger.type === 'note' || b.trigger.type === 'cc')
-      && b.target && typeof b.target.key === 'string';
+      && b.action && typeof b.action.key === 'string' && actionKind(b.action.key) != null;
   }
 
-  private targetResolves(key: string): boolean {
-    if (key === 'master' || key === 'blackout' || key === 'bpm-tap') return true;
-    if (key.startsWith('scene:')) return !!show.scenes.get(key.slice('scene:'.length));
-    if (key.startsWith('group:') && key.endsWith(':intensity')) {
-      return !!show.groups.get(key.slice('group:'.length, key.length - ':intensity'.length));
-    }
-    if (key.startsWith('group:') && key.endsWith(':flash')) {
-      return !!show.groups.get(key.slice('group:'.length, key.length - ':flash'.length));
-    }
-    if (key.startsWith('fixture:')) {
-      const rest = key.slice('fixture:'.length);
-      return !!show.patch.get(rest.slice(0, rest.lastIndexOf(':')));
-    }
-    return false;
-  }
-
-  private emitBindings(): void { this.emit('bindings', this.listBindings()); }
+  private emitBindings(): void { this.emit('bindings', this.bindingViews()); }
 
   // ---- feedback (device LEDs + the software mirror) ----------------------
-  /** Whether a binding's target is currently "on" — drives the active LED on the
-   *  device AND the lit indicator in the mappings table. */
-  private bindingActive(b: MidiBinding): boolean {
-    const key = b.target.key;
-    if (key.startsWith('scene:')) return engine.scenes.isLive(key.slice('scene:'.length));
-    if (key === 'blackout') return engine.blackout.active;
-    if (key.startsWith('group:') && key.endsWith(':flash')) return this.flashed.has(b.id);
-    return false;
-  }
-
   /** Per-binding live feedback streamed to the renderer (the software mirror of
    *  what the device shows): triggers → `active`, ranges → last value (0..1). */
   feedback(): MidiFeedback[] {
     return this.bindings.map((b) =>
-      b.target.kind === 'range'
+      actionKind(b.action.key) === 'range'
         ? { id: b.id, value: this.feedbackValue.get(b.id) ?? 0 }
-        : { id: b.id, active: this.bindingActive(b) });
+        : { id: b.id, active: actionActive(b.action, b.id) });
   }
 
   private emitFeedback(): void { this.emit('feedback', this.feedback()); }
@@ -435,7 +343,7 @@ export class MidiService extends EventEmitter {
    *  connected device's palette (blackout → red, else the first/"cyan" colour). */
   private defaultColor(key: string): string {
     const pal = this.profile?.palette ?? [];
-    const want = key === 'blackout' ? 'red' : 'cyan';
+    const want = key === 'blackout.toggle' ? 'red' : 'cyan';
     return pal.some((p) => p.name === want) ? want : (pal[0]?.name ?? want);
   }
 
@@ -453,9 +361,9 @@ export class MidiService extends EventEmitter {
     for (const b of this.bindings) {
       if (b.trigger.type !== 'note') continue;
       const cmd = this.profile.led(b.trigger.number, {
-        colorName: b.options.ledColor ?? this.defaultColor(b.target.key),
+        colorName: b.options.ledColor ?? this.defaultColor(b.action.key),
         mode: (b.options.ledMode ?? 'solid') as LedMode,
-        active: this.bindingActive(b),
+        active: actionActive(b.action, b.id),
       });
       if (cmd) desired.set(b.trigger.number, `${cmd.velocity},${cmd.channel}`);
     }
@@ -468,6 +376,8 @@ export class MidiService extends EventEmitter {
     this.lit = desired;
   }
 }
+
+const clamp01 = (v: number): number => (v < 0 ? 0 : v > 1 ? 1 : v);
 
 // Single instance for the whole app (the main process has one of everything).
 export const midiService = new MidiService();

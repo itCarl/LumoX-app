@@ -28,7 +28,21 @@ function fixturesFor(sel: FxTargetSel): Fixture[] {
 /** Deterministic 0..1 from an index (stable shuffle for FxOrder 'random'). */
 const orderHash = (i: number): number => { const s = Math.sin((i + 1) * 127.1) * 43758.5453; return s - Math.floor(s); };
 
-/** Reorder fixtures to realise an FX sweep order (the per-fixture "index"). */
+/** A fixture's centroid on the stage (average of its emitter world positions),
+ *  used by the 2D sweep orders. Falls back to its transform origin. */
+function fixtureCentroid(f: Fixture): Vec2 {
+  const ws = f.emitterWorldPositions();
+  if (!ws.length) return { x: f.stageTransform.x, y: f.stageTransform.y };
+  let x = 0, y = 0;
+  for (const p of ws) { x += p.x; y += p.y; }
+  return { x: x / ws.length, y: y / ws.length };
+}
+
+/** Reorder fixtures to realise an FX sweep order (the per-fixture "index").
+ *  `row`/`column`/`diagonal` are 2D, matrix-aware orders: fixtures sweep by
+ *  their stage position so an effect fans across a grid in that direction. The
+ *  primary axis is quantised to a stage unit so near-aligned fixtures share a
+ *  row/column despite small position jitter. */
 function orderFixtures(fxs: Fixture[], order: FxOrder): Fixture[] {
   const n = fxs.length;
   if (n <= 1 || order === 'patch') return fxs;
@@ -36,6 +50,16 @@ function orderFixtures(fxs: Fixture[], order: FxOrder): Fixture[] {
   if (order === 'reverse') idx.reverse();
   else if (order === 'mirror') { const c = (n - 1) / 2; idx.sort((a, b) => Math.abs(a - c) - Math.abs(b - c)); }   // centre-out
   else if (order === 'random') idx.sort((a, b) => orderHash(a) - orderHash(b));
+  else if (order === 'row' || order === 'column' || order === 'diagonal') {
+    const c = fxs.map(fixtureCentroid);
+    const q = Math.round;
+    // [primary, secondary] sort key per fixture for the chosen direction.
+    const key = (i: number): [number, number] =>
+      order === 'row' ? [q(c[i].y), c[i].x]            // top→bottom, then left→right
+        : order === 'column' ? [q(c[i].x), c[i].y]     // left→right, then top→bottom
+          : [q(c[i].x + c[i].y), c[i].x];              // diagonal (TL→BR)
+    idx.sort((a, b) => { const ka = key(a), kb = key(b); return ka[0] - kb[0] || ka[1] - kb[1]; });
+  }
   return idx.map((i) => fxs[i]);
 }
 

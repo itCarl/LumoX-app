@@ -26,43 +26,39 @@ see [`docs/knowledge-base/conventions.md`](../knowledge-base/conventions.md).
 
 ---
 
-## Input mapping & MIDI-learn 🟡 (L, ACTIVE) → see dedicated plans
+## Input mapping & MIDI-learn ✅ (SHIPPED IN FULL) → folded into the knowledge base
 
-**The only active backlog item.**
+**Done.** Click-to-assign (APC Mini MK2 + any controller via the generic profile),
+the assign overlay + learn flow, LED feedback + software mirror, per-project
+persistence, an expanded action set (scene recall, group level + flash, channel
+level, master, blackout, tap tempo, **set BPM**, **clear programmer**), a first-class
+typed **Action registry** (`midiActions.ts`) shared by dispatch + the mapping UI, and
+**absolute/relative (encoder) range mode** per binding. Source of truth:
+[`docs/knowledge-base/midi.md`](../knowledge-base/midi.md); design history in
+[midi-control-surface.md](midi-control-surface.md) +
+[midi-scene-mapping-apc.md](midi-scene-mapping-apc.md).
 
-**Shipped (first slice).** The APC Mini MK2 click-to-assign flow is done — a separate
-MIDI window, the assign overlay, click-to-pick + learn, bindings for
-scene/group/master/blackout with executor dispatch + LED feedback, and per-project
-persistence. Folded into [`docs/knowledge-base/midi.md`](../knowledge-base/midi.md); the
-slice spec is [midi-scene-mapping-apc.md](midi-scene-mapping-apc.md).
-
-**Remaining.** The broader generic vision in
-[midi-control-surface.md](midi-control-surface.md): a first-class Action registry and
-relative-encoder *input* — extending naturally to OSC / keyboard / DMX-in via the same
-registry. (Multi-device support and hardware-side encoder-ring / motor-fader feedback
-are out of scope; the FeedbackEngine + software mirror have shipped.)
+**Out of scope (dropped):** multi-device support, hardware-side encoder-ring /
+motor-fader feedback. **Deferred:** bank/cue transport actions — they belong to the
+future cue-list feature, not the input layer. Extending the same registry to OSC /
+keyboard / DMX-in remains a natural future direction.
 
 ---
 
-## Matrix / strip fixtures & pixel effects ⏸ (L, PARKED — lowest priority)
+## Matrix / strip fixtures & pixel effects ✅ (SHIPPED IN FULL) → folded into the knowledge base
 
-**Goal.** Create matrix/strip fixtures in-app (LED mode + width×height/arrangement, or
-N LEDs) and run pixel-mapped effects across them.
+**Done.** In-app **Create matrix / strip** generator (`buildMatrixDefinition` +
+`lumox:library:createMatrix` + the create-matrix panel) builds a single multi-cell
+RGB(W) fixture — width×height grid or N-cell strip, optional per-cell + master dimmer —
+saved as a Custom library fixture and patched through the normal flow. Pixel-mapping is
+the existing MATRIX FX layer (by emitter world position); added **2D matrix-aware FX
+sweep orders** `row`/`column`/`diagonal` (`FxOrder`, resolved in `SceneCompiler` from
+each fixture's stage centroid). Source of truth:
+[`fixtures.md`](../knowledge-base/fixtures.md) (creation) +
+[`mix-engine.md`](../knowledge-base/mix-engine.md) (FX orders + MATRIX FX).
 
-**Current state.** `emitterLayout` exists on definitions and renders on the stage;
-MATRIX FX already pixel-map by emitter world position. Missing: in-app matrix/strip
-*creation* and matrix-aware FX sweep ordering (row/column/diagonal).
-
-**Plan (sketch).** Patch-time generator that builds a multi-cell fixture (or a group of
-single-pixel fixtures) with a 2D layout; extend the FX sweep `order` with 2D directions
-(building on the shipped `FxOrder`). Pixel effects then reuse the FX rack with
-matrix-aware target ordering.
-
-**Acceptance.** Create a 10×5 RGB matrix; a COLOR FX sweeps a gradient across it in a
-chosen direction.
-
-**Touch-points.** `main/handlers/patch.ts`, `src/fixtures/*`, `main/services/SceneCompiler.ts` (matrix
-target ordering), `renderer/views/patchgrid.ts`/`stage.ts`, FX UI.
+**Out of scope (dropped):** the group-of-single-pixel-cells representation (a matrix is
+one multi-cell fixture) and in-stage matrix shape tools.
 
 ---
 
@@ -84,25 +80,26 @@ export/schedule UI, firmware-side player (separate repo).
 
 ---
 
-## Touch interface & remote ⏸ (XL, PARKED — lowest priority; do Input mapping first)
+## Touch interface & remote ⏸ (XL, PARKED — lowest priority)
 
 **Goal.** A custom button/fader page surface (touch) and phone/tablet remote control.
 
 **Plan (sketch).** Touch = a user-arrangeable grid of widgets bound to Actions (reuse
-Input mapping's Action registry); Remote = serve a small web UI over the node/AP network
-bound to the same Actions. Both lean entirely on the Action registry, so do **Input
-mapping first**.
+the MIDI **Action registry**, `midiActions.ts`); Remote = serve a small web UI over the
+node/AP network bound to the same Actions. Both lean entirely on that registry, which
+now exists — though it may want lifting from `main/services/` into a shared home if a
+non-MIDI surface drives it.
 
-**Touch-points.** new touch view + a small served web surface; Action registry from
-Input mapping.
+**Touch-points.** new touch view + a small served web surface; the existing Action
+registry.
 
 ---
 
 ## Notes
 
-- Input mapping is the only active build; Matrix/strip, Stand-alone export and
-  Touch/remote are parked at lowest priority until it lands and they are explicitly
-  reprioritised.
+- Input mapping & MIDI-learn has shipped in full; no item is currently active.
+  Matrix/strip (the natural next pick), Stand-alone export and Touch/remote are parked
+  until explicitly reprioritised.
 - Keep naming generic in code/UI/docs (`conventions.md`). When a feature ships, move its
   spec out of this file, fold the behaviour into `docs/knowledge-base/`, and update the
   table in `CLAUDE.md` + [backlog-summary.md](backlog-summary.md).

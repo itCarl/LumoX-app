@@ -6,7 +6,7 @@ import { ipcMain } from 'electron';
 import { openPanelWindow } from '../windows';
 
 export interface PanelSpec {
-  kind: 'settings' | 'group-order';
+  kind: 'settings' | 'group-order' | 'create-matrix';
   title: string;
   arg?: unknown;
   width?: number;

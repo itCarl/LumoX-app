@@ -108,9 +108,9 @@ Dynamic content must lock to the music. Drive FX and chase speed from the master
   choruses) reads as intentional. Saturating everything all the time flattens energy.
 - **Always light the talent.** Keep an easy stage/face wash; spectacle behind a dark
   performer is a miss.
-- **Smooth transitions.** Use scene `fadeIn`/`fadeOut` — recalling over a same-bank
-  scene runs a **dipless** crossfade (shared full channels don't sag); snap only when
-  you want a hit (`fadeIn` 0).
+- **Smooth transitions.** Recalls **snap by default** (`fadeIn`/`fadeOut` 0) for tight
+  hits. Give a scene a `fadeIn`/`fadeOut` in Scene Properties for a **dipless** crossfade
+  over a same-bank scene (shared full channels don't sag).
 - **React to song sections.** Build energy into choruses/drops, pull back for
   breakdowns/ballads — that is the whole point of busking over a fixed cue list.
 

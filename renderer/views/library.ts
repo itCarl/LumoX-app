@@ -7,6 +7,7 @@ import { bus, EV } from '../lib/bus';
 import { esc } from '../lib/html';
 import { button, input } from '../lib/widgets';
 import { confirmDialog } from '../lib/confirm';
+import { openCreateMatrixModal } from './create-matrix-modal';
 
 const { lumox } = window;
 
@@ -280,7 +281,8 @@ export async function makeLibraryTile() {
     });
   }
 
-  (tile.querySelector('.lib-head-right') as HTMLElement).appendChild(
+  (tile.querySelector('.lib-head-right') as HTMLElement).append(
+    button({ variant: 'icon', icon: '<i class="fa-solid fa-table-cells"></i>', title: 'Create matrix / strip', onClick: () => openCreateMatrixModal() }),
     button({ variant: 'icon', label: '+', title: 'New fixture', onClick: () => lumox.editor.open() }),
   );
 

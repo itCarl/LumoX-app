@@ -1,12 +1,28 @@
 # Plan — MIDI Control Surface
 
-**Status:** phases 1–3 shipped (APC Mini MK2 click-to-assign window, bindings +
-executor dispatch, expanded target set, LED feedback, FeedbackEngine, per-project
-persistence) — see [docs/knowledge-base/midi.md](../knowledge-base/midi.md), the
-source of truth. **Phase 4 remains** (typed Action registry + relative encoders),
-specced below. Scope: app-level MIDI device management + mapping on top of the
-existing engine MIDI stack. **Multi-device support is out of scope** — one connected
-controller at a time.
+**Status:** ✅ **shipped in full** — phases 1–4 are done; the source of truth is
+[docs/knowledge-base/midi.md](../knowledge-base/midi.md). Phase 4 landed the typed
+**Action registry** (`main/services/midiActions.ts`) shared by dispatch + the
+mapping UI, **relative (encoder) range mode**, and two new actions (`tempo.bpm`,
+`programmer.clear`). This plan is kept for design rationale only. Scope was
+app-level MIDI device management + mapping on top of the existing engine MIDI stack.
+**Multi-device support stayed out of scope** — one connected controller at a time.
+
+**Design deltas from the original spec** (what shipped vs. what was sketched below):
+
+- **Binding shape** = `{ id, trigger, action: { key, params }, options }` (no
+  cached label — the registry's `describe()` computes it live for the UI).
+- **`relative` is a per-binding option**, not a third action `kind`. Whether a
+  control is an endless encoder is a property of the *mapping*, not the action, so
+  `master.level` etc. stay `kind: 'range'` and any range binding can opt into
+  relative decoding. Action `kind` is `'trigger' | 'range'`.
+- **Bank transport** (`bank.play/next/…`) and **`bank.scene`** were **not** built —
+  linear bank/cue advance belongs to the future cue-list feature, not this slice.
+  `scene.recall` already maps any scene directly. Scene **flash** is the binding's
+  `mode: 'flash'`, not a separate `scene.flash` action.
+- The registry is shared with the UI via the computed **binding views** (label +
+  kind), not a separate "list all actions" IPC — Lumox binds by clicking the actual
+  control (click-to-assign), so no action-picker dropdown is needed.
 
 ## Goal
 
@@ -99,8 +115,8 @@ anticipates `// debug / devices`).
 ## Persistence
 
 - **Bindings** → the project file (they reference scene/group/fixture ids that
-  belong to the show). On load, bindings whose target id vanished are dropped
-  (`targetResolves`). The connected device/port is machine-specific and auto-detected,
+  belong to the show). On load, bindings whose action no longer resolves are dropped
+  (`actionResolves`). The connected device/port is machine-specific and auto-detected,
   not stored.
 
 ## Build phases
@@ -109,8 +125,11 @@ anticipates `// debug / devices`).
    click-to-assign; bindings + executor dispatch + expanded target set; FeedbackEngine
    (pad-LED + renderer mirror). See [midi.md](../knowledge-base/midi.md).
    *(Encoder LED rings / motor faders are out of scope.)*
-4. 📋 **Action registry + relative encoders.** A typed registry of actions (so the
-   mapping UI and dispatch share one vocabulary) and relative-encoder accumulation.
+4. ✅ **Shipped** — typed **Action registry** (`midiActions.ts`) shared by dispatch
+   and the mapping UI (binding labels/kinds are computed from it), **relative
+   (encoder) range mode** per binding, and the `tempo.bpm` + `programmer.clear`
+   actions. See [midi.md](../knowledge-base/midi.md). *(Bank/cue transport deferred
+   to the future cue-list feature — see the design deltas at the top.)*
 
 ## Notes / decisions
 

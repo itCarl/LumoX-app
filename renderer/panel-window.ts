@@ -5,10 +5,11 @@
 
 import { buildSettingsBody } from './views/settings-modal';
 import { buildGroupOrderBody } from './views/group-order-modal';
+import { buildCreateMatrixBody } from './views/create-matrix-modal';
 
 const { lumox } = window;
 
-interface PanelSpec { kind: 'settings' | 'group-order'; title: string; arg?: any }
+interface PanelSpec { kind: 'settings' | 'group-order' | 'create-matrix'; title: string; arg?: any }
 
 const titleEl = document.getElementById('panel-title') as HTMLElement;
 const root = document.getElementById('panel-root') as HTMLElement;
@@ -19,6 +20,7 @@ window.addEventListener('keydown', (e) => { if (e.key === 'Escape') lumox.win.cl
 async function bodyFor(spec: PanelSpec): Promise<HTMLElement | null> {
   if (spec.kind === 'settings') return buildSettingsBody();
   if (spec.kind === 'group-order') return buildGroupOrderBody(spec.arg?.groupId);
+  if (spec.kind === 'create-matrix') return buildCreateMatrixBody();
   return null;
 }
 

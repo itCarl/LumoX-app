@@ -12,13 +12,12 @@ tables in `lumox-app/CLAUDE.md`.
 
 | Feature | Status | Effort | Outstanding scope |
 | --- | --- | --- | --- |
-| Input mapping & MIDI-learn | 🟡 active | M | Click-to-assign shipped (APC + any controller, LED feedback, persistence) with an expanded target set (scenes, group intensity + flash, channel faders, master, blackout, tap tempo) → [midi.md](../knowledge-base/midi.md). **Remaining:** generic Action registry, relative encoders, and a fuller **FeedbackEngine** (device ↔ software state mirror) → [midi-control-surface.md](midi-control-surface.md). *(Multi-device support and hardware-side encoder/motor-fader feedback dropped — out of scope.)* |
-| Matrix / strip fixtures & pixel effects | ⏸ parked | L | In-app matrix/strip creation + 2D pixel-mapped FX ordering. |
 | Stand-alone export | ⏸ parked | XL | Compile a show a node plays without the app (scenes + triggers + schedules). Spans app + firmware. |
-| Touch interface & remote | ⏸ parked | XL | Custom touch widget pages + phone/tablet remote, bound to Input mapping's Actions. Do Input mapping first. |
+| Touch interface & remote | ⏸ parked | XL | Custom touch widget pages + phone/tablet remote, bound to the MIDI Action registry's actions. |
 
-**Input mapping & MIDI-learn is the only active build**; the parked items stay parked
-until it is done and they are explicitly reprioritised.
+**No active build right now** — Input mapping & MIDI-learn and Matrix / strip both
+shipped in full (see Done below). The two parked items stay parked until explicitly
+reprioritised.
 
 ## Done (out of the to-do — see the knowledge base)
 
@@ -32,7 +31,14 @@ Shipped features no longer tracked here; the KB is their source of truth:
 - **Settings store** — [settings.md](../knowledge-base/settings.md)
 - **BPM sources** — [tempo.md](../knowledge-base/tempo.md)
 - **Audio-reactive input** shared spectrum capture + input picker + band/volume/beat → target bindings, incl. **FX-layer scalar targets** (speed/size/spread) — [audio.md](../knowledge-base/audio.md)
-- **Input mapping (first slice)** APC click-to-assign — [midi.md](../knowledge-base/midi.md)
+- **Input mapping & MIDI-learn** (complete) — click-to-assign (APC + any controller),
+  LED feedback + software mirror, per-project persistence, and a typed **Action
+  registry** (`midiActions.ts`) shared by dispatch + UI, with absolute/relative
+  (encoder) range mode — [midi.md](../knowledge-base/midi.md)
+- **Matrix / strip fixtures & pixel effects** — in-app matrix/strip generator
+  (`buildMatrixDefinition` + Create matrix/strip panel) saved as a Custom fixture,
+  plus 2D matrix-aware FX sweep orders (`row`/`column`/`diagonal`) — pixel-mapping
+  itself is the MATRIX FX layer — [fixtures.md](../knowledge-base/fixtures.md) + [mix-engine.md](../knowledge-base/mix-engine.md)
 
 ## MIDI slices (Input mapping)
 

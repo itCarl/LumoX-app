@@ -15,7 +15,7 @@ import { vChannel, vLevel } from '../validate';
 
 const SCENE_TYPES: SceneType[] = ['static', 'chase'];
 const FX_KINDS: FxKind[] = ['color', 'move', 'curve', 'chaser', 'value', 'matrix'];
-const FX_ORDERS: FxOrder[] = ['patch', 'reverse', 'mirror', 'random'];
+const FX_ORDERS: FxOrder[] = ['patch', 'reverse', 'mirror', 'random', 'row', 'column', 'diagonal'];
 const SCOPES: string[] = ['off', 'all', 'bank', 'outside-bank', 'specific'];
 const WAVES = ['sine', 'triangle', 'sawtooth', 'square', 'random'];
 const SHAPES = ['circle', 'figure8', 'line', 'square'];

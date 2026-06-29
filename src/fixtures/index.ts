@@ -31,6 +31,8 @@ export {
   colorClusterCount, resolveEmitterCount,
 } from './emitterGeometry';
 export type { StageTransform, Vec2, EmitterSource, EmitterGrid } from './emitterGeometry';
+export { buildMatrixDefinition } from './generators/matrix';
+export type { MatrixGenOptions } from './generators/matrix';
 export { FixtureLibrary } from './FixtureLibrary';
 export { FixtureValidator } from './FixtureValidator';
 export { FixtureImporter, ImporterRegistry } from './importers/Importer';

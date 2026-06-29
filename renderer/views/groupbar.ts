@@ -34,7 +34,7 @@ export async function makeGroupBarTile(): Promise<{ tile: HTMLElement; refresh: 
     tabs.set(html`
       <button class="gb-tab${active === 'all' ? ' active' : ''}" data-grp="all" title="Show all fixtures">All</button>
       ${groups.map((g) => html`
-        <button class="gb-tab${active === g.id ? ' active' : ''}" data-grp="${g.id}" data-midi="group:${g.id}:intensity" data-midi-kind="range" data-midi-min="0" data-midi-max="255" data-midi-label="Group: ${g.name}" data-midi-alt="group:${g.id}:flash" data-midi-alt-kind="trigger" data-midi-alt-label="Group flash: ${g.name}" title="${g.fixtureIds.length} fixtures">
+        <button class="gb-tab${active === g.id ? ' active' : ''}" data-grp="${g.id}" data-midi="group:${g.id}:intensity" data-midi-alt="group:${g.id}:flash" title="${g.fixtureIds.length} fixtures">
           <span class="gb-dot" style="background:${g.color}"></span>${g.name}
           <span class="gb-n">${g.fixtureIds.length}</span>
         </button>`)}`);

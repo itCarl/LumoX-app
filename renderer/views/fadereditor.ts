@@ -93,18 +93,18 @@ export async function makeFaderEditorTile() {
       <span class="fe-target" id="fe-target">EDIT: Scene</span>
       <span class="fe-prog" id="fe-prog" hidden>
         <span class="fe-prog-stat"><i class="fe-pdot"></i><span id="fe-prog-n">0 ch</span></span>
-        <button class="fe-btn" id="fe-clear" title="Clear the programmer (drop all manual values)">Clear</button>
+        <button class="fe-btn" id="fe-clear" title="Clear the programmer (drop all manual values)" data-midi="programmer-clear">Clear</button>
         <button class="fe-btn fe-merge" id="fe-merge" title="Save adjusted live values into the current scene"><i class="fa-solid fa-floppy-disk"></i><span class="fe-btn-lbl">Save</span></button>
         <button class="fe-btn fe-store" id="fe-store" title="Snapshot all values into a new scene"><i class="fa-solid fa-camera"></i><span class="fe-btn-lbl">Snapshot</span></button>
       </span>
     </div>
     <div class="fader-body">
       <div id="fe-cols" class="fe-cols"></div>
-      <div class="fe-master" data-midi="master" data-midi-kind="range" data-midi-min="0" data-midi-max="1" data-midi-label="GrandMaster">
+      <div class="fe-master" data-midi="master">
         <div class="fe-master-lbl">GM</div>
         <div class="fe-master-val" id="fe-gm-val">100</div>
         <input class="fe-master-fader" id="fe-gm" type="range" min="0" max="100" value="100" aria-label="GrandMaster" />
-        <button class="fe-bo" id="fe-bo" title="Blackout — hold to force all output to zero" data-midi="blackout" data-midi-kind="trigger" data-midi-label="Blackout">BO</button>
+        <button class="fe-bo" id="fe-bo" title="Blackout — hold to force all output to zero" data-midi="blackout">BO</button>
       </div>
     </div>`;
 
@@ -333,7 +333,7 @@ export async function makeFaderEditorTile() {
     const armed = armable && state.fxArm!.armed.has(armAttr);
     return html`
       <div class="fcol${lit ? ' active' : ''}${caps.length ? ' has-presets' : ''}${goboGrid ? ' is-gobo' : ''}${colorGrid ? ' is-color' : ''}" data-ch="${c.index}"
-           data-midi="fixture:${rep.id}:${c.index}" data-midi-kind="range" data-midi-min="0" data-midi-max="255" data-midi-label="${rep.name} · ${c.name}">
+           data-midi="fixture:${rep.id}:${c.index}">
         ${armable ? html`<button class="fc-fxbadge${armed ? ' on' : ''}" data-fxarm="${armAttr}" title="${armed ? 'Un-arm' : 'Arm'} ${c.name} for the FX">FX</button>` : ''}
         <div class="fc-n">${c.index}</div>
         <div class="fc-val" title="${cur ? cur.label : ''}">${lit ? (cur ? cur.label : v) : 'OFF'}</div>

@@ -44,6 +44,7 @@ contextBridge.exposeInMainWorld('lumox', {
     list:         () => ipcRenderer.invoke('lumox:library:list'),
     channelTypes: () => ipcRenderer.invoke('lumox:library:channelTypes'),
     add:          (def: unknown, replaceId?: string) => ipcRenderer.invoke('lumox:library:add', def, replaceId),
+    createMatrix: (opts: unknown) => ipcRenderer.invoke('lumox:library:createMatrix', opts),
     remove:       (id: string) => ipcRenderer.invoke('lumox:library:remove', id),
     onChanged:    (cb: Cb) => ipcRenderer.on('library:changed', () => cb()),
   },

@@ -7,9 +7,9 @@ mapping window).
 `EasyMidiBackend.ts`, `MockMidiBackend.ts`, `controllers/MidiController.ts`,
 `controllers/ApcMiniMk2.ts`, barrel `index.ts` (re-exported from `src/index.ts`).
 App layer — `main/services/midi-backend.ts` (the one shared `MidiManager`),
-`main/services/MidiService.ts`, `main/midi/profiles/` (device plugins),
-`main/handlers/midi.ts`, `renderer/midi.html` + `renderer/midi-window.ts`,
-`renderer/lib/midiassign.ts`.
+`main/services/MidiService.ts`, `main/services/midiActions.ts` (the Action
+registry), `main/midi/profiles/` (device plugins), `main/handlers/midi.ts`,
+`renderer/midi.html` + `renderer/midi-window.ts`, `renderer/lib/midiassign.ts`.
 Reached by `cli/lumox-cli.ts` (`midi` command) and `examples/23-midi-apc-mini.ts`
 (engine layer) and the title-bar keyboard button (app layer).
 
@@ -104,7 +104,8 @@ overriding `_onScenePress` / `_onTrackPress` (reserved scene slots 5–7 are the
 
 The Electron control surface lets the user bind hardware to Lumox functions with
 a fully click-driven flow — no typing. **Guiding rule:** a MIDI message never
-knows what a scene is; it resolves to a **Target** and runs the *same* engine
+knows what a scene is; it carries an **Action reference** (`{ key, params }`) into
+the **Action registry** (`midiActions.ts`), whose executor runs the *same* engine
 path the UI uses (`recallScene`, `grandMaster.setValue`, `blackout.toggle`, group
 intensity), so hardware behaves exactly like clicking.
 
@@ -116,10 +117,17 @@ intensity), so hardware behaves exactly like clicking.
   backend / one clock across the app. Never construct another `MidiManager`.
 - **`main/services/MidiService.ts`** — uses the shared `MidiManager`, selects a
   **device profile** (see below) for an available input port, opens it (+ output
-  for LEDs when the device has them), holds the binding list, the assign/learn
-  state, and the executor dispatch. Listens to the raw input directly (so it does
-  **not** run the engine driver's hard-wired defaults). Falls back silently to
-  "disconnected" with no device / no `easymidi`.
+  for LEDs when the device has them), holds the binding list + assign/learn state,
+  and matches incoming messages to bindings — then routes each to the **Action
+  registry** (it owns *no* engine logic itself). Listens to the raw input directly
+  (so it does **not** run the engine driver's hard-wired defaults). Falls back
+  silently to "disconnected" with no device / no `easymidi`.
+- **`main/services/midiActions.ts`** — the **Action registry**: the single typed
+  vocabulary of what a control can do, shared by dispatch *and* the mapping UI.
+  Each action is `{ key, label, kind: 'trigger'|'range', min?, max? }` plus the
+  closures that run it, resolve its target, describe it live, and report its active
+  state. One place owns every operation; the table renders each binding's label
+  from `describe()` so labels never go stale.
 - **`main/midi/profiles/`** — the **device plugin layer** (see below).
 - **`main/handlers/midi.ts`** — the `lumox:midi:*` IPC area; broadcasts service
   events to every window. Registered in `handlers/index.ts`; its transient
@@ -127,14 +135,15 @@ intensity), so hardware behaves exactly like clicking.
 - **MIDI window** — `renderer/midi.html` + `renderer/midi-window.ts`, a separate
   frameless window (mirrors the fixture editor; `openMidiWindow()` in
   `main/windows.ts`, third renderer entry in `build.mjs`). Shows the connected
-  device + status, **+ Add mapping**, the bindings table (with per-pad LED colour
-  and Solid/Blink/Fade controls, driven by the device's reported capabilities),
-  a **live state mirror** on each row (a lit dot in the LED colour for active
-  triggers, a value bar for ranges — fed by `midi:feedback`), and a live MIDI
-  monitor.
+  device + status, **+ Add mapping**, the bindings table (trigger rows get a
+  Toggle/Flash switch; range rows get **Relative** + Invert toggles; note pads get
+  per-pad LED colour + Solid/Blink/Fade, driven by the device's reported
+  capabilities), a **live state mirror** on each row (a lit dot in the LED colour
+  for active triggers, a value bar for ranges — fed by `midi:feedback`), and a live
+  MIDI monitor.
 - **`renderer/lib/midiassign.ts`** — main-window assign overlay: while assigning,
   every `[data-midi]` control gets a dotted purple border + 45° striped fill; a
-  capture-phase click reads its target descriptor → `pickTarget`. `Esc` cancels.
+  capture-phase click reads its `data-midi` descriptor(s) → `pickTarget`. `Esc` cancels.
   Closing the MIDI window also cancels assign mode (`midiService.cancelAssign()` in
   `windows.ts`), so the overlay can never get stuck on.
 
@@ -170,61 +179,85 @@ devices). New device, richer controls — with no UI changes.
 ### Model
 
 ```ts
-MidiTarget  { key, label, kind: 'trigger'|'range', min?, max? }   // a Lumox control
-MidiTrigger { type: 'note'|'cc', channel, number }                // what hardware sends
-MidiBinding { id, trigger, target, options }                      // one table row
-//   options: trigger → { mode:'toggle'|'flash' } · range → { invert?, min?, max? }
+MidiActionRef { key, params }                                     // points at a registry action
+MidiTrigger   { type: 'note'|'cc', channel, number }              // what hardware sends
+MidiBinding   { id, trigger, action, options }                    // persisted row
+MidiBindingView = MidiBinding & { label, kind }                   // + registry-computed, for the UI
+//   options: trigger → { mode:'toggle'|'flash' } · range → { invert?, relative?, min?, max? }
 //            note pads → { ledColor?, ledMode?:'solid'|'blink'|'fade' } (LED feedback)
 ```
 
-Targets are tagged in the DOM as `data-midi="<key>"` + `data-midi-kind` +
-`data-midi-label` (+ `data-midi-min`/`-max` for ranges). A control may carry an
-**alternate** target of the other kind via `data-midi-alt*`; `learn()` picks which to
-bind from the message type (**CC → `range`, note → `trigger`**), so one control
-serves both a fader and a pad. The tagged set:
+A binding stores only the **action reference** — no cached label or kind; the
+mapping table gets those from the registry (`bindingViews()`), so renaming a scene
+updates every row. The persisted shape (`listBindings()`) is the lean `{ id,
+trigger, action, options }`.
 
-| Control | Key | Kind |
+Controls are tagged in the DOM with a single compact `data-midi="<descriptor>"`
+(no kind/label/min/max attributes — the registry knows them). A control may carry
+an **alternate** descriptor of the other kind via `data-midi-alt`; `learn()` picks
+which to bind from the message type (**CC → `range`, note → `trigger`**), so one
+control serves both a fader and a pad. `parseDescriptor()` (in `midiActions.ts`) is
+the one place those short strings decode to `{ key, params }`. The tagged set:
+
+| Control | Descriptor | Action → kind |
 | --- | --- | --- |
-| Scene cell (banks tile) | `scene:<id>` | trigger |
-| Group tab (group bar) | `group:<id>:intensity` | range |
-| Group tab — alt | `group:<id>:flash` | trigger (flash group to full) |
-| Channel strip (fader editor) | `fixture:<id>:<localCh>` | range (live programmer write) |
-| GrandMaster (fader editor) | `master` | range |
-| Blackout (fader editor) | `blackout` | trigger |
-| Tap tempo (title bar) | `bpm-tap` | trigger |
+| Scene cell (banks tile) | `scene:<id>` | `scene.recall` → trigger |
+| Group tab (group bar) | `group:<id>:intensity` | `group.level` → range |
+| Group tab — alt | `group:<id>:flash` | `group.flash` → trigger |
+| Channel strip (fader editor) | `fixture:<id>:<localCh>` | `channel.level` → range |
+| Clear programmer (fader editor) | `programmer-clear` | `programmer.clear` → trigger |
+| GrandMaster (fader editor) | `master` | `master.level` → range |
+| Blackout (fader editor) | `blackout` | `blackout.toggle` → trigger |
+| Tempo clock (title bar) | `bpm-set` | `tempo.bpm` → range |
+| Tap tempo (title bar) | `bpm-tap` | `tempo.tap` → trigger |
 
-Add more by tagging one element — no other code change.
+Add more by adding an action to the registry + a `parseDescriptor` case + one
+`data-midi` tag — no change to `MidiService` or the UI.
 
 ### Assign flow (cross-window)
 
 ```text
 MIDI window "+ Add mapping" → lumox:midi:beginAssign
   main: broadcast 'midi:assign-mode {active}' → main window paints the overlay
-  user clicks a tagged control → lumox:midi:pickTarget {target}
-  main: store pending target, broadcast 'midi:awaiting-input' → MIDI window banner
+  user clicks a tagged control → lumox:midi:pickTarget {descriptor(s)}
+  main: parse → action ref(s), store pending, broadcast 'midi:awaiting-input' → MIDI window banner
   user actuates a MIDI control → MidiService captures the next note/cc → binding
   main: broadcast 'midi:bindings' + 'midi:assign-mode {active:false}'
 later: APC press/move → MidiService matches a binding → recallScene / grandMaster / …
 ```
 
-### Executor dispatch + LED feedback
+### Action registry — executors + LED feedback
 
-A matched binding runs the *same* engine path the UI uses:
+A matched binding runs its registry action's executor — the *same* engine path the
+UI uses. The catalog:
 
-| Target | Dispatch |
-| --- | --- |
-| `scene:` (trigger) | `recallScene` — toggle = flip `isLive`; flash = on press / off on release |
-| `blackout` (trigger) | toggle or flash `engine.blackout` |
-| `bpm-tap` (trigger) | averages recent tap gaps → `transport.setBpm` (only while the tempo source is `manual`; mirrors the title-bar TAP) |
-| `master` (range) | `grandMaster.setValue` (CC 0..127 → min..max, with `invert`) |
-| `group:<id>:intensity` (range) | `Group.setIntensity` + `apply` + `markLiveUniverse` |
-| `group:<id>:flash` (trigger) | engages every member's intensity to full (flash = while held; toggle = latch) and **releases** it on the way out, back to whatever scene/base drives it |
-| `fixture:<id>:<localCh>` (range) | engages that fixture-local channel in the live programmer (`universe.engage`), the same path the fader editor's LIVE strips use |
+| Action key | Kind | Executor |
+| --- | --- | --- |
+| `scene.recall` | trigger | `recallScene` — toggle = flip `isLive`; flash = on press / off on release |
+| `group.flash` | trigger | engages every member's intensity to full (flash = while held; toggle = latch) and **releases** it on the way out, back to whatever scene/base drives it |
+| `blackout.toggle` | trigger | toggle or flash `engine.blackout` |
+| `tempo.tap` | trigger | averages recent tap gaps → `transport.setBpm` (only while the tempo source is `manual`; mirrors the title-bar TAP) |
+| `programmer.clear` | trigger | `clearProgrammer()` — drop all manual values (the fader-editor Clear) |
+| `master.level` | range | `grandMaster.setValue` (0..1) |
+| `group.level` | range | `Group.setIntensity` + `apply` + `markLiveUniverse` (0..255) |
+| `channel.level` | range | engages that fixture-local channel in the live programmer (`universe.engage`), the fader-editor LIVE-strip path (0..255) |
+| `tempo.bpm` | range | `transport.setBpm` over 40..240 BPM (only while the source is `manual`) |
+
+**Range mapping.** A range CC maps 0..127 → the action's `[min,max]` (overridable
+per binding). Two interpretations, set per binding:
+
+- **Absolute** (default) — the CC value *is* the position; `invert` flips it. A
+  motorised/normal fader.
+- **Relative** (`options.relative`) — the CC is a **signed two's-complement encoder
+  delta** (1..63 = +1..+63, 65..127 = −63..−1); the service accumulates it from the
+  last value so an endless knob walks the range up/down. `invert` is moot here. This
+  is a per-binding option (toggled in the table), since whether a control is an
+  encoder is a property of the mapping, not of the action.
 
 **Feedback (device LEDs + software mirror).** A single source of truth —
-`MidiService.bindingActive(b)` (scene live / blackout on / group-flash latched) for
-triggers, `feedbackValue` (last driven 0..1) for ranges — drives **both** the
-hardware and the UI:
+`actionActive(ref, id)` (scene live / blackout on / group-flash latched) for
+triggers, `feedbackValue` (last value 0..1, which also seeds the relative
+accumulator) for ranges — drives **both** the hardware and the UI:
 
 - **Device LEDs** (per-assignment, richer for RGB pads): each note binding has an
   `ledColor` + `ledMode` (Solid / Blink / Fade), encoded by the device profile — on
@@ -240,9 +273,11 @@ hardware and the UI:
 ### Persistence
 
 Bindings ride in the project file (`ProjectData.midiBindings`,
-`buildProject`/`restoreProject`); on load, bindings whose target id no longer
-resolves (deleted scene/group) are dropped. They are also part of the undo/redo
-whole-show snapshot. The device port itself is machine-specific and not stored.
+`buildProject`/`restoreProject`) as the lean persisted shape (`{ id, trigger,
+action, options }`); on load, bindings whose action no longer resolves
+(`actionResolves` — deleted scene/group) are dropped. They are also part of the
+undo/redo whole-show snapshot. The device port itself is machine-specific and not
+stored.
 
 ## Notes / Gotchas
 
@@ -251,7 +286,7 @@ whole-show snapshot. The device port itself is machine-specific and not stored.
 - LED output is optional: connecting input-only just disables feedback.
 - The engine-layer `ApcMiniMk2` group→fader/slot defaults map by **sorted group
   id** (CLI/headless only). The app layer ignores those defaults entirely — it
-  fires explicit per-binding targets.
+  fires explicit per-binding actions through the registry.
 - App-layer bindings persist in the project (`midiBindings`); engine-layer driver
   bindings (pads bound in code/CLI) remain runtime-only.
 - There is **one** shared `MidiManager` (`main/services/midi-backend.ts`) for the

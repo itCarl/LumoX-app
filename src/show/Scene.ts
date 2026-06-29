@@ -3,8 +3,9 @@ import { TOTAL_CHANNELS } from '../core/Universe';
 /** Sparse channel values: { [universeId]: { [channel]: value } } (1-based). */
 export type SceneValues = Record<number, Record<number, number>>;
 
-/** Default scene fade in/out, seconds — a soft dipless crossfade on recall. */
-export const DEFAULT_SCENE_FADE = 0.4;
+/** Default scene fade in/out, seconds — 0 = snap recall (no crossfade by
+ *  default; give a scene an explicit fade in Scene Properties for a crossfade). */
+export const DEFAULT_SCENE_FADE = 0;
 
 /**
  * One chase step — a captured look plus its own timing:
@@ -40,8 +41,10 @@ export type MatrixPattern = 'wipe' | 'radial' | 'plasma';
 /** Which fixtures a layer sweeps across — the whole rig (patch order), a named
  *  group (membership order), or the live programmer selection (selection order). */
 export type FxTargetSel = { mode: 'all' } | { mode: 'group'; groupId: string } | { mode: 'selection' };
-/** Per-fixture sweep order ('index') — how an effect fans across the selection. */
-export type FxOrder = 'patch' | 'reverse' | 'mirror' | 'random';
+/** Per-fixture sweep order ('index') — how an effect fans across the selection.
+ *  `row`/`column`/`diagonal` are 2D, matrix-aware orders that sweep fixtures by
+ *  their stage position (resolved in the app layer from the patch). */
+export type FxOrder = 'patch' | 'reverse' | 'mirror' | 'random' | 'row' | 'column' | 'diagonal';
 
 /** COLOR FX config — empty palette ⇒ full-spectrum rainbow. */
 export interface ColorFxConfig {

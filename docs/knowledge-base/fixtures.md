@@ -168,6 +168,38 @@ behind a confirm dialog (`renderer/lib/confirm.ts`). A project additionally
 the project file stays portable on machines without that user's Custom library;
 re-adding an embedded def is deduped by id.
 
+### Creating matrix / strip fixtures
+
+The library tile header carries a **grid** button (beside the **+** *New
+fixture*) that opens the **Create matrix / strip** panel — a generator for a
+multi-cell LED fixture, so a matrix needn't be hand-authored channel by channel
+in the editor. It produces a single **multi-cell fixture** (one patch entry, one
+stage icon) — the shape [MATRIX FX](mix-engine.md) pixel-maps across out of the
+box.
+
+- **Generator** — `buildMatrixDefinition(opts)` (`src/fixtures/generators/matrix.ts`,
+  exported from `src/index.ts`; pure, unit-tested) returns a plain
+  `FixtureDefinitionJSON`. Options (`MatrixGenOptions`): `shape` (`matrix` =
+  W×H grid · `strip` = a single row of `width` cells), `width`, `height`, `color`
+  (`rgb`/`rgbw`), `cellDimmer` (a dimmer per cell), `masterDimmer` (one leading
+  whole-fixture dimmer), optional `name`. It lays cells out **row-major** with an
+  `emitterLayout` in normalized 0..1 space and a `mode.emitters` group per cell
+  (R/G/B, plus W and a dimmer when enabled), index-aligned — so `emitterColorAddresses()` /
+  `emitterWorldPositions()` resolve every cell (see Emitter geometry below). It
+  **throws** on an out-of-range grid (over 1024 cells, or over the 512-channel
+  universe); the message surfaces in the panel and the **Create** button disables
+  while the live readout shows the over-limit count.
+- **IPC** — `lumox:library:createMatrix` (`main/handlers/library.ts`) calls the
+  generator and saves the result through the **same** Custom-library path as
+  `lumox:library:add` (shared `addUserDef` helper → `saveUserDefinition` +
+  `library:changed` broadcast). So a generated matrix is just a `source: 'user'`
+  Custom fixture: editable, deletable, embedded in projects like any other.
+- **UI** — `renderer/views/create-matrix-modal.ts`, shown in the generic panel
+  window (`kind: 'create-matrix'`, see [app.md](app.md)). Its signature element is
+  a **live pixel-grid preview** that redraws continuously as the grid / colour
+  change. On create it closes; the library tile picks up the new fixture via the
+  `library:changed` broadcast, ready to drag onto the patch grid as normal.
+
 ### Emitter geometry & stage placement (`emitterGeometry.ts`, `Fixture.stageTransform`)
 
 A fixture's light-emitting cells and where it sits on the 2D stage drive the

@@ -10,4 +10,5 @@ module.exports = {
   tempo: require('./tempo.cjs'),
   flags: require('./flags.cjs'),
   remap: require('./remap.cjs'),
+  matrix: require('./matrix.cjs'),
 };

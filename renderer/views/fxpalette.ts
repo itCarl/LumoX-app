@@ -400,7 +400,7 @@ export async function makeFxPaletteTile(): Promise<{ tile: HTMLElement }> {
       </div>
       <div class="fxe-row"><span class="sp-lbl">Order</span>
         <select class="sp-select" data-ord="${l.id}">
-          ${(['patch', 'reverse', 'mirror', 'random'] as const).map((o) => html`<option value="${o}" ${l.order === o ? 'selected' : ''}>${o[0].toUpperCase() + o.slice(1)}</option>`)}
+          ${(['patch', 'reverse', 'mirror', 'random', 'row', 'column', 'diagonal'] as const).map((o) => html`<option value="${o}" ${l.order === o ? 'selected' : ''}>${o[0].toUpperCase() + o.slice(1)}</option>`)}
         </select>
       </div>
       ${kindEditor(l)}

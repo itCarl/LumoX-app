@@ -41,8 +41,8 @@ let caps: MidiCapabilities = { deviceId: null, palette: [], ledModes: [] }; // c
 
 // Default LED colour for a binding when none is chosen — from the device palette.
 const ledColorOf = (b: MidiBinding) =>
-  b.options.ledColor ?? (caps.palette.some((c) => c.name === 'cyan') && b.target.key !== 'blackout' ? 'cyan'
-    : caps.palette.some((c) => c.name === 'red') && b.target.key === 'blackout' ? 'red'
+  b.options.ledColor ?? (caps.palette.some((c) => c.name === 'cyan') && b.action.key !== 'blackout.toggle' ? 'cyan'
+    : caps.palette.some((c) => c.name === 'red') && b.action.key === 'blackout.toggle' ? 'red'
     : caps.palette[0]?.name ?? '');
 
 // Hex for a trigger row's live indicator dot (its LED colour, or the UI accent).
@@ -89,19 +89,20 @@ function renderTable(list: MidiBinding[]) {
     ${list.map((b) => html`
       <div class="mw-row" data-id="${b.id}">
         <span class="mw-trig">
-          ${b.target.kind === 'range'
+          ${b.kind === 'range'
             ? html`<span class="mw-fb mw-fb-bar" data-fb="${b.id}" title="Live value"><span class="mw-fb-fill"></span></span>`
             : html`<span class="mw-fb mw-fb-dot" data-fb="${b.id}" style="--lc:${ledHexOf(b)}" title="Live state"></span>`}
           ${triggerLabel(b)}
         </span>
-        <span class="mw-tgt">${b.target.label}</span>
+        <span class="mw-tgt">${b.label}</span>
         <span class="mw-opt">
-          ${b.target.kind === 'trigger'
+          ${b.kind === 'trigger'
             ? html`<span class="seg mw-seg" title="Button behaviour">
                 <button class="seg-btn${(b.options.mode ?? 'toggle') === 'toggle' ? ' active' : ''}" data-mode="toggle">Toggle</button>
                 <button class="seg-btn${b.options.mode === 'flash' ? ' active' : ''}" data-mode="flash">Flash</button>
               </span>`
-            : html`<button class="mw-inv${b.options.invert ? ' on' : ''}" data-inv>Invert</button>`}
+            : html`<button class="mw-inv${b.options.relative ? ' on' : ''}" data-rel title="Treat the control as a rotary encoder (signed steps) instead of an absolute fader">Relative</button>
+              <button class="mw-inv${b.options.invert ? ' on' : ''}${b.options.relative ? ' off' : ''}" data-inv title="Flip an absolute fader's direction">Invert</button>`}
           ${hasLeds && b.trigger.type === 'note'
             ? html`
               <span class="mw-leds" title="LED colour">
@@ -144,10 +145,13 @@ table.on('click', '.mw-seg .seg-btn', (_e, t) => {
   const mode = (t as HTMLElement).dataset.mode as 'toggle' | 'flash';
   if (id) lumox.midi.setBindingOptions(id, { mode });
 });
-table.on('click', '.mw-inv', (_e, t) => {
-  const row = t.closest('.mw-row') as HTMLElement;
-  const id = row?.dataset.id;
+table.on('click', '[data-inv]', (_e, t) => {
+  const id = (t.closest('.mw-row') as HTMLElement)?.dataset.id;
   if (id) lumox.midi.setBindingOptions(id, { invert: !t.classList.contains('on') });
+});
+table.on('click', '[data-rel]', (_e, t) => {
+  const id = (t.closest('.mw-row') as HTMLElement)?.dataset.id;
+  if (id) lumox.midi.setBindingOptions(id, { relative: !t.classList.contains('on') });
 });
 table.on('click', '.mw-led', (_e, t) => {
   const id = (t.closest('.mw-row') as HTMLElement)?.dataset.id;

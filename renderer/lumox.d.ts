@@ -6,7 +6,18 @@ export {};
 
 export type FxKind = 'color' | 'move' | 'curve' | 'chaser' | 'value' | 'matrix';
 export type MatrixPattern = 'wipe' | 'radial' | 'plasma';
-export type FxOrder = 'patch' | 'reverse' | 'mirror' | 'random';
+export type FxOrder = 'patch' | 'reverse' | 'mirror' | 'random' | 'row' | 'column' | 'diagonal';
+
+/** Options for `library.createMatrix` — a generated multi-cell matrix/strip. */
+export interface MatrixGenOptions {
+  shape: 'matrix' | 'strip';
+  width: number;
+  height: number;
+  color: 'rgb' | 'rgbw';
+  cellDimmer?: boolean;
+  masterDimmer?: boolean;
+  name?: string;
+}
 export type FxWave = 'sine' | 'triangle' | 'sawtooth' | 'square' | 'random';
 export type FxTargetSel = { mode: 'all' } | { mode: 'group'; groupId: string } | { mode: 'selection' };
 export type ReleaseScope = 'off' | 'all' | 'bank' | 'outside-bank' | 'specific';
@@ -151,15 +162,12 @@ export interface SceneInfo {
 }
 
 // ---- MIDI control surface ----
-export type MidiTargetKind = 'trigger' | 'range';
+export type MidiActionKind = 'trigger' | 'range';
 
-/** What a Lumox control IS — a persistable handle + UI metadata. Mirrors MidiTarget. */
-export interface MidiTarget {
-  key: string;                 // "scene:<id>", "group:<id>:intensity", "master", "blackout"
-  label: string;
-  kind: MidiTargetKind;
-  min?: number;
-  max?: number;
+/** A binding's pointer at one registry action + the object it targets. Mirrors MidiActionRef. */
+export interface MidiActionRef {
+  key: string;                 // 'scene.recall', 'group.level', 'master.level', 'blackout.toggle', …
+  params: Record<string, string>;   // { sceneId } / { groupId } / { fixtureId, channel } / {}
 }
 
 /** What the hardware sends. */
@@ -172,17 +180,20 @@ export interface MidiTrigger {
 export interface MidiBindingOptions {
   mode?: 'toggle' | 'flash';
   invert?: boolean;
+  relative?: boolean;                      // range bindings — treat CC as a signed encoder delta
   min?: number;
   max?: number;
-  ledColor?: string;                       // MK2 palette name (note/pad bindings)
+  ledColor?: string;                       // device palette name (note/pad bindings)
   ledMode?: 'solid' | 'blink' | 'fade';    // active-state LED animation
 }
 
-/** One mappings-table row. Mirrors MidiBinding. */
+/** One mappings-table row — the registry-computed label + kind ride along. Mirrors MidiBindingView. */
 export interface MidiBinding {
   id: string;
   trigger: MidiTrigger;
-  target: MidiTarget;
+  action: MidiActionRef;
+  label: string;
+  kind: MidiActionKind;
   options: MidiBindingOptions;
 }
 
@@ -277,6 +288,7 @@ export interface LumoxApi {
     list(): Promise<any[]>;
     channelTypes(): Promise<any[]>;
     add(def: any, replaceId?: string): Promise<any>;
+    createMatrix(opts: MatrixGenOptions): Promise<any>;
     remove(id: string): Promise<{ ok: boolean; id: string }>;
     onChanged(cb: () => void): void;
   };
@@ -301,8 +313,8 @@ export interface LumoxApi {
     resolve(id: string, value?: string): Promise<void>;
   };
   panel: {
-    open(spec: { kind: 'settings' | 'group-order'; title: string; arg?: unknown; width?: number; height?: number }): Promise<void>;
-    spec(): Promise<{ kind: 'settings' | 'group-order'; title: string; arg?: any } | null>;
+    open(spec: { kind: 'settings' | 'group-order' | 'create-matrix'; title: string; arg?: unknown; width?: number; height?: number }): Promise<void>;
+    spec(): Promise<{ kind: 'settings' | 'group-order' | 'create-matrix'; title: string; arg?: any } | null>;
   };
   history: {
     undo(): Promise<{ canUndo: boolean; canRedo: boolean }>;
@@ -441,7 +453,7 @@ export interface LumoxApi {
     status(): Promise<MidiStatus>;
     listBindings(): Promise<MidiBinding[]>;
     beginAssign(): Promise<any>;
-    pickTarget(target: MidiTarget | MidiTarget[]): Promise<any>;
+    pickTarget(descriptor: string | string[]): Promise<any>;
     cancelAssign(): Promise<any>;
     setBindingOptions(id: string, options: MidiBindingOptions): Promise<any>;
     removeBinding(id: string): Promise<any>;

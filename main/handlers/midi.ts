@@ -9,7 +9,7 @@
 
 import { ipcMain, BrowserWindow } from 'electron';
 import { midiService } from '../services/MidiService';
-import type { MidiTarget, MidiBindingOptions } from '../services/MidiService';
+import type { MidiBindingOptions } from '../services/MidiService';
 import { openMidiWindow } from '../windows';
 import { markDirty } from '../services/ProjectService';
 import { recordHistory } from '../services/HistoryService';
@@ -31,7 +31,7 @@ export function registerMidiHandlers(): void {
   ipcMain.handle('lumox:midi:status', () => midiService.status());
   ipcMain.handle('lumox:midi:listBindings', () => midiService.listBindings());
   ipcMain.handle('lumox:midi:beginAssign', () => midiService.beginAssign());
-  ipcMain.handle('lumox:midi:pickTarget', (_e, target: MidiTarget | MidiTarget[]) => midiService.pickTarget(target));
+  ipcMain.handle('lumox:midi:pickTarget', (_e, descriptor: string | string[]) => midiService.pickTarget(descriptor));
   ipcMain.handle('lumox:midi:cancelAssign', () => midiService.cancelAssign());
   ipcMain.handle('lumox:midi:setBindingOptions', (_e, { id, options }: { id: string; options: MidiBindingOptions }) =>
     midiService.setBindingOptions(id, options));

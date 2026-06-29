@@ -122,7 +122,7 @@ export interface SelectionDTO {
 export type FxKindDTO = 'color' | 'move' | 'curve' | 'chaser' | 'value' | 'matrix';
 /** One armed feature of a value-driving FX layer: attribute + output window. */
 export interface FxFeatureDTO { attr: string; min: number; max: number; }
-export type FxOrderDTO = 'patch' | 'reverse' | 'mirror' | 'random';
+export type FxOrderDTO = 'patch' | 'reverse' | 'mirror' | 'random' | 'row' | 'column' | 'diagonal';
 export type FxWaveDTO = 'sine' | 'triangle' | 'sawtooth' | 'square' | 'random';
 export type MatrixPatternDTO = 'wipe' | 'radial' | 'plasma';
 export type FxTargetSelDTO = { mode: 'all' } | { mode: 'group'; groupId: string } | { mode: 'selection' };

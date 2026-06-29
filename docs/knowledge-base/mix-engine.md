@@ -49,8 +49,12 @@ legacy single-FX-type path** — all effects are layers.
   uniformly with no crossfade; direction fwd/back/bounce reorders play).
 - **rack** — `Scene.layers: FxLayer[]`. Each layer has a `kind`
   (`color`/`move`/`curve`/`chaser`/`value`/`matrix`), `enabled`, a `target`
-  (`all` | `{group}`), an `order` (`patch`/`reverse`/`mirror`/`random` — the
-  per-fixture sweep "index"), its own timing (`rateMs`/`speed`/`driveMode`/`beatDiv`/
+  (`all` | `{group}`), an `order` (the per-fixture sweep "index":
+  `patch`/`reverse`/`mirror`/`random`, plus the 2D, matrix-aware
+  `row`/`column`/`diagonal` — these sort fixtures by their stage position so an
+  effect fans across a grid in that direction; the compiler resolves it from each
+  fixture's emitter centroid, primary axis quantised so near-aligned fixtures
+  share a row/column), its own timing (`rateMs`/`speed`/`driveMode`/`beatDiv`/
   `direction`/`size`/`spread`) and one kind config. The SceneMixer composites the
   base + each enabled layer per tick, each layer on its **own phase clock**
   (`src/mix/sceneFx.ts` holds the FX math; `SceneMixer._frame` composites).
@@ -140,8 +144,9 @@ scene plays. The runtime model lives in the `SceneMixer`:
   `paused`, and a pinned `manualStep`. Created lazily on first fade/transport.
 - **Fades.** `fadeTo(id, target, seconds, preDelayMs)` ramps opacity linearly;
   `seconds === 0` (no pre-delay) settles instantly (snap-recall). New scenes
-  default to a soft `fadeIn`/`fadeOut` of `DEFAULT_SCENE_FADE` (**0.4 s**,
-  `src/show/Scene.ts`). `isLive(id)` (opacity > 0 **or** fading toward a positive
+  default to `fadeIn`/`fadeOut` of `DEFAULT_SCENE_FADE` (**0 s — snap recall, no
+  crossfade**; `src/show/Scene.ts`), so a bank recall switches instantly unless the
+  scene is given an explicit fade in Scene Properties. `isLive(id)` (opacity > 0 **or** fading toward a positive
   target) drives broadcast gating; when a fade-out settles to 0,
   `consumeWentInactive()` triggers `updateActiveUniverses()` so the universe stops
   transmitting.

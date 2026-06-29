@@ -1780,6 +1780,32 @@ html, body {
 
 .lx-check.off { opacity: 0.4; pointer-events: none; }
 
+/* ===== Create matrix / strip panel ===================================== */
+.cm-form { gap: 14px; }
+/* Shape segmented control — flat track, accent-tinted active segment. */
+.cm-seg { display: inline-flex; background: var(--bg-3); border-radius: var(--radius); overflow: hidden; }
+.cm-seg button { border: none; background: transparent; color: var(--fg-dim); font: inherit; font-size: 13px; padding: 6px 16px; cursor: pointer; transition: background 0.12s, color 0.12s; }
+.cm-seg button + button { border-left: 1px solid var(--bg-2); }
+.cm-seg button:hover:not(.on) { color: var(--fg); }
+.cm-seg button.on { background: color-mix(in srgb, var(--accent) 22%, var(--bg-3)); color: var(--fg); }
+.cm-size { display: flex; align-items: center; gap: 8px; }
+.lx-input.cm-num { width: 64px; text-align: center; }
+.cm-x { color: var(--fg-dim); }
+.cm-dims { display: flex; gap: 20px; }
+.lx-input.cm-name { width: 100%; max-width: 240px; }
+/* Live pixel preview — the signature element: the grid the operator will patch. */
+.cm-preview {
+  background: var(--bg-2); border-radius: var(--radius); padding: 12px;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 96px; max-height: 220px; overflow: hidden;
+}
+.cm-grid { display: grid; grid-template-columns: repeat(var(--cm-cols), 1fr); gap: 2px; width: 100%; }
+.cm-grid i { aspect-ratio: 1; border-radius: 2px; min-width: 0; }
+.cm-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 2px; }
+.cm-readout { color: var(--fg-dim); font-size: 12px; font-variant-numeric: tabular-nums; }
+.cm-bad { color: #ff9b91; }
+.cm-create.off { opacity: 0.5; pointer-events: none; }
+
 /* ===== Fixture Limits tile (SETUP, bottom-right) ======================= */
 .limits-tile .lt-sel { flex: 1; color: var(--fg-dim); font-size: 11px; padding-left: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .lt-clear { font-size: 11px; color: var(--fg-dim); background: var(--bg-3); border: none; border-radius: var(--radius); padding: 3px 9px; cursor: pointer; }
@@ -1992,6 +2018,7 @@ body.midi-assign [data-midi].midi-picked::after {
   border-radius: var(--radius); padding: 3px 10px; font-size: 10px; letter-spacing: 0.06em; cursor: pointer;
 }
 .mw-inv.on { background: var(--bg-4); color: var(--accent); border-color: var(--accent); }
+.mw-inv.off { opacity: 0.4; pointer-events: none; }   /* invert is moot while relative is on */
 .mw-del { background: none; border: none; color: var(--fg-dim); cursor: pointer; font-size: 13px; }
 .mw-del:hover { color: #e0564b; }
 

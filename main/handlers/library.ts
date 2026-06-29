@@ -1,7 +1,8 @@
 // Fixture library IPC — list profiles, channel types, add / remove a user definition.
 
 import { ipcMain } from 'electron';
-import { ChannelTypeRegistry } from '../../src/index';
+import { ChannelTypeRegistry, buildMatrixDefinition } from '../../src/index';
+import type { MatrixGenOptions } from '../../src/index';
 import { show } from '../context';
 import { defJSON } from '../serializers';
 import { getMainWindow } from '../windows';
@@ -48,25 +49,15 @@ export function registerLibraryHandlers(): void {
     if (!def.modes?.length || !def.modes.some((m: { channels?: unknown[] }) => m.channels?.length)) {
       throw new Error('At least one mode with one channel is required');
     }
-    const added = show.library.add({ ...def, manufacturer: CUSTOM_VENDOR }, 'user');   // fromJSON validates typeIds (replaces by id)
-    try {
-      await saveUserDefinition(added);
-    } catch (err) {
-      // Keep the in-memory add — it's usable this session — but warn that it
-      // won't survive a restart.
-      console.error('[library] persisting user fixture failed:', (err as Error).message);
-    }
-    // Renamed Custom fixture → remove the old id (unless it's still patched).
-    if (typeof replaceId === 'string' && replaceId !== added.id) {
-      const old = show.library.get(replaceId);
-      if (old?.source === 'user' && !show.patch.list().some((f) => f.definition.id === replaceId)) {
-        show.library.remove(replaceId);
-        await deleteUserDefinitionFile(replaceId).catch(() => {});
-      }
-    }
-    getMainWindow()?.webContents.send('library:changed');  // refresh the main window's library tile
-    return defJSON(added);
+    return addUserDef(def, typeof replaceId === 'string' ? replaceId : undefined);
   });
+
+  // Create a multi-cell matrix/strip fixture from grid options and save it to the
+  // Custom library (same persist path as `library:add`). The generator throws on
+  // out-of-range grids (too many cells / over 512 channels); the message surfaces
+  // in the renderer. See docs/knowledge-base/fixtures.md (matrix/strip creation).
+  ipcMain.handle('lumox:library:createMatrix', async (_e, opts: MatrixGenOptions) =>
+    addUserDef(buildMatrixDefinition(opts)));
 
   // Delete a user (Custom) fixture — removes it from the library and deletes its
   // persisted file. Built-in profiles can't be removed; a fixture still in the
@@ -87,4 +78,28 @@ export function registerLibraryHandlers(): void {
     getMainWindow()?.webContents.send('library:changed');
     return { ok: true, id: def.id };
   });
+}
+
+// Add a definition to the Custom library, persist it, optionally drop a renamed
+// id's stale entry/file, and refresh the library tile. Shared by `library:add`
+// and `library:createMatrix`. The vendor is always forced to "Custom".
+async function addUserDef(def: unknown, replaceId?: string) {
+  const added = show.library.add({ ...(def as object), manufacturer: CUSTOM_VENDOR }, 'user');   // fromJSON validates typeIds (replaces by id)
+  try {
+    await saveUserDefinition(added);
+  } catch (err) {
+    // Keep the in-memory add — it's usable this session — but warn that it
+    // won't survive a restart.
+    console.error('[library] persisting user fixture failed:', (err as Error).message);
+  }
+  // Renamed Custom fixture → remove the old id (unless it's still patched).
+  if (replaceId && replaceId !== added.id) {
+    const old = show.library.get(replaceId);
+    if (old?.source === 'user' && !show.patch.list().some((f) => f.definition.id === replaceId)) {
+      show.library.remove(replaceId);
+      await deleteUserDefinitionFile(replaceId).catch(() => {});
+    }
+  }
+  getMainWindow()?.webContents.send('library:changed');  // refresh the main window's library tile
+  return defJSON(added);
 }
