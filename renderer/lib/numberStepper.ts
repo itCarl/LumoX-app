@@ -9,7 +9,7 @@
 
 function step(input: HTMLInputElement, dir: number): void {
   if (input.disabled || input.readOnly) return;
-  try { dir > 0 ? input.stepUp() : input.stepDown(); } catch { /* non-numeric value */ }
+  try { if (dir > 0) input.stepUp(); else input.stepDown(); } catch { /* non-numeric value */ }
   input.dispatchEvent(new Event('input', { bubbles: true }));
   input.dispatchEvent(new Event('change', { bubbles: true }));
 }

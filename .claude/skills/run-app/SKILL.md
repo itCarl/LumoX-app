@@ -34,8 +34,9 @@ scenario didn't reach the UI; check the log for the failing step.
 ## Anatomy
 
 - **`harness.cjs`** — shared boot + the toolkit every scenario gets: `js`,
-  `shoot`, `waitFor`, `dev`, plus `sleep`/`step`. Also `montage()` (contact sheet)
-  and `boot()`. One place for the boilerplate that used to be copy-pasted.
+  `shoot`, `waitFor`, `dev`, `findPanel`, plus `sleep`/`step`. Also `montage()`
+  (contact sheet) and `boot()`. One place for the boilerplate that used to be
+  copy-pasted.
 - **`shot.cjs`** — runner. Resolves a scenario by name from `scenarios/index.cjs`,
   by `.cjs` path (throwaway), or `__contact` (composite the contact sheet).
 - **`scenarios/*.cjs`** — one module per view: `{ cover?, async run(ctx) }`.
@@ -43,8 +44,9 @@ scenario didn't reach the UI; check the log for the failing step.
 
 Built-in scenarios: `fader` (CONTROL faders), `limits` (per-fixture limits clamp,
 numeric), `limits-tile` (SETUP limits tile), `stage` (F1 ordered selection), `tempo` (F10 BPM
-source), `flags` (F1 group order + F2 channel flags), `remap` (pan range-remap,
-numeric only).
+source via the Settings panel window), `flags` (F1 group fixture-order panel
+window), `matrix` (matrix generator end to end — panel, create, patch, stage),
+`remap` (pan range-remap, numeric only).
 
 ## Author a new scenario
 
@@ -70,6 +72,10 @@ The `ctx` toolkit:
   Use it to read engine internals the renderer IPC can't reach.
 - `shoot(name, selector?, pad?)` — capture to `.shots/<name>.png`; clip to
   `selector` (+`pad` px) or the whole window.
+- `findPanel(tries?)` — wait for the secondary **panel window**
+  (`renderer/panel.html` — Settings, group fixture-order, create matrix) and get
+  the same `js`/`waitFor`/`shoot` toolkit scoped to it, plus `.win` to close it.
+  Returns `null` if it never appears.
 - `waitFor(expr, label, tries?)`, `sleep(ms)`, `step(msg)`.
 
 For a quick one-off (e.g. mocking up a layout from `wires/`), drop a `.cjs` in
@@ -99,9 +105,10 @@ output/mix/limits math without a window. See
   chrome — no in-app overlays): the generic **dialog window** (`renderer/dialog.html`)
   for prompts/notices (unsaved-changes, missing-fixtures, confirmations) and the
   generic **panel window** (`renderer/panel.html`) for Settings + group fixture-order.
-  A scenario drives the **main** window; to drive a secondary window, find it via
-  `BrowserWindow.getAllWindows()` (match `webContents.getURL()` on `dialog.html` /
-  `panel.html`) and `executeJavaScript` on its `webContents`.
+  A scenario drives the **main** window; drive a panel window via `ctx.findPanel()`
+  (see toolkit above). Dialog windows are auto-dismissed (next gotcha) — for
+  anything else, fall back to `BrowserWindow.getAllWindows()` and match
+  `webContents.getURL()`.
 - **Unsaved-changes dialog on quit.** A fresh boot is clean, but a scenario that
   edits the show makes it dirty, so `app.quit()` then fires the unsaved-changes
   prompt — the dialog window, **not** a native `showMessageBox`. With no human it

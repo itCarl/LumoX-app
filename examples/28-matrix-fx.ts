@@ -72,7 +72,6 @@ function addMatrixTrack(transform: Partial<StageTransform>, angle: number) {
 
 const rgb = (k: number) => [u0.data[3 * k], u0.data[3 * k + 1], u0.data[3 * k + 2]];
 const col = (k: number) => k % COLS;
-const row = (k: number) => Math.floor(k / COLS);
 const same = (a: number[], b: number[]) => a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
 
 // ---- (a) horizontal wipe: colour varies by column, constant down a column ---

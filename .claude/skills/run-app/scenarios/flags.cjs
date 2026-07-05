@@ -1,9 +1,10 @@
 // F1 group order — screenshot of the group fixture-order editor opened from the
-// group bar's context menu.
+// group bar's context menu. The editor lives in its own panel WINDOW
+// (renderer/panel.html), so the shot is taken from that window.
 
 module.exports = {
   cover: 'f1-group-order',
-  async run({ js, waitFor, shoot, sleep, step }) {
+  async run({ js, waitFor, findPanel, sleep, step }) {
     await waitFor(`window.lumox && document.querySelector('.pg-tile')`, 'patch grid');
 
     // F1: open the group-order editor from the group bar.
@@ -22,9 +23,13 @@ module.exports = {
       return false;
     })()`);
     step('group-order opened: ' + gOpened);
-    await sleep(500);
-    await shoot('f1-group-order', '.lx-modal-backdrop');
-    await js(`document.querySelector('.lx-modal-backdrop')?.remove()`);
+
+    const panel = await findPanel();
+    if (!panel) throw new Error('group-order panel window never opened');
+    await panel.waitFor(`document.querySelector('.ord-list .ord-row')`, 'order list');
+    await sleep(300);
+    await panel.shoot('f1-group-order');
+    panel.win.close();
     await sleep(150);
   },
 };

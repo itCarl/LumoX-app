@@ -3,24 +3,9 @@
 // matrix through the real Create button, patch it, and confirm it resolves into
 // 50 addressable cells on the stage.
 
-const fs = require('node:fs');
-const path = require('node:path');
-const { BrowserWindow } = require('electron');
-
-async function findPanel(tries = 60) {
-  for (let i = 0; i < tries; i++) {
-    const w = BrowserWindow.getAllWindows().find((b) => {
-      try { return b.webContents.getURL().includes('panel.html'); } catch { return false; }
-    });
-    if (w && !w.webContents.isLoading()) return w;
-    await new Promise((r) => setTimeout(r, 250));
-  }
-  return null;
-}
-
 module.exports = {
   cover: 'matrix-02-panel',
-  async run({ js, waitFor, shoot, dev, sleep, step, OUT }) {
+  async run({ js, waitFor, shoot, dev, findPanel, sleep, step }) {
     // Library tile lives in the SETUP tab.
     await js(`document.querySelector('.tb-tab[data-tab="setup"]').click()`);
     await waitFor(`document.querySelector('.lib-tile')`, 'library tile');
@@ -31,26 +16,19 @@ module.exports = {
     await js(`document.querySelector('.lib-head-right button[title="Create matrix / strip"]').click()`);
     const panel = await findPanel();
     if (!panel) throw new Error('create-matrix panel window never opened');
-    const pwc = panel.webContents;
-    await pwc.executeJavaScript(`(async () => { for (let i = 0; i < 40; i++) { if (document.querySelector('.cm-grid i')) return; await new Promise(r => setTimeout(r, 50)); } })()`, true);
+    await panel.waitFor(`document.querySelector('.cm-grid i')`, 'preview grid');
     await sleep(300);
 
     // Defaults are a 10×5 RGB matrix — read the live readout + preview cell count.
-    const cells = await pwc.executeJavaScript(`document.querySelectorAll('.cm-grid i').length`, true);
-    const readout = await pwc.executeJavaScript(`document.querySelector('.cm-readout').textContent`, true);
+    const cells = await panel.js(`document.querySelectorAll('.cm-grid i').length`);
+    const readout = await panel.js(`document.querySelector('.cm-readout').textContent`);
     step('preview cells: ' + cells + ' | readout: ' + readout);
 
     // Screenshot the panel window itself.
-    panel.showInactive();
-    let img = null;
-    for (let i = 0; i < 6 && !img; i++) {
-      try { const c = await pwc.capturePage(); if (c.getSize().width > 0) img = c; } catch (e) { step('panel capture retry ' + i + ': ' + e.message); }
-      if (!img) await sleep(400);
-    }
-    if (img) { fs.writeFileSync(path.join(OUT, 'matrix-02-panel.png'), img.toPNG()); step('wrote matrix-02-panel.png'); }
+    await panel.shoot('matrix-02-panel');
 
     // Create it for real (closes the window).
-    await pwc.executeJavaScript(`document.querySelector('.cm-create').click()`, true);
+    await panel.js(`document.querySelector('.cm-create').click()`);
     await sleep(600);
 
     // The new Custom fixture should exist in the library.

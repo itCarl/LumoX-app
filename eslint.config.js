@@ -1,7 +1,8 @@
-// ESLint flat config. Source is TypeScript everywhere (`.ts`); the only `.js`/
-// `.mjs` files are this config and the esbuild script. Three runtime targets:
-// Node (src/, main/, cli/, examples/, preload), the browser (renderer/), and
-// CommonJS (any `.cjs`). Each gets its own globals. Build output is ignored.
+// ESLint flat config. Source is TypeScript everywhere (`.ts`); the `.js`/`.mjs`
+// files are this config plus the Node tooling scripts (build.mjs, tools/).
+// Three runtime targets: Node (src/, main/, cli/, examples/, tools/, preload),
+// the browser (renderer/), and CommonJS (any `.cjs`). Each gets its own
+// globals. Build output is ignored.
 
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
@@ -25,6 +26,7 @@ export default tseslint.config(
     files: [
       'src/**/*.ts', 'main/**/*.ts', 'cli/**/*.ts', 'examples/**/*.ts',
       'test/**/*.ts', 'preload.ts', 'build.mjs', 'vitest.config.ts',
+      'tools/**/*.ts', 'tools/**/*.mjs',
     ],
     languageOptions: {
       ecmaVersion: 'latest',
@@ -43,13 +45,17 @@ export default tseslint.config(
     },
   },
 
-  // CommonJS — any hand-written `.cjs`.
+  // CommonJS — any hand-written `.cjs`. `require()` is the module system there,
+  // so the TS-oriented import rule doesn't apply.
   {
     files: ['**/*.cjs'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'commonjs',
       globals: { ...globals.node },
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
 

@@ -94,8 +94,9 @@ async function capture(win, rect, step) {
   throw new Error('capturePage failed after retries');
 }
 
-/** Build the toolkit a scenario receives. */
-function makeCtx(win, step) {
+/** js / waitFor / shoot scoped to one window — the main window gets these via
+ *  makeCtx; secondary windows get the same toolkit via ctx.findPanel(). */
+function makeTools(win, step) {
   const wc = win.webContents;
   const js = (code) => wc.executeJavaScript(code, true);
 
@@ -126,13 +127,34 @@ function makeCtx(win, step) {
     step('wrote ' + name + '.png');
   }
 
+  return { win, wc, js, waitFor, shoot };
+}
+
+/** Build the toolkit a scenario receives. */
+function makeCtx(win, step) {
+  const tools = makeTools(win, step);
+
   // Run code in the MAIN process (engine/show internals) via the dev bridge.
   // Requires LUMOX_DEV=1 (the shot wrapper sets it). Returns the JSON result.
   async function dev(code) {
-    return js(`window.lumox.dev.eval(${JSON.stringify(code)})`);
+    return tools.js(`window.lumox.dev.eval(${JSON.stringify(code)})`);
   }
 
-  return { win, wc, OUT, step, sleep, js, waitFor, shoot, dev };
+  // Wait for the secondary panel window (renderer/panel.html — Settings, group
+  // fixture-order, create matrix) and return the js/waitFor/shoot toolkit scoped
+  // to it (plus `.win` to close it). Null if it never appears.
+  async function findPanel(tries = 60) {
+    for (let i = 0; i < tries; i++) {
+      const w = BrowserWindow.getAllWindows().find((b) => {
+        try { return b.webContents.getURL().includes('panel.html'); } catch { return false; }
+      });
+      if (w && !w.webContents.isLoading()) return makeTools(w, step);
+      await sleep(250);
+    }
+    return null;
+  }
+
+  return { ...tools, OUT, step, sleep, dev, findPanel };
 }
 
 /** Boot → wait for window → run one scenario → quit. Captures an error.png +

@@ -40,7 +40,7 @@ export async function buildGroupOrderBody(groupId: string): Promise<HTMLElement>
   }
 
   // Working order (array of fixture objects); persisted on every drop.
-  let order = [...fixtures];
+  const order = [...fixtures];
   const listEl = node(html`<ul class="ord-list"></ul>`);
 
   const persist = () => {

@@ -1,20 +1,24 @@
-// F10 BPM source UI — titlebar clock (manual), the Settings Tempo picker, and
-// the titlebar after switching the source to MIDI (locked + source chip).
+// F10 BPM source UI — titlebar clock (manual), the Settings panel's Tempo
+// section, and the titlebar after switching the source to MIDI (locked + source
+// chip). Settings opens as its own panel WINDOW (renderer/panel.html), so the
+// Tempo section is captured from that window, not the main one.
 
 module.exports = {
   cover: '01-titlebar-manual',
-  async run({ js, waitFor, shoot, sleep, step }) {
+  async run({ js, waitFor, shoot, findPanel, sleep, step }) {
     await waitFor(`document.getElementById('bpm-clock')`, 'bpm clock');
 
     // 1) titlebar, manual source (default — chip hidden)
     await shoot('01-titlebar-manual', 'header');
 
-    // 2) open Settings (Ctrl+,) and capture the Tempo section
+    // 2) open Settings (Ctrl+,) — a panel window — and capture the Tempo section
     await js(`window.dispatchEvent(new KeyboardEvent('keydown', { key: ',', ctrlKey: true }))`);
-    await waitFor(`[...document.querySelectorAll('.lx-form-head')].some(h => h.textContent === 'Tempo')`, 'Tempo section');
+    const panel = await findPanel();
+    if (!panel) throw new Error('settings panel window never opened');
+    await panel.waitFor(`[...document.querySelectorAll('.lx-form-head')].some(h => h.textContent === 'Tempo')`, 'Tempo section');
     await sleep(400);
-    await shoot('02-settings-tempo', '.lx-modal', 12);
-    await js(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))`);
+    await panel.shoot('02-settings-tempo');
+    panel.win.close();
     await sleep(300);
 
     // 3) switch source to MIDI → titlebar locks + shows the source chip
